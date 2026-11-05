@@ -62,9 +62,9 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .panel{background:var(--bone);border:1px solid var(--border);border-radius:var(--r-md);padding:16px}hr.dv{border:0;border-top:1px solid var(--border);margin:24px 0}
 .tabs{display:flex;gap:24px;border-bottom:1px solid var(--border);margin-bottom:16px}.tabs button{background:none;border:0;padding:10px 0;margin-bottom:-1px;font:400 15px Sora,"Noto Sans JP";color:var(--mute);border-bottom:2px solid transparent;cursor:pointer}.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
 .ui .seg2{display:inline-flex;background:var(--accent-soft);border-radius:var(--r-md);padding:3px}.seg2 button{border:0;background:none;color:var(--mute);font:400 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:6px;cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--border)}
-.scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:360px;padding:32px 16px;place-items:center;overflow:visible}
+.scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:380px;padding:48px 16px 0;align-content:end;justify-items:center;overflow:visible}
 .modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border)}
-.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:8px 20px 24px;justify-self:center}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
+.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-top:0;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 28px;align-self:end;justify-self:center}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
 .tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}.tbl th{font-weight:600;color:var(--mute);font-size:12px}
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 </style></head><body><div class="w">
@@ -174,6 +174,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </div>
 
 <h3 id="layout">レイアウト Layout chrome</h3>
+<p class="mute" style="font-size:14px;margin:0 0 12px">オーバーレイ方針（下書き）：基本は中央モーダル。共有・短い選択肢はボトムシート可。モーダル／シートとも <strong>外側（スクラム）クリックで自動クローズ</strong>。</p>
 <div class="f2">
 <div class="card"><div style="font-weight:600;margin-bottom:4px">カード（r-lg / 影なし）</div><p class="mute" style="font-size:14px;margin:0 0 16px">surface + 1px border。</p><div class="panel" style="font-size:14px">パネル（bone / r-md）— カード内の入れ子領域</div><hr class="dv" style="margin:16px 0"><table class="tbl"><tr><th>項目</th><th>値</th></tr><tr><td>プラン</td><td>Pro</td></tr><tr><td>更新日</td><td class="mono">2026-12-01</td></tr></table></div>
 <div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">概要</button><button role="tab" aria-selected="false">設定</button><button role="tab" aria-selected="false">請求</button></div>
@@ -184,7 +185,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="scrim"><div class="modal" role="dialog" aria-label="モーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span><button class="ib gh" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header><div class="bd">この操作は取り消せません。本当に削除しますか？</div><footer><button class="btn sec sm">キャンセル</button><button class="btn dan sm">削除する</button></footer></div></div>
 <div class="scrim sheet-frame"><div class="sheet"><div class="hd"></div><div style="font-weight:600;margin-bottom:12px">共有</div><label class="chk"><input type="radio" name="sh" checked> リンクを知っている全員</label><label class="chk"><input type="radio" name="sh"> 招待したメンバーのみ</label><button class="btn pri" style="width:100%;justify-content:center;margin-top:12px">完了</button></div></div>
 </div>
-<p class="help" style="margin-top:10px">プレビューでは中央＆四隅まる（xl）。実機のボトムシート実装では下辺を画面端に付け、上だけ丸めてもOK。</p>
+<p class="help" style="margin-top:10px">左＝中央モーダル（確認・破壊的操作）。右＝ボトムシート（共有など選択肢アクション／スマホ）。どちらも <strong>スクラム（外側）クリックで閉じる</strong>。</p>
 </section>
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
 </div><div id="toast"></div><script>
@@ -194,4 +195,16 @@ let s=localStorage.getItem('oth');set(s||(matchMedia('(prefers-color-scheme: dar
 bs.forEach(b=>b.onclick=()=>{set(b.dataset.t);localStorage.setItem('oth',b.dataset.t)});
 document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);const t=document.getElementById('toast');t.textContent=b.dataset.hex+' をコピーしました';t.style.opacity=1;setTimeout(()=>t.style.opacity=0,1200)});
 document.querySelectorAll('.tabs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x==b))}));document.querySelectorAll('.seg2').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x==b))}));
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.opacity=1;setTimeout(()=>el.style.opacity=0,1400)}
+document.querySelectorAll('.scrim').forEach(sc=>{
+  const panel=sc.querySelector('.modal,.sheet');
+  if(!panel) return;
+  sc.addEventListener('click',e=>{
+    if(e.target!==sc) return;
+    panel.style.visibility='hidden';
+    panel.style.pointerEvents='none';
+    toast('外側クリックで閉じました');
+    setTimeout(()=>{panel.style.visibility='';panel.style.pointerEvents=''},1600);
+  });
+});
 </script></body></html>
