@@ -20,7 +20,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:0 16px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:400 13px Sora,"Noto Sans JP";line-height:1;opacity:0;transition:.2s;white-space:nowrap}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-base) var(--ease-out),transform var(--motion-base) var(--ease-out);white-space:nowrap;z-index:50;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
 :root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
@@ -199,7 +199,33 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="al" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
 <div class="al" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
 <div class="al" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
-<div style="margin-top:16px"><div class="tst"><span>コピーしました</span><button type="button">元に戻す</button></div></div>
+<h4 id="toast-rules" style="margin:20px 0 8px;font:600 15px Sora,'Noto Sans JP'">トースト Toast（下書き）</h4>
+<p class="mute" style="font-size:14px;margin:0 0 12px">軽い完了・コピー・短いエラー向き。確認や破壊的操作はモーダル／インラインアラートを使う。</p>
+<div class="two" style="margin-bottom:12px">
+<div class="card"><b>出し方</b><ul class="ls">
+<li>位置：画面下中央（desktop / mobile 共通）。端から 24px</li>
+<li>出現：下から 8px＋フェード（180ms ease-out）</li>
+<li>自動で消える：通常 <strong>3秒</strong>／アクション付き <strong>5秒</strong></li>
+<li>同時表示は原則 <strong>1つ</strong>（新しいものが出たら前を置き換え）</li>
+<li>文言は短く1行。動詞止め可「コピーしました」</li>
+</ul></div>
+<div class="card"><b>中身・禁止</b><ul class="ls">
+<li>種類：情報（既定）／成功は同じ見た目で文言だけ変える</li>
+<li>アクションは1つまで（例「元に戻す」SemiBold）</li>
+<li>エラーの詳細説明・フォーム検証はトーストにしない</li>
+<li>プリズム色・複数ボタン・長文・リンクの羅列は禁止</li>
+<li>reduced-motion 時は移動なし・フェードのみ</li>
+</ul></div>
+</div>
+<div class="card">
+<span class="lbl">見本</span>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+<button type="button" class="btn sec sm ripple-host" id="toast-demo-simple">短いトースト</button>
+<button type="button" class="btn sec sm ripple-host" id="toast-demo-undo">アクション付き</button>
+</div>
+<div class="tst"><span>コピーしました</span><button type="button">元に戻す</button></div>
+<p class="help" style="margin-top:10px">見た目：高さ 40 / ピル / ink 地に bone 文字。トークン案 --toast-h 40 / --toast-duration 3s / --toast-duration-action 5s / --toast-offset 24px</p>
+</div>
 <hr class="dv">
 <div class="empty"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/></svg></div><div style="font-weight:600">まだ項目がありません</div><p class="mute" style="font-size:14px;margin:4px 0 16px">最初のプロジェクトを作成しましょう。</p><button class="btn pri sm">新規作成</button></div>
 </div>
@@ -292,9 +318,22 @@ const r=document.documentElement,bs=document.querySelectorAll('.seg button');
 function set(t){r.dataset.theme=t;bs.forEach(b=>b.setAttribute('aria-pressed',b.dataset.t==t));}
 let s=localStorage.getItem('oth');set(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
 bs.forEach(b=>b.onclick=()=>{set(b.dataset.t);localStorage.setItem('oth',b.dataset.t)});
-document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);const t=document.getElementById('toast');t.textContent=b.dataset.hex+' をコピーしました';t.style.opacity=1;setTimeout(()=>t.style.opacity=0,1200)});
+document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);showToast(b.dataset.hex+' をコピーしました')});
 document.querySelectorAll('.tabs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x==b))}));document.querySelectorAll('.seg2').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x==b))}));
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.opacity=1;setTimeout(()=>el.style.opacity=0,1400)}
+let _toastTimer;
+function showToast(msg,opts={}){
+  const el=document.getElementById('toast');
+  clearTimeout(_toastTimer);
+  el.innerHTML='';
+  const span=document.createElement('span');span.textContent=msg;el.appendChild(span);
+  if(opts.action){const a=document.createElement('button');a.type='button';a.className='act';a.textContent=opts.action;a.onclick=()=>{opts.onAction&&opts.onAction();el.classList.remove('on')};el.appendChild(a)}
+  el.classList.add('on');
+  const ms=opts.action?5000:3000;
+  _toastTimer=setTimeout(()=>el.classList.remove('on'),ms);
+}
+function toast(msg){showToast(msg)}
+document.getElementById('toast-demo-simple')?.addEventListener('click',()=>showToast('保存しました'));
+document.getElementById('toast-demo-undo')?.addEventListener('click',()=>showToast('項目を削除しました',{action:'元に戻す',onAction:()=>showToast('元に戻しました')}));
 document.querySelectorAll('.scrim').forEach(sc=>{
   const panel=sc.querySelector('.modal,.sheet');
   if(!panel) return;
