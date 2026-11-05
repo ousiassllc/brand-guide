@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ousiass UI カラーガイド（下書き）</title><meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&family=Sora:wght@600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#8b8b8e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism:linear-gradient(90deg,#8b6ad4,#4a72d0,#3aaaba,#3d9a7a,#b8a24a)}
@@ -28,10 +28,14 @@ ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
 .st{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.st span{font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid currentColor}
 footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid var(--border)}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.3s}
+.ty table{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}.ty th,.ty td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}.ty th{font-weight:600;color:var(--mute)}
+.mono,.ty code{font-family:"JetBrains Mono",ui-monospace,monospace}.tbox{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:16px}
+.ty .h{font-weight:600}.ty .b{font-weight:400}.sbtn{font:600 16px/1.2 Sora,"Noto Sans JP",sans-serif;background:var(--accent);color:var(--bone);border:0;border-radius:10px;padding:12px 20px;margin-right:8px}.sbtn.o{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.jump{font-size:13px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
 </style></head><body><div class="wrap">
-<div class="top"><span class="logo">OUSIASS<span class="badge">下書き DRAFT</span></span><button class="toggle" id="t">ダーク表示</button></div>
+<div class="top"><span class="logo">OUSIASS<span class="badge">色: 確定 / 文字: 提案</span></span><button class="toggle" id="t">ダーク表示</button></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー設計（下書き）。悠太さんの OK 後に確定します。HEX はクリックでコピーできます。</p></header>
-<section><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<p class="jump"><a href="#color">色</a><a href="#typography">文字</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景</p></div></div><div class="sw"><div class="chip" style="--l:#8b8b8e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -56,7 +60,24 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <div class="hex"><button data-hex="#4a5a6a">Light #4a5a6a</button><button data-hex="#9aabbc">Dark #9aabbc</button></div><p>お知らせ</p></div></div></div>
 <div class="st"><span style="color:var(--success)">success</span><span style="color:var(--warning)">warning</span><span style="color:var(--danger)">danger</span><span style="color:var(--info)">info</span></div></section>
 <section><h2>Do / Don't</h2><div class="dd"><div><h3>Do</h3><ul class="p"><li>背景は bone、カードは surface、区切りは border</li><li>主操作は accent（インク色）で示す</li><li>プリズムはロゴとキービジュアルだけに</li><li>状態はアイコン＋文言＋くすんだ状態色で伝える</li><li>ライト / ダーク両方で確認する</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ボタン・リンク・フォームにプリズムを使う</li><li>鮮やかな赤・緑などの原色を状態色に使う</li><li>プロダクトごとに独自パレットを作る</li><li>mute を本文の長文に使う（コントラスト不足）</li><li>色だけで意味を伝える</li></ul></div></div></section>
-<footer>下書き / DRAFT — 悠太さんの OK 待ち。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
+<section id="typography" class="ty"><h2>文字 Typography</h2><p class="sub">本文 16px 基準。フォントはすべて SIL OFL。サイズスケールは提案値（悠太さん確認待ち）。</p>
+<h3 class="h">フォントスタック</h3><table><tr><th>用途</th><th>フォント</th><th>CSS</th></tr>
+<tr><td>英字・UI 英語</td><td>Sora</td><td><code>font-family: Sora, "Noto Sans JP", sans-serif</code></td></tr>
+<tr><td>日本語</td><td>Noto Sans JP</td><td>（上記スタックのフォールバックとして日本語に適用）</td></tr>
+<tr><td>コード・数値</td><td>JetBrains Mono</td><td><code>font-family: "JetBrains Mono", ui-monospace, monospace</code></td></tr></table>
+<h3 class="h">サイズスケール（提案）</h3><table><tr><th>トークン</th><th>rem</th><th>px</th><th>行間</th><th>用途</th></tr>
+<tr><td><code>xs</code></td><td>0.75</td><td>12</td><td>1.6</td><td>注記・バッジ</td></tr>
+<tr><td><code>sm</code></td><td>0.875</td><td>14</td><td>1.7</td><td>補足・表・ボタン小</td></tr>
+<tr><td><code>base</code></td><td>1</td><td>16</td><td>1.8</td><td>本文・ボタン</td></tr>
+<tr><td><code>lg</code></td><td>1.125</td><td>18</td><td>1.7</td><td>リード文・h4</td></tr>
+<tr><td><code>xl</code></td><td>1.5</td><td>24</td><td>1.5</td><td>h3</td></tr>
+<tr><td><code>2xl</code></td><td>2</td><td>32</td><td>1.4</td><td>h2</td></tr>
+<tr><td><code>3xl</code></td><td>2.5</td><td>40</td><td>1.3</td><td>h1・ヒーロー</td></tr></table>
+<h3 class="h">ウェイト</h3><ul class="p"><li><strong>Regular (400)</strong>: 本文・リンク・ナビ・フォーム</li><li><strong>SemiBold (600)</strong>: 見出しとボタンのみ（ボタン以外のナビやリンクには使わない）</li><li>日本語の長文は行間 1.8 前後、英語の見出しは字間を少し詰めない（0〜0.02em）</li></ul>
+<h3 class="h">サンプル</h3><div class="tbox"><div class="h" style="font-size:1.5rem;line-height:1.5">静かな道具をつくる — Quiet tools for focused work</div><p class="b" style="font-size:1rem;line-height:1.8">OUSIASS のプロダクトは余白と無彩色を基本にします。Body text uses Sora for Latin and Noto Sans JP for Japanese at 16px Regular.</p><button class="sbtn">はじめる Get started</button><button class="sbtn o">詳しく見る</button></div>
+<div class="tbox mono" style="font-size:.875rem;line-height:1.7">const price = 12_800; // ¥12,800<br>order_id: 0A1B-2C3D  2026-11-05 12:36</div>
+<div class="dd" style="margin-top:24px"><div><h3>Do</h3><ul class="p"><li>本文は 16px Regular</li><li>見出し・ボタンだけ SemiBold</li><li>コード・桁を揃える数値は JetBrains Mono</li><li>サイズはスケールのトークンから選ぶ</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ナビやリンクまで SemiBold にする</li><li>Bold (700) 以上を多用する</li><li>14px 未満を本文に使う</li><li>OFL 以外のフォントを持ち込む</li></ul></div></div></section>
+<footer>色: 確定（2026-11-05）。文字: サイズスケールは確認待ち。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
 <script>
 const h=document.documentElement,t=document.getElementById('t');
 function set(m){h.dataset.theme=m;t.textContent=m==='dark'?'ライト表示':'ダーク表示';localStorage.theme=m}
