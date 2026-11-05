@@ -195,10 +195,21 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </div><hr class="dv">
 <span class="lbl">ステータス</span><div><span class="pill" style="--c:var(--success)">● 完了</span><span class="pill" style="--c:var(--warning)">● 保留</span><span class="pill" style="--c:var(--danger)">● エラー</span><span class="pill" style="--c:var(--info)">● 情報</span><span class="pill neu">下書き</span></div>
 <hr class="dv">
-<div class="al" style="--c:var(--info)"><span>ℹ</span><div><b>お知らせ</b><br>メンテナンスは 11/10 2:00–3:00 (JST) に予定しています。</div></div>
-<div class="al" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
-<div class="al" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
-<div class="al" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<button type="button" class="btn sec sm ripple-host" data-al-demo="info">お知らせ</button>
+<button type="button" class="btn sec sm ripple-host" data-al-demo="success">成功</button>
+<button type="button" class="btn sec sm ripple-host" data-al-demo="warning">注意</button>
+<button type="button" class="btn sec sm ripple-host" data-al-demo="danger">エラー</button>
+<button type="button" class="btn ghost sm ripple-host" id="al-demo-all">4つまとめて</button>
+<button type="button" class="btn ghost sm ripple-host" id="al-demo-hide">フェードアウト</button>
+</div>
+<p class="help" style="margin:0 0 10px">インラインアラートの出現はフェードイン（320ms）。消すときはフェードアウト（240ms）。ページ内固定の見本にも同じ動きを当てます。</p>
+<div id="al-stage">
+<div class="al mfade on" data-al="info" style="--c:var(--info)"><span>ℹ</span><div><b>お知らせ</b><br>メンテナンスは 11/10 2:00–3:00 (JST) に予定しています。</div></div>
+<div class="al mfade on" data-al="success" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
+<div class="al mfade on" data-al="warning" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
+<div class="al mfade on" data-al="danger" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
+</div>
 <h4 id="toast-rules" style="margin:20px 0 8px;font:600 15px Sora,'Noto Sans JP'">トースト Toast（下書き）</h4>
 <p class="mute" style="font-size:14px;margin:0 0 12px">軽い完了・コピー・短いエラー向き。確認や破壊的操作はモーダル／インラインアラートを使う。</p>
 <div class="two" style="margin-bottom:12px">
@@ -346,6 +357,23 @@ function showToast(msg,opts={}){
 function toast(msg){showToast(msg)}
 document.getElementById('toast-demo-simple')?.addEventListener('click',()=>showToast('保存しました'));
 document.getElementById('toast-demo-undo')?.addEventListener('click',()=>showToast('項目を削除しました',{action:'元に戻す',onAction:()=>showToast('元に戻しました')}));
+(function(){
+  const all=[...document.querySelectorAll('#al-stage .al')];
+  function showOne(kind){
+    all.forEach(el=>{
+      const on=el.dataset.al===kind;
+      if(on){el.style.display='';void el.offsetWidth;el.classList.add('on')}
+      else{el.classList.remove('on')}
+    });
+  }
+  document.querySelectorAll('[data-al-demo]').forEach(b=>b.addEventListener('click',()=>showOne(b.dataset.alDemo)));
+  document.getElementById('al-demo-all')?.addEventListener('click',()=>{
+    all.forEach(el=>{el.style.display='';el.classList.remove('on')});
+    void all[0]?.offsetWidth;
+    all.forEach(el=>el.classList.add('on'));
+  });
+  document.getElementById('al-demo-hide')?.addEventListener('click',()=>all.forEach(el=>el.classList.remove('on')));
+})();
 document.querySelectorAll('.scrim').forEach(sc=>{
   const panel=sc.querySelector('.modal,.sheet');
   if(!panel) return;
