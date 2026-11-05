@@ -21,10 +21,56 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:8px;font-size:13px;opacity:0;transition:.2s}
+:root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent)}
+[data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
+.draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
+.ui h3{margin:40px 0 12px}.ui .card{border-radius:var(--r-lg)}.ui .lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}.ui .help{font-size:12px;color:var(--mute);margin:4px 0 0}.ui .err{color:var(--danger)}
+.tk{font:12px "JetBrains Mono",monospace;color:var(--mute)}
+.rad{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}.rad div{height:80px;background:var(--accent-soft);border:1px solid var(--border);margin-bottom:6px}
+.sp{display:flex;align-items:center;gap:12px;padding:4px 0}.sp code{width:150px;font-size:12px}.sp i{display:block;height:12px;background:var(--accent);border-radius:var(--r-sm)}
+.ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+.ui textarea.fld{height:96px;padding:10px 12px;resize:vertical;line-height:1.6}.ui .fld::placeholder{color:var(--mute)}
+.ui .fld:focus{border-color:var(--focus);box-shadow:0 0 0 2px var(--ring)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus{box-shadow:0 0 0 2px color-mix(in srgb,var(--danger) 40%,transparent)}
+.ui .fld:disabled{opacity:.5;cursor:not-allowed}
+.ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.chk{display:flex;align-items:center;gap:10px;font-size:15px;margin:8px 0;cursor:pointer}
+.chk input{appearance:none;width:18px;height:18px;margin:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
+.chk input[type=radio]{border-radius:var(--r-full)}
+.chk input:checked{background:var(--accent);border-color:var(--accent)}
+.chk input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.chk input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--bone)}
+.chk input:focus-visible,.sw2 input:focus-visible+span{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.chk input:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
+.sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:15px}.sw2 input{position:absolute;opacity:0}
+.sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:.15s}
+.sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:.15s}
+.sw2 input:checked+span{background:var(--accent);border-color:var(--accent)}.sw2 input:checked+span::after{left:18px;background:var(--bone);box-shadow:none}
+.ui .btn{height:40px;padding:0 18px;border-radius:var(--r-md);font:600 15px Sora,"Noto Sans JP";display:inline-flex;align-items:center;gap:8px}
+.ui .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.ui .dan{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}.ui .dan:hover{background:color-mix(in srgb,var(--danger) 10%,transparent)}
+.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 12px;font-size:14px}
+.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:1px solid var(--border);border-radius:var(--r-md);background:transparent;color:var(--ink);cursor:pointer}.ib:hover{background:var(--accent-soft)}.ib.gh{border-color:transparent}.ib:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.ui a.tl{color:var(--ink);text-decoration:underline;text-decoration-color:var(--mute);text-underline-offset:3px}.ui a.tl:hover{text-decoration-color:var(--ink)}
+.pg{height:6px;background:var(--accent-soft);border-radius:var(--r-full);overflow:hidden}.pg i{display:block;height:100%;background:var(--accent);border-radius:inherit}
+.spin{width:20px;height:20px;border:2px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}
+.sk{background:linear-gradient(90deg,var(--accent-soft) 0%,color-mix(in srgb,var(--accent-soft) 50%,var(--surface)) 50%,var(--accent-soft) 100%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite;border-radius:var(--r-sm);height:12px;margin:8px 0}@keyframes sk{from{background-position:100% 0}to{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.spin,.sk{animation:none}}
+.ui .pill{border-radius:var(--r-full)}.pill.neu{--c:var(--mute)}
+.al{display:flex;gap:12px;padding:12px 16px;border:1px solid var(--border);border-left:3px solid var(--c,var(--info));border-radius:var(--r-md);background:var(--surface);font-size:14px;margin-bottom:10px}.al b{font-weight:600}
+.tst{display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:var(--bone);padding:10px 16px;border-radius:var(--r-md);font-size:14px}.tst button{background:none;border:0;color:inherit;opacity:.7;cursor:pointer;font:600 14px Sora,"Noto Sans JP"}
+.empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
+.panel{background:var(--bone);border:1px solid var(--border);border-radius:var(--r-md);padding:16px}hr.dv{border:0;border-top:1px solid var(--border);margin:24px 0}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--border);margin-bottom:16px}.tabs button{background:none;border:0;padding:10px 0;margin-bottom:-1px;font:400 15px Sora,"Noto Sans JP";color:var(--mute);border-bottom:2px solid transparent;cursor:pointer}.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.ui .seg2{display:inline-flex;background:var(--accent-soft);border-radius:var(--r-md);padding:3px}.seg2 button{border:0;background:none;color:var(--mute);font:400 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:6px;cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--border)}
+.scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center}
+.modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border)}
+.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 20px;align-self:end}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}.tbl th{font-weight:600;color:var(--mute);font-size:12px}
+.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 <h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<br><a href="./">← メインのカラー＆タイポガイドへ</a></p>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -37,10 +83,103 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 <pre><code>// JetBrains Mono 400
 const theme = { ink: "#050505", bone: "#f5f5f4" };
 export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
-<h2>UI 部品</h2><div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px"><button class="btn pri">保存する Save</button><button class="btn sec">キャンセル</button><button class="btn ghost">Ghost</button></div>
-<p>テキスト内の <a href="#">リンク Link</a> とフォーカスリング（Tab で確認）。</p>
-<label style="font-size:14px;font-weight:600">メールアドレス</label><input placeholder="you@ousiass.com" style="margin:6px 0 4px"><p class="mute" style="font-size:12px;margin:0 0 20px">補足テキスト（mute / xs）</p>
-<div><span class="pill" style="--c:var(--success)">● success</span><span class="pill" style="--c:var(--warning)">● warning</span><span class="pill" style="--c:var(--danger)">● danger</span><span class="pill" style="--c:var(--info)">● info</span></div></div>
+<section class="ui" id="ui">
+<h2 id="ui-draft">UI部品（下書き・いろは案）<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">値はすべていろはの提案です（未確定）。Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスリングだけ focus 青を 40% で使用）。</p>
+
+<h3 id="radius">角丸 Radius</h3>
+<div class="card"><div class="rad">
+<div><div style="border-radius:0"></div><code>--r-none</code><br><span class="tk">0</span></div>
+<div><div style="border-radius:4px"></div><code>--r-sm</code><br><span class="tk">4px · タグ・チェック</span></div>
+<div><div style="border-radius:8px"></div><code>--r-md</code><br><span class="tk">8px · 入力・ボタン</span></div>
+<div><div style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · カード</span></div>
+<div><div style="border-radius:16px"></div><code>--r-xl</code><br><span class="tk">16px · モーダル</span></div>
+<div><div style="border-radius:9999px"></div><code>--r-full</code><br><span class="tk">9999px · ピル・アバター</span></div>
+</div>
+<pre style="margin-top:20px"><code>--r-none: 0;  --r-sm: 4px;  --r-md: 8px;  --r-lg: 12px;  --r-xl: 16px;  --r-full: 9999px;
+/* 推奨: controls = md / cards = lg / modal = xl / pills・avatar = full */</code></pre></div>
+
+<h3 id="space">余白 Space（4px 基準）</h3>
+<div class="card">
+<div class="sp"><code>--s-1 · 4px</code><i style="width:4px"></i></div>
+<div class="sp"><code>--s-2 · 8px</code><i style="width:8px"></i></div>
+<div class="sp"><code>--s-3 · 12px</code><i style="width:12px"></i></div>
+<div class="sp"><code>--s-4 · 16px</code><i style="width:16px"></i></div>
+<div class="sp"><code>--s-6 · 24px</code><i style="width:24px"></i></div>
+<div class="sp"><code>--s-8 · 32px</code><i style="width:32px"></i></div>
+<div class="sp"><code>--s-12 · 48px</code><i style="width:48px"></i></div>
+<div class="sp"><code>--s-16 · 64px</code><i style="width:64px"></i></div>
+<p class="help" style="margin-top:12px">目安: 部品内 8–12 / 部品間 16–24 / セクション間 48–64。</p></div>
+
+<h3 id="stroke">線と影 Stroke / Shadow</h3>
+<div class="f2">
+<div class="card"><code>--stroke: 1px</code> <span class="tk">solid var(--border)</span><p class="help">既定。カード・入力・区切り線</p></div>
+<div class="card" style="border-color:var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）</p></div>
+<div class="card" style="border:1px dashed var(--border)"><code>1px dashed</code><p class="help">空状態・ドロップ領域</p></div>
+<div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">0 1px 2px rgba(0,0,0,.06) — モーダルのみ。カードは影なし</p></div>
+</div>
+
+<h3 id="forms">フォーム Forms</h3>
+<div class="card"><div class="f2">
+<div><label class="lbl" for="f1">お名前</label><input class="fld" id="f1" placeholder="竹澤 悠太"><p class="help">補足テキスト — 40px / padding 12 / r-md</p></div>
+<div><label class="lbl" for="f2">メールアドレス</label><input class="fld bad" id="f2" value="yuhta@" aria-invalid="true"><p class="help err">メールアドレスの形式が正しくありません</p></div>
+<div><label class="lbl" for="f3">プラン</label><select class="fld" id="f3"><option>Free</option><option selected>Pro</option><option>Team</option></select><p class="help">ネイティブ select を同じ見た目に</p></div>
+<div><label class="lbl" for="f4">無効状態</label><input class="fld" id="f4" value="編集できません" disabled></div>
+<div style="grid-column:1/-1"><label class="lbl" for="f5">メッセージ</label><textarea class="fld" id="f5" placeholder="ご用件をお書きください"></textarea><p class="help">0 / 500</p></div>
+</div><hr class="dv"><div class="f2">
+<div><span class="lbl">チェックボックス</span>
+<label class="chk"><input type="checkbox" checked> 利用規約に同意する</label>
+<label class="chk"><input type="checkbox"> ニュースを受け取る</label>
+<label class="chk"><input type="checkbox" disabled> 無効</label></div>
+<div><span class="lbl">ラジオ</span>
+<label class="chk"><input type="radio" name="rp" checked> 月払い</label>
+<label class="chk"><input type="radio" name="rp"> 年払い</label>
+<label class="chk"><input type="radio" name="rp" disabled> 無効</label></div>
+<div><span class="lbl">トグル</span>
+<label class="sw2"><input type="checkbox" checked><span></span>通知</label><br>
+<label class="sw2"><input type="checkbox"><span></span>自動保存</label></div>
+</div></div>
+
+<h3 id="actions">アクション Actions</h3>
+<div class="card">
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn pri">保存する</button><button class="btn sec">キャンセル</button><button class="btn ghost">あとで</button><button class="btn dan">削除する</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px"><button class="btn pri" disabled>保存する</button><button class="btn sec" disabled>キャンセル</button><button class="btn ghost" disabled>あとで</button><button class="btn dan" disabled>削除する</button><span class="tk">disabled = opacity .4</span></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px"><button class="btn pri sm">小 32px</button><button class="btn sec sm">小 32px</button>
+<button class="ib" aria-label="設定"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></button>
+<button class="ib gh" aria-label="閉じる"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+<span style="font-size:15px">本文中の <a class="tl" href="#ui">テキストリンク</a>（Regular / 下線 mute）</span></div>
+</div>
+
+<h3 id="feedback">フィードバック・表示 Feedback</h3>
+<div class="card"><div class="f2">
+<div><span class="lbl">進捗 40%</span><div class="pg" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><i style="width:40%"></i></div>
+<span class="lbl" style="margin-top:16px">完了 100%</span><div class="pg" role="progressbar" aria-valuenow="100"><i style="width:100%"></i></div><p class="help">track accent-soft / fill accent / 6px / r-full</p></div>
+<div><span class="lbl">読み込み中</span><div style="display:flex;align-items:center;gap:10px"><span class="spin" role="status" aria-label="読み込み中"></span><span class="mute" style="font-size:14px">読み込んでいます…</span></div>
+<div style="margin-top:12px"><div class="sk" style="width:60%;height:16px"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div></div>
+</div><hr class="dv">
+<span class="lbl">ステータス</span><div><span class="pill" style="--c:var(--success)">● 完了</span><span class="pill" style="--c:var(--warning)">● 保留</span><span class="pill" style="--c:var(--danger)">● エラー</span><span class="pill" style="--c:var(--info)">● 情報</span><span class="pill neu">下書き</span></div>
+<hr class="dv">
+<div class="al" style="--c:var(--info)"><span>ℹ</span><div><b>お知らせ</b><br>メンテナンスは 11/10 2:00–3:00 (JST) に予定しています。</div></div>
+<div class="al" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
+<div class="al" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
+<div class="al" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
+<div style="margin-top:16px"><div class="tst">コピーしました <button>元に戻す</button></div></div>
+<hr class="dv">
+<div class="empty"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/></svg></div><div style="font-weight:600">まだ項目がありません</div><p class="mute" style="font-size:14px;margin:4px 0 16px">最初のプロジェクトを作成しましょう。</p><button class="btn pri sm">新規作成</button></div>
+</div>
+
+<h3 id="layout">レイアウト Layout chrome</h3>
+<div class="f2">
+<div class="card"><div style="font-weight:600;margin-bottom:4px">カード（r-lg / 影なし）</div><p class="mute" style="font-size:14px;margin:0 0 16px">surface + 1px border。</p><div class="panel" style="font-size:14px">パネル（bone / r-md）— カード内の入れ子領域</div><hr class="dv" style="margin:16px 0"><table class="tbl"><tr><th>項目</th><th>値</th></tr><tr><td>プラン</td><td>Pro</td></tr><tr><td>更新日</td><td class="mono">2026-12-01</td></tr></table></div>
+<div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">概要</button><button role="tab" aria-selected="false">設定</button><button role="tab" aria-selected="false">請求</button></div>
+<p style="font-size:14px" class="mute">タブ: 下線 2px accent。</p>
+<div class="seg2" role="group"><button aria-pressed="true">日</button><button aria-pressed="false">週</button><button aria-pressed="false">月</button></div><p class="help">セグメント: accent-soft 地 + surface の選択面</p></div>
+</div>
+<div class="f2" style="margin-top:16px">
+<div class="scrim"><div class="modal" role="dialog" aria-label="モーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span><button class="ib gh" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header><div class="bd">この操作は取り消せません。本当に削除しますか？</div><footer><button class="btn sec sm">キャンセル</button><button class="btn dan sm">削除する</button></footer></div></div>
+<div class="scrim" style="padding-bottom:0"><div class="sheet"><div class="hd"></div><div style="font-weight:600;margin-bottom:12px">共有</div><label class="chk"><input type="radio" name="sh" checked> リンクを知っている全員</label><label class="chk"><input type="radio" name="sh"> 招待したメンバーのみ</label><button class="btn pri" style="width:100%;justify-content:center;margin-top:12px">完了</button></div></div>
+</div>
+</section>
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
 </div><div id="toast"></div><script>
 const r=document.documentElement,bs=document.querySelectorAll('.seg button');
@@ -48,4 +187,5 @@ function set(t){r.dataset.theme=t;bs.forEach(b=>b.setAttribute('aria-pressed',b.
 let s=localStorage.getItem('oth');set(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
 bs.forEach(b=>b.onclick=()=>{set(b.dataset.t);localStorage.setItem('oth',b.dataset.t)});
 document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);const t=document.getElementById('toast');t.textContent=b.dataset.hex+' をコピーしました';t.style.opacity=1;setTimeout(()=>t.style.opacity=0,1200)});
+document.querySelectorAll('.tabs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x==b))}));document.querySelectorAll('.seg2').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x==b))}));
 </script></body></html>
