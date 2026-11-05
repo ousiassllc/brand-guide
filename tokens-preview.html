@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>トークン可視化（下書き）— Ousiass</title><meta name="robots" content="noindex">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>トークン可視化 — Ousiass</title><meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;600&family=Sora:wght@600&display=swap" rel="stylesheet">
 <style>
@@ -70,8 +70,8 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-field)}
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
-<div class="hero"><h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a> · <a href="#p2">P2 上級UI（下書き）→</a> · <a href="#p3">P3 メディア／エディタ（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+<div class="hero"><h1>トークン可視化</h1>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品 →</a> · <a href="#p0">骨格コンポーネント P0 →</a> · <a href="#p1">P1 UI部品 →</a> · <a href="#p2">P2 上級UI →</a> · <a href="#p3">P3 メディア／エディタ →</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -99,8 +99,8 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .l2{list-style:none;padding:0;margin:0;display:grid;gap:var(--list-two-line-gap)}.l2 .t{font-size:14px}.l2 .c{font-size:12px;color:var(--mute);margin-top:var(--list-title-caption-gap)}
 </style>
 <section class="ui" id="spacing-recipes">
-<h2>間隔の使い方 Spacing recipes<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">UI ごとに「どれだけ空けるか」を決めた表です（いろは案・未確定）。値は主に既存の <code>--s-*</code>（4px 基準）から選びます。例外はページセクション用の <code>--gap-section: 72px</code>（brand-guide の section 余白に合わせた名前付きトークン）。</p>
+<h2>間隔の使い方 Spacing recipes</h2>
+<p class="mute" style="font-size:14px">UI ごとに「どれだけ空けるか」を決めた表です。値は主に既存の <code>--s-*</code>（4px 基準）から選びます。例外はページセクション用の <code>--gap-section: 72px</code>（brand-guide の section 余白に合わせた名前付きトークン）。</p>
 <div class="rc">
 <div class="card"><h4>メニュー / ナビ項目</h4><div class="dg" style="display:grid;gap:var(--gap-menu)"><div class="b" style="height:var(--menu-item-h)">ホーム</div><div class="b" style="height:var(--menu-item-h)">プロジェクト</div><div class="b" style="height:var(--menu-item-h)">設定</div></div><ul class="vals"><li>項目間 8px (--s-2)</li><li>項目の高さ 40px</li><li>左右 padding 12px (--s-3)、余裕があれば 16</li></ul></div>
 <div class="card"><h4>ドロップダウン / シートの選択肢</h4><div class="dg" style="display:grid;gap:var(--gap-option)"><div class="b" style="height:36px">Free</div><div class="b" style="height:36px">Pro</div><div class="b" style="height:36px">Team</div></div><ul class="vals"><li>項目間 4px (--s-1)</li><li>または隙間 0 ＋ 各行 上下 12px (--s-3)</li></ul></div>
@@ -111,13 +111,13 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="card"><h4>横並び（ボタン・チップ）</h4><div class="dg" style="display:flex;gap:var(--gap-inline)"><div class="b" style="height:32px">保存</div><div class="b" style="height:32px">キャンセル</div><div class="b" style="height:32px">タグ</div></div><ul class="vals"><li>間隔 8px (--s-2)</li></ul></div>
 <div class="card"><h4>ページのセクション</h4><div class="dg" style="display:grid;gap:var(--gap-section)"><div class="b" style="height:28px">セクション A</div><div class="b" style="height:28px">セクション B</div></div><ul class="vals"><li>標準 72px (--gap-section)</li><li>スマホ・密な画面 48px (--s-12)</li></ul></div>
 </div>
-<p class="help" style="margin-top:12px">名前付きトークン（下書き）：<code>--gap-menu --gap-option --gap-grid(-lg/-dense) --gap-label --gap-field --gap-help --gap-h2 --gap-h3 --gap-heading-body --gap-para --pad-card(-sm) --gap-card-section --gap-inline --gap-section(-sm) --menu-item-h --menu-pad-x</code></p>
+<p class="help" style="margin-top:12px">名前付きトークン：<code>--gap-menu --gap-option --gap-grid(-lg/-dense) --gap-label --gap-field --gap-help --gap-h2 --gap-h3 --gap-heading-body --gap-para --pad-card(-sm) --gap-card-section --gap-inline --gap-section(-sm) --menu-item-h --menu-pad-x</code></p>
 </section>
 <section class="ui" id="ui">
-<h2 id="ui-draft">UI部品（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">値はすべていろはの提案です（未確定）。Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスリングだけ focus 青を 40% で使用）。</p>
+<h2 id="ui-draft">UI部品</h2>
+<p class="mute" style="font-size:14px">Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスリングだけ focus 青を 40% で使用）。</p>
 
-<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="radius">角丸 Radius</h3>
 <div class="card"><div class="rad">
@@ -211,7 +211,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="al mfade on" data-al="warning" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
 <div class="al mfade on" data-al="danger" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
 </div>
-<h4 id="toast-rules" style="margin:20px 0 8px;font:600 15px Sora,'Noto Sans JP'">トースト Toast（下書き）</h4>
+<h4 id="toast-rules" style="margin:20px 0 8px;font:600 15px Sora,'Noto Sans JP'">トースト Toast</h4>
 <p class="mute" style="font-size:14px;margin:0 0 12px">軽い完了・コピー・短いエラー向き。確認や破壊的操作はモーダル／インラインアラートを使う。</p>
 <div class="two" style="margin-bottom:12px">
 <div class="card"><b>出し方</b><ul class="ls">
@@ -256,7 +256,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </div>
 <p class="tk" style="margin-top:8px">--list-gap 8 / --list-marker-gap 10 / --list-row-h 48 / --list-row-pad-x 16 / --list-divider / --list-title-caption-gap 2 / --list-two-line-gap 12</p>
 <h3 id="layout">レイアウト Layout chrome</h3>
-<p class="mute" style="font-size:14px;margin:0 0 12px">オーバーレイ方針（下書き）：基本は中央モーダル。共有・短い選択肢はボトムシート可。モーダル／シートとも <strong>外側（スクラム）クリックで自動クローズ</strong>。</p>
+<p class="mute" style="font-size:14px;margin:0 0 12px">オーバーレイ方針：基本は中央モーダル。共有・短い選択肢はボトムシート可。モーダル／シートとも <strong>外側（スクラム）クリックで自動クローズ</strong>。</p>
 <div class="f2">
 <div class="card"><div style="font-weight:600;margin-bottom:4px">カード（r-lg / 影なし）</div><p class="mute" style="font-size:14px;margin:0 0 16px">surface + 1px border。</p><div class="panel" style="font-size:14px">パネル（bone / r-md）— カード内の入れ子領域</div><hr class="dv" style="margin:16px 0"><table class="tbl"><tr><th>項目</th><th>値</th></tr><tr><td>プラン</td><td>Pro</td></tr><tr><td>更新日</td><td class="mono">2026-12-01</td></tr></table></div>
 <div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">概要</button><button role="tab" aria-selected="false">設定</button><button role="tab" aria-selected="false">請求</button></div>
@@ -288,8 +288,8 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .pri.ripple-host .ripple,.dan.ripple-host .ripple{background:color-mix(in srgb,var(--bone) 35%,transparent)}
 @keyframes ripple-fan{to{transform:scale(1);opacity:0}}
 </style>
-<h2 id="motion-draft">モーション Motion（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">静か・短く・目的があるときだけ。派手な動き、UI 上のプリズム（虹色）モーションは使わない。</p>
+<h2 id="motion-draft">モーション Motion</h2>
+<p class="mute" style="font-size:14px">基本的に静かだけど動きがある。静か・短く・目的があるときだけ。フェードイン 320 / フェードアウト 240。派手な動き、バウンス、UI 上のプリズム（虹色）モーションは使わない。</p>
 <h3 id="motion-tokens">トークン Tokens</h3>
 <div class="card" style="padding:0;overflow:auto"><table class="mt"><thead><tr><th>トークン</th><th>値（ライブ）</th><th>用途</th></tr></thead><tbody>
 <tr><td class="mono">--motion-fast</td><td class="mono" data-v="--motion-fast"></td><td>フォーカスリング・小さな状態変化</td></tr>
@@ -421,9 +421,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .icon-row .ico{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
 #p0 .icon-row .ico svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);flex:none}
 </style>
-<h2 id="p0-draft">骨格コンポーネント P0（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">ナビ・階層・浮遊UI・レスポンシブの骨格。値はいろは案（未確定）。UI アイコンは <a href="https://iconoir.com" rel="noopener">Iconoir</a>（MIT）。P1 は下の <a href="#p1">#p1</a>。Light / Dark 切替で確認。</p>
-<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+<h2 id="p0-draft">骨格コンポーネント P0</h2>
+<p class="mute" style="font-size:14px">ナビ・階層・浮遊UI・レスポンシブの骨格。UI アイコンは <a href="https://iconoir.com" rel="noopener">Iconoir</a>（MIT）。P1 は下の <a href="#p1">#p1</a>。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="p0-nav">Navigation</h3>
 <div class="frame" style="margin-bottom:12px">
@@ -605,7 +605,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="help" style="margin-top:12px">実装時は Iconoir の SVG／パッケージから取得（このページはインライン見本のみ・依存なし）。ストローク 1.5・currentColor。</p>
 </div>
 
-<div class="note" style="margin-top:20px"><b>P0 下書きまとめ</b> — ナビ／パンくず／ドロップダウン／ツールチップ・ポップオーバー／ドロワー／BP・グリッド／z-index／Iconoir アイコン。P1 下書きは <a href="#p1">#p1</a>。ガイドにない部品は使わない。</div>
+<div class="note" style="margin-top:20px"><b>P0 まとめ</b> — ナビ／パンくず／ドロップダウン／ツールチップ・ポップオーバー／ドロワー／BP・グリッド／z-index／Iconoir アイコン。P1 は <a href="#p1">#p1</a>。ガイドにない部品は使わない。</div>
 <script>
 (()=>{
   const dd=document.getElementById('p0-dd'), ddBtn=document.getElementById('p0-dd-btn');
@@ -719,9 +719,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   #p1 .steps .st:not(:last-child)::after{display:none}
 }
 </style>
-<h2 id="p1-draft">UI部品 P1（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">日付・検索・アップロードなど、P0 の次に使う部品の下書き見本。値はいろは案（未確定）。アイコンは Iconoir スタイル。Light / Dark 切替で確認。</p>
-<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+<h2 id="p1-draft">UI部品 P1</h2>
+<p class="mute" style="font-size:14px">日付・検索・アップロードなど、P0 の次に使う部品の見本。アイコンは Iconoir スタイル。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="p1-datetime">日付・時刻ピッカー</h3>
 <div class="f2">
@@ -735,7 +735,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   </div>
   <div class="card">
     <span class="lbl">カレンダー見本（popover スケッチ）</span>
-    <div class="cal" role="group" aria-label="カレンダー下書き">
+    <div class="cal" role="group" aria-label="カレンダー見本">
       <header>
         <button type="button" class="ib gh" aria-label="前月" style="width:28px;height:28px">‹</button>
         <span>2026年11月</span>
@@ -783,7 +783,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="f2">
   <div class="card">
     <span class="lbl">ページ番号</span>
-    <nav class="pager" aria-label="ページネーション下書き">
+    <nav class="pager" aria-label="ページネーション見本">
       <button type="button" class="pg" disabled aria-label="前へ">‹</button>
       <button type="button" class="pg" aria-current="page">1</button>
       <button type="button" class="pg">2</button>
@@ -804,7 +804,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p1-steps">ステップ／ウィザード</h3>
 <div class="card">
-  <div class="steps" aria-label="ウィザード下書き">
+  <div class="steps" aria-label="ウィザード見本">
     <div class="st done">基本情報</div>
     <div class="st cur">詳細</div>
     <div class="st">確認</div>
@@ -858,7 +858,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <h3 id="p1-tags">タグ入力（chips input）</h3>
 <div class="card">
   <span class="lbl">タグ</span>
-  <div class="tags" id="p1-tags" role="group" aria-label="タグ入力下書き">
+  <div class="tags" id="p1-tags" role="group" aria-label="タグ入力見本">
     <span class="chip">デザイン<button type="button" aria-label="デザインを削除">×</button></span>
     <span class="chip">トークン<button type="button" aria-label="トークンを削除">×</button></span>
     <input type="text" id="p1-tag-input" placeholder="追加して Enter…" aria-label="タグを追加">
@@ -866,7 +866,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="help" style="margin-top:10px">チップ: accent-soft + border + r-full / 入力は枠なし。Enter またはカンマで追加（見本 JS）。</p>
 </div>
 
-<div class="note" style="margin-top:20px"><b>P1 下書きまとめ</b> — 日付・時刻／アップロード／検索／ページネーション・もっと見る／ステップ／アコーディオン／通知バッジ／スライダー／タグ入力。いずれも下書き。ガイドにない部品は使わない。</div>
+<div class="note" style="margin-top:20px"><b>P1 まとめ</b> — 日付・時刻／アップロード／検索／ページネーション・もっと見る／ステップ／アコーディオン／通知バッジ／スライダー／タグ入力。ガイドにない部品は使わない。</div>
 <script>
 (()=>{
   const drop=document.getElementById('p1-drop'), file=document.getElementById('p1-file'), fname=document.getElementById('p1-file-name'), ubtn=document.getElementById('p1-upload-btn');
@@ -893,7 +893,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   sg&&sg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{if(si){si.value=b.textContent;syncSearch();sg.classList.remove('open');si.setAttribute('aria-expanded','false')}}));
   document.addEventListener('click',e=>{if(sh&&!sh.contains(e.target)){sg&&sg.classList.remove('open');si&&si.setAttribute('aria-expanded','false')}});
 
-  document.getElementById('p1-more')&&document.getElementById('p1-more').addEventListener('click',()=>{typeof showToast==='function'&&showToast('次の20件を読み込みました（下書き）')});
+  document.getElementById('p1-more')&&document.getElementById('p1-more').addEventListener('click',()=>{typeof showToast==='function'&&showToast('次の20件を読み込みました')});
 
   const rng=document.getElementById('p1-range'), rv=document.getElementById('p1-range-val');
   rng&&rng.addEventListener('input',()=>{if(rv)rv.textContent=rng.value;rng.setAttribute('aria-valuenow',rng.value)});
@@ -1031,13 +1031,13 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   #p2 .tree .tw svg{transition:none}
 }
 </style>
-<h2 id="p2-draft">UI部品 P2（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">コマンドパレット・上級テーブル・ツリー・カレンダー・チャート・スケルトン・コーチマーク・印刷／PDF・スナック／トースト使い分け。値はいろは案（未確定）。アイコンは Iconoir。Light / Dark 切替で確認。</p>
-<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+<h2 id="p2-draft">UI部品 P2</h2>
+<p class="mute" style="font-size:14px">コマンドパレット・上級テーブル・ツリー・カレンダー・チャート・スケルトン・コーチマーク・印刷／PDF・スナック／トースト使い分け。アイコンは Iconoir。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="p2-cmdk">コマンドパレット／スポットライト検索</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="stage cmdk-stage" aria-label="コマンドパレット下書き">
+  <div class="stage cmdk-stage" aria-label="コマンドパレット見本">
     <div class="cmdk-scrim" aria-hidden="true"></div>
     <div class="cmdk" role="dialog" aria-modal="true" aria-label="コマンドパレット">
       <div class="cmdk-hd">
@@ -1095,7 +1095,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-tree">ツリー／ネストリスト</h3>
 <div class="card">
-  <ul class="tree" aria-label="フォルダツリー下書き">
+  <ul class="tree" aria-label="フォルダツリー見本">
     <li>
       <details open>
         <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>プロダクト</summary>
@@ -1136,7 +1136,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-cal">カレンダー（月表示）</h3>
 <div class="card">
-  <div class="mcal" role="group" aria-label="月カレンダー下書き">
+  <div class="mcal" role="group" aria-label="月カレンダー見本">
     <header>
       <span>2026年11月</span>
       <div class="nav">
@@ -1162,7 +1162,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="mute" style="font-size:14px;margin:0 0 12px">系列色は<strong>ほぼ無彩色の状態色</strong>（success / warning / info / mute / ink）。プリズム（violet→yellow）はチャートに使わない。</p>
   <div class="chart-wrap">
     <div class="chart">
-      <h4>棒グラフ（下書き）</h4>
+      <h4>棒グラフ</h4>
       <div class="leg"><span><i style="background:var(--info)"></i>A</span><span><i style="background:var(--success)"></i>B</span><span><i style="background:var(--mute)"></i>C</span></div>
       <svg viewBox="0 0 280 140" role="img" aria-label="棒グラフスケッチ">
         <line x1="32" y1="12" x2="32" y2="118" stroke="var(--border)" stroke-width="1"/>
@@ -1179,7 +1179,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
       </svg>
     </div>
     <div class="chart">
-      <h4>折れ線（下書き）</h4>
+      <h4>折れ線</h4>
       <div class="leg"><span><i style="background:var(--ink)"></i>実績</span><span><i style="background:var(--warning)"></i>目標</span></div>
       <svg viewBox="0 0 280 140" role="img" aria-label="折れ線グラフスケッチ">
         <line x1="32" y1="12" x2="32" y2="118" stroke="var(--border)" stroke-width="1"/>
@@ -1227,7 +1227,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-coach">オンボーディング／コーチマーク</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="stage coach-stage" aria-label="コーチマーク下書き">
+  <div class="stage coach-stage" aria-label="コーチマーク見本">
     <div class="coach-ui">
       <div class="lbl" style="margin:0 0 8px">ワークスペース</div>
       <p class="mute" style="font-size:13px;margin:0 0 12px">最初のプロジェクトを追加します。</p>
@@ -1252,7 +1252,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-print">印刷・PDF向けスタイル</h3>
 <div class="print-card">
-  <h4>短いルール（下書き）</h4>
+  <h4>短いルール</h4>
   <ul>
     <li><strong>ink on bone</strong> — 印刷本文は濃い字／明るい地。ダークテーマのまま出さない</li>
     <li><strong>chrome を隠す</strong> — ナビ・ドロワー・FAB・テーマ切替・トーストは <code>@media print</code> で非表示</li>
@@ -1291,7 +1291,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 </div>
 <p class="help" style="margin-top:12px">迷ったら：画面の作業結果で戻せる操作 → スナック。一瞬の確認だけ → トースト。確認や破壊的操作はモーダル／インラインアラート。</p>
 
-<div class="note" style="margin-top:20px"><b>P2 下書きまとめ</b> — コマンドパレット／上級テーブル／ツリー／月カレンダー／チャート色／スケルトン／コーチマーク／印刷・PDF／スナック↔トースト。いずれも下書き。ガイドにない部品は使わない。</div>
+<div class="note" style="margin-top:20px"><b>P2 まとめ</b> — コマンドパレット／上級テーブル／ツリー／月カレンダー／チャート色／スケルトン／コーチマーク／印刷・PDF／スナック↔トースト。ガイドにない部品は使わない。</div>
 <script>
 (()=>{
   const all=document.getElementById('p2-check-all');
@@ -1389,13 +1389,13 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p3 .rule-card ul{margin:0;padding-left:1.2em;font-size:14px}
 #p3 .rule-card li{margin:4px 0}
 </style>
-<h2 id="p3-draft">UI部品 P3（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">地図・リッチテキスト・動画プレイヤー・コードエディタ。独自ウィジェットは案件ガイドへ。値はいろは案（未確定）。アイコンは Iconoir。Light / Dark 切替で確認。UI クロムにプリズムは使わない。</p>
-<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。プロダクト専用ウィジェットは共通ガイドに発明しない。</p>
+<h2 id="p3-draft">UI部品 P3</h2>
+<p class="mute" style="font-size:14px">地図・リッチテキスト・動画プレイヤー・コードエディタ。独自ウィジェットは案件ガイドへ。アイコンは Iconoir。Light / Dark 切替で確認。UI クロムにプリズムは使わない。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。プロダクト専用ウィジェットは共通ガイドに発明しない。</p>
 
 <h3 id="p3-map">地図</h3>
 <div class="card">
-  <div class="map" role="img" aria-label="地図下書き（ミュートなクロム）">
+  <div class="map" role="img" aria-label="地図見本（ミュートなクロム）">
     <div class="grid" aria-hidden="true"></div>
     <div class="land" aria-hidden="true"></div>
     <div class="road" aria-hidden="true"></div>
@@ -1416,7 +1416,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-rte">リッチテキスト</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="rte" aria-label="リッチテキスト下書き">
+  <div class="rte" aria-label="リッチテキスト見本">
     <div class="rte-tb" role="toolbar" aria-label="書式（スケッチ）">
       <button type="button" aria-pressed="true" aria-label="太字"><b>B</b></button>
       <button type="button" aria-label="斜体"><i style="font-style:italic;font-weight:400">I</i></button>
@@ -1439,7 +1439,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-video">動画プレイヤー</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="vid" aria-label="動画プレイヤー下書き">
+  <div class="vid" aria-label="動画プレイヤー見本">
     <div class="vid-stage">
       <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
@@ -1462,7 +1462,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-code">コードエディタ</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="code" aria-label="コードエディタ下書き">
+  <div class="code" aria-label="コードエディタ見本">
     <div class="code-hd">
       <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
       <span>tokens.ts</span>
@@ -1486,7 +1486,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-custom">独自ウィジェット</h3>
 <div class="rule-card">
-  <h4>ルール（下書き）</h4>
+  <h4>ルール</h4>
   <p>プロダクト専用の独自ウィジェットは、<strong>この共通ブランドガイドには置かない</strong>。必要な画面部品はそのプロダクト／案件ガイドで定義する。</p>
   <ul>
     <li>共通ガイド = 全プロダクトで共有する部品のみ</li>
@@ -1496,7 +1496,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   </ul>
 </div>
 
-<div class="note" style="margin-top:20px"><b>P3 下書きまとめ</b> — 地図／リッチテキスト／動画プレイヤー／コードエディタ／独自ウィジェット方針。いずれも下書き。ガイドにない部品は使わない。プロダクト専用は案件ガイドへ。</div>
+<div class="note" style="margin-top:20px"><b>P3 まとめ</b> — 地図／リッチテキスト／動画プレイヤー／コードエディタ／独自ウィジェット方針。ガイドにない部品は使わない。プロダクト専用は案件ガイドへ。</div>
 </section>
 
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
