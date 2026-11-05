@@ -33,8 +33,8 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 .ty .h{font-weight:600}.ty .b{font-weight:400}.sbtn{font:600 16px/1.2 Sora,"Noto Sans JP",sans-serif;background:var(--accent);color:var(--bone);border:0;border-radius:10px;padding:12px 20px;margin-right:8px}.sbtn.o{background:transparent;color:var(--ink);border:1px solid var(--border)}
 .jump{font-size:13px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
 </style></head><body><div class="wrap">
-<div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・UI確定 / サイズスケールのみ提案</span></span><button class="toggle" id="t">ダーク表示</button></div>
-<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・UI ガイド（確定）。サイズスケールのみ提案。HEX はクリックでコピーできます。</p></header>
+<div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><button class="toggle" id="t">ダーク表示</button></div>
+<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p></header>
 <p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
@@ -60,12 +60,12 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <div class="hex"><button data-hex="#4a5a6a">Light #4a5a6a</button><button data-hex="#9aabbc">Dark #9aabbc</button></div><p>お知らせ</p></div></div></div>
 <div class="st"><span style="color:var(--success)">success</span><span style="color:var(--warning)">warning</span><span style="color:var(--danger)">danger</span><span style="color:var(--info)">info</span></div></section>
 <section><h2>Do / Don't</h2><div class="dd"><div><h3>Do</h3><ul class="p"><li>背景は bone、カードは surface、区切りは border</li><li>主操作は accent（インク色）で示す</li><li>プリズムはロゴとキービジュアルだけに</li><li>状態はアイコン＋文言＋くすんだ状態色で伝える</li><li>ライト / ダーク両方で確認する</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ボタン・リンク・フォームにプリズムを使う</li><li>鮮やかな赤・緑などの原色を状態色に使う</li><li>プロダクトごとに独自パレットを作る</li><li>mute を本文の長文に使う（コントラスト不足）</li><li>色だけで意味を伝える</li></ul></div></div></section>
-<section id="typography" class="ty"><h2>文字 Typography</h2><p class="sub">本文 16px 基準。フォントはすべて SIL OFL。<strong>フォント: 確定（A = Sora＋Noto Sans JP / JetBrains Mono）</strong>。サイズスケールは提案値（悠太さん確認待ち）。<a href="tokens-preview.html">ライト／ダークで実フォント表示を見る →</a></p>
+<section id="typography" class="ty"><h2>文字 Typography</h2><p class="sub">本文 16px 基準。フォントはすべて SIL OFL。<strong>フォント: 確定（A = Sora＋Noto Sans JP / JetBrains Mono）</strong>。サイズスケール: 確定（xs 12 / sm 14 / base 16 / lg 18 / xl 24 / 2xl 32 / 3xl 40）。<a href="tokens-preview.html">ライト／ダークで実フォント表示を見る →</a></p>
 <h3 class="h">フォントスタック</h3><table><tr><th>用途</th><th>フォント</th><th>CSS</th></tr>
 <tr><td>英字・UI 英語</td><td>Sora</td><td><code>font-family: Sora, "Noto Sans JP", sans-serif</code></td></tr>
 <tr><td>日本語</td><td>Noto Sans JP</td><td>（上記スタックのフォールバックとして日本語に適用）</td></tr>
 <tr><td>コード・数値</td><td>JetBrains Mono</td><td><code>font-family: "JetBrains Mono", ui-monospace, monospace</code></td></tr></table>
-<h3 class="h">サイズスケール（提案）</h3><table><tr><th>トークン</th><th>rem</th><th>px</th><th>行間</th><th>用途</th></tr>
+<h3 class="h">サイズスケール</h3><table><tr><th>トークン</th><th>rem</th><th>px</th><th>行間</th><th>用途</th></tr>
 <tr><td><code>xs</code></td><td>0.75</td><td>12</td><td>1.6</td><td>注記・バッジ</td></tr>
 <tr><td><code>sm</code></td><td>0.875</td><td>14</td><td>1.7</td><td>補足・表・ボタン小</td></tr>
 <tr><td><code>base</code></td><td>1</td><td>16</td><td>1.8</td><td>本文・ボタン</td></tr>
@@ -84,7 +84,7 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
 
-<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケールは確認待ち。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
+<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
 <script>
 const h=document.documentElement,t=document.getElementById('t');
 function set(m){h.dataset.theme=m;t.textContent=m==='dark'?'ライト表示':'ダーク表示';localStorage.theme=m}
