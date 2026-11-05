@@ -20,8 +20,8 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:50;visibility:hidden;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
-:root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);visibility:hidden;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
+:root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1);--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
 .ui h3{margin:40px 0 12px}.ui .card{border-radius:var(--r-lg)}.ui .lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}.ui .help{font-size:12px;color:var(--mute);margin:4px 0 0}.ui .err{color:var(--danger)}
@@ -70,7 +70,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 <h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -335,6 +335,277 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 })();
 </script>
 </section>
+
+<section class="ui" id="p0">
+<style>
+:root{--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
+#p0 .frame{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
+#p0 .topnav{display:flex;align-items:center;gap:16px;height:56px;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+#p0 .topnav .brand{font-weight:600;letter-spacing:.12em;font-size:13px}
+#p0 .topnav .links{display:flex;gap:16px;flex:1;font-size:14px}
+#p0 .topnav .links a{color:var(--mute);text-decoration:none;font-weight:400}
+#p0 .topnav .links a:hover,#p0 .topnav .links a[aria-current=page]{color:var(--ink)}
+#p0 .topnav .avatar{width:28px;height:28px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);display:grid;place-content:center;font-size:11px;color:var(--mute)}
+#p0 .sidenav{width:240px;background:var(--surface);border-right:1px solid var(--border);padding:12px 8px;display:grid;gap:6px}
+#p0 .sidenav a{display:flex;align-items:center;height:40px;padding:0 12px;border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
+#p0 .sidenav a:hover{background:var(--accent-soft);color:var(--ink)}
+#p0 .sidenav a[aria-current=page]{background:var(--accent-soft);color:var(--ink)}
+#p0 .app-shell{display:flex;min-height:200px}
+#p0 .app-main{flex:1;padding:16px;font-size:14px}
+#p0 .mobile-note{display:flex;gap:12px;align-items:flex-start;margin-top:12px}
+#p0 .mini-mobile{width:120px;height:160px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:8px;flex:none;position:relative}
+#p0 .mini-mobile .bar{height:28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin:-8px -8px 8px;padding:0 8px}
+#p0 .bc{display:flex;align-items:center;gap:8px;font-size:14px;flex-wrap:wrap}
+#p0 .bc a{color:var(--mute);text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+#p0 .bc .sep{color:var(--mute)}#p0 .bc .cur{color:var(--ink)}
+#p0 .dd{position:relative;display:inline-block;z-index:var(--z-dropdown)}
+#p0 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:4px;z-index:var(--z-dropdown);display:none}
+#p0 .dd.open .dd-panel{display:block}
+#p0 .dd-panel button{display:flex;align-items:center;width:100%;height:38px;padding:0 12px;border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
+#p0 .dd-panel button:hover{background:var(--accent-soft)}
+#p0 .dd-panel button.danger{color:var(--danger)}
+#p0 .dd-panel hr{border:0;border-top:1px solid var(--border);margin:4px 0}
+#p0 .tip-wrap{position:relative;display:inline-flex}
+#p0 .tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;padding:6px 10px;border-radius:var(--r-sm);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-in) var(--ease-out);z-index:var(--z-dropdown)}
+#p0 .tip-wrap:hover .tip,#p0 .tip-wrap:focus-within .tip{opacity:1}
+#p0 .tip.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border)}
+#p0 .pop-host{position:relative;display:inline-block}
+#p0 .pop{position:absolute;top:calc(100% + 8px);left:0;width:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px;z-index:var(--z-dropdown);display:none}
+#p0 .pop-host.open .pop{display:block}
+#p0 .pop h4{margin:0 0 6px;font-size:14px;font-weight:600}
+#p0 .pop p{margin:0 0 12px;font-size:13px;color:var(--mute)}
+#p0 .pop .acts{display:flex;justify-content:flex-end;gap:8px}
+#p0 .pop-scrim{position:fixed;inset:0;z-index:calc(var(--z-dropdown) - 1);display:none;background:transparent}
+#p0 .pop-host.open .pop-scrim{display:block}
+#p0 .drawer-stage{position:relative;height:240px;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
+#p0 .drawer-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 18%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:var(--z-drawer)}
+#p0 .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:360px;max-width:86%;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform var(--motion-slow) var(--ease-out);z-index:calc(var(--z-drawer) + 1);display:flex;flex-direction:column}
+#p0 .drawer-stage.open .drawer-scrim{opacity:1;pointer-events:auto}
+#p0 .drawer-stage.open .drawer-panel{transform:none}
+#p0 .drawer-panel header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:15px}
+#p0 .drawer-panel .bd{padding:16px;font-size:14px;flex:1}
+@media (prefers-reduced-motion:reduce){
+#p0 .drawer-panel{transition:opacity 100ms linear;opacity:0}
+#p0 .drawer-stage.open .drawer-panel{opacity:1;transform:none}
+#p0 .drawer-scrim{transition:opacity 100ms linear}
+#p0 .tip{transition:opacity 100ms linear}
+}
+#p0 .bp-table{width:100%;border-collapse:collapse;font-size:14px}#p0 .bp-table th,#p0 .bp-table td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}#p0 .bp-table th{font-size:12px;color:var(--mute);font-weight:600}
+#p0 .grid-demo{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4);margin-top:8px}
+#p0 .grid-demo span{height:28px;background:var(--accent-soft);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;color:var(--mute);display:grid;place-content:center}
+@media (min-width:768px){#p0 .grid-demo{gap:var(--s-6)}}
+#p0 .z-stack{display:flex;flex-direction:column;gap:6px;max-width:420px}
+#p0 .z-stack div{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);font-size:13px}
+#p0 .z-stack .mono{font-size:12px;color:var(--mute)}
+#p0 .icons{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}
+#p0 .icons figure{margin:0;text-align:center}
+#p0 .icons figcaption{font:12px "JetBrains Mono",monospace;color:var(--mute);margin-top:6px}
+#p0 .icons svg{display:block;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink)}
+</style>
+<h2 id="p0-draft">骨格コンポーネント P0（下書き・いろは案）<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">ナビ・階層・浮遊UI・レスポンシブの骨格。値はいろは案（未確定）。P1（日付ピッカー等）はまだ始めない。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+
+<h3 id="p0-nav">Navigation</h3>
+<div class="frame" style="margin-bottom:12px">
+  <div class="topnav" role="navigation" aria-label="トップナビ見本">
+    <span class="brand">OUSIASS</span>
+    <div class="links"><a href="#" aria-current="page">概要</a><a href="#">プロジェクト</a><a href="#">請求</a></div>
+    <button type="button" class="ib gh" aria-label="メニュー" style="width:32px;height:32px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <span class="avatar" aria-hidden="true">YT</span>
+  </div>
+</div>
+<p class="tk">top nav: height 56 / border-bottom 1px / pad-x 16–24（見本 20） / リンク Regular mute・現在は ink / ロゴ左・操作右</p>
+<div class="frame" style="margin:16px 0 8px">
+  <div class="app-shell">
+    <nav class="sidenav" aria-label="サイドナビ見本">
+      <a href="#" aria-current="page">ダッシュボード</a>
+      <a href="#">メンバー</a>
+      <a href="#">設定</a>
+      <a href="#">サポート</a>
+    </nav>
+    <div class="app-main mute">サイドナビ幅 240 / 項目高さ 40 / gap 4–8 / active = accent-soft + ink</div>
+  </div>
+</div>
+<div class="mobile-note">
+  <div class="mini-mobile" aria-hidden="true">
+    <div class="bar"><span style="font-size:10px;font-weight:600;letter-spacing:.08em">OUSIASS</span><span style="width:20px;height:20px;border:1px solid var(--border);border-radius:4px;display:grid;place-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span></div>
+    <div style="height:8px;background:var(--accent-soft);border-radius:4px;margin-bottom:6px"></div>
+    <div style="height:8px;width:70%;background:var(--accent-soft);border-radius:4px"></div>
+    <div style="position:absolute;inset:28px 0 0;background:var(--surface);border-top:1px solid var(--border);padding:8px;font-size:10px;transform:translateY(40%);box-shadow:0 -2px 8px rgba(0,0,0,.04)">Drawer / sheet</div>
+  </div>
+  <p class="help" style="margin:0">モバイル：トップナビはアイコンボタンに畳み、シート／ドロワーへ。<strong>ナビリンクは SemiBold にしない</strong>（見出し・ボタンのみ）。</p>
+</div>
+
+<h3 id="p0-breadcrumb">Breadcrumb</h3>
+<div class="card">
+  <nav class="bc" aria-label="パンくず見本">
+    <a href="#">ホーム</a><span class="sep" aria-hidden="true">›</span>
+    <a href="#">プロジェクト</a><span class="sep" aria-hidden="true">›</span>
+    <span class="cur" aria-current="page">ブランドガイド</span>
+  </nav>
+  <p class="tk" style="margin-top:10px">mute リンク + ink 現在 / 区切り / または › / gap 8 / font sm 14</p>
+</div>
+
+<h3 id="p0-dropdown">Dropdown menu</h3>
+<div class="card">
+  <div class="dd" id="p0-dd">
+    <button type="button" class="btn sec sm ripple-host" id="p0-dd-btn" aria-haspopup="menu" aria-expanded="false">メニューを開く</button>
+    <div class="dd-panel" role="menu" aria-label="ドロップダウン見本">
+      <button type="button" role="menuitem">プロフィール</button>
+      <button type="button" role="menuitem">設定</button>
+      <hr>
+      <button type="button" role="menuitem" class="danger">ログアウト</button>
+    </div>
+  </div>
+  <ul class="vals" style="margin-top:12px">
+    <li>panel: surface + border + r-md + shadow-modal 任意 / pad 4 / min-width 180</li>
+    <li>item: 36–40h / pad 10–12 / hover accent-soft</li>
+    <li>danger: muted red（--danger）テキストのみ</li>
+    <li>z-index: dropdown (--z-dropdown 100) は modal (--z-modal 400) の下</li>
+  </ul>
+</div>
+
+<h3 id="p0-tooltip">Tooltip &amp; Popover</h3>
+<div class="f2">
+  <div class="card">
+    <span class="lbl">Tooltip（ホバー／フォーカス・非対話）</span>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:24px">
+      <span class="tip-wrap"><button type="button" class="btn sec sm">Inverse</button><span class="tip" role="tooltip">保存済みです</span></span>
+      <span class="tip-wrap"><button type="button" class="btn ghost sm">Surface</button><span class="tip alt" role="tooltip">補足テキスト</span></span>
+    </div>
+    <p class="help">12px / pad 6×10 / r-sm / fade-in 320ms。対話UIは置かない（ボタン・リンク禁止）。</p>
+  </div>
+  <div class="card">
+    <span class="lbl">Popover（タイトル＋アクション）</span>
+    <div class="pop-host" id="p0-pop">
+      <button type="button" class="btn sec sm ripple-host" id="p0-pop-btn" aria-expanded="false">ポップオーバー</button>
+      <div class="pop-scrim" id="p0-pop-scrim" hidden></div>
+      <div class="pop" role="dialog" aria-label="共有ポップオーバー">
+        <h4>リンクを共有</h4>
+        <p>知っている人だけが開けます。</p>
+        <div class="acts"><button type="button" class="btn ghost sm" data-pop-close>閉じる</button><button type="button" class="btn pri sm" data-pop-close>コピー</button></div>
+      </div>
+    </div>
+    <p class="help">外側クリックで閉じる（軽いスクラム）。dropdown より情報量が多く、modal より軽い。</p>
+  </div>
+</div>
+
+<h3 id="p0-drawer">Drawer</h3>
+<div class="card" style="padding:16px">
+  <button type="button" class="btn sec sm ripple-host" id="p0-drawer-open" style="margin-bottom:12px">右ドロワーを開く</button>
+  <div class="drawer-stage" id="p0-drawer">
+    <div class="drawer-scrim" id="p0-drawer-scrim"></div>
+    <aside class="drawer-panel" role="dialog" aria-label="ドロワー見本" aria-modal="true">
+      <header><span>詳細</span>
+        <button type="button" class="ib gh ripple-host" id="p0-drawer-close" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </header>
+      <div class="bd">
+        <p style="margin:0 0 8px">幅 360・右からスライド（--motion-slow）。スクラム付き。</p>
+        <p class="mute" style="margin:0;font-size:13px">reduced-motion 時はスライドなし・フェードのみ。</p>
+      </div>
+    </aside>
+  </div>
+  <p class="help" style="margin-top:10px"><strong>Drawer</strong>＝持続するサイド文脈（詳細・フィルタ）。<strong>Bottom sheet</strong>＝短い選択肢（共有など）。混同しない。</p>
+</div>
+
+<h3 id="p0-breakpoints">Breakpoints &amp; grid</h3>
+<div class="card" style="padding:0;overflow:auto">
+  <table class="bp-table"><thead><tr><th>トークン</th><th>値</th><th>カラム</th><th>ガター</th></tr></thead><tbody>
+    <tr><td class="mono">--bp-sm</td><td class="mono">640px</td><td>4 col</td><td class="mono">--s-4 (16)</td></tr>
+    <tr><td class="mono">--bp-md</td><td class="mono">768px</td><td>8 col</td><td class="mono">--s-4 → --s-6</td></tr>
+    <tr><td class="mono">--bp-lg</td><td class="mono">1024px</td><td>12 col</td><td class="mono">--s-6 (24)</td></tr>
+    <tr><td class="mono">--bp-xl</td><td class="mono">1280px</td><td>12 col</td><td class="mono">--s-6 (24)</td></tr>
+  </tbody></table>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="tk" style="margin-bottom:4px">12-column diagram（デスクトップ）</div>
+  <div class="grid-demo" aria-hidden="true">
+    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+  </div>
+  <p class="help" style="margin-top:10px">モバイル 4 / タブレット 8 / デスクトップ 12。ガター：モバイル --s-4、デスクトップ --s-6。</p>
+</div>
+
+<h3 id="p0-z">z-index scale</h3>
+<div class="card">
+  <div class="z-stack" aria-label="z-index スタック">
+    <div style="opacity:.55"><span>base</span><span class="mono">--z-base 0</span></div>
+    <div style="margin-left:8px"><span>dropdown / tooltip / popover</span><span class="mono">--z-dropdown 100</span></div>
+    <div style="margin-left:16px"><span>sticky（ヘッダー等）</span><span class="mono">--z-sticky 200</span></div>
+    <div style="margin-left:24px"><span>drawer</span><span class="mono">--z-drawer 300</span></div>
+    <div style="margin-left:32px"><span>modal</span><span class="mono">--z-modal 400</span></div>
+    <div style="margin-left:40px"><span>toast</span><span class="mono">--z-toast 500</span></div>
+  </div>
+  <p class="help" style="margin-top:10px">上に行くほど手前。dropdown &lt; drawer &lt; modal &lt; toast。</p>
+</div>
+
+<h3 id="p0-icons">Icon sizes</h3>
+<div class="card">
+  <div class="icons">
+    <figure>
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <figcaption>--icon-sm 16</figcaption>
+    </figure>
+    <figure>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <figcaption>--icon-md 20</figcaption>
+    </figure>
+    <figure>
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.9 7.2 18l.9-5.4L4.2 8.7l5.4-.8L12 3z"/></svg>
+      <figcaption>--icon-lg 24</figcaption>
+    </figure>
+    <figure>
+      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="opacity:.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+      <figcaption>--icon-xl 32（empty任意）</figcaption>
+    </figure>
+  </div>
+  <p class="help" style="margin-top:12px">ストローク幅 ≈1.5。UI アイコンは sm/md/lg。empty state のみ 32 可。</p>
+</div>
+
+<div class="note" style="margin-top:20px"><b>P0 下書きまとめ</b> — ナビ／パンくず／ドロップダウン／ツールチップ・ポップオーバー／ドロワー／BP・グリッド／z-index／アイコンサイズ。未掲載の部品（日付ピッカー等の P1）は使わない。必要なら先にガイドへ。</div>
+<script>
+(()=>{
+  const dd=document.getElementById('p0-dd'), ddBtn=document.getElementById('p0-dd-btn');
+  if(dd&&ddBtn){
+    ddBtn.addEventListener('click',e=>{e.stopPropagation();const on=!dd.classList.contains('open');dd.classList.toggle('open',on);ddBtn.setAttribute('aria-expanded',on?'true':'false')});
+    document.addEventListener('click',e=>{if(!dd.contains(e.target)){dd.classList.remove('open');ddBtn.setAttribute('aria-expanded','false')}});
+  }
+  const pop=document.getElementById('p0-pop'), popBtn=document.getElementById('p0-pop-btn'), popScrim=document.getElementById('p0-pop-scrim');
+  function closePop(){if(!pop)return;pop.classList.remove('open');popBtn&&popBtn.setAttribute('aria-expanded','false');if(popScrim)popScrim.hidden=true}
+  function openPop(){if(!pop)return;pop.classList.add('open');popBtn&&popBtn.setAttribute('aria-expanded','true');if(popScrim)popScrim.hidden=false}
+  popBtn&&popBtn.addEventListener('click',e=>{e.stopPropagation();pop.classList.contains('open')?closePop():openPop()});
+  popScrim&&popScrim.addEventListener('click',closePop);
+  pop&&pop.querySelectorAll('[data-pop-close]').forEach(b=>b.addEventListener('click',closePop));
+  const stage=document.getElementById('p0-drawer'), openB=document.getElementById('p0-drawer-open'), closeB=document.getElementById('p0-drawer-close'), scrim=document.getElementById('p0-drawer-scrim');
+  function openDr(){stage&&stage.classList.add('open')}
+  function closeDr(){stage&&stage.classList.remove('open')}
+  openB&&openB.addEventListener('click',openDr);
+  closeB&&closeB.addEventListener('click',closeDr);
+  scrim&&scrim.addEventListener('click',closeDr);
+  // attach ripples for new buttons
+  const sel='#p0 .btn, #p0 .ib';
+  document.querySelectorAll(sel).forEach(el=>{
+    if(el.dataset.rippleBound) return;
+    el.dataset.rippleBound='1';
+    el.classList.add('ripple-host');
+    el.addEventListener('pointerdown',e=>{
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(e.button!=null && e.button!==0) return;
+      const r=el.getBoundingClientRect();
+      const size=Math.ceil(Math.hypot(r.width,r.height)*2);
+      const x=e.clientX-r.left-size/2, y=e.clientY-r.top-size/2;
+      const span=document.createElement('span');
+      span.className='ripple';
+      span.style.width=span.style.height=size+'px';
+      span.style.left=x+'px';span.style.top=y+'px';
+      el.appendChild(span);
+      span.addEventListener('animationend',()=>span.remove());
+    });
+  });
+})();
+</script>
+</section>
+
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
 </div><div id="toast"></div><script>
 const r=document.documentElement,bs=document.querySelectorAll('.seg button');
