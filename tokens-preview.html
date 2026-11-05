@@ -20,7 +20,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-base) var(--ease-out),transform var(--motion-base) var(--ease-out);white-space:nowrap;z-index:50;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out) var(--ease-in),transform var(--motion-fade-out) var(--ease-in);white-space:nowrap;z-index:50;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;transition:opacity var(--motion-fade-in) var(--ease-out),transform var(--motion-fade-in) var(--ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
 :root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
@@ -204,7 +204,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="two" style="margin-bottom:12px">
 <div class="card"><b>出し方</b><ul class="ls">
 <li>位置：画面下中央（desktop / mobile 共通）。端から 24px</li>
-<li>出現：下から 8px＋フェード（180ms ease-out）</li>
+<li>出現：下から 8px＋フェードイン（--motion-fade-in）／退出：フェードアウト（--motion-fade-out）</li>
 <li>自動で消える：通常 <strong>3秒</strong>／アクション付き <strong>5秒</strong></li>
 <li>同時表示は原則 <strong>1つ</strong>（新しいものが出たら前を置き換え）</li>
 <li>文言は短く1行。動詞止め可「コピーしました」</li>
@@ -259,11 +259,11 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </section>
 <section class="ui" id="motion">
 <style>
-:root{--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1)}
+:root{--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1)}
 .mt{width:100%;border-collapse:collapse;font-size:14px}.mt th,.mt td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}.mt th{font-size:12px;color:var(--mute);font-weight:600}
 .mbtn{border:1px solid var(--border);background:var(--surface);color:var(--ink);font:600 14px Sora,"Noto Sans JP";padding:10px 18px;border-radius:8px;cursor:pointer;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
 .mbtn:hover{background:var(--accent-soft)}.mbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-.mfade{opacity:0;transform:translateY(6px)}.mfade.on{opacity:1;transform:none;transition:opacity var(--motion-base) var(--ease-out),transform var(--motion-base) var(--ease-out)}
+.mfade{opacity:0;transform:translateY(8px);transition:opacity var(--motion-fade-out) var(--ease-in),transform var(--motion-fade-out) var(--ease-in)}.mfade.on{opacity:1;transform:none;transition:opacity var(--motion-fade-in) var(--ease-out),transform var(--motion-fade-in) var(--ease-out)}
 .mstage{position:relative;height:180px;overflow:hidden;border-radius:12px;border:1px solid var(--border);background:var(--bone)}
 .mscrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out)}
 .msheet{position:absolute;left:8px;right:8px;bottom:0;height:110px;background:var(--surface);border-radius:16px 16px 0 0;padding:16px;font-size:14px;transform:translateY(100%);transition:transform var(--motion-slow) var(--ease-out)}
@@ -281,8 +281,11 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h3 id="motion-tokens">トークン Tokens</h3>
 <div class="card" style="padding:0;overflow:auto"><table class="mt"><thead><tr><th>トークン</th><th>値（ライブ）</th><th>用途</th></tr></thead><tbody>
 <tr><td class="mono">--motion-fast</td><td class="mono" data-v="--motion-fast"></td><td>フォーカスリング・小さな状態変化</td></tr>
-<tr><td class="mono">--motion-base</td><td class="mono" data-v="--motion-base"></td><td>ホバー（色・背景）・フェードイン・モーダル</td></tr>
-<tr><td class="mono">--motion-slow</td><td class="mono" data-v="--motion-slow"></td><td>シート出現・モーダル出現（大きめ）・スクラム</td></tr>
+<tr><td class="mono">--motion-base</td><td class="mono" data-v="--motion-base"></td><td>ホバー（色・背景）・小さな状態変化</td></tr>
+<tr><td class="mono">--motion-slow</td><td class="mono" data-v="--motion-slow"></td><td>シート出現・モーダル出現（大きめ）・スクラム・リップル</td></tr>
+<tr><td class="mono">--motion-fade-in</td><td class="mono" data-v="--motion-fade-in"></td><td>フェードイン（出現）。やや緩やか 320ms＋ease-out</td></tr>
+<tr><td class="mono">--motion-fade-out</td><td class="mono" data-v="--motion-fade-out"></td><td>フェードアウト（退出）。240ms＋ease-in</td></tr>
+<tr><td class="mono">--ease-in</td><td class="mono" data-v="--ease-in"></td><td>フェードアウト・退場用</td></tr>
 <tr><td class="mono">--ease-out</td><td class="mono" data-v="--ease-out"></td><td>出現・UI 全般（基本）</td></tr>
 <tr><td class="mono">--ease-in-out</td><td class="mono" data-v="--ease-in-out"></td><td>まれ（位置の往復など）。バウンス／スプリングは使わない</td></tr>
 <tr><td class="mono">リップル</td><td class="mono">280ms · ease-out</td><td>ボタン／クローズ押下時、クリック点から円がファンと広がる（インク薄め）</td></tr>
@@ -297,19 +300,28 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <button type="button" class="ib gh ripple-host" aria-label="閉じる"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 </div>
 <p class="help">ボタンとクローズ（アイコンボタン）に共通。小さくファンっと広がって消える。</p></div>
-<div class="card"><span class="lbl">フェードイン（opacity＋6px 上・180ms）</span><button class="mbtn" id="mt-replay">再生</button><div class="panel mfade on" id="mt-card" style="margin-top:12px;font-size:14px">カードが静かに現れます</div></div>
+<div class="card"><span class="lbl">フェードイン／アウト（in 320ms · out 240ms）</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+<button class="mbtn" id="mt-replay" type="button">フェードイン</button>
+<button class="mbtn" id="mt-fadeout" type="button">フェードアウト</button>
+</div>
+<div class="panel mfade on" id="mt-card" style="margin-top:4px;font-size:14px">カードが静かに現れます</div>
+<p class="help">出現は緩やか（320ms ease-out）、退出はやや短く（240ms ease-in）。移動は 8px。</p></div>
 <div class="card"><span class="lbl">シート（下から 280ms ＋ スクラムフェード）</span><input type="checkbox" id="mt-sh" hidden><label for="mt-sh" class="mbtn" style="display:inline-block;margin-bottom:12px">開く／閉じる</label>
 <div class="mstage"><label for="mt-sh" class="mscrim" style="pointer-events:auto"></label><div class="msheet"><div style="font-weight:600">共有</div><span class="mute">スクラムをクリックで閉じる</span></div></div><p class="help">CSS のみ。スクラムはオーバーレイと同時にフェード。</p></div>
 <div class="card"><span class="lbl">スピナー・進捗（既存のまま）</span><div style="display:flex;gap:10px;align-items:center"><span class="spin" role="status" aria-label="読み込み中"></span><span class="mute" style="font-size:14px">見た目・速度は Feedback 節の定義を維持</span></div></div>
 </div>
 <h3 id="motion-rules">ルール Rules</h3>
-<div class="two"><div class="card"><b>Do</b><ul class="ls"><li>状態の変化・出現/退出を伝えるときだけ動かす</li><li>opacity＋小さな移動（4–8px）を使う</li><li>ホバーは色/背景のみ ≤180ms、フォーカスは即時〜120ms</li><li>ボタン／クローズの押下は小さくリップル（円がファン）</li><li>モーダル：フェード＋わずかに上 180–280ms／シート：下から 280ms</li><li>スクラムはオーバーレイと一緒にフェード</li></ul></div>
+<div class="two"><div class="card"><b>Do</b><ul class="ls"><li>状態の変化・出現/退出を伝えるときだけ動かす</li><li>opacity＋小さな移動（4–8px）を使う</li><li>ホバーは色/背景のみ ≤180ms、フォーカスは即時〜120ms</li><li>ボタン／クローズの押下は小さくリップル（円がファン）</li><li>フェードイン 320ms / フェードアウト 240ms。モーダル出現は slow 帯／シート：下から 280ms</li><li>スクラムはオーバーレイと一緒にフェード</li></ul></div>
 <div class="card"><b>Don’t</b><ul class="ls"><li>装飾だけのループ・視差・大きな移動</li><li>バウンス／スプリング、scale ポップ（使うなら最大 1.02）</li><li>UI 上のプリズム（虹色）モーション</li><li>300ms を超える UI トランジション</li><li>reduced-motion を無視する</li></ul></div></div>
 <div class="note" style="margin-top:16px"><b>prefers-reduced-motion: reduce</b> — 装飾的な動き（移動・スライド）は無効化。必要な opacity フェードは ≤100ms またはなし。スピナーなど処理中表示は維持。</div>
 <p style="margin-top:12px;font-size:14px">ガイドに定義のないモーションパターンも 「<strong>ガイドにないものは使わない</strong>」 の対象です。</p>
 <script>
 (()=>{const cs=getComputedStyle(document.documentElement);document.querySelectorAll('#motion [data-v]').forEach(e=>e.textContent=cs.getPropertyValue(e.dataset.v).trim());
-const c=document.getElementById('mt-card');document.getElementById('mt-replay').onclick=()=>{c.classList.remove('on');void c.offsetWidth;requestAnimationFrame(()=>c.classList.add('on'))}})();
+const c=document.getElementById('mt-card');
+document.getElementById('mt-replay').onclick=()=>{c.classList.remove('on');void c.offsetWidth;requestAnimationFrame(()=>c.classList.add('on'))};
+document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
+})();
 </script>
 </section>
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
