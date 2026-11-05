@@ -6,7 +6,7 @@
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#8b8b8e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .2s,color .2s}
-.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b{font-weight:600}
+.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b,#p3 .card h3,#p3 .card h4,#p3 .rte-tb,#p3 .vid-bar,#p3 .code-hd{font-weight:600}
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:14px}
@@ -71,7 +71,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 <div class="hero"><h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a> · <a href="#p2">P2 上級UI（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a> · <a href="#p2">P2 上級UI（下書き）→</a> · <a href="#p3">P3 メディア／エディタ（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -1336,6 +1336,167 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   });
 })();
 </script>
+</section>
+
+<section class="ui" id="p3">
+<style>
+#p3 .map{position:relative;height:240px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden}
+#p3 .map .grid{position:absolute;inset:0;background:
+  linear-gradient(var(--border) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(90deg,var(--border) 1px,transparent 1px) 0 0/40px 40px;
+  opacity:.55}
+#p3 .map .land{position:absolute;left:12%;top:18%;width:52%;height:58%;border-radius:40% 48% 42% 50%/48% 40% 55% 45%;background:color-mix(in srgb,var(--mute) 18%,var(--surface));border:1px solid var(--border)}
+#p3 .map .road{position:absolute;left:18%;top:48%;width:58%;height:2px;background:var(--border);transform:rotate(-8deg)}
+#p3 .map .road2{position:absolute;left:42%;top:22%;width:2px;height:58%;background:var(--border)}
+#p3 .map .pin{position:absolute;left:48%;top:42%;width:10px;height:10px;border-radius:var(--r-full);background:var(--ink);border:2px solid var(--surface);box-shadow:0 0 0 1px var(--border);transform:translate(-50%,-50%)}
+#p3 .map .chrome{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;gap:6px}
+#p3 .map .chrome button{width:32px;height:32px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);cursor:default;display:grid;place-content:center;font:600 14px Sora,"Noto Sans JP"}
+#p3 .map .badge{position:absolute;left:12px;bottom:12px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r-full);background:var(--surface);font-size:12px;color:var(--mute)}
+#p3 .rte{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+#p3 .rte-tb{display:flex;flex-wrap:wrap;gap:2px;padding:8px 10px;border-bottom:1px solid var(--border);background:var(--bone)}
+#p3 .rte-tb button{min-width:32px;height:32px;padding:0 8px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink);font:600 13px Sora,"Noto Sans JP";cursor:default}
+#p3 .rte-tb button:hover{background:var(--accent-soft)}
+#p3 .rte-tb button[aria-pressed=true]{background:var(--accent-soft)}
+#p3 .rte-tb .sep{width:1px;height:20px;background:var(--border);margin:6px 4px;align-self:center}
+#p3 .rte-tb svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;display:block}
+#p3 .rte-body{min-height:140px;padding:16px 18px;font:400 15px/1.8 Sora,"Noto Sans JP";color:var(--ink)}
+#p3 .rte-body p{margin:0 0 10px}
+#p3 .rte-body .ph{color:var(--mute)}
+#p3 .vid{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--ink);overflow:hidden;color:var(--bone)}
+#p3 .vid-stage{position:relative;aspect-ratio:16/9;display:grid;place-items:center;background:color-mix(in srgb,var(--ink) 92%,var(--mute))}
+#p3 .vid-stage .play{width:56px;height:56px;border-radius:var(--r-full);border:1px solid color-mix(in srgb,var(--bone) 35%,transparent);background:color-mix(in srgb,var(--ink) 40%,transparent);color:var(--bone);display:grid;place-content:center}
+#p3 .vid-stage .play svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+#p3 .vid-bar{display:flex;align-items:center;gap:10px;padding:10px 12px;background:color-mix(in srgb,var(--ink) 88%,var(--mute));border-top:1px solid color-mix(in srgb,var(--bone) 12%,transparent);font:400 12px Sora,"Noto Sans JP";color:color-mix(in srgb,var(--bone) 78%,transparent)}
+#p3 .vid-bar button{width:28px;height:28px;border:0;border-radius:var(--r-sm);background:transparent;color:inherit;cursor:default;display:grid;place-content:center;padding:0}
+#p3 .vid-bar button:hover{background:color-mix(in srgb,var(--bone) 12%,transparent)}
+#p3 .vid-bar svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#p3 .vid-bar .track{flex:1;height:4px;border-radius:var(--r-full);background:color-mix(in srgb,var(--bone) 18%,transparent);overflow:hidden}
+#p3 .vid-bar .track i{display:block;width:28%;height:100%;background:var(--bone);border-radius:var(--r-full)}
+#p3 .vid-bar .time{font:12px "JetBrains Mono",monospace;white-space:nowrap}
+#p3 .code{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font:13px/1.7 "JetBrains Mono",ui-monospace,monospace}
+#p3 .code-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--bone);font:600 12px Sora,"Noto Sans JP";color:var(--mute)}
+#p3 .code-hd .dots{display:flex;gap:6px}
+#p3 .code-hd .dots i{width:8px;height:8px;border-radius:var(--r-full);background:var(--border)}
+#p3 .code-body{display:grid;grid-template-columns:40px 1fr;max-height:220px;overflow:auto}
+#p3 .code-gutter{padding:12px 0;text-align:right;color:var(--mute);background:var(--bone);border-right:1px solid var(--border);user-select:none}
+#p3 .code-gutter span{display:block;padding:0 10px;line-height:1.7}
+#p3 .code-src{padding:12px 14px;color:var(--ink);white-space:pre;overflow:auto}
+#p3 .code-src .c{color:var(--mute)}
+#p3 .code-src .k{color:var(--ink);font-weight:600}
+#p3 .rule-card{border:1px dashed var(--mute);border-radius:var(--r-lg);background:var(--bone);padding:20px 22px}
+#p3 .rule-card h4{margin:0 0 8px;font:600 15px Sora,"Noto Sans JP"}
+#p3 .rule-card p{margin:0 0 10px;font-size:14px;color:var(--ink);line-height:1.7}
+#p3 .rule-card ul{margin:0;padding-left:1.2em;font-size:14px}
+#p3 .rule-card li{margin:4px 0}
+</style>
+<h2 id="p3-draft">UI部品 P3（下書き・いろは案）<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">地図・リッチテキスト・動画プレイヤー・コードエディタ。独自ウィジェットは案件ガイドへ。値はいろは案（未確定）。アイコンは Iconoir。Light / Dark 切替で確認。UI クロムにプリズムは使わない。</p>
+<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。プロダクト専用ウィジェットは共通ガイドに発明しない。</p>
+
+<h3 id="p3-map">地図</h3>
+<div class="card">
+  <div class="map" role="img" aria-label="地図下書き（ミュートなクロム）">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="land" aria-hidden="true"></div>
+    <div class="road" aria-hidden="true"></div>
+    <div class="road2" aria-hidden="true"></div>
+    <div class="pin" aria-hidden="true" title="静かなピン"></div>
+    <div class="chrome" aria-hidden="true">
+      <button type="button" tabindex="-1">+</button>
+      <button type="button" tabindex="-1">−</button>
+    </div>
+    <div class="badge">詳細は案件ガイド</div>
+  </div>
+  <ul class="vals" style="margin-top:12px">
+    <li>クロムは mute／border。目立つマーカー色・プリズムピンは使わない</li>
+    <li>タイル・クラスタ・経路の細部は<strong>案件ガイド</strong>で定義</li>
+    <li>共通ガイドは「静かな地図枠」のトーンだけを示す</li>
+  </ul>
+</div>
+
+<h3 id="p3-rte">リッチテキスト</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="rte" aria-label="リッチテキスト下書き">
+    <div class="rte-tb" role="toolbar" aria-label="書式（スケッチ）">
+      <button type="button" aria-pressed="true" aria-label="太字"><b>B</b></button>
+      <button type="button" aria-label="斜体"><i style="font-style:italic;font-weight:400">I</i></button>
+      <button type="button" aria-label="下線"><span style="text-decoration:underline;font-weight:400">U</span></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" aria-label="箇条書き"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
+      <button type="button" aria-label="番号リスト"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h10M10 12h10M10 18h10M4 6h2v0M4 12h2M4 18h2"/></svg></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" aria-label="リンク"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l2.83-2.83a4 4 0 0 0-5.66-5.66L11 7M14 10a4 4 0 0 0-5.66 0L5.51 12.83a4 4 0 1 0 5.66 5.66L13 17"/></svg></button>
+    </div>
+    <div class="rte-body">
+      <p>静かな道具をつくる — Quiet tools for focused work</p>
+      <p class="ph">本文は Sora / Noto Sans JP。ツールバーは bone 帯、押下は accent-soft。派手なカラーピッカーやプリズム装飾は置かない。</p>
+    </div>
+  </div>
+  <div style="padding:14px 16px">
+    <p class="help" style="margin:0">ツールバーはスケッチ。実装のコマンドセット・拡張は案件ガイド。共通は「静かなエディタ面＋薄いツール帯」。</p>
+  </div>
+</div>
+
+<h3 id="p3-video">動画プレイヤー</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="vid" aria-label="動画プレイヤー下書き">
+    <div class="vid-stage">
+      <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div class="vid-bar">
+      <button type="button" aria-label="再生" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <span class="time">0:28 / 1:42</span>
+      <div class="track" aria-hidden="true"><i></i></div>
+      <button type="button" aria-label="ミュート" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/><path d="M18 6a7 7 0 0 1 0 12"/></svg></button>
+      <button type="button" aria-label="全画面" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M21 15v6h-6"/></svg></button>
+    </div>
+  </div>
+  <div style="padding:14px 16px">
+    <ul class="vals" style="margin:0">
+      <li>コントロールは Ink 帯の上に bone 系アイコン（Iconoir 風・線 1.5）</li>
+      <li>進捗は無彩色。ブランド色やプリズムのスクラブは使わない</li>
+      <li>オーバーレイ広告・派手なエンドカードは共通ガイド外</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="p3-code">コードエディタ</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="code" aria-label="コードエディタ下書き">
+    <div class="code-hd">
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>tokens.ts</span>
+      <span>JetBrains Mono</span>
+    </div>
+    <div class="code-body">
+      <div class="code-gutter" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+      <pre class="code-src"><span class="c">// Quiet UI tokens — draft</span>
+<span class="k">export</span> <span class="k">const</span> color = {
+  ink: <span class="c">'#050505'</span>,
+  bone: <span class="c">'#f5f5f4'</span>,
+  mute: <span class="c">'#8b8b8e'</span>,
+} <span class="k">as</span> <span class="k">const</span>;
+</pre>
+    </div>
+  </div>
+  <div style="padding:14px 16px">
+    <p class="help" style="margin:0">ガターは bone＋mute 行番号。シンタックスは ink／mute の最小対比（プリズムや原色ハイライトは共通ガイドに持ち込まない）。フォントは JetBrains Mono。</p>
+  </div>
+</div>
+
+<h3 id="p3-custom">独自ウィジェット</h3>
+<div class="rule-card">
+  <h4>ルール（下書き）</h4>
+  <p>プロダクト専用の独自ウィジェットは、<strong>この共通ブランドガイドには置かない</strong>。必要な画面部品はそのプロダクト／案件ガイドで定義する。</p>
+  <ul>
+    <li>共通ガイド = 全プロダクトで共有する部品のみ</li>
+    <li>案件固有 UI をここに発明・スケッチしない</li>
+    <li>共有化したいときは、先に共通ガイドへ提案してから使う</li>
+    <li><strong>ガイドにない部品は使わない</strong></li>
+  </ul>
+</div>
+
+<div class="note" style="margin-top:20px"><b>P3 下書きまとめ</b> — 地図／リッチテキスト／動画プレイヤー／コードエディタ／独自ウィジェット方針。いずれも下書き。ガイドにない部品は使わない。プロダクト専用は案件ガイドへ。</div>
 </section>
 
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
