@@ -242,7 +242,13 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .mscrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out)}
 .msheet{position:absolute;left:8px;right:8px;bottom:0;height:110px;background:var(--surface);border-radius:16px 16px 0 0;padding:16px;font-size:14px;transform:translateY(100%);transition:transform var(--motion-slow) var(--ease-out)}
 #mt-sh:checked~.mstage .mscrim{opacity:1}#mt-sh:checked~.mstage .msheet{transform:none}
-@media (prefers-reduced-motion:reduce){#motion .mfade,#motion .mfade.on{transform:none;transition:opacity 100ms linear}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}}
+@media (prefers-reduced-motion:reduce){#motion .mfade,#motion .mfade.on{transform:none;transition:opacity 100ms linear}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}
+.ripple-host .ripple{display:none!important}}
+.ripple-host{position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.ripple{position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;background:color-mix(in srgb,var(--ink) 22%,transparent);animation:ripple-fan var(--motion-slow) var(--ease-out) forwards}
+[data-theme=dark] .ripple{background:color-mix(in srgb,var(--ink) 28%,transparent)}
+.pri.ripple-host .ripple,.dan.ripple-host .ripple{background:color-mix(in srgb,var(--bone) 35%,transparent)}
+@keyframes ripple-fan{to{transform:scale(1);opacity:0}}
 </style>
 <h2 id="motion-draft">モーション Motion（下書き・いろは案）<span class="draft">下書き</span></h2>
 <p class="mute" style="font-size:14px">静か・短く・目的があるときだけ。派手な動き、UI 上のプリズム（虹色）モーションは使わない。</p>
@@ -253,17 +259,25 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <tr><td class="mono">--motion-slow</td><td class="mono" data-v="--motion-slow"></td><td>シート出現・モーダル出現（大きめ）・スクラム</td></tr>
 <tr><td class="mono">--ease-out</td><td class="mono" data-v="--ease-out"></td><td>出現・UI 全般（基本）</td></tr>
 <tr><td class="mono">--ease-in-out</td><td class="mono" data-v="--ease-in-out"></td><td>まれ（位置の往復など）。バウンス／スプリングは使わない</td></tr>
+<tr><td class="mono">リップル</td><td class="mono">280ms · ease-out</td><td>ボタン／クローズ押下時、クリック点から円がファンと広がる（インク薄め）</td></tr>
 </tbody></table></div>
 <h3 id="motion-demos">見本 Demos</h3>
 <div class="f2">
 <div class="card"><span class="lbl">ボタン hover（背景色のみ・180ms）</span><button class="mbtn">ホバーしてください</button><p class="help">動かさない。色/背景だけ。フォーカスリングは即時。</p></div>
+<div class="card"><span class="lbl">リップル（クリック点から円・280ms）</span>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<button type="button" class="btn pri ripple-host">押してみて</button>
+<button type="button" class="btn sec ripple-host">Secondary</button>
+<button type="button" class="ib gh ripple-host" aria-label="閉じる"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<p class="help">ボタンとクローズ（アイコンボタン）に共通。小さくファンっと広がって消える。</p></div>
 <div class="card"><span class="lbl">フェードイン（opacity＋6px 上・180ms）</span><button class="mbtn" id="mt-replay">再生</button><div class="panel mfade on" id="mt-card" style="margin-top:12px;font-size:14px">カードが静かに現れます</div></div>
 <div class="card"><span class="lbl">シート（下から 280ms ＋ スクラムフェード）</span><input type="checkbox" id="mt-sh" hidden><label for="mt-sh" class="mbtn" style="display:inline-block;margin-bottom:12px">開く／閉じる</label>
 <div class="mstage"><label for="mt-sh" class="mscrim" style="pointer-events:auto"></label><div class="msheet"><div style="font-weight:600">共有</div><span class="mute">スクラムをクリックで閉じる</span></div></div><p class="help">CSS のみ。スクラムはオーバーレイと同時にフェード。</p></div>
 <div class="card"><span class="lbl">スピナー・進捗（既存のまま）</span><div style="display:flex;gap:10px;align-items:center"><span class="spin" role="status" aria-label="読み込み中"></span><span class="mute" style="font-size:14px">見た目・速度は Feedback 節の定義を維持</span></div></div>
 </div>
 <h3 id="motion-rules">ルール Rules</h3>
-<div class="two"><div class="card"><b>Do</b><ul class="ls"><li>状態の変化・出現/退出を伝えるときだけ動かす</li><li>opacity＋小さな移動（4–8px）を使う</li><li>ホバーは色/背景のみ ≤180ms、フォーカスは即時〜120ms</li><li>モーダル：フェード＋わずかに上 180–280ms／シート：下から 280ms</li><li>スクラムはオーバーレイと一緒にフェード</li></ul></div>
+<div class="two"><div class="card"><b>Do</b><ul class="ls"><li>状態の変化・出現/退出を伝えるときだけ動かす</li><li>opacity＋小さな移動（4–8px）を使う</li><li>ホバーは色/背景のみ ≤180ms、フォーカスは即時〜120ms</li><li>ボタン／クローズの押下は小さくリップル（円がファン）</li><li>モーダル：フェード＋わずかに上 180–280ms／シート：下から 280ms</li><li>スクラムはオーバーレイと一緒にフェード</li></ul></div>
 <div class="card"><b>Don’t</b><ul class="ls"><li>装飾だけのループ・視差・大きな移動</li><li>バウンス／スプリング、scale ポップ（使うなら最大 1.02）</li><li>UI 上のプリズム（虹色）モーション</li><li>300ms を超える UI トランジション</li><li>reduced-motion を無視する</li></ul></div></div>
 <div class="note" style="margin-top:16px"><b>prefers-reduced-motion: reduce</b> — 装飾的な動き（移動・スライド）は無効化。必要な opacity フェードは ≤100ms またはなし。スピナーなど処理中表示は維持。</div>
 <p style="margin-top:12px;font-size:14px">ガイドに定義のないモーションパターンも 「<strong>ガイドにないものは使わない</strong>」 の対象です。</p>
@@ -292,4 +306,29 @@ document.querySelectorAll('.scrim').forEach(sc=>{
     setTimeout(()=>{panel.style.visibility='';panel.style.pointerEvents=''},1600);
   });
 });
+(function(){
+  const sel='.ui .btn:not(:disabled), .ui .ib, .mbtn, button.ripple-host, .ib.ripple-host';
+  function attach(el){
+    if(el.dataset.rippleBound) return;
+    el.dataset.rippleBound='1';
+    el.classList.add('ripple-host');
+    el.addEventListener('pointerdown',e=>{
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(e.button!=null && e.button!==0) return;
+      const r=el.getBoundingClientRect();
+      const size=Math.ceil(Math.hypot(r.width,r.height)*2);
+      const x=e.clientX-r.left-size/2;
+      const y=e.clientY-r.top-size/2;
+      const span=document.createElement('span');
+      span.className='ripple';
+      span.style.width=span.style.height=size+'px';
+      span.style.left=x+'px';
+      span.style.top=y+'px';
+      el.appendChild(span);
+      span.addEventListener('animationend',()=>span.remove());
+    });
+  }
+  document.querySelectorAll(sel).forEach(attach);
+  document.querySelectorAll('.modal .ib, .sheet .btn, .ui .btn, .ui .ib').forEach(attach);
+})();
 </script></body></html>
