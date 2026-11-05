@@ -6,7 +6,7 @@
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#8b8b8e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .2s,color .2s}
-.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4{font-weight:600}
+.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b{font-weight:600}
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:14px}
@@ -71,7 +71,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 <div class="hero"><h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a> · <a href="#p2">P2 上級UI（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -916,6 +916,407 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
   // ripples for p1 buttons
   document.querySelectorAll('#p1 .btn, #p1 .ib').forEach(el=>{
+    if(el.dataset.rippleBound) return;
+    el.dataset.rippleBound='1';
+    el.classList.add('ripple-host');
+    el.addEventListener('pointerdown',e=>{
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(e.button!=null && e.button!==0) return;
+      const r=el.getBoundingClientRect();
+      const size=Math.ceil(Math.hypot(r.width,r.height)*2);
+      const x=e.clientX-r.left-size/2, y=e.clientY-r.top-size/2;
+      const span=document.createElement('span');
+      span.className='ripple';
+      span.style.width=span.style.height=size+'px';
+      span.style.left=x+'px';span.style.top=y+'px';
+      el.appendChild(span);
+      span.addEventListener('animationend',()=>span.remove());
+    });
+  });
+})();
+</script>
+</section>
+
+<section class="ui" id="p2">
+<style>
+#p2 .stage{position:relative;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden;min-height:220px}
+#p2 .cmdk-stage{min-height:280px;display:grid;place-items:center;padding:24px}
+#p2 .cmdk-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent)}
+#p2 .cmdk{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);overflow:hidden}
+#p2 .cmdk-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
+#p2 .cmdk-hd svg{flex:none;width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
+#p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 15px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
+#p2 .cmdk-hd input:focus{outline:none;box-shadow:none;border:0}
+#p2 .cmdk-list{padding:var(--gap-option);display:flex;flex-direction:column;gap:var(--gap-option);max-height:220px;overflow:auto}
+#p2 .cmdk-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
+#p2 .cmdk-list button:hover,#p2 .cmdk-list button[aria-selected=true]{background:var(--accent-soft)}
+#p2 .cmdk-list .meta{color:var(--mute);font:12px "JetBrains Mono",monospace}
+#p2 .cmdk-ft{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--border);font-size:12px;color:var(--mute)}
+#p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
+#p2 .chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+#p2 .fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:var(--r-full);border:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--ink);cursor:pointer}
+#p2 .fchip[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent)}
+#p2 .fchip .x{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;line-height:1;font-size:14px}
+#p2 .atable{width:100%;border-collapse:collapse;font-size:14px}
+#p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+#p2 .atable th{font:600 12px Sora,"Noto Sans JP";color:var(--mute);letter-spacing:.02em;white-space:nowrap}
+#p2 .atable th.sortable{cursor:pointer}
+#p2 .atable th.sortable .sort{display:inline-flex;align-items:center;gap:4px}
+#p2 .atable th.sortable svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;opacity:.7}
+#p2 .atable th[aria-sort=ascending],#p2 .atable th[aria-sort=descending]{color:var(--ink)}
+#p2 .atable tbody tr:hover{background:var(--accent-soft)}
+#p2 .atable .num{font-family:"JetBrains Mono",monospace;text-align:right}
+#p2 .atable input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);padding:0;margin:0}
+#p2 .bulk{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--accent-soft);margin-bottom:10px;font-size:13px}
+#p2 .bulk .acts{display:flex;gap:var(--gap-inline);margin-left:auto;flex-wrap:wrap}
+#p2 .tree{list-style:none;margin:0;padding:0;font-size:14px}
+#p2 .tree ul{list-style:none;margin:0;padding:0 0 0 18px;border-left:1px solid var(--border);margin-left:10px}
+#p2 .tree li{margin:0}
+#p2 .tree .row{display:flex;align-items:center;gap:6px;min-height:var(--menu-item-h);padding:0 8px;border-radius:var(--r-md);color:var(--ink)}
+#p2 .tree .row:hover{background:var(--accent-soft)}
+#p2 .tree .tw{width:20px;height:20px;border:0;background:transparent;color:var(--mute);cursor:pointer;display:grid;place-content:center;padding:0;border-radius:var(--r-sm);flex:none}
+#p2 .tree .tw:hover{background:var(--surface);color:var(--ink)}
+#p2 .tree .tw svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;transition:transform var(--motion-base) var(--ease-out)}
+#p2 .tree details>summary{list-style:none;cursor:pointer}
+#p2 .tree details>summary::-webkit-details-marker{display:none}
+#p2 .tree details:not([open])>summary .tw svg{transform:rotate(-90deg)}
+#p2 .tree .leaf{width:20px;flex:none}
+#p2 .mcal{width:min(320px,100%);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
+#p2 .mcal header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border);font-weight:600}
+#p2 .mcal header .nav{display:flex;gap:4px}
+#p2 .mcal header button{width:28px;height:28px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-content:center}
+#p2 .mcal header button:hover{background:var(--accent-soft)}
+#p2 .mcal header button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+#p2 .mcal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:10px;grid-template-columns:repeat(7,1fr)}
+#p2 .mcal .dow{text-align:center;color:var(--mute);font-size:11px;padding:4px 0}
+#p2 .mcal .d{height:36px;border:0;background:transparent;border-radius:var(--r-md);color:var(--ink);font:400 13px Sora,"Noto Sans JP";cursor:default;position:relative}
+#p2 .mcal .d.mute{color:var(--mute)}
+#p2 .mcal .d.today{font-weight:600;background:var(--accent-soft)}
+#p2 .mcal .d .dot{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:var(--r-full);background:var(--info)}
+#p2 .chart-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-grid)}
+#p2 .chart{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:var(--pad-card-sm,16px)}
+#p2 .chart h4{margin:0 0 4px;font:600 14px Sora,"Noto Sans JP"}
+#p2 .chart .leg{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 12px;font-size:12px;color:var(--mute)}
+#p2 .chart .leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+#p2 .chart svg{display:block;width:100%;height:auto}
+#p2 .skel{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:16px;overflow:hidden}
+#p2 .skel .bar{height:12px;border-radius:var(--r-sm);background:var(--accent-soft);margin-bottom:10px}
+#p2 .skel .bar.lg{height:18px;width:55%}
+#p2 .skel .bar.md{width:72%}
+#p2 .skel .bar.sm{width:40%;height:10px}
+#p2 .skel .row2{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+#p2 .skel .av{width:36px;height:36px;border-radius:var(--r-full);background:var(--accent-soft);flex:none}
+#p2 .skel .col{flex:1;min-width:0}
+#p2 .skel .line{height:1px;background:var(--border);margin:12px 0}
+#p2 .skel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--gap-grid)}
+#p2 .coach-stage{position:relative;min-height:240px;padding:20px}
+#p2 .coach-ui{border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:16px;max-width:280px}
+#p2 .coach-spot{position:relative;z-index:2;outline:2px solid var(--focus);outline-offset:4px;border-radius:var(--r-md);box-shadow:0 0 0 9999px color-mix(in srgb,var(--ink) 35%,transparent)}
+#p2 .coach-tip{position:absolute;z-index:3;left:min(320px,55%);top:48px;width:min(240px,70%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px}
+#p2 .coach-tip b{display:block;font-size:14px;margin-bottom:6px}
+#p2 .coach-tip p{margin:0 0 12px;font-size:13px;color:var(--mute)}
+#p2 .coach-tip .acts{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#p2 .coach-tip .step{font-size:12px;color:var(--mute)}
+#p2 .print-card{background:var(--bone);color:var(--ink);border:1px dashed var(--border);border-radius:var(--r-lg);padding:20px;font-size:14px}
+#p2 .print-card h4{margin:0 0 8px;font:600 15px Sora,"Noto Sans JP"}
+#p2 .print-card ul{margin:0;padding-left:1.2em}
+#p2 .print-card li{margin:4px 0}
+#p2 .snack-demo{position:relative;min-height:120px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden}
+#p2 .snackbar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);font-size:14px}
+#p2 .snackbar .msg{flex:1;min-width:0}
+#p2 .snackbar .act{border:0;background:transparent;color:var(--ink);font:600 14px Sora,"Noto Sans JP";cursor:pointer;padding:0;flex:none}
+#p2 .toast-static{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;border-radius:999px;font:400 14px Sora,"Noto Sans JP";white-space:nowrap;max-width:min(92%,360px)}
+#p2 .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-grid)}
+@media (prefers-reduced-motion:reduce){
+  #p2 .tree .tw svg{transition:none}
+}
+</style>
+<h2 id="p2-draft">UI部品 P2（下書き・いろは案）<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">コマンドパレット・上級テーブル・ツリー・カレンダー・チャート・スケルトン・コーチマーク・印刷／PDF・スナック／トースト使い分け。値はいろは案（未確定）。アイコンは Iconoir。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+
+<h3 id="p2-cmdk">コマンドパレット／スポットライト検索</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="stage cmdk-stage" aria-label="コマンドパレット下書き">
+    <div class="cmdk-scrim" aria-hidden="true"></div>
+    <div class="cmdk" role="dialog" aria-modal="true" aria-label="コマンドパレット">
+      <div class="cmdk-hd">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 15.5L19 19M5 11C5 14.3137 7.68629 17 11 17C12.6597 17 14.1621 16.3261 15.2483 15.237C16.3329 14.1494 17 12.6546 17 11C17 7.68629 14.3137 5 11 5C7.68629 5 5 7.68629 5 11Z"/></svg>
+        <input type="search" value="プロジェクト" aria-label="コマンド検索" readonly>
+      </div>
+      <div class="cmdk-list" role="listbox">
+        <button type="button" role="option" aria-selected="true"><span>ブランドガイドを開く</span><span class="meta">↵</span></button>
+        <button type="button" role="option"><span>新しい請求を作成</span><span class="meta">N</span></button>
+        <button type="button" role="option"><span>テーマを切り替える</span><span class="meta">T</span></button>
+        <button type="button" role="option"><span>設定へ移動</span><span class="meta">G S</span></button>
+      </div>
+      <div class="cmdk-ft"><span><kbd>↑</kbd><kbd>↓</kbd> 移動</span><span><kbd>↵</kbd> 実行</span><span><kbd>Esc</kbd> 閉じる</span></div>
+    </div>
+  </div>
+  <div style="padding:14px 16px">
+    <p class="help" style="margin:0">中央オーバーレイ。外側スクラムクリックで閉じる（P0 モーダル方針）。結果行はメニュー行高・accent-soft 選択。キーボードヒントはフッターに静かに。</p>
+  </div>
+</div>
+
+<h3 id="p2-table">データテーブル上級</h3>
+<div class="card">
+  <div class="chips-row" aria-label="フィルタ">
+    <span class="fchip" aria-pressed="true">担当: いろは <button type="button" class="x" aria-label="削除">×</button></span>
+    <span class="fchip" aria-pressed="true">状態: 進行中 <button type="button" class="x" aria-label="削除">×</button></span>
+    <button type="button" class="fchip">+ フィルタ</button>
+  </div>
+  <div class="bulk" id="p2-bulk" hidden>
+    <span><strong id="p2-bulk-n">0</strong> 件選択</span>
+    <div class="acts">
+      <button type="button" class="btn ghost sm">担当変更</button>
+      <button type="button" class="btn ghost sm" style="color:var(--danger)">削除</button>
+    </div>
+  </div>
+  <div style="overflow:auto;border:1px solid var(--border);border-radius:var(--r-md)">
+    <table class="atable" id="p2-atable">
+      <thead>
+        <tr>
+          <th style="width:40px"><input type="checkbox" id="p2-check-all" aria-label="すべて選択"></th>
+          <th class="sortable" aria-sort="ascending"><span class="sort">プロジェクト <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></th>
+          <th class="sortable" aria-sort="none"><span class="sort">担当 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></th>
+          <th>状態</th>
+          <th style="text-align:right">件数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><input type="checkbox" class="p2-row" aria-label="ブランドガイドを選択"></td><td>ブランドガイド</td><td>いろは</td><td><span class="pill" style="--c:var(--info)">進行中</span></td><td class="num">12</td></tr>
+        <tr><td><input type="checkbox" class="p2-row" aria-label="サイト改修を選択"></td><td>サイト改修</td><td>悠太</td><td><span class="pill" style="--c:var(--success)">完了</span></td><td class="num">8</td></tr>
+        <tr><td><input type="checkbox" class="p2-row" aria-label="請求処理を選択"></td><td>請求処理</td><td>—</td><td><span class="pill" style="--c:var(--warning)">保留</span></td><td class="num">3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="vals" style="margin-top:12px"><li>ソート見出し: SemiBold 12 mute → ソート中は ink</li><li>フィルタはチップ行（押下で accent-soft）</li><li>行チェック → 一括バー（選択数 + アクション）</li></ul>
+</div>
+
+<h3 id="p2-tree">ツリー／ネストリスト</h3>
+<div class="card">
+  <ul class="tree" aria-label="フォルダツリー下書き">
+    <li>
+      <details open>
+        <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>プロダクト</summary>
+        <ul>
+          <li>
+            <details open>
+              <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>ブランドガイド</summary>
+              <ul>
+                <li><div class="row"><span class="leaf"></span>tokens-preview.html</div></li>
+                <li><div class="row"><span class="leaf"></span>index.html</div></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>請求</summary>
+              <ul>
+                <li><div class="row"><span class="leaf"></span>下書き一覧</div></li>
+                <li><div class="row"><span class="leaf"></span>送付履歴</div></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </details>
+    </li>
+    <li>
+      <details>
+        <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>設定</summary>
+        <ul>
+          <li><div class="row"><span class="leaf"></span>メンバー</div></li>
+          <li><div class="row"><span class="leaf"></span>請求先</div></li>
+        </ul>
+      </details>
+    </li>
+  </ul>
+  <p class="help" style="margin-top:12px">ネストは左ボーダー + インデント。開閉は details/summary（見本）。行高はメニュー行に合わせる。</p>
+</div>
+
+<h3 id="p2-cal">カレンダー（月表示）</h3>
+<div class="card">
+  <div class="mcal" role="group" aria-label="月カレンダー下書き">
+    <header>
+      <span>2026年11月</span>
+      <div class="nav">
+        <button type="button" aria-label="前月"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" aria-label="翌月"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </header>
+    <div class="grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:10px">
+      <div class="dow">月</div><div class="dow">火</div><div class="dow">水</div><div class="dow">木</div><div class="dow">金</div><div class="dow">土</div><div class="dow">日</div>
+      <button type="button" class="d mute">26</button><button type="button" class="d mute">27</button><button type="button" class="d mute">28</button><button type="button" class="d mute">29</button><button type="button" class="d mute">30</button><button type="button" class="d mute">31</button><button type="button" class="d">1</button>
+      <button type="button" class="d">2</button><button type="button" class="d">3</button><button type="button" class="d">4</button><button type="button" class="d today" aria-current="date">5<span class="dot" aria-hidden="true"></span></button><button type="button" class="d">6</button><button type="button" class="d">7</button><button type="button" class="d">8</button>
+      <button type="button" class="d">9</button><button type="button" class="d">10</button><button type="button" class="d">11</button><button type="button" class="d">12</button><button type="button" class="d">13</button><button type="button" class="d">14</button><button type="button" class="d">15</button>
+      <button type="button" class="d">16</button><button type="button" class="d">17</button><button type="button" class="d">18</button><button type="button" class="d">19</button><button type="button" class="d">20</button><button type="button" class="d">21</button><button type="button" class="d">22</button>
+      <button type="button" class="d">23</button><button type="button" class="d">24</button><button type="button" class="d">25</button><button type="button" class="d">26</button><button type="button" class="d">27</button><button type="button" class="d">28</button><button type="button" class="d">29</button>
+      <button type="button" class="d">30</button><button type="button" class="d mute">1</button><button type="button" class="d mute">2</button><button type="button" class="d mute">3</button><button type="button" class="d mute">4</button><button type="button" class="d mute">5</button><button type="button" class="d mute">6</button>
+    </div>
+  </div>
+  <p class="help" style="margin-top:12px">静的な月グリッド見本。今日は accent-soft + SemiBold。イベントは小さな info ドット（彩度を抑えた状態色）。</p>
+</div>
+
+<h3 id="p2-chart">チャート／グラフの色と余白</h3>
+<div class="card">
+  <p class="mute" style="font-size:14px;margin:0 0 12px">系列色は<strong>ほぼ無彩色の状態色</strong>（success / warning / info / mute / ink）。プリズム（violet→yellow）はチャートに使わない。</p>
+  <div class="chart-wrap">
+    <div class="chart">
+      <h4>棒グラフ（下書き）</h4>
+      <div class="leg"><span><i style="background:var(--info)"></i>A</span><span><i style="background:var(--success)"></i>B</span><span><i style="background:var(--mute)"></i>C</span></div>
+      <svg viewBox="0 0 280 140" role="img" aria-label="棒グラフスケッチ">
+        <line x1="32" y1="12" x2="32" y2="118" stroke="var(--border)" stroke-width="1"/>
+        <line x1="32" y1="118" x2="268" y2="118" stroke="var(--border)" stroke-width="1"/>
+        <rect x="48" y="48" width="18" height="70" fill="var(--info)" rx="2"/>
+        <rect x="70" y="68" width="18" height="50" fill="var(--success)" rx="2"/>
+        <rect x="92" y="88" width="18" height="30" fill="var(--mute)" rx="2"/>
+        <rect x="128" y="28" width="18" height="90" fill="var(--info)" rx="2"/>
+        <rect x="150" y="58" width="18" height="60" fill="var(--success)" rx="2"/>
+        <rect x="172" y="78" width="18" height="40" fill="var(--mute)" rx="2"/>
+        <rect x="208" y="38" width="18" height="80" fill="var(--info)" rx="2"/>
+        <rect x="230" y="72" width="18" height="46" fill="var(--success)" rx="2"/>
+        <rect x="252" y="96" width="18" height="22" fill="var(--mute)" rx="2"/>
+      </svg>
+    </div>
+    <div class="chart">
+      <h4>折れ線（下書き）</h4>
+      <div class="leg"><span><i style="background:var(--ink)"></i>実績</span><span><i style="background:var(--warning)"></i>目標</span></div>
+      <svg viewBox="0 0 280 140" role="img" aria-label="折れ線グラフスケッチ">
+        <line x1="32" y1="12" x2="32" y2="118" stroke="var(--border)" stroke-width="1"/>
+        <line x1="32" y1="118" x2="268" y2="118" stroke="var(--border)" stroke-width="1"/>
+        <polyline fill="none" stroke="var(--warning)" stroke-width="1.5" stroke-dasharray="4 4" points="40,90 90,70 140,78 190,50 250,42"/>
+        <polyline fill="none" stroke="var(--ink)" stroke-width="2" points="40,100 90,82 140,60 190,68 250,36"/>
+        <circle cx="40" cy="100" r="3" fill="var(--ink)"/><circle cx="90" cy="82" r="3" fill="var(--ink)"/><circle cx="140" cy="60" r="3" fill="var(--ink)"/><circle cx="190" cy="68" r="3" fill="var(--ink)"/><circle cx="250" cy="36" r="3" fill="var(--ink)"/>
+      </svg>
+    </div>
+  </div>
+  <ul class="vals" style="margin-top:12px">
+    <li>余白: チャート枠内 --pad-card-sm、凡例と図のあいだ 8–12</li>
+    <li>軸・グリッドは --border のみ。塗りつぶしグラデやプリズム禁止</li>
+    <li>系列は最大 4〜5。それ以上はグルーピングかテーブルへ</li>
+  </ul>
+</div>
+
+<h3 id="p2-skel">スケルトンの画面パターン</h3>
+<div class="skel-grid">
+  <div>
+    <span class="lbl">リストページ</span>
+    <div class="skel" aria-hidden="true">
+      <div class="bar lg"></div>
+      <div class="bar sm" style="margin-bottom:16px"></div>
+      <div class="row2"><div class="av"></div><div class="col"><div class="bar md"></div><div class="bar sm"></div></div></div>
+      <div class="row2"><div class="av"></div><div class="col"><div class="bar md"></div><div class="bar sm"></div></div></div>
+      <div class="row2"><div class="av"></div><div class="col"><div class="bar md"></div><div class="bar sm"></div></div></div>
+    </div>
+  </div>
+  <div>
+    <span class="lbl">詳細ページ</span>
+    <div class="skel" aria-hidden="true">
+      <div class="bar lg"></div>
+      <div class="bar sm" style="width:30%;margin-bottom:16px"></div>
+      <div class="line"></div>
+      <div class="bar md"></div>
+      <div class="bar" style="width:90%"></div>
+      <div class="bar" style="width:78%"></div>
+      <div class="bar sm" style="width:50%;margin-top:16px"></div>
+      <div class="bar" style="width:64%"></div>
+    </div>
+  </div>
+</div>
+<p class="help" style="margin-top:12px">プレースホルダは accent-soft の角丸バー。パルスアニメは任意（reduced-motion では静止）。実コンテンツのレイアウト骨格に合わせる。</p>
+
+<h3 id="p2-coach">オンボーディング／コーチマーク</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="stage coach-stage" aria-label="コーチマーク下書き">
+    <div class="coach-ui">
+      <div class="lbl" style="margin:0 0 8px">ワークスペース</div>
+      <p class="mute" style="font-size:13px;margin:0 0 12px">最初のプロジェクトを追加します。</p>
+      <button type="button" class="btn pri sm coach-spot" id="p2-coach-target">新規作成</button>
+    </div>
+    <div class="coach-tip" role="dialog" aria-label="コーチマーク">
+      <b>ここから始めます</b>
+      <p>「新規作成」で最初のプロジェクトを追加できます。いつでもスキップ可能。</p>
+      <div class="acts">
+        <span class="step">1 / 3</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn ghost sm">スキップ</button>
+          <button type="button" class="btn pri sm">次へ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:14px 16px">
+    <p class="help" style="margin:0">スポットライトは対象に focus リング相当 + 外側ディム。チップは surface カード（ツールチップより情報多め）。同時に1つ。</p>
+  </div>
+</div>
+
+<h3 id="p2-print">印刷・PDF向けスタイル</h3>
+<div class="print-card">
+  <h4>短いルール（下書き）</h4>
+  <ul>
+    <li><strong>ink on bone</strong> — 印刷本文は濃い字／明るい地。ダークテーマのまま出さない</li>
+    <li><strong>chrome を隠す</strong> — ナビ・ドロワー・FAB・テーマ切替・トーストは <code>@media print</code> で非表示</li>
+    <li><strong>余白</strong> — ページ余白おおよそ 12–16mm。カード影は消し、枠線は 1px border のみ</li>
+    <li><strong>色</strong> — 状態色はモノクロでも区別できるよう文言を併記。プリズム装飾は印刷しない</li>
+    <li><strong>改ページ</strong> — 見出し直後の孤立行を避ける（<code>break-after: avoid</code> 目安）</li>
+  </ul>
+</div>
+
+<h3 id="p2-snack">スナックバーとトーストの使い分け</h3>
+<div class="cmp">
+  <div class="card">
+    <span class="lbl">スナックバー Snackbar</span>
+    <ul class="ls">
+      <li>画面<strong>下</strong>（端寄せ可）・コンテキストに残る／やや長め</li>
+      <li>アクション付き（元に戻す・表示 など）向き</li>
+      <li>見た目: surface + border（ページに溶ける）</li>
+      <li>リスト操作の結果など「今の画面」に紐づく通知</li>
+    </ul>
+    <div class="snack-demo" style="margin-top:12px">
+      <div class="snackbar" aria-hidden="true"><span class="msg">3件をアーカイブしました</span><button type="button" class="act" tabindex="-1">元に戻す</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <span class="lbl">トースト Toast</span>
+    <ul class="ls">
+      <li>画面<strong>下中央</strong>・短いステータス・自動で消える</li>
+      <li>通常 3秒／アクション付き 5秒・同時1つ（<a href="#toast-rules">既存ルール</a>）</li>
+      <li>見た目: ink ピル + bone 文字</li>
+      <li>コピー完了・保存など、軽いフィードバック</li>
+    </ul>
+    <div class="snack-demo" style="margin-top:12px">
+      <div class="toast-static" aria-hidden="true">保存しました</div>
+    </div>
+  </div>
+</div>
+<p class="help" style="margin-top:12px">迷ったら：画面の作業結果で戻せる操作 → スナック。一瞬の確認だけ → トースト。確認や破壊的操作はモーダル／インラインアラート。</p>
+
+<div class="note" style="margin-top:20px"><b>P2 下書きまとめ</b> — コマンドパレット／上級テーブル／ツリー／月カレンダー／チャート色／スケルトン／コーチマーク／印刷・PDF／スナック↔トースト。いずれも下書き。ガイドにない部品は使わない。</div>
+<script>
+(()=>{
+  const all=document.getElementById('p2-check-all');
+  const rows=[...document.querySelectorAll('#p2-atable .p2-row')];
+  const bulk=document.getElementById('p2-bulk');
+  const bn=document.getElementById('p2-bulk-n');
+  function syncBulk(){
+    const n=rows.filter(r=>r.checked).length;
+    if(bulk) bulk.hidden=n===0;
+    if(bn) bn.textContent=String(n);
+    if(all){
+      all.checked=n>0&&n===rows.length;
+      all.indeterminate=n>0&&n<rows.length;
+    }
+  }
+  all&&all.addEventListener('change',()=>{rows.forEach(r=>r.checked=all.checked);syncBulk()});
+  rows.forEach(r=>r.addEventListener('change',syncBulk));
+
+  document.querySelectorAll('#p2 .tree summary').forEach(s=>{
+    s.addEventListener('click',e=>{
+      if(e.target.closest('.tw')){/* allow default on summary */}
+    });
+  });
+
+  document.querySelectorAll('#p2 .btn, #p2 .ib').forEach(el=>{
     if(el.dataset.rippleBound) return;
     el.dataset.rippleBound='1';
     el.classList.add('ripple-host');
