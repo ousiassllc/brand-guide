@@ -20,7 +20,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:8px;font-size:13px;opacity:0;transition:.2s}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:0 16px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:400 13px Sora,"Noto Sans JP";line-height:1;opacity:0;transition:.2s;white-space:nowrap}
 :root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
@@ -57,7 +57,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 @media (prefers-reduced-motion:reduce){.spin,.sk{animation:none}}
 .ui .pill{border-radius:var(--r-full)}.pill.neu{--c:var(--mute)}
 .al{display:flex;gap:12px;padding:12px 16px;border:1px solid var(--border);border-left:3px solid var(--c,var(--info));border-radius:var(--r-md);background:var(--surface);font-size:14px;margin-bottom:10px}.al b{font-weight:600}
-.tst{display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:var(--bone);padding:10px 16px;border-radius:var(--r-md);font-size:14px}.tst button{background:none;border:0;color:inherit;opacity:.7;cursor:pointer;font:600 14px Sora,"Noto Sans JP"}
+.tst{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);padding:0 18px;height:40px;border-radius:var(--r-full);font:400 14px Sora,"Noto Sans JP";line-height:1}.tst button{background:none;border:0;color:inherit;opacity:.85;cursor:pointer;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;display:inline-flex;align-items:center;height:100%}
 .empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
 .panel{background:var(--bone);border:1px solid var(--border);border-radius:var(--r-md);padding:16px}hr.dv{border:0;border-top:1px solid var(--border);margin:24px 0}
 .tabs{display:flex;gap:24px;border-bottom:1px solid var(--border);margin-bottom:16px}.tabs button{background:none;border:0;padding:10px 0;margin-bottom:-1px;font:400 15px Sora,"Noto Sans JP";color:var(--mute);border-bottom:2px solid transparent;cursor:pointer}.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
@@ -199,7 +199,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="al" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
 <div class="al" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
 <div class="al" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
-<div style="margin-top:16px"><div class="tst">コピーしました <button>元に戻す</button></div></div>
+<div style="margin-top:16px"><div class="tst"><span>コピーしました</span><button type="button">元に戻す</button></div></div>
 <hr class="dv">
 <div class="empty"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/></svg></div><div style="font-weight:600">まだ項目がありません</div><p class="mute" style="font-size:14px;margin:4px 0 16px">最初のプロジェクトを作成しましょう。</p><button class="btn pri sm">新規作成</button></div>
 </div>
