@@ -6,7 +6,7 @@
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#8b8b8e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .2s,color .2s}
-.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4{font-weight:600}
+.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4{font-weight:600}
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:14px}
@@ -71,7 +71,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 </style></head><body><div class="w">
 <div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 <div class="hero"><h1>トークン可視化（下書き）</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色は確定。サイズスケールは提案。<a href="#ui-draft">UI部品（下書き）→</a> · <a href="#p0">骨格コンポーネント P0（下書き）→</a> · <a href="#p1">P1 UI部品（下書き）→</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#8b8b8e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#8b8b8e">L #8b8b8e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -417,9 +417,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .icons figure{margin:0;text-align:center}
 #p0 .icons figcaption{font:12px "JetBrains Mono",monospace;color:var(--mute);margin-top:6px}
 #p0 .icons svg{display:block;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink)}
+#p0 .icon-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+#p0 .icon-row .ico{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+#p0 .icon-row .ico svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);flex:none}
 </style>
 <h2 id="p0-draft">骨格コンポーネント P0（下書き・いろは案）<span class="draft">下書き</span></h2>
-<p class="mute" style="font-size:14px">ナビ・階層・浮遊UI・レスポンシブの骨格。値はいろは案（未確定）。P1（日付ピッカー等）はまだ始めない。Light / Dark 切替で確認。</p>
+<p class="mute" style="font-size:14px">ナビ・階層・浮遊UI・レスポンシブの骨格。値はいろは案（未確定）。UI アイコンは <a href="https://iconoir.com" rel="noopener">Iconoir</a>（MIT）。P1 は下の <a href="#p1">#p1</a>。Light / Dark 切替で確認。</p>
 <p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="p0-nav">Navigation</h3>
@@ -571,30 +574,38 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="help" style="margin-top:10px">上に行くほど手前。dropdown &lt; drawer &lt; modal &lt; toast。</p>
 </div>
 
-<h3 id="p0-icons">Icon sizes</h3>
+<h3 id="p0-icons">Icons — Iconoir</h3>
 <div class="card">
+  <!-- Icons below: paths from Iconoir (https://iconoir.com / iconoir-icons/iconoir), MIT License. Inline SVG samples only — no runtime dependency. -->
+  <p style="margin:0 0 12px;font-size:14px">UI アイコンセットは <a href="https://iconoir.com" rel="noopener"><strong>Iconoir</strong></a>（MIT）。静かで開いたアウトライン。サイズ <code class="mono">--icon-sm/md/lg</code> = 16 / 20 / 24。ストローク ≈1.5。empty state のみ <code class="mono">--icon-xl</code> 32 可。ブランドロゴは別（Iconoir ではない）。</p>
   <div class="icons">
     <figure>
-      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>
       <figcaption>--icon-sm 16</figcaption>
     </figure>
     <figure>
-      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>
       <figcaption>--icon-md 20</figcaption>
     </figure>
     <figure>
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.9 7.2 18l.9-5.4L4.2 8.7l5.4-.8L12 3z"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>
       <figcaption>--icon-lg 24</figcaption>
     </figure>
     <figure>
-      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="opacity:.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="opacity:.75"><path d="M21 3.6V20.4C21 20.7314 20.7314 21 20.4 21H3.6C3.26863 21 3 20.7314 3 20.4V3.6C3 3.26863 3.26863 3 3.6 3H20.4C20.7314 3 21 3.26863 21 3.6Z"/><path d="M3 16L10 13L21 18"/><path d="M16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8C18 9.10457 17.1046 10 16 10Z"/></svg>
       <figcaption>--icon-xl 32（empty任意）</figcaption>
     </figure>
   </div>
-  <p class="help" style="margin-top:12px">ストローク幅 ≈1.5。UI アイコンは sm/md/lg。empty state のみ 32 可。</p>
+  <div class="icon-row" aria-label="Iconoir サンプル">
+    <span class="ico" title="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
+    <span class="ico" title="search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
+    <span class="ico" title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
+    <span class="ico" title="xmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg>xmark / close</span>
+  </div>
+  <p class="help" style="margin-top:12px">実装時は Iconoir の SVG／パッケージから取得（このページはインライン見本のみ・依存なし）。ストローク 1.5・currentColor。</p>
 </div>
 
-<div class="note" style="margin-top:20px"><b>P0 下書きまとめ</b> — ナビ／パンくず／ドロップダウン／ツールチップ・ポップオーバー／ドロワー／BP・グリッド／z-index／アイコンサイズ。未掲載の部品（日付ピッカー等の P1）は使わない。必要なら先にガイドへ。</div>
+<div class="note" style="margin-top:20px"><b>P0 下書きまとめ</b> — ナビ／パンくず／ドロップダウン／ツールチップ・ポップオーバー／ドロワー／BP・グリッド／z-index／Iconoir アイコン。P1 下書きは <a href="#p1">#p1</a>。ガイドにない部品は使わない。</div>
 <script>
 (()=>{
   const dd=document.getElementById('p0-dd'), ddBtn=document.getElementById('p0-dd-btn');
@@ -623,6 +634,288 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   // attach ripples for new buttons
   const sel='#p0 .btn, #p0 .ib';
   document.querySelectorAll(sel).forEach(el=>{
+    if(el.dataset.rippleBound) return;
+    el.dataset.rippleBound='1';
+    el.classList.add('ripple-host');
+    el.addEventListener('pointerdown',e=>{
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(e.button!=null && e.button!==0) return;
+      const r=el.getBoundingClientRect();
+      const size=Math.ceil(Math.hypot(r.width,r.height)*2);
+      const x=e.clientX-r.left-size/2, y=e.clientY-r.top-size/2;
+      const span=document.createElement('span');
+      span.className='ripple';
+      span.style.width=span.style.height=size+'px';
+      span.style.left=x+'px';span.style.top=y+'px';
+      el.appendChild(span);
+      span.addEventListener('animationend',()=>span.remove());
+    });
+  });
+})();
+</script>
+</section>
+
+
+<section class="ui" id="p1">
+<style>
+#p1 .cal{width:min(280px,100%);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
+#p1 .cal header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border);font-weight:600}
+#p1 .cal .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px;text-align:center}
+#p1 .cal .dow{color:var(--mute);font-size:11px;padding:4px 0}
+#p1 .cal button.d{border:0;background:transparent;color:var(--ink);height:32px;border-radius:var(--r-md);cursor:pointer;font:400 13px Sora,"Noto Sans JP"}
+#p1 .cal button.d:hover{background:var(--accent-soft)}
+#p1 .cal button.d[aria-current=date]{background:var(--accent);color:var(--bone);font-weight:600}
+#p1 .cal button.d.mute{color:var(--mute)}
+#p1 .dt-row{display:flex;gap:var(--gap-inline);flex-wrap:wrap;align-items:flex-end;margin-bottom:12px}
+#p1 .dt-row label{flex:1;min-width:140px}
+#p1 .drop{border:1px dashed var(--border);border-radius:var(--r-lg);padding:28px 16px;text-align:center;background:var(--bone);color:var(--mute);font-size:14px;transition:border-color var(--motion-base) var(--ease-out),background var(--motion-base) var(--ease-out)}
+#p1 .drop.over{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+#p1 .drop svg{margin:0 auto 8px;display:block;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);opacity:.7}
+#p1 .search{position:relative;max-width:420px}
+#p1 .search .fld{padding-left:40px;padding-right:36px}
+#p1 .search .si,#p1 .search .clr{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-content:center;border:0;background:transparent;color:var(--mute);padding:0;cursor:pointer}
+#p1 .search .si{left:12px;pointer-events:none}
+#p1 .search .clr{right:8px;width:28px;height:28px;border-radius:var(--r-full)}
+#p1 .search .clr:hover{background:var(--accent-soft);color:var(--ink)}
+#p1 .search .clr svg,#p1 .search .si svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#p1 .sugg{margin-top:4px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--shadow-modal);padding:var(--gap-option);display:none;z-index:var(--z-dropdown);position:relative}
+#p1 .sugg.open{display:flex;flex-direction:column;gap:var(--gap-option)}
+#p1 .sugg button{display:flex;align-items:center;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
+#p1 .sugg button:hover,#p1 .sugg button[aria-selected=true]{background:var(--accent-soft)}
+#p1 .pager{display:flex;align-items:center;gap:var(--gap-inline);flex-wrap:wrap}
+#p1 .pager .pg{min-width:36px;height:36px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);font:400 14px Sora,"Noto Sans JP";cursor:pointer}
+#p1 .pager .pg[aria-current=page]{background:var(--accent);color:var(--bone);border-color:var(--accent);font-weight:600}
+#p1 .pager .pg:disabled{opacity:.4;cursor:not-allowed}
+#p1 .pager .pg:hover:not(:disabled):not([aria-current=page]){background:var(--accent-soft)}
+#p1 .steps{display:flex;gap:0;align-items:flex-start;flex-wrap:wrap;counter-reset:st}
+#p1 .steps .st{flex:1;min-width:100px;position:relative;padding:0 8px 0 0;text-align:center;font-size:12px;color:var(--mute)}
+#p1 .steps .st::before{counter-increment:st;content:counter(st);display:grid;place-content:center;width:28px;height:28px;margin:0 auto 6px;border-radius:var(--r-full);border:1px solid var(--border);background:var(--surface);font:600 12px Sora,"Noto Sans JP";color:var(--mute)}
+#p1 .steps .st.done::before{background:var(--accent);border-color:var(--accent);color:var(--bone);content:"✓";font-size:12px}
+#p1 .steps .st.cur{color:var(--ink);font-weight:600}
+#p1 .steps .st.cur::before{border-color:var(--accent);color:var(--ink)}
+#p1 .steps .st:not(:last-child)::after{content:"";position:absolute;top:14px;left:calc(50% + 18px);right:calc(-50% + 18px);height:1px;background:var(--border)}
+#p1 .acc{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
+#p1 .acc details{border-bottom:1px solid var(--border)}
+#p1 .acc details:last-child{border-bottom:0}
+#p1 .acc summary{list-style:none;cursor:pointer;padding:12px 16px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#p1 .acc summary::-webkit-details-marker{display:none}
+#p1 .acc summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(45deg);transition:transform var(--motion-base) var(--ease-out);flex:none;margin-top:-4px}
+#p1 .acc details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
+#p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute)}
+#p1 .bell{position:relative;display:inline-grid;place-content:center;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink)}
+#p1 .bell svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#p1 .bcnt{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:var(--r-full);background:var(--accent);color:var(--bone);font:600 11px/18px "JetBrains Mono",monospace;text-align:center;border:2px solid var(--surface)}
+#p1 .bcnt.dot{min-width:10px;width:10px;height:10px;padding:0;top:6px;right:6px;border-width:0}
+#p1 .rng{width:100%;max-width:360px;accent-color:var(--accent);height:4px}
+#p1 .rng-meta{display:flex;justify-content:space-between;max-width:360px;font:12px "JetBrains Mono",monospace;color:var(--mute);margin-top:6px}
+#p1 .tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:text}
+#p1 .tags:focus-within{border-color:var(--focus);box-shadow:0 0 0 2px var(--ring)}
+#p1 .tags .chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px 0 10px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);font-size:13px;color:var(--ink)}
+#p1 .tags .chip button{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
+#p1 .tags .chip button:hover{color:var(--ink);background:var(--surface)}
+#p1 .tags input{border:0;outline:none;background:transparent;font:400 14px Sora,"Noto Sans JP";color:var(--ink);min-width:80px;flex:1;padding:4px}
+@media (max-width:640px){
+  #p1 .steps .st{min-width:72px}
+  #p1 .steps .st:not(:last-child)::after{display:none}
+}
+</style>
+<h2 id="p1-draft">UI部品 P1（下書き・いろは案）<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">日付・検索・アップロードなど、P0 の次に使う部品の下書き見本。値はいろは案（未確定）。アイコンは Iconoir スタイル。Light / Dark 切替で確認。</p>
+<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+
+<h3 id="p1-datetime">日付・時刻ピッカー</h3>
+<div class="f2">
+  <div class="card">
+    <span class="lbl">入力（native-styled）</span>
+    <div class="dt-row">
+      <label><span class="help" style="display:block;margin:0 0 4px">日付</span><input class="fld" type="date" value="2026-11-05" aria-label="日付"></label>
+      <label><span class="help" style="display:block;margin:0 0 4px">時刻</span><input class="fld" type="time" value="15:30" aria-label="時刻"></label>
+    </div>
+    <p class="help">フィールドは既存 .fld。ネイティブ UI は OS 依存・静かな枠線に合わせる。</p>
+  </div>
+  <div class="card">
+    <span class="lbl">カレンダー見本（popover スケッチ）</span>
+    <div class="cal" role="group" aria-label="カレンダー下書き">
+      <header>
+        <button type="button" class="ib gh" aria-label="前月" style="width:28px;height:28px">‹</button>
+        <span>2026年11月</span>
+        <button type="button" class="ib gh" aria-label="次月" style="width:28px;height:28px">›</button>
+      </header>
+      <div class="days" aria-hidden="true">
+        <span class="dow">月</span><span class="dow">火</span><span class="dow">水</span><span class="dow">木</span><span class="dow">金</span><span class="dow">土</span><span class="dow">日</span>
+        <button type="button" class="d mute">26</button><button type="button" class="d mute">27</button><button type="button" class="d mute">28</button><button type="button" class="d mute">29</button><button type="button" class="d mute">30</button><button type="button" class="d mute">31</button><button type="button" class="d">1</button>
+        <button type="button" class="d">2</button><button type="button" class="d">3</button><button type="button" class="d">4</button><button type="button" class="d" aria-current="date">5</button><button type="button" class="d">6</button><button type="button" class="d">7</button><button type="button" class="d">8</button>
+        <button type="button" class="d">9</button><button type="button" class="d">10</button><button type="button" class="d">11</button><button type="button" class="d">12</button><button type="button" class="d">13</button><button type="button" class="d">14</button><button type="button" class="d">15</button>
+      </div>
+    </div>
+    <p class="tk" style="margin-top:10px">surface + border + r-lg / 今日 = accent / セル 32</p>
+  </div>
+</div>
+
+<h3 id="p1-upload">ファイルアップロード／ドロップゾーン</h3>
+<div class="card">
+  <div class="drop" id="p1-drop" tabindex="0" role="button" aria-label="ファイルをドロップまたは選択">
+    <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22V13M12 13L15.5 16.5M12 13L8.5 16.5"/><path d="M20 17.6073C21.4937 17.0221 23 15.6889 23 13C23 9 19.6667 8 18 8C18 6 18 2 12 2C6 2 6 6 6 8C4.33333 8 1 9 1 13C1 15.6889 2.50628 17.0221 4 17.6073"/></svg>
+    <div style="font-weight:600;color:var(--ink);margin-bottom:4px">ファイルをドロップ</div>
+    <div>または <button type="button" class="btn ghost sm" id="p1-upload-btn" style="height:auto;padding:0 4px;text-decoration:underline">ファイルを選択</button>（PDF / 画像 · 最大 10MB）</div>
+    <input type="file" id="p1-file" hidden accept=".pdf,image/*">
+  </div>
+  <p id="p1-file-name" class="help" style="margin-top:10px">選択なし</p>
+  <ul class="vals"><li>破線 border / r-lg / pad 24–28</li><li>ドラッグ中: accent-soft + accent 破線</li><li>アイコン --icon-xl 任意</li></ul>
+</div>
+
+<h3 id="p1-search">検索フィールド（クリア・候補）</h3>
+<div class="card">
+  <div class="search" id="p1-search">
+    <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg></span>
+    <input class="fld" id="p1-search-input" type="search" placeholder="検索…" autocomplete="off" aria-autocomplete="list" aria-controls="p1-sugg" aria-expanded="false">
+    <button type="button" class="clr" id="p1-search-clear" aria-label="クリア" hidden><svg viewBox="0 0 24 24" width="16" height="16"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg></button>
+    <div class="sugg" id="p1-sugg" role="listbox" aria-label="候補">
+      <button type="button" role="option">ブランドガイド</button>
+      <button type="button" role="option">トークン可視化</button>
+      <button type="button" role="option">Iconoir アイコン</button>
+    </div>
+  </div>
+  <p class="help" style="margin-top:10px">左アイコン md / 右クリア / 候補は dropdown 相当（z-dropdown）。外側クリックで閉じる。</p>
+</div>
+
+<h3 id="p1-pagination">ページネーション／「もっと見る」</h3>
+<div class="f2">
+  <div class="card">
+    <span class="lbl">ページ番号</span>
+    <nav class="pager" aria-label="ページネーション下書き">
+      <button type="button" class="pg" disabled aria-label="前へ">‹</button>
+      <button type="button" class="pg" aria-current="page">1</button>
+      <button type="button" class="pg">2</button>
+      <button type="button" class="pg">3</button>
+      <span class="mute" style="padding:0 4px">…</span>
+      <button type="button" class="pg">12</button>
+      <button type="button" class="pg" aria-label="次へ">›</button>
+    </nav>
+    <p class="tk" style="margin-top:10px">高さ 36 / r-md / 現在 = accent</p>
+  </div>
+  <div class="card">
+    <span class="lbl">もっと見る</span>
+    <p class="mute" style="font-size:14px;margin:0 0 12px">1–20 / 84 件</p>
+    <button type="button" class="btn sec sm ripple-host" id="p1-more">もっと見る</button>
+    <p class="help">無限スクロールの代わりに明示ボタンを推奨（静かな UI）。</p>
+  </div>
+</div>
+
+<h3 id="p1-steps">ステップ／ウィザード</h3>
+<div class="card">
+  <div class="steps" aria-label="ウィザード下書き">
+    <div class="st done">基本情報</div>
+    <div class="st cur">詳細</div>
+    <div class="st">確認</div>
+    <div class="st">完了</div>
+  </div>
+  <div style="margin-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <button type="button" class="btn sec sm ripple-host">戻る</button>
+    <button type="button" class="btn pri sm ripple-host">次へ</button>
+  </div>
+  <ul class="vals"><li>円 28 / 線 1px border / 完了 = accent + ✓</li><li>現在ステップ名だけ SemiBold</li></ul>
+</div>
+
+<h3 id="p1-accordion">アコーディオン／Disclosure</h3>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="acc">
+    <details open>
+      <summary>料金プランについて</summary>
+      <div class="body">月額・年額の切り替えは設定画面から。返金ポリシーはサポートまで。</div>
+    </details>
+    <details>
+      <summary>データのエクスポート</summary>
+      <div class="body">CSV / JSON。完了後トーストで通知します。</div>
+    </details>
+    <details>
+      <summary>権限とロール</summary>
+      <div class="body">Admin / Member / Guest。ナビは Regular のまま。</div>
+    </details>
+  </div>
+</div>
+<p class="help">summary SemiBold / body Regular mute / 開閉シェブロンは CSS。native &lt;details&gt;。</p>
+
+<h3 id="p1-badge">バッジ数（通知カウント）</h3>
+<div class="card">
+  <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
+    <span class="bell" aria-label="通知 3 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.1336 11C18.7155 16.3755 21 18 21 18H3C3 18 6 15.8667 6 8.4C6 6.70261 6.63214 5.07475 7.75736 3.87452C8.88258 2.67428 10.4087 2 12 2C12.3373 2 12.6717 2.0303 13 2.08949"/><path d="M19 8C20.6569 8 22 6.65685 22 5C22 3.34315 20.6569 2 19 2C17.3431 2 16 3.34315 16 5C16 6.65685 17.3431 8 19 8Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">3</span></span>
+    <span class="bell" aria-label="通知 12 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">12</span></span>
+    <span class="bell" aria-label="未読あり"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt dot" aria-hidden="true"></span></span>
+    <span class="pill" style="--c:var(--mute)">下書き · 2</span>
+  </div>
+  <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / 11px Mono / min 18</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
+</div>
+
+<h3 id="p1-slider">スライダー／レンジ</h3>
+<div class="card">
+  <label class="lbl" for="p1-range">音量 <span class="mute" style="font-weight:400" id="p1-range-val">40</span></label>
+  <input class="rng" id="p1-range" type="range" min="0" max="100" value="40" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+  <div class="rng-meta"><span>0</span><span>100</span></div>
+  <p class="help">accent-color = --accent。トラックは細い（約 4px）。キーボード操作可。</p>
+</div>
+
+<h3 id="p1-tags">タグ入力（chips input）</h3>
+<div class="card">
+  <span class="lbl">タグ</span>
+  <div class="tags" id="p1-tags" role="group" aria-label="タグ入力下書き">
+    <span class="chip">デザイン<button type="button" aria-label="デザインを削除">×</button></span>
+    <span class="chip">トークン<button type="button" aria-label="トークンを削除">×</button></span>
+    <input type="text" id="p1-tag-input" placeholder="追加して Enter…" aria-label="タグを追加">
+  </div>
+  <p class="help" style="margin-top:10px">チップ: accent-soft + border + r-full / 入力は枠なし。Enter またはカンマで追加（見本 JS）。</p>
+</div>
+
+<div class="note" style="margin-top:20px"><b>P1 下書きまとめ</b> — 日付・時刻／アップロード／検索／ページネーション・もっと見る／ステップ／アコーディオン／通知バッジ／スライダー／タグ入力。いずれも下書き。ガイドにない部品は使わない。</div>
+<script>
+(()=>{
+  const drop=document.getElementById('p1-drop'), file=document.getElementById('p1-file'), fname=document.getElementById('p1-file-name'), ubtn=document.getElementById('p1-upload-btn');
+  function setFile(f){if(fname)fname.textContent=f?('選択: '+f.name):'選択なし'}
+  ubtn&&ubtn.addEventListener('click',e=>{e.stopPropagation();file&&file.click()});
+  drop&&drop.addEventListener('click',()=>file&&file.click());
+  drop&&drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();file&&file.click()}});
+  file&&file.addEventListener('change',()=>setFile(file.files&&file.files[0]));
+  ;['dragenter','dragover'].forEach(ev=>drop&&drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+  ;['dragleave','drop'].forEach(ev=>drop&&drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+  drop&&drop.addEventListener('drop',e=>{const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)setFile(f)});
+
+  const si=document.getElementById('p1-search-input'), sc=document.getElementById('p1-search-clear'), sg=document.getElementById('p1-sugg'), sh=document.getElementById('p1-search');
+  function syncSearch(){
+    const v=(si&&si.value)||'';
+    if(sc)sc.hidden=!v;
+    const open=!!v;
+    if(sg)sg.classList.toggle('open',open);
+    if(si)si.setAttribute('aria-expanded',open?'true':'false');
+  }
+  si&&si.addEventListener('input',syncSearch);
+  si&&si.addEventListener('focus',syncSearch);
+  sc&&sc.addEventListener('click',()=>{if(si){si.value='';si.focus();syncSearch()}});
+  sg&&sg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{if(si){si.value=b.textContent;syncSearch();sg.classList.remove('open');si.setAttribute('aria-expanded','false')}}));
+  document.addEventListener('click',e=>{if(sh&&!sh.contains(e.target)){sg&&sg.classList.remove('open');si&&si.setAttribute('aria-expanded','false')}});
+
+  document.getElementById('p1-more')&&document.getElementById('p1-more').addEventListener('click',()=>{typeof showToast==='function'&&showToast('次の20件を読み込みました（下書き）')});
+
+  const rng=document.getElementById('p1-range'), rv=document.getElementById('p1-range-val');
+  rng&&rng.addEventListener('input',()=>{if(rv)rv.textContent=rng.value;rng.setAttribute('aria-valuenow',rng.value)});
+
+  const tags=document.getElementById('p1-tags'), tin=document.getElementById('p1-tag-input');
+  function addTag(t){
+    t=(t||'').trim().replace(/,$/,'');
+    if(!t||!tags||!tin)return;
+    const span=document.createElement('span');span.className='chip';span.appendChild(document.createTextNode(t));
+    const btn=document.createElement('button');btn.type='button';btn.setAttribute('aria-label',t+'を削除');btn.textContent='×';
+    btn.addEventListener('click',()=>span.remove());
+    span.appendChild(btn);tags.insertBefore(span,tin);tin.value='';
+  }
+  tags&&tags.querySelectorAll('.chip button').forEach(b=>b.addEventListener('click',()=>b.parentElement.remove()));
+  tin&&tin.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===','){e.preventDefault();addTag(tin.value)}
+    if(e.key==='Backspace'&&!tin.value){const chips=tags.querySelectorAll('.chip');const last=chips[chips.length-1];last&&last.remove()}
+  });
+  tags&&tags.addEventListener('click',e=>{if(e.target===tags)tin&&tin.focus()});
+
+  // ripples for p1 buttons
+  document.querySelectorAll('#p1 .btn, #p1 .ib').forEach(el=>{
     if(el.dataset.rippleBound) return;
     el.dataset.rippleBound='1';
     el.classList.add('ripple-host');
