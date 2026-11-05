@@ -524,7 +524,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <h3 id="p0-drawer">Drawer</h3>
 <div class="card" style="padding:16px">
   <button type="button" class="btn sec sm ripple-host" id="p0-drawer-open" style="margin-bottom:12px">右ドロワーを開く</button>
-  <div class="drawer-stage" id="p0-drawer">
+  <div class="drawer-stage" id="p0-drawer-stage">
     <div class="drawer-bg">メイン画面のコンテンツ。右からドロワーが被さります。</div>
     <div class="drawer-scrim" id="p0-drawer-scrim"></div>
     <aside class="drawer-panel" role="dialog" aria-label="ドロワー見本" aria-modal="true">
@@ -607,7 +607,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   popBtn&&popBtn.addEventListener('click',e=>{e.stopPropagation();pop.classList.contains('open')?closePop():openPop()});
   popScrim&&popScrim.addEventListener('click',closePop);
   pop&&pop.querySelectorAll('[data-pop-close]').forEach(b=>b.addEventListener('click',closePop));
-  const stage=document.getElementById('p0-drawer'), openB=document.getElementById('p0-drawer-open'), closeB=document.getElementById('p0-drawer-close'), scrim=document.getElementById('p0-drawer-scrim');
+  const stage=document.getElementById('p0-drawer-stage'), openB=document.getElementById('p0-drawer-open'), closeB=document.getElementById('p0-drawer-close'), scrim=document.getElementById('p0-drawer-scrim');
   function openDr(){stage&&stage.classList.add('open')}
   function closeDr(){stage&&stage.classList.remove('open')}
   openB&&openB.addEventListener('click',openDr);
