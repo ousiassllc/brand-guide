@@ -26,7 +26,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
 .ui h3{margin:40px 0 12px}.ui .card{border-radius:var(--r-lg)}.ui .lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}.ui .help{font-size:12px;color:var(--mute);margin:4px 0 0}.ui .err{color:var(--danger)}
 .tk{font:12px "JetBrains Mono",monospace;color:var(--mute)}
-.rad{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}.rad div{height:80px;background:var(--accent-soft);border:1px solid var(--border);margin-bottom:6px}
+.rad{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;align-items:start}.rad>div{min-width:0}.rad .swatch{height:80px;background:var(--accent-soft);border:1px solid var(--border);margin-bottom:6px}
 .sp{display:flex;align-items:center;gap:12px;padding:4px 0}.sp code{width:150px;font-size:12px}.sp i{display:block;height:12px;background:var(--accent);border-radius:var(--r-sm)}
 .ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
 .ui textarea.fld{height:96px;padding:10px 12px;resize:vertical;line-height:1.6}.ui .fld::placeholder{color:var(--mute)}
@@ -64,7 +64,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .ui .seg2{display:inline-flex;background:var(--accent-soft);border-radius:var(--r-md);padding:3px}.seg2 button{border:0;background:none;color:var(--mute);font:400 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:6px;cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--border)}
 .scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center}
 .modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border)}
-.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 20px;align-self:end}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
+.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 40px;align-self:end}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
 .tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}.tbl th{font-weight:600;color:var(--mute);font-size:12px}
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 </style></head><body><div class="w">
@@ -89,14 +89,19 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 
 <h3 id="radius">角丸 Radius</h3>
 <div class="card"><div class="rad">
-<div><div style="border-radius:0"></div><code>--r-none</code><br><span class="tk">0</span></div>
-<div><div style="border-radius:4px"></div><code>--r-sm</code><br><span class="tk">4px · タグ・チェック</span></div>
-<div><div style="border-radius:8px"></div><code>--r-md</code><br><span class="tk">8px · 入力・ボタン</span></div>
-<div><div style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · カード</span></div>
-<div><div style="border-radius:16px"></div><code>--r-xl</code><br><span class="tk">16px · モーダル</span></div>
-<div><div style="border-radius:9999px"></div><code>--r-full</code><br><span class="tk">9999px · ピル・アバター</span></div>
+<div><div class="swatch" style="border-radius:0"></div><code>--r-none</code><br><span class="tk">0</span></div>
+<div><div class="swatch" style="border-radius:4px"></div><code>--r-sm</code><br><span class="tk">4px · タグ・チェック</span></div>
+<div><div class="swatch" style="border-radius:8px"></div><code>--r-md</code><br><span class="tk">8px · 入力・ボタン</span></div>
+<div><div class="swatch" style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · カード</span></div>
+<div><div class="swatch" style="border-radius:16px"></div><code>--r-xl</code><br><span class="tk">16px · モーダル</span></div>
+<div><div class="swatch" style="border-radius:9999px"></div><code>--r-full</code><br><span class="tk">9999px · ピル・アバター</span></div>
 </div>
-<pre style="margin-top:20px"><code>--r-none: 0;  --r-sm: 4px;  --r-md: 8px;  --r-lg: 12px;  --r-xl: 16px;  --r-full: 9999px;
+<pre style="margin-top:20px;overflow-x:auto"><code>--r-none: 0;
+--r-sm: 4px;
+--r-md: 8px;
+--r-lg: 12px;
+--r-xl: 16px;
+--r-full: 9999px;
 /* 推奨: controls = md / cards = lg / modal = xl / pills・avatar = full */</code></pre></div>
 
 <h3 id="space">余白 Space（4px 基準）</h3>
@@ -113,7 +118,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 
 <h3 id="stroke">線と影 Stroke / Shadow</h3>
 <div class="f2">
-<div class="card"><code>--stroke: 1px</code> <span class="tk">solid var(--border)</span><p class="help">既定。カード・入力・区切り線</p></div>
+<div class="card"><code style="white-space:nowrap;display:inline-block;max-width:100%;overflow-x:auto">--stroke: 1px solid var(--border)</code><p class="help">既定。カード・入力・区切り線</p></div>
 <div class="card" style="border-color:var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）</p></div>
 <div class="card" style="border:1px dashed var(--border)"><code>1px dashed</code><p class="help">空状態・ドロップ領域</p></div>
 <div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">0 1px 2px rgba(0,0,0,.06) — モーダルのみ。カードは影なし</p></div>
@@ -177,7 +182,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </div>
 <div class="f2" style="margin-top:16px">
 <div class="scrim"><div class="modal" role="dialog" aria-label="モーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span><button class="ib gh" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header><div class="bd">この操作は取り消せません。本当に削除しますか？</div><footer><button class="btn sec sm">キャンセル</button><button class="btn dan sm">削除する</button></footer></div></div>
-<div class="scrim" style="padding-bottom:0"><div class="sheet"><div class="hd"></div><div style="font-weight:600;margin-bottom:12px">共有</div><label class="chk"><input type="radio" name="sh" checked> リンクを知っている全員</label><label class="chk"><input type="radio" name="sh"> 招待したメンバーのみ</label><button class="btn pri" style="width:100%;justify-content:center;margin-top:12px">完了</button></div></div>
+<div class="scrim" style="padding-bottom:0"><div class="sheet"><div class="hd"></div><div style="font-weight:600;margin-bottom:12px">共有</div><label class="chk"><input type="radio" name="sh" checked> リンクを知っている全員</label><label class="chk"><input type="radio" name="sh"> 招待したメンバーのみ</label><button class="btn pri" style="width:100%;justify-content:center;margin-top:24px">完了</button></div></div>
 </div>
 </section>
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
