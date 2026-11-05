@@ -78,6 +78,8 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <div class="tbox mono" style="font-size:.875rem;line-height:1.7">const price = 12_800; // ¥12,800<br>order_id: 0A1B-2C3D  2026-11-05 12:36</div>
 <div class="dd" style="margin-top:24px"><div><h3>Do</h3><ul class="p"><li>本文は 16px Regular</li><li>見出し・ボタンだけ SemiBold</li><li>コード・桁を揃える数値は JetBrains Mono</li><li>サイズはスケールのトークンから選ぶ</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ナビやリンクまで SemiBold にする</li><li>Bold (700) 以上を多用する</li><li>14px 未満を本文に使う</li><li>OFL 以外のフォントを持ち込む</li></ul></div></div></section>
 <section id="ui-draft"><h2>UI部品（下書き）</h2><p class="sub">角丸・余白・線と影・フォーム・ボタン・フィードバック・レイアウト部品に加え、<a href="tokens-preview.html#spacing-recipes">UIごとの間隔レシピ</a>（メニュー・グリッド・見出し・フォームなど）と <a href="tokens-preview.html#table">テーブル</a>／<a href="tokens-preview.html#list">リスト</a> のトークンのいろは案（未確定）。ガイドにない部品は使わない（下書きルール）。Light/Dark 対応のライブ見本は <a href="tokens-preview.html#ui-draft">トークン可視化ページ</a> にあります。角丸 sm 4 / md 8 / lg 12 / xl 16 / full 9999、余白 4px 基準。オーバーレイ：中央モーダル基本／共有などはボトムシート可／<strong>外側クリックで閉じる</strong>。</p></section>
+<section id="motion"><h2>モーション Motion（下書き）</h2><p class="sub">静か・短く・目的があるときだけ。fast 120ms / base 180ms / slow 280ms、easing は <code>cubic-bezier(0.2, 0.8, 0.2, 1)</code>。opacity＋小さな移動のみ、バウンスや UI 上のプリズムモーションは使わない。reduced-motion 対応。<a href="tokens-preview.html#motion">ライブ見本を見る →</a></p></section>
+
 <footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケールは確認待ち。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
 <script>
 const h=document.documentElement,t=document.getElementById('t');
