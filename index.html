@@ -1,0 +1,66 @@
+<!doctype html><html lang="ja" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ousiass UI カラーガイド（下書き）</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+:root{--ink:#050505;--bone:#f5f5f4;--mute:#8b8b8e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism:linear-gradient(90deg,#8b6ad4,#4a72d0,#3aaaba,#3d9a7a,#b8a24a)}
+[data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism:linear-gradient(90deg,#a78bfa,#60a5fa,#22d3ee,#34d399,#fbbf24)}
+*{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .3s,color .3s}
+.wrap{max-width:960px;margin:0 auto;padding:0 28px}header{padding:96px 0 64px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--border)}
+.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
+.badge{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:999px;padding:2px 12px;font-size:12px;letter-spacing:.1em;margin-left:12px}
+h1{font-weight:300;font-size:clamp(32px,6vw,56px);line-height:1.3;margin:0 0 16px;letter-spacing:.02em}h2{font-weight:300;font-size:28px;margin:0 0 8px}
+.lead,.sub{color:var(--mute)}section{padding:72px 0;border-top:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;margin-top:40px}
+.sw{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.chip{height:140px;background:var(--l);border-bottom:1px solid var(--border)}[data-theme=dark] .chip{background:var(--d)}
+.meta{padding:20px}.tok{font-size:15px}.meta p{margin:8px 0 0;font-size:13px;color:var(--mute)}
+.hex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.hex button{font:inherit;font-size:12px;background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer}
+.hex button:hover{background:var(--accent-soft)}.hex button:focus-visible,.toggle:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.toggle{font:inherit;font-size:13px;background:var(--accent);color:var(--bone);border:0;border-radius:999px;padding:8px 18px;cursor:pointer}
+.prismbar{height:120px;border-radius:16px;background:var(--prism);margin-top:40px}
+.warn{margin-top:24px;padding:16px 20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:14px}
+ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}@media(max-width:640px){.dd{grid-template-columns:1fr}header{padding:56px 0 40px}}
+.dd>div{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}.dd h3{margin:0 0 8px;font-weight:400}
+.demo{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border-radius:10px;padding:10px 18px;font-size:14px;border:1px solid var(--border)}
+.st{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.st span{font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid currentColor}
+footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid var(--border)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.3s}
+</style></head><body><div class="wrap">
+<div class="top"><span class="logo">OUSIASS<span class="badge">下書き DRAFT</span></span><button class="toggle" id="t">ダーク表示</button></div>
+<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー設計（下書き）。悠太さんの OK 後に確定します。HEX はクリックでコピーできます。</p></header>
+<section><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
+<div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
+<div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景</p></div></div><div class="sw"><div class="chip" style="--l:#8b8b8e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
+<div class="hex"><button data-hex="#8b8b8e">Light #8b8b8e</button><button data-hex="#8b8b8e">Dark #8b8b8e</button></div><p>補助テキスト・キャプション</p></div></div><div class="sw"><div class="chip" style="--l:#ffffff;--d:#141414"></div><div class="meta"><code class="tok">--surface</code>
+<div class="hex"><button data-hex="#ffffff">Light #ffffff</button><button data-hex="#141414">Dark #141414</button></div><p>カード・パネル（提案）</p></div></div><div class="sw"><div class="chip" style="--l:#e7e7e5;--d:#2a2a2a"></div><div class="meta"><code class="tok">--border</code>
+<div class="hex"><button data-hex="#e7e7e5">Light #e7e7e5</button><button data-hex="#2a2a2a">Dark #2a2a2a</button></div><p>罫線・区切り（提案）</p></div></div></div></section>
+<section><h2>プリズム（キービジュアル専用）</h2><p class="sub">ロゴ・ヒーロー・キービジュアルにのみ使用。ボタン・リンク・フォームには使わない。</p><div class="prismbar"></div><div class="grid"><div class="sw"><div class="chip" style="--l:#8b6ad4;--d:#a78bfa"></div><div class="meta"><code class="tok">--prism-violet</code>
+<div class="hex"><button data-hex="#8b6ad4">Light #8b6ad4</button><button data-hex="#a78bfa">Dark #a78bfa</button></div><p>キービジュアル専用</p></div></div><div class="sw"><div class="chip" style="--l:#4a72d0;--d:#60a5fa"></div><div class="meta"><code class="tok">--prism-blue</code>
+<div class="hex"><button data-hex="#4a72d0">Light #4a72d0</button><button data-hex="#60a5fa">Dark #60a5fa</button></div><p>キービジュアル専用</p></div></div><div class="sw"><div class="chip" style="--l:#3aaaba;--d:#22d3ee"></div><div class="meta"><code class="tok">--prism-cyan</code>
+<div class="hex"><button data-hex="#3aaaba">Light #3aaaba</button><button data-hex="#22d3ee">Dark #22d3ee</button></div><p>キービジュアル専用</p></div></div><div class="sw"><div class="chip" style="--l:#3d9a7a;--d:#34d399"></div><div class="meta"><code class="tok">--prism-green</code>
+<div class="hex"><button data-hex="#3d9a7a">Light #3d9a7a</button><button data-hex="#34d399">Dark #34d399</button></div><p>キービジュアル専用</p></div></div><div class="sw"><div class="chip" style="--l:#b8a24a;--d:#fbbf24"></div><div class="meta"><code class="tok">--prism-yellow</code>
+<div class="hex"><button data-hex="#b8a24a">Light #b8a24a</button><button data-hex="#fbbf24">Dark #fbbf24</button></div><p>キービジュアル専用</p></div></div></div><div class="warn">⚠️ UI 部品（ボタン・リンク・入力欄・バッジ）にはプリズムを使いません。例外はフォーカスリングで blue を薄く借りる場合のみ。</div></section>
+<section><h2>UI アクセント</h2><p class="sub">提案値。インク色をそのままアクセントにする、モノトーン基調。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#f5f5f4"></div><div class="meta"><code class="tok">--accent</code>
+<div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#f5f5f4">Dark #f5f5f4</button></div><p>主ボタン・リンク・選択状態（提案）</p></div></div><div class="sw"><div class="chip" style="--l:#e7e7e5;--d:#2a2a2a"></div><div class="meta"><code class="tok">--accent-soft</code>
+<div class="hex"><button data-hex="#e7e7e5">Light #e7e7e5</button><button data-hex="#2a2a2a">Dark #2a2a2a</button></div><p>ホバー・選択背景（提案）</p></div></div><div class="sw"><div class="chip" style="--l:#4a72d0;--d:#60a5fa"></div><div class="meta"><code class="tok">--focus</code>
+<div class="hex"><button data-hex="#4a72d0">Light #4a72d0</button><button data-hex="#60a5fa">Dark #60a5fa</button></div><p>フォーカスリング（プリズムblueを薄く借用）</p></div></div></div>
+<div class="demo"><span class="btn" style="background:var(--accent);color:var(--bone);border-color:var(--accent)">主ボタン</span><span class="btn" style="background:var(--accent-soft)">サブボタン</span><span class="btn" style="outline:2px solid var(--focus);outline-offset:2px">フォーカス</span></div></section>
+<section><h2>状態色</h2><p class="sub">提案値。くすませた、ほぼ無彩色寄りのトーン。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#3d5c4a;--d:#8fafa0"></div><div class="meta"><code class="tok">--success</code>
+<div class="hex"><button data-hex="#3d5c4a">Light #3d5c4a</button><button data-hex="#8fafa0">Dark #8fafa0</button></div><p>完了・成功</p></div></div><div class="sw"><div class="chip" style="--l:#7a6a3a;--d:#c4b87a"></div><div class="meta"><code class="tok">--warning</code>
+<div class="hex"><button data-hex="#7a6a3a">Light #7a6a3a</button><button data-hex="#c4b87a">Dark #c4b87a</button></div><p>注意</p></div></div><div class="sw"><div class="chip" style="--l:#7a4545;--d:#c49a9a"></div><div class="meta"><code class="tok">--danger</code>
+<div class="hex"><button data-hex="#7a4545">Light #7a4545</button><button data-hex="#c49a9a">Dark #c49a9a</button></div><p>エラー・破壊的操作</p></div></div><div class="sw"><div class="chip" style="--l:#4a5a6a;--d:#9aabbc"></div><div class="meta"><code class="tok">--info</code>
+<div class="hex"><button data-hex="#4a5a6a">Light #4a5a6a</button><button data-hex="#9aabbc">Dark #9aabbc</button></div><p>お知らせ</p></div></div></div>
+<div class="st"><span style="color:var(--success)">success</span><span style="color:var(--warning)">warning</span><span style="color:var(--danger)">danger</span><span style="color:var(--info)">info</span></div></section>
+<section><h2>Do / Don't</h2><div class="dd"><div><h3>Do</h3><ul class="p"><li>背景は bone、カードは surface、区切りは border</li><li>主操作は accent（インク色）で示す</li><li>プリズムはロゴとキービジュアルだけに</li><li>状態はアイコン＋文言＋くすんだ状態色で伝える</li><li>ライト / ダーク両方で確認する</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ボタン・リンク・フォームにプリズムを使う</li><li>鮮やかな赤・緑などの原色を状態色に使う</li><li>プロダクトごとに独自パレットを作る</li><li>mute を本文の長文に使う（コントラスト不足）</li><li>色だけで意味を伝える</li></ul></div></div></section>
+<footer>下書き / DRAFT — 悠太さんの OK 待ち。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
+<script>
+const h=document.documentElement,t=document.getElementById('t');
+function set(m){h.dataset.theme=m;t.textContent=m==='dark'?'ライト表示':'ダーク表示';localStorage.theme=m}
+set(localStorage.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+t.onclick=()=>set(h.dataset.theme==='dark'?'light':'dark');
+document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);const x=document.getElementById('toast');x.textContent=b.dataset.hex+' をコピーしました';x.style.opacity=1;setTimeout(()=>x.style.opacity=0,1400)});
+</script></body></html>
