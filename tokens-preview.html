@@ -352,9 +352,22 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .sidenav a[aria-current=page]{background:var(--accent-soft);color:var(--ink)}
 #p0 .app-shell{display:flex;min-height:200px}
 #p0 .app-main{flex:1;padding:16px;font-size:14px}
-#p0 .mobile-note{display:flex;gap:12px;align-items:flex-start;margin-top:12px}
-#p0 .mini-mobile{width:120px;height:160px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:8px;flex:none;position:relative}
-#p0 .mini-mobile .bar{height:28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin:-8px -8px 8px;padding:0 8px}
+#p0 .mobile-note{display:flex;gap:16px;align-items:flex-start;margin-top:16px;flex-wrap:wrap}
+#p0 .phone{width:280px;height:480px;border:1px solid var(--border);border-radius:24px;background:var(--surface);flex:none;position:relative;overflow:hidden;box-shadow:var(--shadow-modal)}
+#p0 .phone .mbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--border);background:var(--surface);position:relative;z-index:3}
+#p0 .phone .mbar .brand{font-weight:600;letter-spacing:.1em;font-size:12px}
+#p0 .phone .mbody{padding:16px;font-size:13px;color:var(--mute)}
+#p0 .mnav-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:4}
+#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:220px;background:var(--surface);border-right:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(-105%);transition:transform var(--motion-slow) var(--ease-out);z-index:5;display:flex;flex-direction:column;padding:12px 8px}
+#p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
+#p0 .phone.open .mnav-panel{transform:translateX(0)}
+#p0 .mnav-panel a{display:flex;align-items:center;height:40px;padding:0 12px;border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px}
+#p0 .mnav-panel a[aria-current=page],#p0 .mnav-panel a:hover{background:var(--accent-soft);color:var(--ink)}
+#p0 .topnav .burger{display:none}
+@media (max-width:640px){
+#p0 .topnav .links{display:none}
+#p0 .topnav .burger{display:inline-grid}
+}
 #p0 .bc{display:flex;align-items:center;gap:8px;font-size:14px;flex-wrap:wrap}
 #p0 .bc a{color:var(--mute);text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 #p0 .bc .sep{color:var(--mute)}#p0 .bc .cur{color:var(--ink)}
@@ -377,18 +390,20 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .pop .acts{display:flex;justify-content:flex-end;gap:8px}
 #p0 .pop-scrim{position:fixed;inset:0;z-index:calc(var(--z-dropdown) - 1);display:none;background:transparent}
 #p0 .pop-host.open .pop-scrim{display:block}
-#p0 .drawer-stage{position:relative;height:240px;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
-#p0 .drawer-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 18%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:var(--z-drawer)}
-#p0 .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:360px;max-width:86%;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform var(--motion-slow) var(--ease-out);z-index:calc(var(--z-drawer) + 1);display:flex;flex-direction:column}
+#p0 .drawer-stage{position:relative;height:320px;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
+#p0 .drawer-stage .drawer-bg{position:absolute;inset:0;padding:16px;font-size:14px;color:var(--mute);pointer-events:none}
+#p0 .drawer-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:1}
+#p0 .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,85%);background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform var(--motion-slow) var(--ease-out);z-index:2;display:flex;flex-direction:column;opacity:1}
 #p0 .drawer-stage.open .drawer-scrim{opacity:1;pointer-events:auto}
-#p0 .drawer-stage.open .drawer-panel{transform:none}
+#p0 .drawer-stage.open .drawer-panel{transform:translateX(0)}
 #p0 .drawer-panel header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:15px}
-#p0 .drawer-panel .bd{padding:16px;font-size:14px;flex:1}
+#p0 .drawer-panel .bd{padding:16px;font-size:14px;flex:1;overflow:auto}
 @media (prefers-reduced-motion:reduce){
-#p0 .drawer-panel{transition:opacity 100ms linear;opacity:0}
-#p0 .drawer-stage.open .drawer-panel{opacity:1;transform:none}
+#p0 .drawer-panel{transform:none!important;opacity:0;transition:opacity 100ms linear}
+#p0 .drawer-stage.open .drawer-panel{opacity:1}
 #p0 .drawer-scrim{transition:opacity 100ms linear}
 #p0 .tip{transition:opacity 100ms linear}
+#p0 .mnav-panel{transition:opacity 100ms linear!important;transform:none!important}
 }
 #p0 .bp-table{width:100%;border-collapse:collapse;font-size:14px}#p0 .bp-table th,#p0 .bp-table td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}#p0 .bp-table th{font-size:12px;color:var(--mute);font-weight:600}
 #p0 .grid-demo{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4);margin-top:8px}
@@ -411,7 +426,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <div class="topnav" role="navigation" aria-label="トップナビ見本">
     <span class="brand">OUSIASS</span>
     <div class="links"><a href="#" aria-current="page">概要</a><a href="#">プロジェクト</a><a href="#">請求</a></div>
-    <button type="button" class="ib gh" aria-label="メニュー" style="width:32px;height:32px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <span class="avatar" aria-hidden="true">YT</span>
   </div>
 </div>
@@ -428,13 +442,29 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   </div>
 </div>
 <div class="mobile-note">
-  <div class="mini-mobile" aria-hidden="true">
-    <div class="bar"><span style="font-size:10px;font-weight:600;letter-spacing:.08em">OUSIASS</span><span style="width:20px;height:20px;border:1px solid var(--border);border-radius:4px;display:grid;place-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span></div>
-    <div style="height:8px;background:var(--accent-soft);border-radius:4px;margin-bottom:6px"></div>
-    <div style="height:8px;width:70%;background:var(--accent-soft);border-radius:4px"></div>
-    <div style="position:absolute;inset:28px 0 0;background:var(--surface);border-top:1px solid var(--border);padding:8px;font-size:10px;transform:translateY(40%);box-shadow:0 -2px 8px rgba(0,0,0,.04)">Drawer / sheet</div>
+  <div class="phone" id="p0-phone">
+    <div class="mbar">
+      <span class="brand">OUSIASS</span>
+      <button type="button" class="ib gh ripple-host" id="p0-mnav-open" aria-label="メニューを開く" aria-expanded="false" style="width:36px;height:36px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+    <div class="mbody">コンテンツ領域。ハンバーガーで左ドロワー（ナビ）が開きます。</div>
+    <div class="mnav-scrim" id="p0-mnav-scrim"></div>
+    <nav class="mnav-panel" id="p0-mnav-panel" aria-label="モバイルナビ">
+      <a href="#" aria-current="page">概要</a>
+      <a href="#">プロジェクト</a>
+      <a href="#">請求</a>
+      <a href="#">設定</a>
+    </nav>
   </div>
-  <p class="help" style="margin:0">モバイル：トップナビはアイコンボタンに畳み、シート／ドロワーへ。<strong>ナビリンクは SemiBold にしない</strong>（見出し・ボタンのみ）。</p>
+  <div style="flex:1;min-width:200px">
+    <p class="help" style="margin:0 0 8px">モバイル見本（操作可）：リンクは畳んでハンバーガー → <strong>左ドロワー</strong>。スクラム／外側タップで閉じる。</p>
+    <ul class="vals">
+      <li>トップバー高さ ~52–56</li>
+      <li>ドロワー幅 ~78%（上限 220 in 見本）</li>
+      <li>ナビリンクは Regular（SemiBold にしない）</li>
+      <li>短い選択肢だけなら Bottom sheet でも可</li>
+    </ul>
+  </div>
 </div>
 
 <h3 id="p0-breadcrumb">Breadcrumb</h3>
@@ -495,13 +525,14 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card" style="padding:16px">
   <button type="button" class="btn sec sm ripple-host" id="p0-drawer-open" style="margin-bottom:12px">右ドロワーを開く</button>
   <div class="drawer-stage" id="p0-drawer">
+    <div class="drawer-bg">メイン画面のコンテンツ。右からドロワーが被さります。</div>
     <div class="drawer-scrim" id="p0-drawer-scrim"></div>
     <aside class="drawer-panel" role="dialog" aria-label="ドロワー見本" aria-modal="true">
       <header><span>詳細</span>
         <button type="button" class="ib gh ripple-host" id="p0-drawer-close" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </header>
       <div class="bd">
-        <p style="margin:0 0 8px">幅 360・右からスライド（--motion-slow）。スクラム付き。</p>
+        <p style="margin:0 0 8px">右ドロワー（幅 min 320 / 85%）。スクラム付き・外側クリックで閉じる。</p>
         <p class="mute" style="margin:0;font-size:13px">reduced-motion 時はスライドなし・フェードのみ。</p>
       </div>
     </aside>
@@ -582,6 +613,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   openB&&openB.addEventListener('click',openDr);
   closeB&&closeB.addEventListener('click',closeDr);
   scrim&&scrim.addEventListener('click',closeDr);
+  const phone=document.getElementById('p0-phone'), mOpen=document.getElementById('p0-mnav-open'), mScrim=document.getElementById('p0-mnav-scrim');
+  function openM(){if(!phone)return;phone.classList.add('open');mOpen&&mOpen.setAttribute('aria-expanded','true')}
+  function closeM(){if(!phone)return;phone.classList.remove('open');mOpen&&mOpen.setAttribute('aria-expanded','false')}
+  mOpen&&mOpen.addEventListener('click',e=>{e.stopPropagation();phone.classList.contains('open')?closeM():openM()});
+  mScrim&&mScrim.addEventListener('click',closeM);
+  phone&&phone.querySelectorAll('.mnav-panel a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeM()}));
   // attach ripples for new buttons
   const sel='#p0 .btn, #p0 .ib';
   document.querySelectorAll(sel).forEach(el=>{
