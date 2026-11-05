@@ -83,9 +83,40 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 <pre><code>// JetBrains Mono 400
 const theme = { ink: "#050505", bone: "#f5f5f4" };
 export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
+<style>
+:root{--gap-menu:var(--s-2);--gap-option:var(--s-1);--gap-grid:var(--s-4);--gap-grid-lg:var(--s-6);--gap-grid-dense:var(--s-3);--gap-label:6px;--gap-field:var(--s-4);--gap-help:var(--s-1);--gap-h1:var(--s-6);--gap-h2:var(--s-6);--gap-h3:var(--s-3);--gap-heading-body:var(--s-2);--gap-para:var(--s-4);--pad-card:var(--s-6);--pad-card-sm:var(--s-4);--gap-card-section:var(--s-6);--gap-inline:var(--s-2);--gap-section:var(--s-16);--gap-section-sm:var(--s-12);--menu-item-h:40px;--menu-pad-x:var(--s-3);
+--table-pad-y:10px;--table-pad-x:var(--s-3);--table-pad-y-compact:6px;--table-pad-x-compact:var(--s-2);--table-head-size:12px;--table-body-size:14px;--table-row-hover:var(--accent-soft);--table-divider:var(--stroke) solid var(--border);
+--list-gap:var(--s-2);--list-marker-gap:10px;--list-row-h:48px;--list-row-pad-x:var(--s-4);--list-divider:var(--stroke) solid var(--border);--list-title-caption-gap:2px;--list-two-line-gap:var(--s-3)}
+.rule{border:1px dashed var(--mute);border-radius:var(--r-md);padding:8px 14px;font-size:14px;margin:12px 0}
+.rc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.rc .card{padding:var(--pad-card)}.rc h4{margin:0 0 8px;font-size:15px;font-weight:600}
+.dg{background:var(--bone);border:1px dashed var(--border);border-radius:var(--r-md);padding:12px;margin:8px 0}.dg .b{background:var(--accent-soft);border-radius:var(--r-sm);font-size:12px;padding:0 12px;display:flex;align-items:center}
+.vals{font:12px "JetBrains Mono",monospace;color:var(--mute);margin:6px 0 0;padding-left:16px}
+.tbl2{width:100%;border-collapse:collapse;font-size:var(--table-body-size)}.tbl2 th{font-weight:600;font-size:var(--table-head-size);color:var(--mute);text-align:left;padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 td{padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 tbody tr:hover{background:var(--table-row-hover)}.tbl2 .num{font-family:"JetBrains Mono",monospace;text-align:right}.tbl2.compact th,.tbl2.compact td{padding:var(--table-pad-y-compact) var(--table-pad-x-compact)}
+.ls{list-style:none;padding:0;margin:0;font-size:14px;display:grid;gap:var(--list-gap)}.ls li{display:flex;gap:var(--list-marker-gap);align-items:baseline}.ls li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--mute);flex:none;transform:translateY(-2px)}
+.ol{margin:0;padding-left:1.4em;font-size:14px;display:grid;gap:var(--list-gap)}.ol li::marker{font-family:"JetBrains Mono",monospace;color:var(--mute)}
+.lr{list-style:none;padding:0;margin:0;font-size:14px}.lr li{min-height:var(--list-row-h);padding:0 var(--list-row-pad-x);display:flex;justify-content:space-between;align-items:center;border-bottom:var(--list-divider)}.lr li:last-child{border-bottom:0}
+.l2{list-style:none;padding:0;margin:0;display:grid;gap:var(--list-two-line-gap)}.l2 .t{font-size:14px}.l2 .c{font-size:12px;color:var(--mute);margin-top:var(--list-title-caption-gap)}
+</style>
+<section class="ui" id="spacing-recipes">
+<h2>間隔の使い方 Spacing recipes<span class="draft">下書き</span></h2>
+<p class="mute" style="font-size:14px">UI ごとに「どれだけ空けるか」を決めた表です（いろは案・未確定）。値はすべて既存の <code>--s-*</code>（4px 基準）から選びます。</p>
+<div class="rc">
+<div class="card"><h4>メニュー / ナビ項目</h4><div class="dg" style="display:grid;gap:var(--gap-menu)"><div class="b" style="height:var(--menu-item-h)">ホーム</div><div class="b" style="height:var(--menu-item-h)">プロジェクト</div><div class="b" style="height:var(--menu-item-h)">設定</div></div><ul class="vals"><li>項目間 8px (--s-2)</li><li>項目の高さ 40px</li><li>左右 padding 12px (--s-3)、余裕があれば 16</li></ul></div>
+<div class="card"><h4>ドロップダウン / シートの選択肢</h4><div class="dg" style="display:grid;gap:var(--gap-option)"><div class="b" style="height:36px">Free</div><div class="b" style="height:36px">Pro</div><div class="b" style="height:36px">Team</div></div><ul class="vals"><li>項目間 4px (--s-1)</li><li>または隙間 0 ＋ 各行 上下 12px (--s-3)</li></ul></div>
+<div class="card"><h4>グリッド（カード）</h4><div class="dg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-grid)"><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div></div><ul class="vals"><li>標準 16px (--s-4)</li><li>広い画面・大きいカード 24px (--s-6)</li><li>密なツールグリッド 12px (--s-3)</li></ul></div>
+<div class="card"><h4>フォームの縦積み</h4><div class="dg"><div style="font-size:12px">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div><div style="font-size:11px;margin-top:var(--gap-help)" class="mute">補足</div><div style="font-size:12px;margin-top:var(--gap-field)">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div></div><ul class="vals"><li>ラベル→入力 6px（〜8）</li><li>入力→補足 4px (--s-1)</li><li>項目→項目 16px (--s-4)</li></ul></div>
+<div class="card"><h4>見出しの間隔（h タグ）</h4><div class="dg"><div style="font-weight:600;font-size:18px;line-height:1.3">h2 見出し</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文の段落。</div><div style="font-size:13px;margin-top:var(--gap-para)">次の段落。</div><div style="font-weight:600;font-size:15px;margin-top:var(--gap-h2)">h3 見出し</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文。</div></div><ul class="vals"><li>h1 / h2 の下 24px (--s-6)、上は 48〜64</li><li>h3 の下 12px (--s-3)、上は 24〜32</li><li>見出し→本文 8px (--s-2)〜12</li><li>段落→段落 16px (--s-4)</li></ul></div>
+<div class="card"><h4>カードの内側</h4><div class="dg"><div class="b" style="display:block;padding:var(--pad-card-sm)">padding 16<div style="height:var(--gap-card-section)"></div>セクション（24 空ける）</div></div><ul class="vals"><li>padding 24px (--s-6)、小さいカード 16px (--s-4)</li><li>カード内のまとまり同士 24px (--s-6)</li></ul></div>
+<div class="card"><h4>横並び（ボタン・チップ）</h4><div class="dg" style="display:flex;gap:var(--gap-inline)"><div class="b" style="height:32px">保存</div><div class="b" style="height:32px">キャンセル</div><div class="b" style="height:32px">タグ</div></div><ul class="vals"><li>間隔 8px (--s-2)</li></ul></div>
+<div class="card"><h4>ページのセクション</h4><div class="dg" style="display:grid;gap:24px"><div class="b" style="height:28px">セクション A</div><div class="b" style="height:28px">セクション B</div></div><ul class="vals"><li>標準 64px (--s-16)</li><li>スマホ・密な画面 48px (--s-12)</li></ul></div>
+</div>
+<p class="help" style="margin-top:12px">名前付きトークン（下書き）：<code>--gap-menu --gap-option --gap-grid(-lg/-dense) --gap-label --gap-field --gap-help --gap-h2 --gap-h3 --gap-heading-body --gap-para --pad-card(-sm) --gap-card-section --gap-inline --gap-section(-sm) --menu-item-h --menu-pad-x</code></p>
+</section>
 <section class="ui" id="ui">
 <h2 id="ui-draft">UI部品（下書き・いろは案）<span class="draft">下書き</span></h2>
 <p class="mute" style="font-size:14px">値はすべていろはの提案です（未確定）。Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスリングだけ focus 青を 40% で使用）。</p>
+
+<p class="rule"><strong>ルール（下書き）：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
 <h3 id="radius">角丸 Radius</h3>
 <div class="card"><div class="rad">
@@ -173,6 +204,19 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="empty"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/></svg></div><div style="font-weight:600">まだ項目がありません</div><p class="mute" style="font-size:14px;margin:4px 0 16px">最初のプロジェクトを作成しましょう。</p><button class="btn pri sm">新規作成</button></div>
 </div>
 
+<h3 id="table">テーブル Table</h3>
+<p class="mute" style="font-size:14px;margin:0 0 12px">見出し行 SemiBold 12 mute＋下線 1px。本文 Regular 14。数値列は JetBrains Mono 右寄せ。行ホバーで accent-soft。</p>
+<div class="card" style="padding:0;overflow:auto"><table class="tbl2"><thead><tr><th>プロジェクト</th><th>担当</th><th style="text-align:right">件数</th><th style="text-align:right">金額 (円)</th></tr></thead><tbody><tr><td>ブランドガイド</td><td>いろは</td><td class="num">12</td><td class="num">120,000</td></tr><tr><td>サイト改修</td><td>悠太</td><td class="num">8</td><td class="num">86,500</td></tr><tr><td>請求処理</td><td>—</td><td class="num">3</td><td class="num">4,200</td></tr></tbody></table></div>
+<p class="help" style="margin:12px 0 6px">コンパクト（.compact：上下 6 / 左右 8）</p>
+<div class="card" style="padding:0;overflow:auto"><table class="tbl2 compact"><thead><tr><th>日付</th><th>内容</th><th style="text-align:right">数量</th></tr></thead><tbody><tr><td class="mono">2026-11-01</td><td>ログ A</td><td class="num">1,024</td></tr><tr><td class="mono">2026-11-02</td><td>ログ B</td><td class="num">96</td></tr></tbody></table></div>
+<p class="tk" style="margin-top:8px">--table-pad-y 10 / --table-pad-x 12 / --table-pad-y-compact 6 / --table-pad-x-compact 8 / --table-head-size 12 / --table-body-size 14 / --table-row-hover / --table-divider</p>
+<h3 id="list">リスト List</h3>
+<div class="two">
+<div class="card"><div class="tk" style="margin-bottom:8px">テキストリスト：項目間 8 / 記号→文字 10</div><ul class="ls"><li>背景は bone、カードは surface</li><li>主操作は accent で示す</li><li>状態はアイコン＋文言で伝える</li></ul><div class="tk" style="margin:20px 0 8px">番号付きリスト：番号は Mono mute</div><ol class="ol"><li>アカウントを作成</li><li>プロジェクトを追加</li><li>メンバーを招待</li></ol></div>
+<div class="card" style="padding:0"><div class="tk" style="padding:12px 16px 0">設定行：最小高さ 48 / 左右 16 / 区切り 1px</div><ul class="lr"><li>通知<span class="mute">オン</span></li><li>言語<span class="mute">日本語</span></li><li>テーマ<span class="mute">システム</span></li></ul></div>
+<div class="card"><div class="tk" style="margin-bottom:8px">2行リスト：タイトル Regular＋mute キャプション、間 2 / 行間 12</div><ul class="l2"><li><div class="t">請求書 #0012</div><div class="c">2026-11-01 ・ 送付済み</div></li><li><div class="t">請求書 #0011</div><div class="c">2026-10-01 ・ 入金済み</div></li><li><div class="t">請求書 #0010</div><div class="c">2026-09-01 ・ 入金済み</div></li></ul></div>
+</div>
+<p class="tk" style="margin-top:8px">--list-gap 8 / --list-marker-gap 10 / --list-row-h 48 / --list-row-pad-x 16 / --list-divider / --list-title-caption-gap 2 / --list-two-line-gap 12</p>
 <h3 id="layout">レイアウト Layout chrome</h3>
 <p class="mute" style="font-size:14px;margin:0 0 12px">オーバーレイ方針（下書き）：基本は中央モーダル。共有・短い選択肢はボトムシート可。モーダル／シートとも <strong>外側（スクラム）クリックで自動クローズ</strong>。</p>
 <div class="f2">
