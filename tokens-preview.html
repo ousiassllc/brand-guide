@@ -1011,10 +1011,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .skel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--gap-grid)}
 #p2 .coach-stage{position:relative;min-height:240px;padding:20px;overflow:hidden}
 #p2 .coach-ui{border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:16px;max-width:280px}
-#p2 .coach-spot{position:relative;z-index:2;border-radius:var(--r-md);box-shadow:0 0 0 9999px color-mix(in srgb,var(--ink) 35%,transparent)}
-#p2 .coach-spot::after{content:"";position:absolute;inset:-4px;border-radius:calc(var(--r-md) + 4px);border:1.5px solid color-mix(in srgb,var(--ink) 36%,transparent);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 22%,transparent);pointer-events:none;animation:coach-pulse 2s var(--ease-in-out) infinite}
-@keyframes coach-pulse{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 24%,transparent);opacity:1}70%{transform:scale(1.1);box-shadow:0 0 0 12px color-mix(in srgb,var(--ink) 0%,transparent);opacity:1}100%{transform:scale(1.1);box-shadow:0 0 0 12px transparent;opacity:1}}
-@media (prefers-reduced-motion:reduce){#p2 .coach-spot::after{animation:none;border-color:color-mix(in srgb,var(--ink) 40%,transparent);box-shadow:none;opacity:1}}
+#p2 .coach-spot{display:inline-flex;position:relative;z-index:2;border-radius:var(--r-md);box-shadow:0 0 0 2px color-mix(in srgb,var(--ink) 50%,transparent),0 0 0 9999px color-mix(in srgb,var(--ink) 40%,transparent)}
+#p2 .coach-spot::after{content:"";position:absolute;inset:-6px;border-radius:calc(var(--r-md) + 6px);border:2px solid color-mix(in srgb,var(--ink) 45%,transparent);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 32%,transparent);pointer-events:none;animation:coach-pulse 2.2s var(--ease-in-out) infinite}
+@keyframes coach-pulse{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 36%,transparent);opacity:1}55%{transform:scale(1.12);box-shadow:0 0 0 14px color-mix(in srgb,var(--ink) 14%,transparent);opacity:.9}100%{transform:scale(1.18);box-shadow:0 0 0 22px color-mix(in srgb,var(--ink) 0%,transparent);opacity:0}}
+@media (prefers-reduced-motion:reduce){#p2 .coach-spot::after{animation:none;inset:-4px;border:2px solid color-mix(in srgb,var(--ink) 55%,transparent);box-shadow:none;opacity:1}}
 #p2 .coach-tip{position:absolute;z-index:3;left:min(320px,55%);top:48px;width:min(240px,70%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px}
 #p2 .coach-tip b{display:block;font-size:14px;margin-bottom:6px}
 #p2 .coach-tip p{margin:0 0 12px;font-size:13px;color:var(--mute)}
@@ -1234,7 +1234,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <div class="coach-ui">
       <div class="lbl" style="margin:0 0 8px">ワークスペース</div>
       <p class="mute" style="font-size:13px;margin:0 0 12px">最初のプロジェクトを追加します。</p>
-      <button type="button" class="btn pri sm coach-spot" id="p2-coach-target">新規作成</button>
+      <span class="coach-spot" id="p2-coach-target-wrap">
+        <button type="button" class="btn pri sm" id="p2-coach-target">新規作成</button>
+      </span>
     </div>
     <div class="coach-tip" role="dialog" aria-label="コーチマーク">
       <b>ここから始めます</b>
@@ -1249,7 +1251,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
   </div>
   <div style="padding:14px 16px">
-    <p class="help" style="margin:0">スポットライトは対象に ink グレーの静かなベースリング + 広がって薄れるパルス（box-shadow）+ 外側ディム。focus 青は使わない（reduced-motion では見える静止リングのみ）。チップは surface カード（ツールチップより情報多め）。同時に1つ。</p>
+    <p class="help" style="margin:0">スポットライトは対象ラッパーに ink グレーのベースリング（約50%）+ 広がって薄れるパルス（box-shadow・サイクル大半で見える）+ 外側ディム（約40%）。リップルはボタン側。focus 青は使わない（reduced-motion では見える静止 ink リングのみ）。チップは surface カード（ツールチップより情報多め）。同時に1つ。</p>
   </div>
 </div>
 
