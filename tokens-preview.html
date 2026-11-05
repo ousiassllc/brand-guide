@@ -1011,7 +1011,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .skel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--gap-grid)}
 #p2 .coach-stage{position:relative;min-height:240px;padding:20px}
 #p2 .coach-ui{border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:16px;max-width:280px}
-#p2 .coach-spot{position:relative;z-index:2;outline:2px solid var(--focus);outline-offset:4px;border-radius:var(--r-md);box-shadow:0 0 0 9999px color-mix(in srgb,var(--ink) 35%,transparent)}
+#p2 .coach-spot{position:relative;z-index:2;border-radius:var(--r-md);box-shadow:0 0 0 9999px color-mix(in srgb,var(--ink) 35%,transparent)}#p2 .coach-spot::after{content:"";position:absolute;inset:-5px;border-radius:calc(var(--r-md) + 4px);border:2px solid color-mix(in srgb,var(--mute) 70%,transparent);pointer-events:none;animation:coach-pulse 1.8s var(--ease-in-out) infinite}@keyframes coach-pulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(1.12);opacity:0}100%{transform:scale(1.12);opacity:0}}@media (prefers-reduced-motion:reduce){#p2 .coach-spot::after{animation:none;opacity:.8}}
 #p2 .coach-tip{position:absolute;z-index:3;left:min(320px,55%);top:48px;width:min(240px,70%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px}
 #p2 .coach-tip b{display:block;font-size:14px;margin-bottom:6px}
 #p2 .coach-tip p{margin:0 0 12px;font-size:13px;color:var(--mute)}
@@ -1246,7 +1246,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
   </div>
   <div style="padding:14px 16px">
-    <p class="help" style="margin:0">スポットライトは対象に focus リング相当 + 外側ディム。チップは surface カード（ツールチップより情報多め）。同時に1つ。</p>
+    <p class="help" style="margin:0">スポットライトは対象にグレー（--mute）のやわらかく広がるリング + 外側ディム。focus 青は使わない（reduced-motion では静止リング）。チップは surface カード（ツールチップより情報多め）。同時に1つ。</p>
   </div>
 </div>
 
