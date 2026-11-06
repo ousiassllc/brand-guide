@@ -99,10 +99,8 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <p class="warn"><strong>狭くても変えないもの</strong>: 入力欄とボタンの高さ（<code>--control-h</code> 40px）、角丸、サイズスケール、状態色、アイコンの大きさ、モーション、線の太さ。狭いからといって本文を 14px に落としたり、角丸を小さくしたりしない。<strong>同じ製品群に見えるのはここが揃っているからで、レイアウトが同じだからではない。</strong></p>
 <p class="sub">狭い面で本文が入りきらないときは、文字を小さくするのではなく、項目を減らすか 1 カラムに畳む。</p></section>
 <section id="products" class="ty"><h2>案件ガイド Product guides</h2><p class="sub">共通ガイドが決めるのは<strong>骨格</strong>（面・余白・角丸・書体・状態色・モーション・骨格部品）。プロダクトが決めてよいのは <code class="tok">--accent</code> 系の 3 変数、テーマの提供範囲、そのプロダクトにしかない拡張トークンと独自ウィジェットだけ。</p>
-<table><tr><th>プロダクト</th><th>accent（L / D）</th><th>on-accent</th><th>accent-soft（L / D）</th><th>テーマ</th></tr>
-<tr><td>VeriCerts Wallet</td><td><code>#0b57d0</code> / —</td><td><code>#ffffff</code></td><td><code>#d3e3fd</code> / —</td><td>ライトのみ（例外）</td></tr>
-<tr><td>VeriCerts DLP</td><td><code>#1a6974</code> / <code>#36bfd3</code></td><td><code>#ffffff</code> / <code>#0f3b42</code></td><td><code>#cdeaef</code> / <code>#11444b</code></td><td>ライト・ダーク</td></tr></table>
-<p class="warn">2 つの accent は色相が違うだけで明度をそろえてある（bone 上のコントラストが 5.85 と 5.80）。同じレイアウトに置いても重さが変わらないようにするため、新しい accent もこの帯に入れる。<strong>新しいプロダクトは、使い始める前にこの表へ 1 行足す。</strong></p>
+<p class="sub">ここに、宣言された製品 accent を 1 行ずつ足していく。<strong>新しいプロダクトは、使い始める前にこの表へ行を足す。</strong>2 つ目以降の accent は、1 つ目と <code class="tok">--bone</code> 上のコントラストを揃える（同じレイアウトに置いても重さが変わらないようにするため）。</p>
+
 <p style="margin-top:24px">トークンの実体はそのまま写して使える: <a href="tokens.json"><code class="tok">tokens.json</code></a>（値の正） / <a href="tokens.css"><code class="tok">tokens.css</code></a>（素の <code class="tok">:root</code>） / <a href="theme.css"><code class="tok">theme.css</code></a>（Tailwind v4 の <code class="tok">@theme</code>）</p><p><a href="product-guide.html">案件ガイドの作り方・トークンの配り方・今のトークンからの移行表 →</a></p>
 </section>
 <footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora・Noto Sans JP（SIL OFL）。案件ガイドの決まり: 2026-11-06 追加。</footer></div><div id="toast"></div>

@@ -19,7 +19,7 @@ node build-tokens.mjs --check  # tokens.json と一致するか調べる（CI �
 | --- | --- | --- |
 | [`tokens.json`](tokens.json) | JSON | 値の正。Figma の変数・スクリプト・CSS 以外のスタック |
 | [`tokens.css`](tokens.css) | 素の `:root` ＋ `[data-theme=dark]` ＋ `prefers-color-scheme` | Tailwind を使わないビルド |
-| [`theme.css`](theme.css) | Tailwind v4 の `@theme` | wallet と DLP の本体 |
+| [`theme.css`](theme.css) | Tailwind v4 の `@theme` | Tailwind v4 を使うプロダクトの本体 |
 
 各プロダクトはこれを**写して持ち**、写しが原本と一致することを nightly で検査します。写しは編集せず、製品の上書き（accent 3 変数）は隣の別ファイルに書きます。詳しくは [`product-guide.html`](product-guide.html) の「2. トークンの配り方」。
 
@@ -44,9 +44,6 @@ node build-tokens.mjs --check  # tokens.json と一致するか調べる（CI �
 
 ### 登録済みプロダクト
 
-| プロダクト | accent（Light / Dark） | テーマ | 案件ガイド |
-| --- | --- | --- | --- |
-| VeriCerts Wallet | `#0b57d0` / — | ライトのみ（例外） | `vericerts-wallet` の `spec/content/docs/extension/design/brand.md` |
-| VeriCerts DLP | `#1a6974` / `#36bfd3` | ライト・ダーク | `vericerts-dlp` の `docs/design/brand.md` |
+まだありません。
 
-新しいプロダクトを足すときは、使い始める前に `product-guide.html` の一覧と、この表に 1 行追加してください。
+新しいプロダクトを足すときは、使い始める前に `product-guide.html` の一覧と、この節に 1 行追加してください。

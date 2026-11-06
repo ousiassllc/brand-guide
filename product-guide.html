@@ -53,7 +53,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 <p class="lead">プロダクトをまたいで<strong>同じ見た目の形式</strong>にするための手順書です。共通ガイドが骨格を決め、プロダクトが決めてよいのはここに書いた範囲だけ。トークンの実体は <a href="tokens.json"><code>tokens.json</code></a> / <a href="tokens.css"><code>tokens.css</code></a> / <a href="theme.css"><code>theme.css</code></a> にあり、そのまま写して使えます。</p>
 </header>
 
-<p class="jump"><a href="index.html">← 共通ガイドへ</a><a href="tokens-preview.html">トークン可視化 →</a><a href="#split">切り分け</a><a href="#dist">配り方</a><a href="#accent">製品 accent</a><a href="#theme">テーマ</a><a href="#migrate">移行</a><a href="#template">テンプレート</a><a href="#registry">登録済み</a><a href="#promote">共通への戻し方</a></p>
+<p class="jump"><a href="index.html">← 共通ガイドへ</a><a href="tokens-preview.html">トークン可視化 →</a><a href="#split">切り分け</a><a href="#dist">配り方</a><a href="#accent">製品 accent</a><a href="#theme">テーマ</a><a href="#template">テンプレート</a><a href="#registry">登録済み</a><a href="#promote">共通への戻し方</a></p>
 
 <section id="split">
 <h2>1. 共通と案件の切り分け</h2>
@@ -89,7 +89,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 <tr><th>ファイル</th><th>形</th><th>使うところ</th></tr>
 <tr><td><a href="tokens.json"><code>tokens.json</code></a></td><td>JSON</td><td>値の正。Figma の変数・スクリプト・CSS 以外のスタック</td></tr>
 <tr><td><a href="tokens.css"><code>tokens.css</code></a></td><td>素の <code>:root</code> ＋ <code>[data-theme=dark]</code> ＋ <code>prefers-color-scheme</code></td><td>Tailwind を使わないビルド（Outlook の作業ウィンドウなど）</td></tr>
-<tr><td><a href="theme.css"><code>theme.css</code></a></td><td>Tailwind v4 の <code>@theme</code></td><td>wallet と DLP の本体（どちらも Tailwind v4）</td></tr>
+<tr><td><a href="theme.css"><code>theme.css</code></a></td><td>Tailwind v4 の <code>@theme</code></td><td>Tailwind v4 を使うプロダクトの本体</td></tr>
 </table>
 
 <h3>写し方</h3>
@@ -104,9 +104,9 @@ src/styles/app.css                &lt;- 上の 2 つを読む</pre>
 
 /* accent.css — 案件ガイドに宣言した 3 変数だけ */
 @theme {
-  --color-accent: #0b57d0;
-  --color-on-accent: #ffffff;
-  --color-accent-soft: #d3e3fd;
+  --color-accent: #xxxxxx;
+  --color-on-accent: #xxxxxx;
+  --color-accent-soft: #xxxxxx;
 }</pre>
 
 <h3>一致の検査</h3>
@@ -199,71 +199,9 @@ diff -u vendor/ousiass-tokens/theme.css /tmp/upstream.css</pre>
 </div>
 </section>
 
-<section id="migrate" class="ty">
-<h2>5. 今のトークンからの移行</h2>
-<p class="sub">wallet と DLP はどちらも Figma「初心者向け」由来の Material 3 系の名前を使っています。<strong>2 つのプロダクトで名前がほぼ同じ</strong>なので、対応表はここに 1 枚だけ置きます。案件ガイドに写さないでください。</p>
-
-<h3>色</h3>
-<table>
-<tr><th>今の名前</th><th>共通ガイド</th><th>注意</th></tr>
-<tr><td><code>--color-primary</code></td><td><code>--accent</code></td><td>製品ごと。案件ガイドに宣言する</td></tr>
-<tr><td><code>--color-on-primary</code></td><td><code>--on-accent</code></td><td></td></tr>
-<tr><td><code>--color-primary-container</code></td><td><code>--accent-soft</code></td><td></td></tr>
-<tr><td><code>--color-on-primary-container</code></td><td>（無い）</td><td><code>--accent-soft</code> の上は <code>--ink</code></td></tr>
-<tr><td><code>--color-background</code></td><td><code>--bone</code></td><td><strong>影を外すのと同時に</strong>。下の注意を参照</td></tr>
-<tr><td><code>--color-surface</code></td><td><code>--surface</code></td><td>どちらも <code>#ffffff</code>。<strong>そのまま</strong></td></tr>
-<tr><td><code>--color-surface-variant</code></td><td>（無い）</td><td><code>--accent-soft</code> か <code>--bone</code> に寄せる</td></tr>
-<tr><td><code>--color-on-surface</code></td><td><code>--ink</code></td><td></td></tr>
-<tr><td><code>--color-on-surface-variant</code></td><td><code>--mute</code></td><td></td></tr>
-<tr><td><code>--color-outline</code> / <code>--color-outline-variant</code></td><td><code>--border</code></td><td>2 つが 1 つになる。濃い地の上で 3:1 を割らないか確かめる</td></tr>
-<tr><td><code>--color-error</code></td><td><code>--danger</code></td><td></td></tr>
-<tr><td><code>--color-warning</code></td><td><code>--warning</code></td><td></td></tr>
-<tr><td><code>--color-on-success</code> / DLP の <code>--color-accent</code></td><td><code>--success</code></td><td>DLP の <code>--color-accent</code> は accent ではなく成功色。紛らわしい</td></tr>
-<tr><td><code>*-container</code> / <code>*-badge</code> の組</td><td>（無い）</td><td>状態の地は共通ガイドに無い。Badge・Callout の設計から見直す</td></tr>
-<tr><td>（無い）</td><td><code>--focus</code> <code>--info</code></td><td>新設する</td></tr>
-</table>
-
-<h3>形</h3>
-<table>
-<tr><th>今の値</th><th>共通ガイド</th></tr>
-<tr><td><code>--radius-card</code> 24px</td><td><code>--r-lg</code> 12px</td></tr>
-<tr><td><code>--radius-control</code> 24px</td><td><code>--r-md</code> 8px</td></tr>
-<tr><td><code>--radius-button</code> 20px</td><td><code>--r-md</code> 8px</td></tr>
-<tr><td><code>--radius-checkbox</code> 6px</td><td><code>--r-sm</code> 4px</td></tr>
-<tr><td><code>--shadow-card</code> あり</td><td>（無い）カードは影なし</td></tr>
-<tr><td>入力欄の高さ 48px</td><td><code>--control-h</code> 40px</td></tr>
-<tr><td>余白 4px 刻み</td><td><code>--s-*</code> 4px 基準 ... <strong>そのまま</strong></td></tr>
-</table>
-
-<h3>文字</h3>
-<table>
-<tr><th>今の名前</th><th>共通ガイド</th><th>差</th></tr>
-<tr><td><code>--text-display-amount</code> 40</td><td><code>--text-3xl</code> 40</td><td>同じ</td></tr>
-<tr><td><code>--text-title-page</code> 28</td><td><code>--text-2xl</code> 32</td><td><strong>+4</strong></td></tr>
-<tr><td><code>--text-title-screen</code> 22（wallet のみ）</td><td><code>--text-xl</code> 24</td><td><strong>+2</strong></td></tr>
-<tr><td><code>--text-title-card</code> 18</td><td><code>--text-lg</code> 18</td><td>同じ</td></tr>
-<tr><td><code>--text-body-lg</code> / <code>--text-label-lg</code> 16</td><td><code>--text-base</code> 16</td><td>同じ</td></tr>
-<tr><td><code>--text-body-md</code> / <code>--text-label-md</code> / <code>--text-code-md</code> 14</td><td><code>--text-sm</code> 14</td><td>同じ</td></tr>
-<tr><td><code>--text-body-sm</code> / <code>--text-label-sm</code> / <code>--text-code-sm</code> 12</td><td><code>--text-xs</code> 12</td><td>同じ</td></tr>
-</table>
-<p class="sub" style="margin-top:12px"><strong>大きさは 7 段中 5 段がすでに一致しています。</strong>違うのは 2 段だけ。<code>body</code> と <code>label</code> の違い（太さ）はサイズのトークンでは持たず、用途で決めます（本文は Regular、ボタンと見出しだけ SemiBold）。<code>code</code> は同じサイズに <code>--font-mono</code> を重ねます。</p>
-
-<div class="warn">
-<strong>地と影は必ず同じ変更でまとめてください。</strong> 今はページの地もカードも白に近く、<code>--shadow-card</code> だけが前後を分けています。影を外してから地を下げる（またはその逆）と、途中の状態でカードが地に溶けます。
-</div>
-
-<h3>進め方の目安</h3>
-<ol class="p">
-<li>写しを入れて <code>accent.css</code> で 3 変数を上書きする（見た目は変わらない）</li>
-<li>色を共通名へ寄せる（<code>--ink</code> / <code>--mute</code> / <code>--border</code> / 状態色）</li>
-<li>地と影をまとめて変える</li>
-<li>角丸と高さを変える</li>
-<li>書体とアイコンを入れ替える（同梱物とライセンス表記が動くので最後）</li>
-</ol>
-</section>
 
 <section id="template">
-<h2>6. 案件ガイドに必ず書くこと</h2>
+<h2>5. 案件ガイドに必ず書くこと</h2>
 <p class="sub">各プロダクトのリポジトリに置く案件ガイドの最小構成です。共通ガイドの内容は<strong>写さず、リンクします</strong>（写すと必ず古くなります）。<strong>案件ガイドは短いほどよい</strong>——長いということは、共通にすべきものが案件に溜まっているということです。</p>
 
 <table>
@@ -274,7 +212,7 @@ diff -u vendor/ousiass-tokens/theme.css /tmp/upstream.css</pre>
 <tr><td>3. トークンの写し</td><td>写しの場所と、取り込んでいる共通トークンの版</td></tr>
 <tr><td>4. 拡張トークン</td><td>そのプロダクトにしかない色・寸法と、派生元の共通トークン</td></tr>
 <tr><td>5. 独自ウィジェット</td><td>共通ガイドにない部品の一覧と、使ってよい画面</td></tr>
-<tr><td>6. 共通との既知の差</td><td>まだ揃っていない項目の<strong>短い一覧</strong>と、その製品だけの事情。値の対応は <a href="#migrate">5. 今のトークンからの移行</a> にあるので写さない。<strong>ここが空なら完全準拠</strong></td></tr>
+<tr><td>6. 共通との既知の差</td><td>まだ揃っていない項目の<strong>短い一覧</strong>と、その製品だけの事情。<strong>ここが空なら完全準拠</strong></td></tr>
 <tr><td>改訂履歴</td><td>いつ・何を・なぜ変えたか</td></tr>
 </table>
 
@@ -288,46 +226,19 @@ diff -u vendor/ousiass-tokens/theme.css /tmp/upstream.css</pre>
 </section>
 
 <section id="registry">
-<h2>7. 登録済みのプロダクト</h2>
+<h2>6. 登録済みのプロダクト</h2>
 <p class="sub">共通ガイドに宣言されている製品 accent の一覧です。新しいプロダクトはここに 1 行足してから使い始めてください。</p>
 
+<p>まだ登録されたプロダクトはありません。最初の 1 件を足すときに、下の形で行を作ってください。</p>
 <table>
 <tr><th>プロダクト</th><th>accent</th><th>on-accent</th><th>accent-soft</th><th>テーマ</th><th>案件ガイド</th></tr>
-<tr>
-<td>VeriCerts Wallet<br><span class="sub">ブラウザ拡張</span></td>
-<td><span class="sw" style="background:#0b57d0"></span><code>#0b57d0</code></td>
-<td><code>#ffffff</code></td>
-<td><span class="sw" style="background:#d3e3fd"></span><code>#d3e3fd</code></td>
-<td>ライトのみ<br><span class="sub">（例外・理由は案件ガイド）</span></td>
-<td><code>spec/content/docs/<br>extension/design/brand.md</code></td>
-</tr>
-<tr>
-<td>VeriCerts DLP</td>
-<td><span class="sw" style="background:#1a6974"></span><code>#1a6974</code><br><span class="sw" style="background:#36bfd3"></span><code>#36bfd3</code></td>
-<td><code>#ffffff</code><br><code>#0f3b42</code></td>
-<td><span class="sw" style="background:#cdeaef"></span><code>#cdeaef</code><br><span class="sw" style="background:#11444b"></span><code>#11444b</code></td>
-<td>ライト・ダーク</td>
-<td><code>docs/design/brand.md</code></td>
-</tr>
+<tr><td><em>プロダクト名</em></td><td><code>#xxxxxx</code></td><td><code>#xxxxxx</code></td><td><code>#xxxxxx</code></td><td>ライト・ダーク</td><td><code>リポジトリ内のパス</code></td></tr>
 </table>
-
-<div class="tbox">
-<h3 style="margin-top:0">実測コントラスト</h3>
-<table>
-<tr><th>組み合わせ</th><th>Wallet</th><th>DLP</th><th>要件</th></tr>
-<tr><td>accent / bone</td><td>5.85</td><td>5.80</td><td>3:1 以上</td></tr>
-<tr><td>accent / surface</td><td>6.39</td><td>6.33</td><td>3:1 以上</td></tr>
-<tr><td>on-accent / accent</td><td>6.39</td><td>6.33</td><td>4.5:1 以上</td></tr>
-<tr><td>ink / accent-soft</td><td>15.70</td><td>16.12</td><td>4.5:1 以上</td></tr>
-<tr><td>accent / bone（ダーク）</td><td>—</td><td>9.27</td><td>3:1 以上</td></tr>
-<tr><td>on-accent / accent（ダーク）</td><td>—</td><td>5.54</td><td>4.5:1 以上</td></tr>
-</table>
-<p class="sub" style="margin-bottom:0">2 つの accent は色相が違うだけで明度がほぼ揃っています（bone 上 5.85 と 5.80）。同じレイアウトに置いても<strong>重さが変わらない</strong>のが狙いです。新しい accent もこの帯（bone 上 5〜7）に入れてください。</p>
-</div>
+<div class="tbox"><h3 style="margin-top:0">明るさを揃える</h3><p>2 つ目以降の accent は、1 つ目と <code>--bone</code> 上のコントラストを揃えてください（目安は <strong>5〜7 の帯</strong>）。色相が違っても明度が揃っていれば、同じレイアウトに置いたときの重さが変わりません。案件ガイドには<strong>実測値</strong>を書いて、あとで色を触った人が「満たしているつもり」で壊さないようにします。</p></div>
 </section>
 
 <section id="promote">
-<h2>8. 共通への戻し方</h2>
+<h2>7. 共通への戻し方</h2>
 <p class="sub">案件で作ったものが 2 つ目のプロダクトでも要るようになったら、共通ガイドへ上げます。</p>
 <ul class="p">
 <li><strong>条件</strong>: 2 つ以上のプロダクトが同じ意味で使っている、または使う見込みがはっきりしている</li>
