@@ -29,7 +29,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
 th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
 th{font-weight:600;color:var(--mute)}
 .mono,code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px}
-ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
+ul.p,ol.p{padding-left:1.2em}ul.p li,ol.p li{margin:8px 0}
 .dd{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
 @media(max-width:640px){.dd{grid-template-columns:1fr}header{padding:56px 0 40px}}
 .dd>div{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
@@ -50,10 +50,10 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 
 <header>
 <h1>案件ガイドの作り方</h1>
-<p class="lead">共通ガイドは<strong>骨格</strong>を決めます。プロダクトごとに違ってよいのは、ここに書いた範囲だけです。</p>
+<p class="lead">プロダクトをまたいで<strong>同じ見た目の形式</strong>にするための手順書です。共通ガイドが骨格を決め、プロダクトが決めてよいのはここに書いた範囲だけ。トークンの実体は <a href="tokens.json"><code>tokens.json</code></a> / <a href="tokens.css"><code>tokens.css</code></a> / <a href="theme.css"><code>theme.css</code></a> にあり、そのまま写して使えます。</p>
 </header>
 
-<p class="jump"><a href="index.html">← 共通ガイドへ</a><a href="tokens-preview.html">トークン可視化 →</a><a href="#split">切り分け</a><a href="#accent">製品 accent</a><a href="#theme">テーマ</a><a href="#template">テンプレート</a><a href="#registry">登録済み</a><a href="#promote">共通への戻し方</a></p>
+<p class="jump"><a href="index.html">← 共通ガイドへ</a><a href="tokens-preview.html">トークン可視化 →</a><a href="#split">切り分け</a><a href="#dist">配り方</a><a href="#accent">製品 accent</a><a href="#theme">テーマ</a><a href="#migrate">移行</a><a href="#template">テンプレート</a><a href="#registry">登録済み</a><a href="#promote">共通への戻し方</a></p>
 
 <section id="split">
 <h2>1. 共通と案件の切り分け</h2>
@@ -69,6 +69,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 <tr><td>書体</td><td>Sora / Noto Sans JP / JetBrains Mono、サイズスケール</td><td>共通（変更不可）</td></tr>
 <tr><td>動き</td><td><code>--motion-*</code> <code>--ease-*</code></td><td>共通（変更不可）</td></tr>
 <tr><td>骨格</td><td>ブレークポイント、<code>--z-*</code>、アイコン（Iconoir）</td><td>共通（変更不可）</td></tr>
+<tr><td>狭い面</td><td>外側の余白・ナビの形（部品の寸法は変えない）</td><td>共通（<a href="index.html#narrow">狭い面の節</a>）</td></tr>
 <tr><td><strong>アクセント</strong></td><td><code>--accent</code> <code>--on-accent</code> <code>--accent-soft</code></td><td><strong>案件（宣言すれば変更可）</strong></td></tr>
 <tr><td><strong>テーマ</strong></td><td>ライト／ダークの提供範囲</td><td><strong>案件（理由を書けば単一可）</strong></td></tr>
 <tr><td><strong>拡張トークン</strong></td><td>そのプロダクトにしかない意味の色・寸法</td><td><strong>案件（派生元を明記）</strong></td></tr>
@@ -80,8 +81,51 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 </div>
 </section>
 
+<section id="dist">
+<h2>2. トークンの配り方</h2>
+<p class="sub">値の正は <code>tokens.json</code>。CSS はそこから <code>build-tokens.mjs</code> が生成します。各プロダクトは生成物を<strong>写して持ち、写しが原本と一致することを検査します</strong>。</p>
+
+<table>
+<tr><th>ファイル</th><th>形</th><th>使うところ</th></tr>
+<tr><td><a href="tokens.json"><code>tokens.json</code></a></td><td>JSON</td><td>値の正。Figma の変数・スクリプト・CSS 以外のスタック</td></tr>
+<tr><td><a href="tokens.css"><code>tokens.css</code></a></td><td>素の <code>:root</code> ＋ <code>[data-theme=dark]</code> ＋ <code>prefers-color-scheme</code></td><td>Tailwind を使わないビルド（Outlook の作業ウィンドウなど）</td></tr>
+<tr><td><a href="theme.css"><code>theme.css</code></a></td><td>Tailwind v4 の <code>@theme</code></td><td>wallet と DLP の本体（どちらも Tailwind v4）</td></tr>
+</table>
+
+<h3>写し方</h3>
+<p>写しは<strong>専用のディレクトリに置き、一切編集しません</strong>。製品の上書きは隣の別ファイルに書きます。こうすると「写しを直してしまった」が起きません。</p>
+<pre>vendor/ousiass-tokens/theme.css   &lt;- 原本の写し。編集禁止
+src/styles/accent.css             &lt;- このプロダクトの上書き（3 変数だけ）
+src/styles/app.css                &lt;- 上の 2 つを読む</pre>
+<pre>/* app.css */
+@import "tailwindcss";
+@import "../../vendor/ousiass-tokens/theme.css";
+@import "./accent.css";
+
+/* accent.css — 案件ガイドに宣言した 3 変数だけ */
+@theme {
+  --color-accent: #0b57d0;
+  --color-on-accent: #ffffff;
+  --color-accent-soft: #d3e3fd;
+}</pre>
+
+<h3>一致の検査</h3>
+<ul class="p">
+<li>写しの先頭には版（<code>Ousiass 共通 UI トークン v1.0.0</code>）が入っています。案件ガイドにもその版を書き、ずれたら気づけるようにします</li>
+<li>各リポジトリに <strong>nightly の job</strong> を置き、公開中の原本と写しを <code>diff</code> します。差が出たら Issue を立て、取り込むかどうかを判断します</li>
+<li>PR のたびに取りに行かないのは、外部への通信で CI を落としたくないためです。写しはコミットされているので、ビルドはネットワークに依存しません</li>
+</ul>
+<pre># nightly の中身
+curl -fsSL https://ousiassllc.github.io/brand-guide/theme.css -o /tmp/upstream.css
+diff -u vendor/ousiass-tokens/theme.css /tmp/upstream.css</pre>
+
+<div class="warn">
+原本側（この リポジトリ）では <code>node build-tokens.mjs --check</code> が <code>tokens.json</code> と CSS の食い違いを落とします。<strong>CSS を手で直さないでください。</strong>
+</div>
+</section>
+
 <section id="accent">
-<h2>2. 製品 accent の決まり</h2>
+<h2>3. 製品 accent の決まり</h2>
 <p class="sub">共通ガイドの既定の <code>--accent</code> はインク色（<code>#050505</code>）です。プロダクトは、識別のためにこれを 1 色だけ差し替えられます。</p>
 
 <h3>差し替えてよい変数</h3>
@@ -139,7 +183,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 </section>
 
 <section id="theme">
-<h2>3. テーマの決まりと例外</h2>
+<h2>4. テーマの決まりと例外</h2>
 <p class="sub">原則はライト・ダークの両方です。ただし、ダークを出さないほうが素直な面があります。</p>
 
 <h3>単一テーマにできる条件</h3>
@@ -155,18 +199,82 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 </div>
 </section>
 
+<section id="migrate" class="ty">
+<h2>5. 今のトークンからの移行</h2>
+<p class="sub">wallet と DLP はどちらも Figma「初心者向け」由来の Material 3 系の名前を使っています。<strong>2 つのプロダクトで名前がほぼ同じ</strong>なので、対応表はここに 1 枚だけ置きます。案件ガイドに写さないでください。</p>
+
+<h3>色</h3>
+<table>
+<tr><th>今の名前</th><th>共通ガイド</th><th>注意</th></tr>
+<tr><td><code>--color-primary</code></td><td><code>--accent</code></td><td>製品ごと。案件ガイドに宣言する</td></tr>
+<tr><td><code>--color-on-primary</code></td><td><code>--on-accent</code></td><td></td></tr>
+<tr><td><code>--color-primary-container</code></td><td><code>--accent-soft</code></td><td></td></tr>
+<tr><td><code>--color-on-primary-container</code></td><td>（無い）</td><td><code>--accent-soft</code> の上は <code>--ink</code></td></tr>
+<tr><td><code>--color-background</code></td><td><code>--bone</code></td><td><strong>影を外すのと同時に</strong>。下の注意を参照</td></tr>
+<tr><td><code>--color-surface</code></td><td><code>--surface</code></td><td>どちらも <code>#ffffff</code>。<strong>そのまま</strong></td></tr>
+<tr><td><code>--color-surface-variant</code></td><td>（無い）</td><td><code>--accent-soft</code> か <code>--bone</code> に寄せる</td></tr>
+<tr><td><code>--color-on-surface</code></td><td><code>--ink</code></td><td></td></tr>
+<tr><td><code>--color-on-surface-variant</code></td><td><code>--mute</code></td><td></td></tr>
+<tr><td><code>--color-outline</code> / <code>--color-outline-variant</code></td><td><code>--border</code></td><td>2 つが 1 つになる。濃い地の上で 3:1 を割らないか確かめる</td></tr>
+<tr><td><code>--color-error</code></td><td><code>--danger</code></td><td></td></tr>
+<tr><td><code>--color-warning</code></td><td><code>--warning</code></td><td></td></tr>
+<tr><td><code>--color-on-success</code> / DLP の <code>--color-accent</code></td><td><code>--success</code></td><td>DLP の <code>--color-accent</code> は accent ではなく成功色。紛らわしい</td></tr>
+<tr><td><code>*-container</code> / <code>*-badge</code> の組</td><td>（無い）</td><td>状態の地は共通ガイドに無い。Badge・Callout の設計から見直す</td></tr>
+<tr><td>（無い）</td><td><code>--focus</code> <code>--info</code></td><td>新設する</td></tr>
+</table>
+
+<h3>形</h3>
+<table>
+<tr><th>今の値</th><th>共通ガイド</th></tr>
+<tr><td><code>--radius-card</code> 24px</td><td><code>--r-lg</code> 12px</td></tr>
+<tr><td><code>--radius-control</code> 24px</td><td><code>--r-md</code> 8px</td></tr>
+<tr><td><code>--radius-button</code> 20px</td><td><code>--r-md</code> 8px</td></tr>
+<tr><td><code>--radius-checkbox</code> 6px</td><td><code>--r-sm</code> 4px</td></tr>
+<tr><td><code>--shadow-card</code> あり</td><td>（無い）カードは影なし</td></tr>
+<tr><td>入力欄の高さ 48px</td><td><code>--control-h</code> 40px</td></tr>
+<tr><td>余白 4px 刻み</td><td><code>--s-*</code> 4px 基準 ... <strong>そのまま</strong></td></tr>
+</table>
+
+<h3>文字</h3>
+<table>
+<tr><th>今の名前</th><th>共通ガイド</th><th>差</th></tr>
+<tr><td><code>--text-display-amount</code> 40</td><td><code>--text-3xl</code> 40</td><td>同じ</td></tr>
+<tr><td><code>--text-title-page</code> 28</td><td><code>--text-2xl</code> 32</td><td><strong>+4</strong></td></tr>
+<tr><td><code>--text-title-screen</code> 22（wallet のみ）</td><td><code>--text-xl</code> 24</td><td><strong>+2</strong></td></tr>
+<tr><td><code>--text-title-card</code> 18</td><td><code>--text-lg</code> 18</td><td>同じ</td></tr>
+<tr><td><code>--text-body-lg</code> / <code>--text-label-lg</code> 16</td><td><code>--text-base</code> 16</td><td>同じ</td></tr>
+<tr><td><code>--text-body-md</code> / <code>--text-label-md</code> / <code>--text-code-md</code> 14</td><td><code>--text-sm</code> 14</td><td>同じ</td></tr>
+<tr><td><code>--text-body-sm</code> / <code>--text-label-sm</code> / <code>--text-code-sm</code> 12</td><td><code>--text-xs</code> 12</td><td>同じ</td></tr>
+</table>
+<p class="sub" style="margin-top:12px"><strong>大きさは 7 段中 5 段がすでに一致しています。</strong>違うのは 2 段だけ。<code>body</code> と <code>label</code> の違い（太さ）はサイズのトークンでは持たず、用途で決めます（本文は Regular、ボタンと見出しだけ SemiBold）。<code>code</code> は同じサイズに <code>--font-mono</code> を重ねます。</p>
+
+<div class="warn">
+<strong>地と影は必ず同じ変更でまとめてください。</strong> 今はページの地もカードも白に近く、<code>--shadow-card</code> だけが前後を分けています。影を外してから地を下げる（またはその逆）と、途中の状態でカードが地に溶けます。
+</div>
+
+<h3>進め方の目安</h3>
+<ol class="p">
+<li>写しを入れて <code>accent.css</code> で 3 変数を上書きする（見た目は変わらない）</li>
+<li>色を共通名へ寄せる（<code>--ink</code> / <code>--mute</code> / <code>--border</code> / 状態色）</li>
+<li>地と影をまとめて変える</li>
+<li>角丸と高さを変える</li>
+<li>書体とアイコンを入れ替える（同梱物とライセンス表記が動くので最後）</li>
+</ol>
+</section>
+
 <section id="template">
-<h2>4. 案件ガイドに必ず書くこと</h2>
-<p class="sub">各プロダクトのリポジトリに置く案件ガイドの最小構成です。共通ガイドの内容は<strong>写さず、リンクします</strong>（写すと必ず古くなります）。</p>
+<h2>6. 案件ガイドに必ず書くこと</h2>
+<p class="sub">各プロダクトのリポジトリに置く案件ガイドの最小構成です。共通ガイドの内容は<strong>写さず、リンクします</strong>（写すと必ず古くなります）。<strong>案件ガイドは短いほどよい</strong>——長いということは、共通にすべきものが案件に溜まっているということです。</p>
 
 <table>
 <tr><th>節</th><th>書くこと</th></tr>
 <tr><td>0. 位置づけ</td><td>共通ガイドの URL と、この文書が決めるのは差分だけであること</td></tr>
 <tr><td>1. 製品 accent</td><td>3 変数の値（ライト／ダーク）と、<strong>コントラストの実測値</strong></td></tr>
 <tr><td>2. テーマ</td><td>提供するテーマ。単一なら理由と再検討の条件</td></tr>
-<tr><td>3. 拡張トークン</td><td>そのプロダクトにしかない色・寸法と、派生元の共通トークン</td></tr>
-<tr><td>4. 独自ウィジェット</td><td>共通ガイドにない部品の一覧と、使ってよい画面</td></tr>
-<tr><td>5. 共通との既知の差</td><td>まだ共通に揃っていない箇所と、揃える条件。<strong>ここが空なら完全準拠</strong></td></tr>
+<tr><td>3. トークンの写し</td><td>写しの場所と、取り込んでいる共通トークンの版</td></tr>
+<tr><td>4. 拡張トークン</td><td>そのプロダクトにしかない色・寸法と、派生元の共通トークン</td></tr>
+<tr><td>5. 独自ウィジェット</td><td>共通ガイドにない部品の一覧と、使ってよい画面</td></tr>
+<tr><td>6. 共通との既知の差</td><td>まだ揃っていない項目の<strong>短い一覧</strong>と、その製品だけの事情。値の対応は <a href="#migrate">5. 今のトークンからの移行</a> にあるので写さない。<strong>ここが空なら完全準拠</strong></td></tr>
 <tr><td>改訂履歴</td><td>いつ・何を・なぜ変えたか</td></tr>
 </table>
 
@@ -180,7 +288,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 </section>
 
 <section id="registry">
-<h2>5. 登録済みのプロダクト</h2>
+<h2>7. 登録済みのプロダクト</h2>
 <p class="sub">共通ガイドに宣言されている製品 accent の一覧です。新しいプロダクトはここに 1 行足してから使い始めてください。</p>
 
 <table>
@@ -219,7 +327,7 @@ pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;
 </section>
 
 <section id="promote">
-<h2>6. 共通への戻し方</h2>
+<h2>8. 共通への戻し方</h2>
 <p class="sub">案件で作ったものが 2 つ目のプロダクトでも要るようになったら、共通ガイドへ上げます。</p>
 <ul class="p">
 <li><strong>条件</strong>: 2 つ以上のプロダクトが同じ意味で使っている、または使う見込みがはっきりしている</li>

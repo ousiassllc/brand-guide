@@ -35,7 +35,7 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><button class="toggle" id="t">ダーク表示</button></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p></header>
-<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="#products">案件ガイド</a><a href="tokens-preview.html">トークン可視化 →</a><a href="product-guide.html">案件ガイドの作り方 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う。プロダクトごとに変えてよいのは <code class="tok">--accent</code> 系の 3 変数だけで、それも<a href="product-guide.html#registry">案件ガイドに宣言してから</a>使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする（<a href="product-guide.html#theme">単一テーマにできる条件</a>を満たし、案件ガイドに理由を書いた場合のみ例外）</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="#narrow">狭い面</a><a href="#products">案件ガイド</a><a href="tokens-preview.html">トークン可視化 →</a><a href="product-guide.html">案件ガイドの作り方 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う。プロダクトごとに変えてよいのは <code class="tok">--accent</code> 系の 3 変数だけで、それも<a href="product-guide.html#registry">案件ガイドに宣言してから</a>使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする（<a href="product-guide.html#theme">単一テーマにできる条件</a>を満たし、案件ガイドに理由を書いた場合のみ例外）</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -86,12 +86,24 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
 
+<section id="narrow" class="ty"><h2>狭い面 Narrow surfaces</h2><p class="sub">拡張のポップアップ（360×600）や Outlook の作業ウィンドウのように、幅が <code class="tok">--bp-narrow</code>（420px）以下の面。<strong>部品の寸法は広い面と同じにする。</strong>変わるのは外側の余白とナビの形だけ。</p>
+<table><tr><th>項目</th><th>広い面</th><th>狭い面（420px 以下）</th></tr>
+<tr><td>画面の外側</td><td><code>--pad-screen-wide</code> 32px</td><td><code>--pad-screen</code> 16px</td></tr>
+<tr><td>本文の最大幅</td><td><code>--content-max</code> 1024px</td><td>画面幅</td></tr>
+<tr><td>カードどうし</td><td><code>--s-6</code> 24px</td><td><code>--gap-card</code> 12px</td></tr>
+<tr><td>カードの内側</td><td><code>--pad-card</code> 24px</td><td><code>--pad-card-sm</code> 16px</td></tr>
+<tr><td>セクション間</td><td><code>--gap-section</code> 72px</td><td><code>--gap-section-sm</code> 48px</td></tr>
+<tr><td>ナビ</td><td>トップナビ、またはサイドナビ 240px</td><td>ボトムナビ、またはハンバーガー＋左ドロワー</td></tr>
+<tr><td>オーバーレイ</td><td>中央モーダル</td><td>中央モーダル。短い選択肢はボトムシート可</td></tr>
+<tr><td>グリッド</td><td>8〜12 カラム</td><td>1 カラム</td></tr></table>
+<p class="warn"><strong>狭くても変えないもの</strong>: 入力欄とボタンの高さ（<code>--control-h</code> 40px）、角丸、サイズスケール、状態色、アイコンの大きさ、モーション、線の太さ。狭いからといって本文を 14px に落としたり、角丸を小さくしたりしない。<strong>同じ製品群に見えるのはここが揃っているからで、レイアウトが同じだからではない。</strong></p>
+<p class="sub">狭い面で本文が入りきらないときは、文字を小さくするのではなく、項目を減らすか 1 カラムに畳む。</p></section>
 <section id="products" class="ty"><h2>案件ガイド Product guides</h2><p class="sub">共通ガイドが決めるのは<strong>骨格</strong>（面・余白・角丸・書体・状態色・モーション・骨格部品）。プロダクトが決めてよいのは <code class="tok">--accent</code> 系の 3 変数、テーマの提供範囲、そのプロダクトにしかない拡張トークンと独自ウィジェットだけ。</p>
 <table><tr><th>プロダクト</th><th>accent（L / D）</th><th>on-accent</th><th>accent-soft（L / D）</th><th>テーマ</th></tr>
 <tr><td>VeriCerts Wallet</td><td><code>#0b57d0</code> / —</td><td><code>#ffffff</code></td><td><code>#d3e3fd</code> / —</td><td>ライトのみ（例外）</td></tr>
 <tr><td>VeriCerts DLP</td><td><code>#1a6974</code> / <code>#36bfd3</code></td><td><code>#ffffff</code> / <code>#0f3b42</code></td><td><code>#cdeaef</code> / <code>#11444b</code></td><td>ライト・ダーク</td></tr></table>
 <p class="warn">2 つの accent は色相が違うだけで明度をそろえてある（bone 上のコントラストが 5.85 と 5.80）。同じレイアウトに置いても重さが変わらないようにするため、新しい accent もこの帯に入れる。<strong>新しいプロダクトは、使い始める前にこの表へ 1 行足す。</strong></p>
-<p style="margin-top:24px"><a href="product-guide.html">案件ガイドの作り方・製品 accent の決まり・テーマの例外規定 →</a></p>
+<p style="margin-top:24px">トークンの実体はそのまま写して使える: <a href="tokens.json"><code class="tok">tokens.json</code></a>（値の正） / <a href="tokens.css"><code class="tok">tokens.css</code></a>（素の <code class="tok">:root</code>） / <a href="theme.css"><code class="tok">theme.css</code></a>（Tailwind v4 の <code class="tok">@theme</code>）</p><p><a href="product-guide.html">案件ガイドの作り方・トークンの配り方・今のトークンからの移行表 →</a></p>
 </section>
 <footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora・Noto Sans JP（SIL OFL）。案件ガイドの決まり: 2026-11-06 追加。</footer></div><div id="toast"></div>
 <script>
