@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>案件ガイドの作り方 — Ousiass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&family=Sora:wght@600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}
+@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+:root{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;color-scheme:light}
+[data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .3s,color .3s}
+.wrap{max-width:960px;margin:0 auto;padding:0 28px}
+header{padding:96px 0 64px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--border)}
+.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
+.badge{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:999px;padding:2px 12px;font-size:12px;letter-spacing:.1em;margin-left:12px}
+h1{font-weight:300;font-size:clamp(32px,6vw,56px);line-height:1.3;margin:0 0 16px;letter-spacing:.02em}
+h2{font-weight:300;font-size:28px;margin:0 0 8px}
+h3{font-weight:400;font-size:18px;margin:32px 0 8px}
+.lead,.sub{color:var(--mute)}
+section{padding:72px 0;border-top:1px solid var(--border)}
+.toggle{font:inherit;font-size:13px;background:var(--accent);color:var(--bone);border:0;border-radius:999px;padding:8px 18px;cursor:pointer}
+.toggle:focus-visible,.hex button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-weight:600;color:var(--mute)}
+.mono,code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px}
+ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+@media(max-width:640px){.dd{grid-template-columns:1fr}header{padding:56px 0 40px}}
+.dd>div{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.dd h3{margin:0 0 8px;font-weight:400}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:24px}
+.warn{margin-top:24px;padding:16px 20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:14px}
+.jump{font-size:13px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
+footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid var(--border)}
+.sw{display:inline-block;width:28px;height:28px;border-radius:8px;border:1px solid var(--border);vertical-align:-9px;margin-right:8px}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;overflow-x:auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.8}
+.ok{color:var(--success)}.ng{color:var(--danger)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top"><span class="logo">OUSIASS<span class="badge">案件ガイド</span></span><button class="toggle" id="t">ダーク表示</button></div>
+
+<header>
+<h1>案件ガイドの作り方</h1>
+<p class="lead">共通ガイドは<strong>骨格</strong>を決めます。プロダクトごとに違ってよいのは、ここに書いた範囲だけです。</p>
+</header>
+
+<p class="jump"><a href="index.html">← 共通ガイドへ</a><a href="tokens-preview.html">トークン可視化 →</a><a href="#split">切り分け</a><a href="#accent">製品 accent</a><a href="#theme">テーマ</a><a href="#template">テンプレート</a><a href="#registry">登録済み</a><a href="#promote">共通への戻し方</a></p>
+
+<section id="split">
+<h2>1. 共通と案件の切り分け</h2>
+<p class="sub">プロダクトの数が増えても「同じ家族に見える」ことを保つため、変えてよい場所を狭く固定します。</p>
+
+<table>
+<tr><th>区分</th><th>対象</th><th>誰が決めるか</th></tr>
+<tr><td>面と文字</td><td><code>--ink</code> <code>--bone</code> <code>--mute</code> <code>--surface</code> <code>--border</code></td><td>共通（変更不可）</td></tr>
+<tr><td>状態色</td><td><code>--success</code> <code>--warning</code> <code>--danger</code> <code>--info</code></td><td>共通（変更不可）</td></tr>
+<tr><td>プリズム</td><td><code>--prism-*</code> 5 色</td><td>共通（ロゴ・KV 専用。UI 禁止）</td></tr>
+<tr><td>フォーカス</td><td><code>--focus</code></td><td>共通（変更不可）</td></tr>
+<tr><td>形・間隔</td><td>角丸 <code>--r-*</code>、余白 <code>--s-*</code>、間隔レシピ <code>--gap-*</code></td><td>共通（変更不可）</td></tr>
+<tr><td>書体</td><td>Sora / Noto Sans JP / JetBrains Mono、サイズスケール</td><td>共通（変更不可）</td></tr>
+<tr><td>動き</td><td><code>--motion-*</code> <code>--ease-*</code></td><td>共通（変更不可）</td></tr>
+<tr><td>骨格</td><td>ブレークポイント、<code>--z-*</code>、アイコン（Iconoir）</td><td>共通（変更不可）</td></tr>
+<tr><td><strong>アクセント</strong></td><td><code>--accent</code> <code>--on-accent</code> <code>--accent-soft</code></td><td><strong>案件（宣言すれば変更可）</strong></td></tr>
+<tr><td><strong>テーマ</strong></td><td>ライト／ダークの提供範囲</td><td><strong>案件（理由を書けば単一可）</strong></td></tr>
+<tr><td><strong>拡張トークン</strong></td><td>そのプロダクトにしかない意味の色・寸法</td><td><strong>案件（派生元を明記）</strong></td></tr>
+<tr><td>独自ウィジェット</td><td>地図・判定バッジなど案件固有の部品</td><td>案件（共通ガイドに発明しない）</td></tr>
+</table>
+
+<div class="warn">
+共通の変数を<strong>上書きしない</strong>でください。足りないときは拡張トークンとして<strong>別名で</strong>足し、派生元の共通トークンを案件ガイドに書きます。共通側を直したいときは <a href="#promote">6. 共通への戻し方</a> を通してください。
+</div>
+</section>
+
+<section id="accent">
+<h2>2. 製品 accent の決まり</h2>
+<p class="sub">共通ガイドの既定の <code>--accent</code> はインク色（<code>#050505</code>）です。プロダクトは、識別のためにこれを 1 色だけ差し替えられます。</p>
+
+<h3>差し替えてよい変数</h3>
+<table>
+<tr><th>変数</th><th>役割</th><th>要件</th></tr>
+<tr><td><code>--accent</code></td><td>主ボタンの地・現在地・タブの下線・進捗の充填</td><td><code>--bone</code> と <code>--surface</code> の両方に対して <strong>3:1 以上</strong>（非文字の UI 部品の境界として）</td></tr>
+<tr><td><code>--on-accent</code></td><td><code>--accent</code> の上に載る文字・アイコン</td><td><code>--accent</code> に対して <strong>4.5:1 以上</strong></td></tr>
+<tr><td><code>--accent-soft</code></td><td>ホバー・選択・現在地の<strong>地</strong></td><td>この上の文字は <code>--ink</code>。<code>--ink</code> に対して 4.5:1 以上</td></tr>
+</table>
+<p class="sub" style="margin-top:12px">ライトとダークの両方を出すプロダクトは 3 変数 × 2 テーマ = 6 値を決めます。<a href="#theme">単一テーマ</a>なら 3 値です。</p>
+
+<div class="dd">
+<div>
+<h3 class="ok">使ってよい場所</h3>
+<ul class="p">
+<li>主ボタンの地（<code>--on-accent</code> の文字と組で）</li>
+<li>ナビの現在地・タブの下線・選択状態</li>
+<li>進捗バーの充填、スイッチの ON</li>
+<li>テキストリンク（<strong>下線と必ず併用</strong>）</li>
+<li>アイコンの「強調したい 1 つ」だけ</li>
+</ul>
+</div>
+<div>
+<h3 class="ng">使ってはいけない場所</h3>
+<ul class="p">
+<li>本文・見出しの文字色（<code>--ink</code> を使う）</li>
+<li>ページやカードの地（<code>--bone</code> / <code>--surface</code> を使う）</li>
+<li>成功・注意・エラーの表現（<strong>状態色</strong>を使う）</li>
+<li>アイコンの既定色（<code>--mute</code> / <code>--ink</code>）</li>
+<li>フォーカスリング（共通の <code>--focus</code> 固定）</li>
+<li>1 画面に 2 色目のアクセントを足すこと</li>
+</ul>
+</div>
+</div>
+
+<h3><code>--accent-soft</code> の作り方</h3>
+<p>アクセントをその場の地に 10〜14% 混ぜた値を基準にします。彩度を上げた別の色を持ってこないでください。</p>
+<pre>/* ライト */
+--accent-soft: color-mix(in srgb, var(--accent) 12%, var(--surface));
+/* ダーク（地が暗いので混ぜる比率を少し上げる） */
+--accent-soft: color-mix(in srgb, var(--accent) 18%, var(--surface));</pre>
+<p class="sub">固定値で持つ場合も、上の式から外れすぎない値にしてください。<code>--accent-soft</code> の上に <code>--accent</code> の文字を置かない（コントラストが足りません）。</p>
+
+<h3>ダークの作り方</h3>
+<ul class="p">
+<li>ライトの <code>--accent</code> をそのままダークで使わない。暗い地の上では沈みます</li>
+<li>色相は保ったまま<strong>明度を上げる</strong>（Material のトーン 40 → 80 に相当）</li>
+<li><code>--on-accent</code> は反転して<strong>同系の暗い色</strong>にする。白のままだとコントラストが落ちます</li>
+<li>無彩色の地（<code>#050505</code> / <code>#141414</code>）に対して 3:1 以上を実測で確かめる</li>
+</ul>
+
+<div class="warn">
+<strong>プリズムを製品 accent にしないでください。</strong> プリズムの 5 色はロゴとキービジュアル専用です。<code>--prism-blue</code> と <code>--focus</code> が同じ値なのは、フォーカスリングに限って借りているためで、accent として使ってよいという意味ではありません。
+</div>
+</section>
+
+<section id="theme">
+<h2>3. テーマの決まりと例外</h2>
+<p class="sub">原則はライト・ダークの両方です。ただし、ダークを出さないほうが素直な面があります。</p>
+
+<h3>単一テーマにできる条件</h3>
+<p>次の 3 つを<strong>すべて</strong>満たすときに限り、案件ガイドに書いたうえでライトのみ（またはダークのみ）にできます。</p>
+<ul class="p">
+<li>表示面が OS のテーマに追従できない、または追従する意味が薄い（滞在が短い小さな面、埋め込み、印刷物向けなど）</li>
+<li>案件ガイドに<strong>理由</strong>と<strong>再検討する条件</strong>を書く（「どうなったらダークを入れるか」）</li>
+<li>共通ガイドのダーク値を<strong>否定しない</strong>（将来入れるときは共通の <code>--ink</code> / <code>--bone</code> / <code>--surface</code> のダーク値をそのまま使う）</li>
+</ul>
+
+<div class="warn">
+「工数が足りない」は条件になりません。それは<strong>未対応</strong>であって例外ではないので、案件ガイドではなく課題として残してください。
+</div>
+</section>
+
+<section id="template">
+<h2>4. 案件ガイドに必ず書くこと</h2>
+<p class="sub">各プロダクトのリポジトリに置く案件ガイドの最小構成です。共通ガイドの内容は<strong>写さず、リンクします</strong>（写すと必ず古くなります）。</p>
+
+<table>
+<tr><th>節</th><th>書くこと</th></tr>
+<tr><td>0. 位置づけ</td><td>共通ガイドの URL と、この文書が決めるのは差分だけであること</td></tr>
+<tr><td>1. 製品 accent</td><td>3 変数の値（ライト／ダーク）と、<strong>コントラストの実測値</strong></td></tr>
+<tr><td>2. テーマ</td><td>提供するテーマ。単一なら理由と再検討の条件</td></tr>
+<tr><td>3. 拡張トークン</td><td>そのプロダクトにしかない色・寸法と、派生元の共通トークン</td></tr>
+<tr><td>4. 独自ウィジェット</td><td>共通ガイドにない部品の一覧と、使ってよい画面</td></tr>
+<tr><td>5. 共通との既知の差</td><td>まだ共通に揃っていない箇所と、揃える条件。<strong>ここが空なら完全準拠</strong></td></tr>
+<tr><td>改訂履歴</td><td>いつ・何を・なぜ変えたか</td></tr>
+</table>
+
+<h3>1 節の書き方（ひな形）</h3>
+<pre>| 変数           | ライト   | ダーク   | 実測コントラスト            |
+| -------------- | -------- | -------- | --------------------------- |
+| --accent       | #xxxxxx  | #xxxxxx  | bone 0.00 / surface 0.00    |
+| --on-accent    | #xxxxxx  | #xxxxxx  | accent 0.00                 |
+| --accent-soft  | #xxxxxx  | #xxxxxx  | ink 0.00                    |</pre>
+<p class="sub">実測値を書くのは、あとで色を触った人が「満たしているつもり」で壊さないためです。</p>
+</section>
+
+<section id="registry">
+<h2>5. 登録済みのプロダクト</h2>
+<p class="sub">共通ガイドに宣言されている製品 accent の一覧です。新しいプロダクトはここに 1 行足してから使い始めてください。</p>
+
+<table>
+<tr><th>プロダクト</th><th>accent</th><th>on-accent</th><th>accent-soft</th><th>テーマ</th><th>案件ガイド</th></tr>
+<tr>
+<td>VeriCerts Wallet<br><span class="sub">ブラウザ拡張</span></td>
+<td><span class="sw" style="background:#0b57d0"></span><code>#0b57d0</code></td>
+<td><code>#ffffff</code></td>
+<td><span class="sw" style="background:#d3e3fd"></span><code>#d3e3fd</code></td>
+<td>ライトのみ<br><span class="sub">（例外・理由は案件ガイド）</span></td>
+<td><code>spec/content/docs/<br>extension/design/brand.md</code></td>
+</tr>
+<tr>
+<td>VeriCerts DLP</td>
+<td><span class="sw" style="background:#1a6974"></span><code>#1a6974</code><br><span class="sw" style="background:#36bfd3"></span><code>#36bfd3</code></td>
+<td><code>#ffffff</code><br><code>#0f3b42</code></td>
+<td><span class="sw" style="background:#cdeaef"></span><code>#cdeaef</code><br><span class="sw" style="background:#11444b"></span><code>#11444b</code></td>
+<td>ライト・ダーク</td>
+<td><code>docs/design/brand.md</code></td>
+</tr>
+</table>
+
+<div class="tbox">
+<h3 style="margin-top:0">実測コントラスト</h3>
+<table>
+<tr><th>組み合わせ</th><th>Wallet</th><th>DLP</th><th>要件</th></tr>
+<tr><td>accent / bone</td><td>5.85</td><td>5.80</td><td>3:1 以上</td></tr>
+<tr><td>accent / surface</td><td>6.39</td><td>6.33</td><td>3:1 以上</td></tr>
+<tr><td>on-accent / accent</td><td>6.39</td><td>6.33</td><td>4.5:1 以上</td></tr>
+<tr><td>ink / accent-soft</td><td>15.70</td><td>16.12</td><td>4.5:1 以上</td></tr>
+<tr><td>accent / bone（ダーク）</td><td>—</td><td>9.27</td><td>3:1 以上</td></tr>
+<tr><td>on-accent / accent（ダーク）</td><td>—</td><td>5.54</td><td>4.5:1 以上</td></tr>
+</table>
+<p class="sub" style="margin-bottom:0">2 つの accent は色相が違うだけで明度がほぼ揃っています（bone 上 5.85 と 5.80）。同じレイアウトに置いても<strong>重さが変わらない</strong>のが狙いです。新しい accent もこの帯（bone 上 5〜7）に入れてください。</p>
+</div>
+</section>
+
+<section id="promote">
+<h2>6. 共通への戻し方</h2>
+<p class="sub">案件で作ったものが 2 つ目のプロダクトでも要るようになったら、共通ガイドへ上げます。</p>
+<ul class="p">
+<li><strong>条件</strong>: 2 つ以上のプロダクトが同じ意味で使っている、または使う見込みがはっきりしている</li>
+<li><strong>手順</strong>: 共通ガイドに節を足す PR を出す → 各案件ガイドの「共通との既知の差」から該当行を消す → 案件側の独自定義を共通トークンに置き換える</li>
+<li><strong>順番を守る</strong>: 共通に入る前に他のプロダクトが真似すると、同じものに 2 つの名前が付きます</li>
+</ul>
+<div class="warn">
+逆に、<strong>1 つのプロダクトでしか使わないものを共通ガイドに置かない</strong>でください。共通ガイドが大きくなるほど、新しいプロダクトが読む量が増えて守られなくなります。
+</div>
+</section>
+
+<footer>案件ガイドの決まり（2026-11-06）。共通ガイドは <a href="index.html">UI カラーガイド</a>、ライブ見本は <a href="tokens-preview.html">トークン可視化</a>。</footer>
+
+</div>
+<script>
+const h=document.documentElement,t=document.getElementById('t');
+function set(m){h.dataset.theme=m;t.textContent=m==='dark'?'ライト表示':'ダーク表示';localStorage.theme=m}
+set(localStorage.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+t.onclick=()=>set(h.dataset.theme==='dark'?'light':'dark');
+</script>
+</body>
+</html>
