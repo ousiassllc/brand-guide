@@ -35,7 +35,7 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><button class="toggle" id="t">ダーク表示</button></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p></header>
-<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -83,6 +83,28 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 <section id="p0"><h2>骨格コンポーネント P0</h2><p class="sub">ナビ（トップ／サイド／モバイル畳み）、パンくず、ドロップダウン、ツールチップ／ポップオーバー、右ドロワー、ブレークポイント（sm 640 / md 768 / lg 1024 / xl 1280）と 4/8/12 カラム、z-index スケール（dropdown 100 → toast 500）、UI アイコンは <a href="https://iconoir.com" rel="noopener">Iconoir</a>（MIT・16 / 20 / 24、empty は 32 可・ブランドロゴは別）。ガイドにない部品は使わない。<a href="tokens-preview.html#p0">ライブ見本を見る →</a></p></section>
 <section id="controls"><h2>スイッチ・スライダー</h2><p class="sub">フォームのオンオフとレンジはガイド見た目必須。OS／ブラウザの標準コントロールをそのまま出さない。<a href="tokens-preview.html#controls-switch">スイッチ見本</a> ／ <a href="tokens-preview.html#p1-slider">スライダー見本</a></p>
 <div class="dd"><div><h3>スイッチ</h3><ul class="p"><li>トラック 36×20、つまみ 14、角丸 full</li><li>OFF: accent-soft＋border／ON: accent（つまみは bone）</li><li>フォーカスは --ring（青フォーカスリング）</li><li>ラベルは Regular 15、SemiBold にしない</li></ul></div><div><h3>スライダー</h3><ul class="p"><li>トラック高さ 4、角丸 full、未充填は accent-soft、充填は accent</li><li>つまみ 16 円・surface＋1px border（ダークも同じ構造）</li><li>accent-color だけに頼らず、track／thumb を明示スタイル</li><li>値表示は Mono mute 可</li></ul></div></div></section>
+<section id="scrollbar"><h2>スクロールバー Scrollbar</h2><p class="sub">対象は<strong>コンテンツのスクロールバー</strong>（<code>overflow: auto</code> の領域）。値を変える<a href="#controls">スライダー</a>とは別物で、スライダーの規定（トラック 4・つまみ 16）は適用しない。OS 標準の太く明るいバーと矢印を、静かな UI から浮かせない。<a href="tokens-preview.html#scrollbar">縦・横・両方向の操作できる見本 →</a></p>
+<div class="dd"><div><h3>見た目（縦横で同じ設計）</h3><ul class="p"><li>矢印（スクロールボタン）なし・細め・<strong>透明トラック</strong>・角丸 full のグレー thumb</li><li>カスタム可能な環境では<strong>縦幅・横高さ 8px</strong>を基本とする。Firefox 等は <code>scrollbar-width: thin</code> で近似し、<strong>全ブラウザで厳密な 8px は保証しない</strong></li><li>縦横の交差部分（corner）も透明</li><li>thumb は通常 <code>--mute</code>（Light #6b6b6e / Dark #8b8b8e）。hover / drag は <code>--ink</code> 側へ強める（Light は少し濃く、Dark は少し明るく）。背景（bone / surface）との視認性を実際に確認する</li></ul></div><div><h3>守ること</h3><ul class="p"><li><strong>ネイティブスクロール</strong>を使う。独自 JS のドラッグ機構に置き換えない</li><li>バーを強制的に常時非表示にしない。スクロールできること・操作性を損なわない</li><li>キーボード（Tab でフォーカス → 縦は ↑↓・PageUp／PageDown・Space・Home／End、横は ←→）、タッチ、ホイール、トラックパッドを維持する。thumb は細くドラッグしにくいので、ドラッグ以外の操作を必ず使える状態にする</li><li>対応できない環境があっても、隠すためにスクロール機能を消さない</li></ul></div></div>
+<h3>CSS の適用例と優先関係</h3>
+<pre class="tbox mono" tabindex="0" role="region" aria-label="CSS の適用例" style="font-size:.875rem;line-height:1.7;overflow-x:auto;white-space:pre">@media (forced-colors: none) {
+  .scroll {
+    /* 標準（Firefox ほか）: thin で近似 */
+    scrollbar-width: thin;
+    scrollbar-color: var(--mute) transparent;
+  }
+  /* WebKit / Blink: 擬似要素で 8px にする */
+  @supports selector(::-webkit-scrollbar) {
+    .scroll { scrollbar-width: auto; scrollbar-color: auto; }
+    .scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+    .scroll::-webkit-scrollbar-track,
+    .scroll::-webkit-scrollbar-corner { background: transparent; }
+    .scroll::-webkit-scrollbar-button { display: none; }
+    .scroll::-webkit-scrollbar-thumb { background: var(--mute); border-radius: 999px; }
+    .scroll::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--ink) 35%, var(--mute)); }
+    .scroll::-webkit-scrollbar-thumb:active { background: color-mix(in srgb, var(--ink) 65%, var(--mute)); }
+  }
+}</pre>
+<ul class="p"><li><strong>優先関係:</strong> Chromium 121 以降は <code>scrollbar-width</code> / <code>scrollbar-color</code> が <code>auto</code> 以外だと <code>::-webkit-scrollbar</code> を無視する。標準指定を先に書くだけでは 8px・hover / drag の色にならないため、擬似要素が使える環境（<code>@supports selector(::-webkit-scrollbar)</code>）では標準指定を <code>auto</code> に戻す</li><li><strong>対応差:</strong> WebKit / Blink = 擬似要素で幅・矢印・hover / drag を制御できる。Firefox = <code>thin</code> と色のみで、幅は OS 任せ・hover / drag の色は変えられない・矢印は出ないことが多い</li><li><strong>OS の制約:</strong> macOS やモバイルのオーバーレイ（自動で隠れる）スクロールバーは、擬似要素でカスタムすると常時表示の従来型に変わることがある。OS の設定で常に表示にしている場合も同様に見え方が変わる。これらは仕様上の制限として許容し、スクロール機能自体は維持する</li><li><strong>アクセシビリティ例外:</strong> <code>forced-colors: active</code>（Windows ハイコントラスト等）や OS が太いバーを要求する設定では、上のカスタムを外して <strong>OS 側の見やすさを優先</strong>する（上の例は <code>forced-colors: none</code> のときだけ適用）</li></ul></section>
 <section id="p1"><h2>UI部品 P1</h2><p class="sub">日付・時刻ピッカー、ファイルアップロード／ドロップゾーン、検索（クリア・候補）、ページネーション／もっと見る、ステップ／ウィザード、アコーディオン、通知バッジ数、スライダー、タグ入力（chips）。ガイドにない部品は使わない。<a href="tokens-preview.html#p1">ライブ見本を見る →</a></p></section>
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
