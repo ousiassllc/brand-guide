@@ -85,7 +85,7 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 const theme = { ink: "#050505", bone: "#f5f5f4" };
 export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h3 id="heading-compact">コンパクトな管理画面の見本 Compact admin</h3>
-<p class="rule"><strong>これは見本であり規範ではない。</strong>数値は「見出しタグと表示サイズは独立している」ことを示す一例で、全画面の必須値ではない。サイズは既存スケール（xs 12 / sm 14 / base 16 / lg 18 / xl 24 …）から選ぶ。本文 16・通常ボタン 16・小ボタン 14 の規定は変えない（この見本は密な管理画面向けに一覧・カード説明を sm 14、ボタンは小 14 を使用）。</p>
+<p class="rule"><strong>これは見本であり規範ではない。</strong>数値は「見出しタグと表示サイズは独立している」ことを示す一例で、全画面の必須値ではない。サイズは既存スケール（xs 12 / sm 14 / base 16 / lg 18 / xl 24 …）から選ぶ。既存の規定は変えない: 説明文は本文 16、注記は xs 12、小ボタンは sm 14（14 は補足・表・小ボタンの既存用途のみ）。</p>
 <div class="adm" role="group" aria-label="コンパクトな管理画面の見本">
 <div class="adm-hd"><div><div class="hrow"><h3 class="pg-t">プロジェクト</h3><code class="tg" aria-hidden="true">h3 · xl 24</code></div><p class="cap">12 件 · 最終更新 2026-11-08</p></div><button type="button" class="abtn">新規作成</button></div>
 <div class="hrow sec-row"><h4 class="sec-t">最近のプロジェクト</h4><code class="tg" aria-hidden="true">h4 · lg 18</code></div>
@@ -95,8 +95,8 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <tr><td>ページ</td><td><code>h3</code></td><td><code>h1</code></td><td>xl 24px</td><td>600</td></tr>
 <tr><td>セクション</td><td><code>h4</code></td><td><code>h2</code></td><td>lg 18px</td><td>600</td></tr>
 <tr><td>カード</td><td><code>h5</code></td><td><code>h3</code></td><td>base 16px</td><td>600</td></tr>
-<tr><td>一覧・カード説明</td><td><code>p</code></td><td><code>p</code></td><td>sm 14px</td><td>400</td></tr>
-<tr><td>補足</td><td><code>p</code></td><td><code>p</code></td><td>xs 12px</td><td>400</td></tr>
+<tr><td>説明文</td><td><code>p</code></td><td><code>p</code></td><td>base 16px</td><td>400</td></tr>
+<tr><td>注記</td><td><code>p</code></td><td><code>p</code></td><td>xs 12px</td><td>400</td></tr>
 <tr><td>小ボタン</td><td><code>button</code></td><td><code>button</code></td><td>sm 14px</td><td>600</td></tr></tbody></table></div>
 <p class="mute" style="font-size:14px">タグを h1 / h2 / h3 に差し替えても見た目は変わらない（サイズは CSS で指定）。h1 の見た目が 40 である必要も、小さくするためにタグを変える必要もない。ページ・セクション・カードは 24 → 18 → 16 と 1 段ずつ下がり、競合しない。</p>
 <style>
@@ -113,17 +113,17 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .lr{list-style:none;padding:0;margin:0;font-size:14px}.lr li{min-height:var(--list-row-h);padding:0 var(--list-row-pad-x);display:flex;justify-content:space-between;align-items:center;border-bottom:var(--list-divider)}.lr li:last-child{border-bottom:0}
 .l2{list-style:none;padding:0;margin:0;display:grid;gap:var(--list-two-line-gap)}.l2 .t{font-size:14px}.l2 .c{font-size:12px;color:var(--mute);margin-top:var(--list-title-caption-gap)}
 .adm{background:var(--bone);border:1px solid var(--border);border-radius:var(--r-lg,12px);padding:24px;margin-top:12px}
-.adm h3,.adm h4,.adm h5{font-weight:600;margin:0}
+.adm .pg-t,.adm .sec-t,.adm .cd-t{font-weight:600;letter-spacing:normal;margin:0}
 .adm .hrow{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}
 .adm .tg{font-size:12px;line-height:1.6;color:var(--mute);border:1px dashed var(--border);border-radius:4px;padding:0 6px;white-space:nowrap}
 .adm .adm-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .adm .pg-t{font-size:24px;line-height:1.5}
 .adm .sec-row{margin-top:32px}.adm .sec-t{font-size:18px;line-height:1.7}
-.adm .cap{font-size:12px;line-height:1.6;color:var(--mute);margin:0}
+.adm .cap{font-size:12px;line-height:1.6;font-weight:400;color:var(--mute);margin:0}
 .adm .adm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--gap-grid-dense,12px);margin-top:12px}
 .adm .cd{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg,12px);padding:16px}
 .adm .cd-t{font-size:16px;line-height:1.5}
-.adm .cd p:not(.cap){font-size:14px;line-height:1.7;margin:8px 0 0}.adm .cd .cap{margin-top:8px}
+.adm .cd p:not(.cap){font-size:16px;line-height:1.8;font-weight:400;margin:8px 0 0}.adm .cd .cap{margin-top:8px}
 .adm .abtn{font:600 14px/1 Sora,"Noto Sans JP",sans-serif;height:32px;padding:0 12px;border-radius:var(--r-md,8px);border:1px solid var(--accent);background:var(--accent);color:var(--bone);cursor:pointer}
 </style>
 <section class="ui" id="spacing-recipes">
