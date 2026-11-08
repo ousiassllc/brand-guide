@@ -296,6 +296,36 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="scrim sheet-frame"><div class="sheet"><div class="hd"></div><div style="font-weight:600;margin-bottom:12px">共有</div><label class="chk"><input type="radio" name="sh" checked> リンクを知っている全員</label><label class="chk"><input type="radio" name="sh"> 招待したメンバーのみ</label><button class="btn pri" style="width:100%;justify-content:center;margin-top:12px">完了</button></div></div>
 </div>
 <p class="help" style="margin-top:10px">左＝中央モーダル（確認・破壊的操作）。右＝ボトムシート（共有など選択肢アクション／スマホ）。どちらも <strong>スクラム（外側）クリックで閉じる</strong>。</p>
+<h3 id="scrollbar">スクロールバー Scrollbar</h3>
+<p class="rule"><strong>対象はコンテンツのスクロールバー</strong>（<code>overflow: auto</code> の領域）。値を変える<a href="index.html#controls">スライダー</a>とは別物。縦・横で同じ設計: 矢印なし・細め・透明トラック・角丸のグレー thumb。ネイティブスクロールのまま（独自 JS のドラッグ機構にしない）。</p>
+<div class="sbgrid">
+<div class="card"><h4>縦のみ</h4><div class="sb sb-demo" id="sb-vertical" tabindex="0" role="region" aria-label="縦スクロールの見本" style="height:200px"><ul class="sbtext"><li>プロジェクトの一覧 01</li><li>プロジェクトの一覧 02</li><li>プロジェクトの一覧 03</li><li>プロジェクトの一覧 04</li><li>プロジェクトの一覧 05</li><li>プロジェクトの一覧 06</li><li>プロジェクトの一覧 07</li><li>プロジェクトの一覧 08</li><li>プロジェクトの一覧 09</li><li>プロジェクトの一覧 10</li><li>プロジェクトの一覧 11</li><li>プロジェクトの一覧 12</li><li>プロジェクトの一覧 13</li><li>プロジェクトの一覧 14</li></ul></div></div>
+<div class="card"><h4>横のみ</h4><div class="sb sb-demo" id="sb-horizontal" tabindex="0" role="region" aria-label="横スクロールの見本"><div class="sbrow"><span>01 概要</span><span>02 進行</span><span>03 メンバー</span><span>04 履歴</span><span>05 設定</span><span>06 連携</span><span>07 請求</span><span>08 通知</span><span>09 権限</span><span>10 監査</span></div></div></div>
+<div class="card"><h4>縦横の両方向</h4><div class="sb sb-demo" id="sb-both" tabindex="0" role="region" aria-label="縦横スクロールの見本" style="height:200px"><table class="sbtbl"><thead><tr><th>ID</th><th>名称</th><th>担当</th><th>状態</th><th>更新</th><th>メモ</th><th>期限</th><th>優先度</th></tr></thead><tbody><tr><td>0001</td><td>見積り</td><td>A</td><td>進行中</td><td>11-08</td><td>確認待ち</td><td>11-20</td><td>中</td></tr><tr><td>0002</td><td>設計</td><td>B</td><td>完了</td><td>11-07</td><td>—</td><td>11-10</td><td>高</td></tr><tr><td>0003</td><td>実装</td><td>C</td><td>進行中</td><td>11-08</td><td>レビュー中</td><td>11-25</td><td>高</td></tr><tr><td>0004</td><td>検証</td><td>A</td><td>未着手</td><td>11-05</td><td>—</td><td>11-30</td><td>中</td></tr><tr><td>0005</td><td>公開</td><td>B</td><td>未着手</td><td>11-05</td><td>—</td><td>12-05</td><td>低</td></tr><tr><td>0006</td><td>保守</td><td>C</td><td>未着手</td><td>11-04</td><td>—</td><td>12-20</td><td>低</td></tr><tr><td>0007</td><td>棚卸し</td><td>A</td><td>未着手</td><td>11-04</td><td>—</td><td>12-25</td><td>低</td></tr><tr><td>0008</td><td>報告</td><td>B</td><td>未着手</td><td>11-03</td><td>—</td><td>01-10</td><td>低</td></tr></tbody></table></div></div>
+<div class="card"><h4>近似（標準指定のみ）</h4><div class="sb sb-demo sb-std" id="sb-standard" tabindex="0" role="region" aria-label="標準指定のみの見本" style="height:200px"><ul class="sbtext"><li>scrollbar-width: thin</li><li>scrollbar-color: thumb / transparent</li><li>Firefox ではこの表示（矢印なし）。Chromium では矢印が残ることがある</li><li>幅は OS・ブラウザ任せ（8px 保証なし）</li><li>hover / drag の色は変えられない</li><li>プロジェクトの一覧 06</li><li>プロジェクトの一覧 07</li><li>プロジェクトの一覧 08</li><li>プロジェクトの一覧 09</li><li>プロジェクトの一覧 10</li></ul></div></div>
+</div>
+<p class="help" style="margin-top:10px"><strong>操作:</strong> ホイール／トラックパッド／タッチでスクロール、thumb のドラッグ。キーボードは見本に Tab でフォーカスし、縦は ↑↓・PageUp／PageDown・Space・Home／End、横は ←→。Light／Dark は右上のトグルで切り替え。</p>
+<div class="card" style="margin-top:12px"><h4>thumb の状態（色の参照。実際の hover / drag は上の見本で確認）</h4><div class="sbstates"><div><span class="bar" style="background:var(--sb-thumb)"></span><code>通常</code> <span class="mute">--mute</span></div><div><span class="bar" style="background:var(--sb-thumb-hover)"></span><code>hover</code> <span class="mute">ink 35% + mute</span></div><div><span class="bar" style="background:var(--sb-thumb-active)"></span><code>drag</code> <span class="mute">ink 65% + mute</span></div></div><p class="mute" style="font-size:14px;margin:12px 0 0">トラックと縦横の交差部分は透明。矢印ボタンは非表示。<code>forced-colors: active</code> では上の指定を外し、OS 標準のバーに戻す。</p></div>
+<style>
+:root{--sb-size:8px;--sb-thumb:var(--mute);--sb-thumb-hover:color-mix(in srgb,var(--ink) 35%,var(--mute));--sb-thumb-active:color-mix(in srgb,var(--ink) 65%,var(--mute))}
+@media (forced-colors:none){
+.sb{scrollbar-width:thin;scrollbar-color:var(--sb-thumb) transparent}
+@supports selector(::-webkit-scrollbar){
+.sb:not(.sb-std){scrollbar-width:auto;scrollbar-color:auto}
+.sb:not(.sb-std)::-webkit-scrollbar{width:var(--sb-size);height:var(--sb-size)}
+.sb:not(.sb-std)::-webkit-scrollbar-track,.sb:not(.sb-std)::-webkit-scrollbar-corner{background:transparent}
+.sb:not(.sb-std)::-webkit-scrollbar-button{display:none;width:0;height:0}
+.sb:not(.sb-std)::-webkit-scrollbar-thumb{background:var(--sb-thumb);border-radius:999px}
+.sb:not(.sb-std)::-webkit-scrollbar-thumb:hover{background:var(--sb-thumb-hover)}
+.sb:not(.sb-std)::-webkit-scrollbar-thumb:active{background:var(--sb-thumb-active)}
+}}
+.sbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--gap-grid,16px);margin-top:12px}.sbgrid .card h4{margin:0 0 12px}
+.sb-demo{overflow:auto;max-width:100%;border:1px solid var(--border);border-radius:var(--r-md,8px);background:var(--bone)}
+.sbtext{list-style:none;margin:0;padding:12px 16px;font-size:14px;line-height:1.7}.sbtext li{padding:6px 0;border-bottom:1px solid var(--border)}.sbtext li:last-child{border-bottom:0}
+.sbrow{display:flex;gap:8px;width:max-content;padding:12px 16px}.sbrow span{padding:6px 14px;border:1px solid var(--border);border-radius:999px;font-size:14px;background:var(--surface);white-space:nowrap}
+.sbtbl{border-collapse:collapse;width:max-content;min-width:640px;font-size:14px}.sbtbl th,.sbtbl td{text-align:left;padding:8px 16px;border-bottom:1px solid var(--border);white-space:nowrap}.sbtbl th{font-size:12px;font-weight:600;color:var(--mute);position:sticky;top:0;background:var(--bone)}
+.sbstates{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}.sbstates .bar{display:inline-block;width:48px;height:var(--sb-size);border-radius:999px;vertical-align:middle;margin-right:8px}
+</style>
 </section>
 <section class="ui" id="motion">
 <style>
