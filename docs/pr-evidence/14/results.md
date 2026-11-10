@@ -39,4 +39,4 @@
 | 主ボタン hover Dark | 背景 `#f5f5f4` のまま・opacity 0.85 | 背景 `#d1d1d0`・opacity 1・文字 13.34:1 |
 
 - ペイン型デスクトップアプリの例外の表は本文 12 行（`<thead>` の 1 行を含めた 13 を「13 項目」と数えていた）。ファイル内には「13 項目」の記述は無く、PR 本文だけを直した。
-- スクショ（追加）: `14-<chromium|firefox>-index-<desktop|mobile375>-<light|dark>-link.png`（本文リンク）、`14-<chromium|firefox>-tokens-<desktop|mobile375>-<light|dark>-primary-hover.png`（主ボタン hover。「操作できるボタン」の「保存する」にマウスを置いた状態と、固定 hover 見本の並び）。リンクの色・主ボタンの hover が写る既存のスクショ（index の dialog / pane-app / proposals / soft-ripple、tokens の proposals）は撮り直した。
+- スクショ（追加）: `14-<chromium|firefox>-index-<desktop|mobile375>-<light|dark>-link.png`（本文リンク）、`14-<chromium|firefox>-tokens-<desktop|mobile375>-<light|dark>-primary-hover.png`（主ボタン hover。「操作できるボタン」の「保存する」にマウスを置いた状態と、固定 hover 見本の並び）。既存スクショのうち 40 枚は検証スクリプトの再実行で撮り直されて差分になっている。
