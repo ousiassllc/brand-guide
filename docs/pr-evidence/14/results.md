@@ -18,7 +18,7 @@
 
 | 項目 | PASS | FAIL |
 |---|---|---|
-| scripts/check-states.sh（回帰 9 項目を追加） | 223 | 0 |
+| scripts/check-states.sh（回帰 10 項目を追加（213→223）） | 223 | 0 |
 | scripts/check-scrollbar.sh | 27 | 0 |
 | scripts/check-typography.sh | 20 | 0 |
 | 06656c4 に新しい check-states.sh を当てる | 216 | 7（想定どおり FAIL: リンク色 1・主ボタン hover 5・.mixh 1） |
