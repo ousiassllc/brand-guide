@@ -224,4 +224,20 @@ chk 'ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px
 chk 'ヘッダー（index）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$idx"
 chk 'ヘッダー（tokens-preview）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$prev"
 
+# (9) PR #15 レビュー反映（#14）: 本文リンクの色・主ボタン hover・ペイン型の例外の行数
+# P2-1: index の本文リンクはブラウザ既定の青にしない（Dark で 2.17:1）。tokens-preview の a に合わせて ink、下線は mute
+chk 'index: a は color:var(--ink)・下線の色は var(--mute)（既定の青にしない）' '^a\{color:var\(--ink\);text-decoration-color:var\(--mute\);text-underline-offset:3px\}' "$idx"
+chk 'tokens-preview: a は color:var(--ink)（index がそろえる元）' '^a\{color:var\(--ink\);text-underline-offset:3px\}' "$prev"
+# P2-2: 主ボタンの hover は色だけ（採用済みの color-mix）。opacity を使わない（実 hover と固定見本の両方）
+chk 'tokens-preview: 主ボタンの実 hover は accent 85% / bone の color-mix' '\.pri:not\(:disabled\):hover\{background:color-mix\(in srgb,var\(--accent\) 85%,var\(--bone\)\)\}' "$prev"
+chk 'tokens-preview: 主ボタンの固定 hover 見本（.is-hover.pri）も同じ color-mix' '\.ui \.btn\.is-hover\.pri\{background:color-mix\(in srgb,var\(--accent\) 85%,var\(--bone\)\)\}' "$prev"
+! has "$prev" '\.is-hover\.pri\{[^}]*opacity' && ok 'tokens-preview: .is-hover.pri に opacity を使わない' || ng 'tokens-preview: .is-hover.pri に opacity が残っている'
+! has "$prev" '\.btn:hover\{opacity|\.pri:hover\{[^}]*opacity|\.btn\.pri[^{]*:hover\{[^}]*opacity:\.85' && ok 'tokens-preview: 主ボタンの hover に opacity .85 を掛けない' || ng 'tokens-preview: 主ボタンの hover に opacity が掛かっている'
+chk 'tokens-preview: loading 中の主ボタンは hover で色を変えない' '\.ui \.btn\.pri\.is-loading:hover\{background:var\(--accent\)\}' "$prev"
+! has "$prev" 'mixh' && ok 'tokens-preview: 主ボタン hover の別枠 .mixh を残さない（現行見本と同じ値）' || ng 'tokens-preview: .mixh が残っている'
+# P3: ペイン型の例外の表は 12 行。本文の「13 項目」（thead を含めた数え間違い）を残さない
+n=$(sec pane-app | grep -c '<tr><td>')
+[ "$n" -eq 12 ] && ok "#pane-app: 表の行が 12（$n）" || ng "#pane-app: 表の行が 12 でない（$n）"
+! has "$idx" '13 ?項目' && ! has "$prev" '13 ?項目' && ok 'index / tokens-preview: 「13 項目」と書いていない' || ng 'index / tokens-preview: 「13 項目」が残っている'
+
 exit $fail

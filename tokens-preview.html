@@ -21,7 +21,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 .prism{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--prism-violet),var(--prism-blue),var(--prism-cyan),var(--prism-green),var(--prism-yellow));margin-bottom:14px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:var(--pad-card,24px)}.row{display:flex;gap:20px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}.lab{width:120px;color:var(--mute);font-size:12px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}
-.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:10px;cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:transparent;color:var(--ink);border-color:var(--border)}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:hover{opacity:.85}.sec:hover,.ghost:hover{background:var(--accent-soft)}
+.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:10px;cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:transparent;color:var(--ink);border-color:var(--border)}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:not(.pri):hover{opacity:.85}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover,.ghost:hover{background:var(--accent-soft)}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
@@ -409,13 +409,13 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--border);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}
 #states .mx td:first-child,#states .mx th:first-child{padding-right:16px}
 /* ボタン状態の固定表示（実機の :hover / :focus-visible と同じ見た目） */
-.ui .btn.is-hover.pri{opacity:.85}.ui .btn.is-hover.sec,.ui .btn.is-hover.ghost{background:var(--accent-soft)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
+.ui .btn.is-hover.pri{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.ui .btn.is-hover.sec,.ui .btn.is-hover.ghost{background:var(--accent-soft)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
 /* loading: 寸法を維持（ラベルは透明にして残す）。薄くしない（disabled の opacity .4 とは別） */
 .ui .btn .spin{display:none}
 .ui .btn.is-loading{cursor:progress}.ui .btn.is-loading .bt{opacity:0}
 .ui .btn.is-loading .spin{display:block;position:absolute;left:50%;top:50%;margin:-10px 0 0 -10px;border-color:color-mix(in srgb,currentColor 25%,transparent);border-top-color:currentColor}
 .ui .btn.is-loading,.ui .btn.is-loading:hover{opacity:1}
-.ui .btn.sec.is-loading:hover,.ui .btn.ghost.is-loading:hover,.ui .btn.dan.is-loading:hover{background:transparent}
+.ui .btn.sec.is-loading:hover,.ui .btn.ghost.is-loading:hover,.ui .btn.dan.is-loading:hover{background:transparent}.ui .btn.pri.is-loading:hover{background:var(--accent)}
 .ui .btn{position:relative}
 /* 隠しチェックボックスが入力の width:100% で横にはみ出さない（この節のスイッチのみ。既存見本は #6 の範囲なので触らない） */
 #states .sw2{position:relative}#states .sw2 input{width:1px;height:1px;margin:0}
@@ -503,7 +503,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
 #states .tb40 button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 #states .btn.sec.tgl[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
-#states .btn.pri.mixh:hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone));opacity:1}
 #states .cnt-over{color:var(--danger)}
 #states .tipw{position:relative;display:inline-flex}
 #states .tipw .tp{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;line-height:1.6;padding:var(--tip-pad-y) var(--tip-pad-x);border-radius:var(--r-sm);white-space:nowrap;z-index:var(--z-dropdown)}
@@ -738,7 +737,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div><p class="st-h">--font-mono（日本語フォールバック）</p><p class="mono14" style="margin:0">order_id: 0A1B-2C3D 受注番号 12,800</p><p class="help">JetBrains Mono → Noto Sans JP → ui-monospace。数字を並べて比べる値だけ Mono</p></div>
 <div><p class="st-h">ラベル列（<code>--label-col</code> 72〜96px。この見本は 88）</p><div class="lblrow" style="margin-bottom:8px"><span class="lbl">名前</span><input class="fld" value="山田 花子" aria-label="名前"></div><div class="lblrow"><span class="lbl">メール</span><input class="fld" value="hanako@example.com" aria-label="メール"></div></div>
 <div><p class="st-h">タブ（高さ 40 / 左右 12 / 下線 2px）</p><div class="tb40" role="tablist" aria-label="タブの見本"><button type="button" role="tab" aria-selected="true">概要</button><button type="button" role="tab" aria-selected="false">設定</button><button type="button" role="tab" aria-selected="false">請求</button></div></div>
-<div><p class="st-h">トグル（pressed）／主ボタンのホバー</p><div class="tbr tx"><button type="button" class="btn sec sm tgl" id="tgl" aria-pressed="false">固定表示</button><button type="button" class="btn pri sm mixh">主ボタン</button></div><p class="help">主ボタンのホバーは <code>--accent</code> を <code>--bone</code> へ 15%。上の「ボタンの状態」の現行見本は opacity .85 のまま</p></div>
+<div><p class="st-h">トグル（pressed）／主ボタンのホバー</p><div class="tbr tx"><button type="button" class="btn sec sm tgl" id="tgl" aria-pressed="false">固定表示</button><button type="button" class="btn pri sm">主ボタン</button></div><p class="help">主ボタンのホバーは <code>--accent</code> を <code>--bone</code> へ 15%（opacity は使わない）。上の「ボタンの状態」の見本も同じ</p></div>
 <div><p class="st-h">スイッチ OFF（つまみ surface＋1px border／枠 mute 案）</p><label class="sw2"><input type="checkbox"><span></span>現行の枠（border）</label><br><label class="sw2 offm"><input type="checkbox"><span></span>枠を mute にする案</label><p class="help">OFF の枠 対 bone: border <span data-sw="border">-</span> / mute <span data-sw="mute">-</span>（非テキスト 3:1）</p></div>
 <div><p class="st-h">ツールチップ（遅延 400ms・フォーカスは即時。<code>title</code> は使わない）</p><span class="tipw"><button type="button" class="ib" id="tipb" aria-label="設定" aria-describedby="tipt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/></svg></button><span class="tp" id="tipt" role="tooltip" hidden>設定</span></span><p class="help">padding <code>--tip-pad-y</code> 6 / <code>--tip-pad-x</code> 10。トースト <code>--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s</p></div>
 <div><p class="st-h">入力下の文字数カウンタ</p><input class="fld" id="cnt-in" value="" placeholder="20 字まで" aria-describedby="cnt-st"><p class="help" id="cnt-st" role="status"><span class="mono14" style="font-size:12px" id="cnt-n">0</span> / 20</p></div>
