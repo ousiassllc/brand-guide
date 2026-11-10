@@ -127,3 +127,10 @@ light switch OFF bg rgb(231, 231, 229) | ON(after 400ms) {"chk":true,"bg":"rgb(5
 light focused is first: true
 dark switch OFF bg rgb(42, 42, 42) | ON(after 400ms) {"chk":true,"bg":"rgb(245, 245, 244)","border":"rgb(245, 245, 244)","thumb":"rgb(5, 5, 5)"} PASS(bg=accent)
 dark focused is first: true
+
+=== 追補（PR #11 レビュー反映: index ヘッダー 375px・確定/推奨案の表記）===
+再実行（Chromium 156 / Firefox 159）: verify 22 + verify2 43 + verify3 28 + verify5 10 + verify-ff 15 = 118 PASS / 0 FAIL
+scripts/check-states.sh 74 PASS（+3: ヘッダーのバッジ非表示 / 冒頭の推奨案表記 / accent-soft 採用）。修正前の HEAD（55309e0）に当てると新規 3 項目が FAIL
+scripts/check-scrollbar.sh 27 PASS / scripts/check-typography.sh 20 PASS
+index.html 375px（viewport 375x800、Light/Dark）: scrollWidth 375 = clientWidth 375、.top の高さ 85px（修正前 127px = バッジ 2 行）、.top/header 内で右端が viewport を超える要素 0、.badge は display:none
+参考（修正前）375px: .top 127px、.badge 179x52（2 行）。480px: 104px、481px: 136px（481px と 600px で測定: 3 モード切替の文字ラベルとバッジで依然折れる。範囲外のため未変更）

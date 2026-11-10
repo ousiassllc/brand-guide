@@ -74,4 +74,9 @@ for t in '--z-base:0' '--z-dropdown:100' '--z-sticky:200' '--z-drawer:300' '--z-
 done
 ! has "$idx" '--bone:#000000|--bone:#000;' && ! has "$prev" '--bone:#000000|--bone:#000;' && ok '真っ黒 #000 を背景に使っていない' || ng '真っ黒背景がある'
 
+# (5) index.html: ヘッダーと確定／推奨案の表記（PR #11 レビュー反映）
+chk 'ヘッダー: 480px 以下でバッジを非表示（375px で 2 行に折れない）' '@media\(max-width:480px\)\{\.badge\{display:none\}\}' "$idx"
+chk '冒頭: 新しい節は推奨案（未確定）と明記' '新しい節は推奨案（未確定）' "$idx"
+insec 'accent-soft 上の文字（ink）は推奨案ではなく採用' soft-ripple '地の補助文字 <span class="tag">採用</span>'
+
 exit $fail
