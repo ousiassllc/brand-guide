@@ -28,10 +28,10 @@
 | 方向 | 1 つ目 | 2 つ目 | 3 つ目 | 備考 |
 |---|---|---|---|---|
 | 縦 | 44 | 44 | 44 | `::before { inset: -3px }` で 38 + 3 + 3 |
-| 横 | 38 | 38 | 44 | 隣のボタンと接していて、あとの `::before` が前のボタンの縁 3px を覆うため。端のボタンだけ外側に 3px 広がる |
+| 横 | 38 | 38 | 44 | 隣のボタンと接していて、あとの `::before`（inset:-3px）が前のボタンの右端 3px を覆う。1 つ目・2 つ目は当たる範囲が 38px（見える部分より 3px 左にずれる。1 つ目は左の外枠側へ 3px はみ出し、右 3px は 2 つ目に取られる）、3 つ目だけ 44px |
 
 - 見える部分（選択中の塗り）は 38×38、外枠との間は上下左右とも 3px、外枠の高さは 46px（aa4129d と同値）。
-- 横が 44px に届かないのは、ボタンを隙間なく並べる以上、44px 幅を取ると隣と重なるため。指示どおり縦 44px を保つ形にした。
+- 横が 44px に届かないのは、ボタンを隙間なく並べる以上、隣と重なるため。縦 44px を保つ形にした。0.5px 刻みの `elementFromPoint`（ヘッダー 375px）の直接測定: 1 つ目 x=225.5〜263（見える部分 229〜267）、2 つ目 263.5〜301（267〜305）、3 つ目 301.5〜345.5（305〜343）。
 
 ## forced-colors の吹き出し（直し 1 回目 P3-3）
 
@@ -43,4 +43,4 @@
 
 - aa4129d は吹き出しに `border:1px solid var(--ink)` があったので forced-colors でも枠が残っていた。P2-2 で枠をなくす（Tooltip の規定にそろえる）と枠も背景も消えるため、forced-colors だけ `1px solid CanvasText` ＋ `Canvas` 背景を足した。
 
-ログ: `verification-chromium.log`（210 PASS / 0 FAIL）、`verification-firefox.log`（197 PASS / 0 FAIL。forced-colors は Chromium のみ）。`verification-chromium-on-aa4129d.log` は同じスクリプトを aa4129d に当てた結果（159 PASS / 42 FAIL のあと P3-1 の注記がなく途中で終了）。`check-states.txt`（直し後 184 PASS / 0 FAIL）、`check-states-new-script-on-aa4129d.txt`（新しい check-states.sh を aa4129d のツリーに当てると 147 PASS / 37 FAIL）。
+ログ: `verification-chromium.log`（210 PASS / 0 FAIL）、`verification-firefox.log`（197 PASS / 0 FAIL。forced-colors は Chromium のみ）。`verification-chromium-on-aa4129d.log` は同じスクリプトを aa4129d に当てた結果（164 PASS / 46 FAIL。完走）。`check-states.txt`（直し後 184 PASS / 0 FAIL）、`check-states-new-script-on-aa4129d.txt`（新しい check-states.sh を aa4129d のツリーに当てると 147 PASS / 37 FAIL）。

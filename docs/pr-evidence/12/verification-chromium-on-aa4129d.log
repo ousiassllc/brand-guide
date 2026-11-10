@@ -213,16 +213,18 @@ FAIL P2-3 tokens-preview.html dark: 選択中の行は --accent-soft の地（--
 FAIL P2-3 tokens-preview.html dark: 選択中の行の文字は --ink  rgb(5, 5, 5) / lb rgb(5, 5, 5) (ink=rgb(255, 255, 255))
 FAIL P2-3 tokens-preview.html dark: ラジオの円だけ --accent で塗り、点は --bone  rgb(5, 5, 5) radial-gradient(circle, rgb(5, 5, 5) 0px, rgb(5, 5, 5) 3px, rgba(0, 0, 0, 0) 3.5px)
 PASS P2-3 tokens-preview.html dark: 非選択の行は地なし・円は塗らない  rgba(0, 0, 0, 0) / none
-node:internal/modules/run_main:111
-    triggerUncaughtException(
-    ^
+FAIL P3-1 index.html light 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[264,304],"note":null,"inside":false}
+FAIL P3-1 index.html dark 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[264,304],"note":null,"inside":false}
+FAIL P3-1 tokens-preview.html light 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[214,304],"note":null,"inside":false}
+FAIL P3-1 tokens-preview.html dark 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[214,304],"note":null,"inside":false}
+PASS P3-1 1280px: 注記を足しても文字付き見本は横スクロールしない（幅が足りる置き場では出ない）  [310,310]
+PASS P3-3 見本 light forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+INFO  P3-3 見本 light aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+PASS P3-3 ヘッダー375 light forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+INFO  P3-3 ヘッダー375 light aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+PASS P3-3 見本 dark forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+INFO  P3-3 見本 dark aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+PASS P3-3 ヘッダー375 dark forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+INFO  P3-3 ヘッダー375 dark aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
 
-page.evaluate: TypeError: Cannot read properties of null (reading 'getBoundingClientRect')
-    at eval (eval at evaluate (:370:30), <anonymous>:1:140)
-    at UtilityScript.evaluate (<anonymous>:372:16)
-    at UtilityScript.<anonymous> (<anonymous>:1:44)
-    at /tmp/swarm-console/pw12f1/verify12f1.mjs:302:19 {
-  log: []
-}
-
-Node.js v26.13.0
+SUMMARY chromium: PASS=164 FAIL=46
