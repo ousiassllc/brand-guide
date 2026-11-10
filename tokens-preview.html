@@ -1,16 +1,19 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>トークン可視化 — Ousiass</title><meta name="robots" content="noindex">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="theme.js"></script><title>トークン可視化 — Ousiass</title><meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;600&family=Sora:wght@600&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
-:root{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
+:root,[data-theme=light]{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
-*{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif;transition:background .2s,color .2s}
+*{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif}
 .w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b,#p3 .card h3,#p3 .card h4,#p3 .rte-tb,#p3 .vid-bar,#p3 .code-hd{font-weight:600}
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{border:0;background:none;color:var(--mute);font:600 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{border:0;background:none;color:var(--mute);font:600 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg button{display:inline-flex;align-items:center;gap:6px;line-height:1.2;white-space:nowrap}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.seg button:hover:not([aria-pressed=true]){background:var(--accent-soft);color:var(--ink)}.seg button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+@media(max-width:480px){.seg .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.seg button{padding:6px 12px}}
+@media(forced-colors:active){.seg button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap-grid-lg)}.sw{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;font-size:13px}
 .chips{display:flex;height:56px;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px}.chips span{flex:1}
 .hx{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.hx button{font:12px "JetBrains Mono",monospace;border:1px solid var(--border);background:var(--bone);color:var(--ink);border-radius:6px;padding:2px 6px;cursor:pointer}
@@ -22,16 +25,17 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto;font-size:14px;line-height:1.6}
 #toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);visibility:hidden;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
-:root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1);--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
+:root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1);--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-popup:401;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
+[data-theme=light]{--shadow-modal:0 1px 2px rgba(0,0,0,.06)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
 .draft{display:inline-block;font:400 12px Sora,"Noto Sans JP";padding:2px 10px;border:1px dashed var(--mute);color:var(--mute);border-radius:var(--r-full);vertical-align:middle;margin-left:8px}
 .ui h3{margin:40px 0 12px}.ui .card{border-radius:var(--r-lg)}.ui .lbl{display:block;font-size:14px;font-weight:600;margin-bottom:var(--gap-label,6px)}.ui .help{font-size:12px;color:var(--mute);margin:var(--gap-help,4px) 0 0}.ui .err{color:var(--danger)}
 .tk{font:12px "JetBrains Mono",monospace;color:var(--mute)}
 .rad{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;align-items:start}.rad>div{min-width:0}.rad .swatch{height:80px;background:var(--accent-soft);border:1px solid var(--border);margin-bottom:6px}
 .sp{display:flex;align-items:center;gap:12px;padding:4px 0}.sp code{width:150px;font-size:12px}.sp i{display:block;height:12px;background:var(--accent);border-radius:var(--r-sm)}
-.ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+.ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color var(--motion-base) var(--ease-out)}
 .ui textarea.fld{height:96px;padding:10px 12px;resize:vertical;line-height:1.6}.ui .fld::placeholder{color:var(--mute)}
-.ui .fld:focus{border-color:var(--focus);box-shadow:0 0 0 2px var(--ring)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus{box-shadow:0 0 0 2px color-mix(in srgb,var(--danger) 40%,transparent)}
+.ui .fld:focus,.ui .fld.is-focus{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus,.ui .fld.bad.is-focus{border-color:var(--danger);outline-offset:1px}
 .ui .fld:disabled{opacity:.5;cursor:not-allowed}
 .ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
 .chk{display:flex;align-items:center;gap:10px;font-size:15px;margin:8px 0;cursor:pointer}
@@ -40,17 +44,17 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .chk input:checked{background:var(--accent);border-color:var(--accent)}
 .chk input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .chk input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--bone)}
-.chk input:focus-visible,.sw2 input:focus-visible+span{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.chk input:focus-visible,.chk input.is-focus,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
 .chk input:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
 .sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:15px}.sw2 input{position:absolute;opacity:0}
-.sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:.15s}
-.sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:.15s}
+.sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
+.sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:left var(--motion-base) var(--ease-out),background-color var(--motion-base) var(--ease-out)}
 .sw2 input:checked+span{background:var(--accent);border-color:var(--accent)}.sw2 input:checked+span::after{left:18px;background:var(--bone);box-shadow:none}
 .ui .btn{height:40px;padding:0 18px;border-radius:var(--r-md);font:600 15px Sora,"Noto Sans JP";display:inline-flex;align-items:center;gap:8px}
-.ui .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.ui .btn:focus-visible,.ui .btn.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui .dan{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}.ui .dan:hover{background:color-mix(in srgb,var(--danger) 10%,transparent)}
-.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 12px;font-size:14px}
-.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:1px solid var(--border);border-radius:var(--r-md);background:transparent;color:var(--ink);cursor:pointer}.ib:hover{background:var(--accent-soft)}.ib.gh{border-color:transparent}.ib:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+.ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 12px;font-size:14px}
+.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:1px solid var(--border);border-radius:var(--r-md);background:transparent;color:var(--ink);cursor:pointer}.ib:hover{background:var(--accent-soft)}.ib.gh{border-color:transparent}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui a.tl{color:var(--ink);text-decoration:underline;text-decoration-color:var(--mute);text-underline-offset:3px}.ui a.tl:hover{text-decoration-color:var(--ink)}
 .pg{height:6px;background:var(--accent-soft);border-radius:var(--r-full);overflow:hidden}.pg i{display:block;height:100%;background:var(--accent);border-radius:inherit}
 .spin{width:20px;height:20px;border:2px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}
@@ -69,9 +73,9 @@ pre{background:var(--bone);border:1px solid var(--border);border-radius:10px;pad
 .tbl{width:100%;border-collapse:collapse;font-size:var(--table-body-size,14px)}.tbl td,.tbl th{text-align:left;padding:var(--table-pad-y,10px) var(--table-pad-x,12px);border-bottom:var(--table-divider,1px solid var(--border))}.tbl th{font-weight:600;color:var(--mute);font-size:var(--table-head-size,12px)}
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-field)}
 </style></head><body><div class="w">
-<div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ"><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
+<div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
 <div class="hero"><h1>トークン可視化</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色・サイズスケール・UIは確定。<a href="#ui-draft">UI部品 →</a> · <a href="#p0">骨格コンポーネント P0 →</a> · <a href="#p1">P1 UI部品 →</a> · <a href="#p2">P2 上級UI →</a> · <a href="#p3">P3 メディア／エディタ →</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色・サイズスケール・UIは確定。<a href="#ui-draft">UI部品 →</a> · <a href="#states">状態・フォーカス・重なり・切替 →</a> · <a href="#p0">骨格コンポーネント P0 →</a> · <a href="#p1">P1 UI部品 →</a> · <a href="#p2">P2 上級UI →</a> · <a href="#p3">P3 メディア／エディタ →</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><p class="help" style="margin:0 0 12px">ダークのページ背景は <code>--bone</code> = <code>#050505</code>（ほぼ黒）。パネルは <code>--surface</code> = <code>#141414</code>。真っ黒 <code>#000</code> 直置きは禁止。</p><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#6b6b6e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#6b6b6e">L #6b6b6e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -143,7 +147,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </section>
 <section class="ui" id="ui">
 <h2 id="ui-draft">UI部品</h2>
-<p class="mute" style="font-size:14px">Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスリングだけ focus 青を 40% で使用）。</p>
+<p class="mute" style="font-size:14px">Light / Dark 切替ですべての部品が切り替わります。プリズムは UI に使いません（フォーカスだけ <code>--focus</code> 青の実線を使用。<a href="#st-focus">フォーカスの見本と 3:1 の測定</a>）。</p>
 
 <p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
@@ -181,7 +185,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="card"><code style="white-space:nowrap;display:inline-block;max-width:100%;overflow-x:auto">--stroke: 1px solid var(--border)</code><p class="help">既定。カード・入力・区切り線</p></div>
 <div class="card" style="border-color:var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）</p></div>
 <div class="card" style="border:1px dashed var(--border)"><code>1px dashed</code><p class="help">空状態・ドロップ領域</p></div>
-<div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">0 1px 2px rgba(0,0,0,.06) — モーダルのみ。カードは影なし</p></div>
+<div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">Light 0 1px 2px rgb(0 0 0 / 6%) ／ Dark 0 1px 2px rgb(0 0 0 / 40%) — モーダルのみ。カードは影なし（<a href="#st-shadow">Light / Dark 比較</a>）</p></div>
 </div>
 
 <h3 id="forms">フォーム Forms</h3>
@@ -384,7 +388,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h3 id="motion-rules">ルール Rules</h3>
 <div class="two"><div class="card"><b>Do</b><ul class="ls"><li>状態の変化・出現/退出を伝えるときだけ動かす</li><li>opacity＋小さな移動（4–8px）を使う</li><li>ホバーは色/背景のみ ≤180ms、フォーカスは即時〜120ms</li><li>ボタン／クローズの押下は小さくリップル（円がファン）</li><li>フェードイン 320ms / フェードアウト 240ms。モーダル出現は slow 帯／シート：下から 280ms</li><li>スクラムはオーバーレイと一緒にフェード</li></ul></div>
 <div class="card"><b>Don’t</b><ul class="ls"><li>装飾だけのループ・視差・大きな移動</li><li>バウンス／スプリング、scale ポップ（使うなら最大 1.02）</li><li>UI 上のプリズム（虹色）モーション</li><li>300ms を超える UI トランジション</li><li>reduced-motion を無視する</li></ul></div></div>
-<div class="note" style="margin-top:16px"><b>prefers-reduced-motion: reduce</b> — 装飾的な動き（移動・スライド）は無効化。必要な opacity フェードは ≤100ms またはなし。スピナーなど処理中表示は維持。</div>
+<div class="note" style="margin-top:16px"><b>prefers-reduced-motion: reduce</b> — 装飾的な動き（移動・スライド）は無効化。必要な opacity フェードは ≤100ms またはなし。スピナーなど処理中表示は維持（回転は止め、先端のアークと <code>aria-busy</code> で処理中を残す。<a href="#st-spinner">スピナー</a>）。</div>
 <p style="margin-top:12px;font-size:14px">ガイドに定義のないモーションパターンも 「<strong>ガイドにないものは使わない</strong>」 の対象です。</p>
 <script>
 (()=>{const cs=getComputedStyle(document.documentElement);document.querySelectorAll('#motion [data-v]').forEach(e=>e.textContent=cs.getPropertyValue(e.dataset.v).trim());
@@ -395,9 +399,282 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 </script>
 </section>
 
+<section class="ui" id="states">
+<style>
+#states .st-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--gap-grid)}#states .st-grid>*,#states .f2>*{min-width:0}#states .f2{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+#states .st-h{font-size:12px;color:var(--mute);margin:0 0 8px}
+#states .tag{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:var(--r-full);padding:0 10px;font:400 12px/1.7 Sora,"Noto Sans JP",sans-serif;margin-right:8px;vertical-align:middle}
+#states .tw{overflow-x:auto}#states .tw:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+#states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--border);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}
+#states .mx td:first-child,#states .mx th:first-child{padding-right:16px}
+/* ボタン状態の固定表示（実機の :hover / :focus-visible と同じ見た目） */
+.ui .btn.is-hover.pri{opacity:.85}.ui .btn.is-hover.sec,.ui .btn.is-hover.ghost{background:var(--accent-soft)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
+/* loading: 寸法を維持（ラベルは透明にして残す）。薄くしない（disabled の opacity .4 とは別） */
+.ui .btn .spin{display:none}
+.ui .btn.is-loading{cursor:progress}.ui .btn.is-loading .bt{opacity:0}
+.ui .btn.is-loading .spin{display:block;position:absolute;left:50%;top:50%;margin:-10px 0 0 -10px;border-color:color-mix(in srgb,currentColor 25%,transparent);border-top-color:currentColor}
+.ui .btn.is-loading,.ui .btn.is-loading:hover{opacity:1}
+.ui .btn.sec.is-loading:hover,.ui .btn.ghost.is-loading:hover,.ui .btn.dan.is-loading:hover{background:transparent}
+.ui .btn{position:relative}
+/* 隠しチェックボックスが入力の width:100% で横にはみ出さない（この節のスイッチのみ。既存見本は #6 の範囲なので触らない） */
+#states .sw2{position:relative}#states .sw2 input{width:1px;height:1px;margin:0}
+/* スイッチ・ラジオの disabled（他部品と同じ opacity .4） */
+.sw2:has(input:disabled){opacity:.4;cursor:not-allowed}
+@media (prefers-reduced-motion:reduce){.ui .btn,.sw2 span,.sw2 span::after,.ui .fld,.seg button{transition:none}}
+/* 入力 2px / 離散 3px の比較 */
+#states .fcmp{display:grid;gap:12px}#states .fcmp .r{display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:6px 4px}
+/* スピナー */
+#states .spin-on-bone{display:flex;align-items:center;gap:10px;font-size:14px}
+/* 重なり順 */
+#states .zs{position:relative;height:392px;max-width:520px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden;isolation:isolate;font-size:13px}
+#states .zs .zt{font:12px "JetBrains Mono",monospace;color:var(--mute)}
+#states .zs .bar{position:absolute;left:0;right:0;top:0;height:40px;z-index:var(--z-sticky);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+#states .zs .dd1{position:absolute;left:12px;top:48px;width:160px;z-index:var(--z-dropdown);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--gap-option,4px)}
+#states .zs .dd1 div{padding:6px 8px;border-radius:var(--r-sm)}
+#states .zs .scr{position:absolute;inset:0;z-index:var(--z-modal);background:color-mix(in srgb,var(--ink) 18%,transparent);display:grid;place-items:start center;padding-top:24px}
+#states .zs .mdl{width:min(340px,86%);height:232px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal);display:flex;flex-direction:column}
+#states .zs .mdl header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600}
+#states .zs .mdl .bd{padding:16px;flex:1}#states .zs .mdl footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+#states .zs .pop{position:absolute;left:max(8px,calc(50% - 210px));top:247px;width:180px;z-index:var(--z-popup);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option,4px)}
+#states .zs .pop button{display:block;width:100%;text-align:left;border:0;background:none;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;height:var(--menu-item-h,40px);padding:0 var(--menu-pad-x,12px);border-radius:var(--r-sm);cursor:pointer}
+#states .zs .pop button:hover{background:var(--accent-soft)}#states .zs .pop button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+#states .zs .zst{position:absolute;left:12px;bottom:12px;z-index:var(--z-toast);max-width:calc(100% - 24px)}
+#states .zs [hidden]{display:none}
+#states .zctl{display:flex;flex-wrap:wrap;gap:4px 24px;margin-bottom:12px}
+/* モーダル影の比較 */
+#states .shpair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--gap-grid)}#states .shpair>*{min-width:0}
+#states .shpane{background:var(--bone);color:var(--ink);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--s-4)}
+#states .shpane .scrim{padding:var(--s-6) var(--s-3)}
+/* accent-soft 地の文字 */
+#states .soft{display:flex;justify-content:space-between;gap:12px;align-items:baseline;background:var(--accent-soft);color:var(--ink);padding:10px 12px;border-radius:var(--r-md);font-size:14px}
+#states .soft .s-ink{color:var(--ink);font-size:12px}#states .soft .s-mute{color:var(--mute);font-size:12px}
+/* リップル */
+#states .rp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--gap-grid)}#states .rp>*{min-width:0}
+#states .rpitem{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
+#states .rowsel{display:block;width:100%;text-align:left;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;padding:10px 12px;cursor:pointer}
+#states .rowsel:hover{background:var(--accent-soft)}#states .rowsel:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+#states .selbtn{display:flex;align-items:center;justify-content:space-between;width:100%;height:40px;font:400 16px Sora,"Noto Sans JP",sans-serif;padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);cursor:pointer}
+#states .selbtn:hover{border-color:var(--mute)}#states .selbtn:focus-visible{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}
+#states .selbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
+/* forced-colors（ハイコントラスト）: 色の差で見せていた状態を、システム色で残す */
+@media (forced-colors:active){
+.sw2 span{forced-color-adjust:none;background:Canvas;border-color:CanvasText}
+.sw2 span::after{background:CanvasText;box-shadow:none}
+.sw2 input:checked+span{background:Highlight;border-color:Highlight}
+.sw2 input:checked+span::after{background:HighlightText}
+.chk input{border-color:CanvasText}
+.chk input:checked{border-color:Highlight}
+.chk input[type=radio]:checked::after{background:Highlight;forced-color-adjust:none}
+.chk input[type=checkbox]:checked::after{border-color:Highlight}
+.spin{forced-color-adjust:none;border-color:transparent;border-top-color:CanvasText}
+.ui .btn.is-loading .spin{border-color:transparent;border-top-color:ButtonText}
+#states .zs .zst,#states .zs .pop,#states .zs .mdl{border:1px solid CanvasText}
+.ui .btn.pri{border-width:2px}
+}
+</style>
+<h2 id="states-draft">状態・フォーカス・重なり・切替 States, focus, layers, theme</h2>
+<p class="mute" style="font-size:14px">操作して確かめる見本。状態・スピナー・リップルなど未確定のものは <span class="tag">推奨案</span>、テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は <span class="tag">採用</span> を付ける。代替は本文（<a href="./#theme">ガイド本体</a>）に併記。</p>
+<p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
+
+<h3 id="st-theme">ライト／ダーク切替 Theme switch <span class="tag">採用</span></h3>
+<div class="card">
+<div class="f2">
+<div><span class="lbl" id="st-theme-lbl">切替コントロール（Light / Dark / System）</span>
+<div class="seg" role="group" data-theme-control aria-labelledby="st-theme-lbl"><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div>
+<p class="help">Tab でコントロールへ → ←→ で移動 → Space / Enter で選択。選んだものは <code>aria-pressed="true"</code>。</p></div>
+<div><span class="lbl">いまの状態（ライブ）</span>
+<table class="mx" aria-label="テーマの状態"><tbody>
+<tr><th scope="row">選択（モード）</th><td><code id="th-mode">-</code></td></tr>
+<tr><th scope="row">適用（<code>data-theme</code>）</th><td><code id="th-res">-</code></td></tr>
+<tr><th scope="row">OS（prefers-color-scheme）</th><td><code id="th-os">-</code></td></tr>
+<tr><th scope="row">保存（localStorage）</th><td><code id="th-store">-</code></td></tr>
+</tbody></table>
+<p class="help">保存キーはこのガイド用の <code id="th-key">-</code>。プロダクトは自前の名前空間でよい（旧デモ用 <code>theme</code> / <code>oth</code> に合わせる必要はない）。</p></div>
+</div>
+<hr class="dv">
+<ul class="p" style="margin:0;padding-left:20px;font-size:14px">
+<li><strong>System</strong>（または未保存）: OS の設定に従い、OS が変わればリロードなしで追従する</li>
+<li><strong>Light / Dark</strong>: 保存して固定。以後 OS の変更では上書きしない</li>
+<li>描画前に <code>&lt;head&gt;</code> の同期スクリプトで <code>data-theme</code> を決める（FOUC 回避）。切替でスクロール位置は動かない。色のクロスフェードは付けない</li>
+</ul>
+<div style="margin-top:12px"><button type="button" class="btn sec sm" id="th-reset">保存を消して System に戻す</button></div>
+</div>
+
+<h3 id="st-env">表示環境の読み取り（確認用）</h3>
+<div class="card"><table class="mx" aria-label="表示環境"><tbody>
+<tr><th scope="row">prefers-reduced-motion</th><td><code id="env-rm">-</code></td></tr>
+<tr><th scope="row">forced-colors</th><td><code id="env-fc">-</code></td></tr>
+<tr><th scope="row">prefers-color-scheme</th><td><code id="env-cs">-</code></td></tr>
+</tbody></table><p class="help">reduced-motion: reduce では色の遷移・スピナー回転・リップルを止める。forced-colors: active ではシステム色に置き換わる（スイッチ ON/OFF・ラジオ・スピナーは明示対応）。</p></div>
+
+<h3 id="st-buttons">ボタンの状態 Button states <span class="tag">推奨案</span></h3>
+<div class="card"><div class="tw" tabindex="0" role="region" aria-label="ボタン状態の一覧"><table class="mx"><thead><tr><th>種類</th><th>default</th><th>hover</th><th>focus-visible</th><th>disabled</th><th>loading</th></tr></thead><tbody>
+<tr><th scope="row"><code>pri</code></th><td><button type="button" class="btn pri"><span class="bt">pri</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn pri is-hover"><span class="bt">pri</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn pri is-focus"><span class="bt">pri</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn pri" disabled><span class="bt">pri</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn pri is-loading" aria-busy="true" aria-disabled="true"><span class="bt">pri</span><span class="spin" aria-hidden="true"></span></button></td></tr>
+<tr><th scope="row"><code>sec</code></th><td><button type="button" class="btn sec"><span class="bt">sec</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn sec is-hover"><span class="bt">sec</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn sec is-focus"><span class="bt">sec</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn sec" disabled><span class="bt">sec</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn sec is-loading" aria-busy="true" aria-disabled="true"><span class="bt">sec</span><span class="spin" aria-hidden="true"></span></button></td></tr>
+<tr><th scope="row"><code>ghost</code></th><td><button type="button" class="btn ghost"><span class="bt">ghost</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn ghost is-hover"><span class="bt">ghost</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn ghost is-focus"><span class="bt">ghost</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn ghost" disabled><span class="bt">ghost</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn ghost is-loading" aria-busy="true" aria-disabled="true"><span class="bt">ghost</span><span class="spin" aria-hidden="true"></span></button></td></tr>
+<tr><th scope="row"><code>dan</code></th><td><button type="button" class="btn dan"><span class="bt">dan</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn dan is-hover"><span class="bt">dan</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn dan is-focus"><span class="bt">dan</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn dan" disabled><span class="bt">dan</span><span class="spin" aria-hidden="true"></span></button></td><td><button type="button" class="btn dan is-loading" aria-busy="true" aria-disabled="true"><span class="bt">dan</span><span class="spin" aria-hidden="true"></span></button></td></tr>
+</tbody></table></div>
+<p class="help" style="margin-top:12px">hover / focus は固定表示（実機の <code>:hover</code> / <code>:focus-visible</code> と同じ見た目）。実際の操作は下の「操作できるボタン」で確認。loading は寸法を維持し、<strong>薄くしない</strong>（<code>disabled</code> の opacity .4 とは別）。進行はスピナーで示し、<code>aria-busy="true"</code>・クリック無効。</p>
+<hr class="dv">
+<span class="lbl">操作できるボタン（hover・Tab でフォーカス・クリックで loading 2 秒）</span>
+<div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;align-items:center">
+<button type="button" class="btn pri" data-loading-demo><span class="bt">保存する</span><span class="spin" aria-hidden="true"></span></button>
+<button type="button" class="btn sec" data-loading-demo><span class="bt">キャンセル</span><span class="spin" aria-hidden="true"></span></button>
+<button type="button" class="btn dan" data-loading-demo><span class="bt">削除する</span><span class="spin" aria-hidden="true"></span></button>
+<span class="help" id="ld-status" role="status" style="margin:0"></span></div>
+<p class="help">危険ボタンは既存の <code>--danger</code>（枠 45% / hover は 10% の薄い混ぜ）。新しい色は作らない。</p>
+</div>
+
+<h3 id="st-switch">スイッチ・ラジオの状態 Switch &amp; radio <span class="tag">推奨案</span></h3>
+<div class="card"><div class="st-grid">
+<div><p class="st-h">スイッチ（トラック 36×20 / つまみ 14）</p>
+<label class="sw2"><input type="checkbox"><span></span>OFF</label>
+<label class="sw2"><input type="checkbox" checked><span></span>ON</label><br>
+<label class="sw2"><input type="checkbox" disabled><span></span>無効 OFF</label>
+<label class="sw2"><input type="checkbox" checked disabled><span></span>無効 ON</label><br>
+<label class="sw2"><input type="checkbox" class="is-focus"><span></span>focus（固定表示）</label>
+<p class="help">つまみの移動と背景の遷移は <code>--motion-base</code>（180ms）の色・位置のみ。バウンスなし。disabled は opacity .4。</p></div>
+<div><p class="st-h">ラジオ（18px 円 / 選択は中央 6px の点）</p>
+<label class="chk"><input type="radio" name="st-r"> 未選択</label>
+<label class="chk"><input type="radio" name="st-r" checked> 選択</label>
+<label class="chk"><input type="radio" name="st-r2" class="is-focus"> focus（固定表示）</label>
+<label class="chk"><input type="radio" name="st-r3" disabled> 無効（未選択）</label>
+<label class="chk"><input type="radio" name="st-r4" checked disabled> 無効（選択）</label>
+<p class="help">focus は 3px の <code>--focus</code> リング。disabled は opacity .4。</p></div>
+</div></div>
+
+<h3 id="st-focus">フォーカスリング幅と 3:1 Focus ring <span class="tag">採用</span></h3>
+<div class="card"><div class="st-grid">
+<div><p class="st-h">入力系 = 2px（input / textarea / select / タグ欄）</p><div class="fcmp">
+<input class="fld is-focus" value="focus（固定表示）" aria-label="入力のフォーカス見本">
+<select class="fld is-focus" aria-label="select のフォーカス見本"><option>select</option></select>
+</div><p class="help">入力は枠がすでにあるので、枠を <code>--focus</code> にして 2px の線で囲う。</p></div>
+<div><p class="st-h">離散コントロール = 3px（ボタン・アイコンボタン・スイッチ・チェック・ラジオ・スライダー）</p><div class="fcmp"><div class="r">
+<button type="button" class="btn pri is-focus"><span class="bt">保存</span></button>
+<button type="button" class="btn sec is-focus"><span class="bt">キャンセル</span></button>
+<button type="button" class="ib is-focus" aria-label="設定"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+<label class="chk" style="margin:0"><input type="checkbox" class="is-focus" checked aria-label="チェックの見本"></label>
+</div></div><p class="help">離散コントロールはリングが主要な囲い。<strong>offset 2px</strong> で隣接背景との間に余白を置き、リングは必ず背景（bone / surface / accent-soft）の上に乗る。</p></div>
+</div>
+<hr class="dv">
+<span class="lbl">非テキストコントラスト（<code>--focus</code> 対 隣接背景、いまのテーマで計算）</span>
+<div class="tw" tabindex="0" role="region" aria-label="フォーカスのコントラスト測定"><table id="cr-focus"><thead><tr><th>対象</th><th>bone</th><th>surface</th><th>accent-soft</th></tr></thead><tbody></tbody></table></div>
+<p class="help">基準は WCAG 2.2 非テキスト 3:1（SC 1.4.11）。<code>--focus</code> の色は変えず、<strong>実線</strong>で描いて 3:1 を満たす。旧見本の <code>--ring</code>（focus 40%）は参考値：背景に溶けて 3:1 に届かない。</p>
+</div>
+
+<h3 id="st-spinner">スピナー Spinner <span class="tag">推奨案</span></h3>
+<div class="card"><div class="st-grid">
+<div><p class="st-h">通常面（20px・線 2px・0.9s linear）</p>
+<div class="spin-on-bone"><span class="spin" role="status" aria-label="読み込み中"></span><span class="mute">読み込んでいます…</span></div>
+<p class="help">トラック <code>--accent-soft</code> / 先端 <code>--accent</code>。</p></div>
+<div><p class="st-h">primary ボタン内（先端を bone 側に反転）</p>
+<button type="button" class="btn pri is-loading" aria-busy="true" aria-disabled="true"><span class="bt">保存する</span><span class="spin" aria-hidden="true"></span></button>
+<button type="button" class="btn sec is-loading" aria-busy="true" aria-disabled="true"><span class="bt">キャンセル</span><span class="spin" aria-hidden="true"></span></button>
+<p class="help">ボタン内は <code>currentColor</code> 先端＋ 25% のトラックで、どの種類でも読める。</p></div>
+<div><p class="st-h">reduced-motion</p>
+<p style="font-size:14px;margin:0">回転を止める。先端のアーク・<code>aria-busy</code>・ラベルで処理中は残す。</p>
+<p class="help">周期 0.9s は #9（pull-to-refresh）の前提（0.9s・20・線 2）と同じ。変更していない。</p></div>
+</div></div>
+
+<h3 id="st-z">重なり順の見本 z-index <span class="tag">採用</span></h3>
+<div class="zctl" role="group" aria-label="重なり順の表示切替">
+<label class="chk"><input type="checkbox" data-z="modal" checked> モーダル（400）</label>
+<label class="chk"><input type="checkbox" data-z="pop" checked> メニュー（popup 401）</label>
+<label class="chk"><input type="checkbox" data-z="toast" checked> toast（500）</label></div>
+<div class="zs" id="zs">
+<div class="bar"><span>sticky</span><span class="zt">z 200</span></div>
+<div class="dd1" aria-label="dropdown 見本"><div>dropdown</div><div class="zt">z 100</div><div>項目 B</div></div>
+<div class="scr" data-zl="modal"><div class="mdl" role="dialog" aria-label="モーダル見本"><header><span>設定を保存</span><span class="zt">z 400</span></header><div class="bd">モーダル。dropdown（100）と sticky（200）の上に乗る。</div><footer><button type="button" class="btn sec sm" id="z-more" aria-haspopup="menu" aria-expanded="true">その他 ▾</button><button type="button" class="btn pri sm">保存</button></footer></div></div>
+<div class="pop" role="menu" aria-label="その他メニュー" data-zl="pop"><button type="button" role="menuitem">複製</button><button type="button" role="menuitem">共有</button><button type="button" role="menuitem">削除… <span class="zt">z 401</span></button></div>
+<div class="tst zst" role="status" data-zl="toast"><span>保存しました</span><span class="zt" style="color:inherit;opacity:.7">z 500</span></div>
+</div>
+<p class="help" style="max-width:520px">dropdown（100）は通常面。<strong>popup（401）はモーダルの上</strong>、toast（500）は常に最前。<code>--z-popup = --z-modal + 1</code> で、既存の 0–500 の段は並べ替えない。</p>
+
+<h3 id="st-shadow">モーダル影の Light / Dark 比較 Modal shadow <span class="tag">採用</span></h3>
+<div class="shpair">
+<div class="shpane" data-theme="light"><p class="st-h">Light — <code>0 1px 2px rgb(0 0 0 / 6%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Light のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
+<div class="shpane" data-theme="dark"><p class="st-h">Dark — <code>0 1px 2px rgb(0 0 0 / 40%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Dark のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
+</div>
+<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う。</p>
+
+<h3 id="st-soft">accent-soft 地の補助文字 Text on accent-soft <span class="tag">採用</span></h3>
+<div class="card"><div class="st-grid">
+<div><p class="st-h">推奨: <code>--ink</code></p><div class="soft"><span>選択中の行</span><span class="s-ink">補助テキスト（ink）</span></div><p class="help">ratio <strong data-cr="ink">-</strong></p></div>
+<div><p class="st-h">非推奨: <code>--mute</code> のまま</p><div class="soft"><span>選択中の行</span><span class="s-mute">補助テキスト（mute）</span></div><p class="help">ratio <strong data-cr="mute">-</strong>（AA 本文 4.5:1）</p></div>
+</div></div>
+
+<h3 id="st-ripple">リップルの対象 / 非対象 Ripple targets <span class="tag">推奨案</span></h3>
+<div class="rp">
+<div class="card"><p class="st-h">対象（押下で円がファン・280ms）</p>
+<div class="rpitem"><button type="button" class="btn pri">pri</button><button type="button" class="btn sec">sec</button><button type="button" class="btn ghost">ghost</button><button type="button" class="btn dan">dan</button><button type="button" class="ib gh" aria-label="閉じる"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div>
+<div class="card"><p class="st-h">非対象（ホバーは色のみ・リップルなし）</p>
+<div class="rpitem"><a class="tl" href="#st-ripple">テキストリンク</a></div>
+<button type="button" class="rowsel" style="margin-top:8px">行型・カード型の選択</button>
+<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">タブ A</button><button type="button" aria-selected="false">タブ B</button></div>
+<button type="button" class="selbtn" style="margin-top:8px" aria-haspopup="listbox"><span>セレクトのトリガ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+<div class="rpitem" style="margin-top:8px"><label class="sw2" style="margin:0"><input type="checkbox"><span></span>スイッチ</label><label class="chk" style="margin:0"><input type="radio" name="st-rp"> ラジオ</label></div></div>
+</div>
+</section>
+<script>
+(()=>{
+  const $=id=>document.getElementById(id), cs=()=>getComputedStyle(document.documentElement);
+  const mq=q=>matchMedia(q).matches;
+  function lin(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)}
+  function rgb(h){h=h.trim().replace('#','');return[0,2,4].map(i=>parseInt(h.slice(i,i+2),16))}
+  function L(c){return .2126*lin(c[0])+.7152*lin(c[1])+.0722*lin(c[2])}
+  function ratio(a,b){const x=L(a),y=L(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+  function over(fg,bg,a){return fg.map((v,i)=>Math.round(v*a+bg[i]*(1-a)))}
+  const tok=n=>rgb(cs().getPropertyValue(n));
+  function ok(r,min){return r.toFixed(2)+':1 '+(r>=min?'✓':'✗')}
+  function readout(){
+    const T=window.OusiassTheme;if(!T)return;
+    $('th-mode').textContent=T.mode();$('th-res').textContent=document.documentElement.dataset.theme;
+    $('th-os').textContent=mq('(prefers-color-scheme: dark)')?'dark':'light';
+    let v=null;try{v=localStorage.getItem(T.key)}catch(e){}
+    $('th-store').textContent=v||'（なし = system）';$('th-key').textContent=T.key;
+    $('env-rm').textContent=mq('(prefers-reduced-motion: reduce)')?'reduce':'no-preference';
+    $('env-fc').textContent=mq('(forced-colors: active)')?'active':'none';
+    $('env-cs').textContent=mq('(prefers-color-scheme: dark)')?'dark':'light';
+  }
+  function contrast(){
+    const bg=['--bone','--surface','--accent-soft'].map(tok),f=tok('--focus');
+    const rows=[['<code>--focus</code> 実線（推奨）',bg.map(b=>ratio(f,b))],['<code>--ring</code> focus 40%（旧・参考）',bg.map(b=>ratio(over(f,b,.4),b))]];
+    document.querySelector('#cr-focus tbody').innerHTML=rows.map(r=>'<tr><td>'+r[0]+'</td>'+r[1].map(x=>'<td>'+ok(x,3)+'</td>').join('')+'</tr>').join('');
+    const soft=tok('--accent-soft');
+    document.querySelector('[data-cr=ink]').textContent=ok(ratio(tok('--ink'),soft),4.5);
+    document.querySelector('[data-cr=mute]').textContent=ok(ratio(tok('--mute'),soft),4.5);
+  }
+  function refresh(){readout();contrast()}
+  document.addEventListener('themechange',refresh);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',readout);
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',readout);
+  matchMedia('(forced-colors: active)').addEventListener('change',readout);
+  refresh();
+  $('th-reset').onclick=()=>OusiassTheme.reset();
+  // loading demo
+  document.querySelectorAll('[data-loading-demo]').forEach(b=>b.addEventListener('click',e=>{
+    if(b.getAttribute('aria-busy')==='true'){e.preventDefault();return}
+    b.classList.add('is-loading');b.setAttribute('aria-busy','true');b.setAttribute('aria-disabled','true');
+    $('ld-status').textContent='処理中…';
+    setTimeout(()=>{b.classList.remove('is-loading');b.removeAttribute('aria-busy');b.removeAttribute('aria-disabled');$('ld-status').textContent='完了しました'},2000);
+  }));
+  // z demo
+  const zs=$('zs');
+  document.querySelectorAll('[data-z]').forEach(c=>c.addEventListener('change',()=>{
+    const t=zs.querySelector('[data-zl='+c.dataset.z+']');t.hidden=!c.checked;
+    if(c.dataset.z==='modal'){$('z-more').setAttribute('aria-expanded',String(c.checked&&!zs.querySelector('[data-zl=pop]').hidden))}
+  }));
+  $('z-more').addEventListener('click',()=>{
+    const p=zs.querySelector('[data-zl=pop]'),c=document.querySelector('[data-z=pop]');
+    p.hidden=!p.hidden;c.checked=!p.hidden;$('z-more').setAttribute('aria-expanded',String(!p.hidden));
+  });
+  zs.addEventListener('keydown',e=>{if(e.key==='Escape'){const p=zs.querySelector('[data-zl=pop]');if(!p.hidden){p.hidden=true;document.querySelector('[data-z=pop]').checked=false;$('z-more').setAttribute('aria-expanded','false');$('z-more').focus()}}});
+})();
+</script>
+
 <section class="ui" id="p0">
 <style>
-:root{--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
+:root{--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-popup:401;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
 #p0 .frame{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
 #p0 .topnav{display:flex;align-items:center;gap:16px;height:56px;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border)}
 #p0 .topnav .brand{font-weight:600;letter-spacing:.12em;font-size:13px}
@@ -627,9 +904,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <div style="margin-left:16px"><span>sticky（ヘッダー等）</span><span class="mono">--z-sticky 200</span></div>
     <div style="margin-left:24px"><span>drawer</span><span class="mono">--z-drawer 300</span></div>
     <div style="margin-left:32px"><span>modal</span><span class="mono">--z-modal 400</span></div>
-    <div style="margin-left:40px"><span>toast</span><span class="mono">--z-toast 500</span></div>
+    <div style="margin-left:36px"><span>popup / menu（モーダルの上）</span><span class="mono">--z-popup 401</span></div>
+    <div style="margin-left:44px"><span>toast</span><span class="mono">--z-toast 500</span></div>
   </div>
-  <p class="help" style="margin-top:10px">上に行くほど手前。dropdown &lt; drawer &lt; modal &lt; toast。</p>
+  <p class="help" style="margin-top:10px">上に行くほど手前。dropdown &lt; drawer &lt; modal &lt; popup &lt; toast。popup（401）の使い方と操作見本は <a href="#st-z">重なり順の見本</a>。</p>
 </div>
 
 <h3 id="p0-icons">Icons — Iconoir</h3>
@@ -697,6 +975,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     el.classList.add('ripple-host');
     el.addEventListener('pointerdown',e=>{
       if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(el.getAttribute('aria-busy')==='true') return;
       if(e.button!=null && e.button!==0) return;
       const r=el.getBoundingClientRect();
       const size=Math.ceil(Math.hypot(r.width,r.height)*2);
@@ -772,12 +1051,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .rng::-moz-range-progress{height:4px;border-radius:var(--r-full);background:var(--accent)}
 #p1 .rng::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;margin-top:-6px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 0 0 1px var(--border);transition:border-color var(--motion-base,180ms) var(--ease-out,ease-out)}
 #p1 .rng::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:none}
-#p1 .rng:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(--ring)}
-#p1 .rng:focus-visible::-moz-range-thumb{box-shadow:0 0 0 3px var(--ring)}
+#p1 .rng:focus-visible::-webkit-slider-thumb{outline:3px solid var(--focus);outline-offset:2px}
+#p1 .rng:focus-visible::-moz-range-thumb{outline:3px solid var(--focus);outline-offset:2px}
 #p1 .rng:disabled{opacity:.4;cursor:not-allowed}
 #p1 .rng-meta{display:flex;justify-content:space-between;max-width:360px;font:12px "JetBrains Mono",monospace;color:var(--mute);margin-top:6px}
 #p1 .tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:text}
-#p1 .tags:focus-within{border-color:var(--focus);box-shadow:0 0 0 2px var(--ring)}
+#p1 .tags:focus-within{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:-1px}
 #p1 .tags .chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px 0 10px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);font-size:13px;color:var(--ink)}
 #p1 .tags .chip button{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
 #p1 .tags .chip button:hover{color:var(--ink);background:var(--surface)}
@@ -920,7 +1199,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <label class="lbl" for="p1-range">音量 <span class="mute" style="font-weight:400" id="p1-range-val">40</span></label>
   <input class="rng" id="p1-range" type="range" min="0" max="100" value="40" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
   <div class="rng-meta"><span>0</span><span>100</span></div>
-  <p class="help">OS標準見た目は使わない。トラック 4px（充填 accent／未充填 accent-soft）・つまみ 16 円（surface＋border）。フォーカスは --ring。キーボード操作可。</p>
+  <p class="help">OS標準見た目は使わない。トラック 4px（充填 accent／未充填 accent-soft）・つまみ 16 円（surface＋border）。フォーカスは 3px の --focus 実線リング（<a href="#st-focus">フォーカス幅</a>）。キーボード操作可。</p>
 </div>
 
 <h3 id="p1-tags">タグ入力（chips input）</h3>
@@ -991,6 +1270,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     el.classList.add('ripple-host');
     el.addEventListener('pointerdown',e=>{
       if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(el.getAttribute('aria-busy')==='true') return;
       if(e.button!=null && e.button!==0) return;
       const r=el.getBoundingClientRect();
       const size=Math.ceil(Math.hypot(r.width,r.height)*2);
@@ -1397,6 +1677,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     el.classList.add('ripple-host');
     el.addEventListener('pointerdown',e=>{
       if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(el.getAttribute('aria-busy')==='true') return;
       if(e.button!=null && e.button!==0) return;
       const r=el.getBoundingClientRect();
       const size=Math.ceil(Math.hypot(r.width,r.height)*2);
@@ -1576,10 +1857,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
 </div><div id="toast"></div><script>
-const r=document.documentElement,bs=document.querySelectorAll('.seg button');
-function set(t){r.dataset.theme=t;bs.forEach(b=>b.setAttribute('aria-pressed',b.dataset.t==t));}
-let s=localStorage.getItem('oth');set(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
-bs.forEach(b=>b.onclick=()=>{set(b.dataset.t);localStorage.setItem('oth',b.dataset.t)});
 document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);showToast(b.dataset.hex+' をコピーしました')});
 document.querySelectorAll('.tabs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x==b))}));document.querySelectorAll('.seg2').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x==b))}));
 let _toastTimer,_toastHideTimer;
@@ -1647,6 +1924,7 @@ document.querySelectorAll('.scrim').forEach(sc=>{
     el.classList.add('ripple-host');
     el.addEventListener('pointerdown',e=>{
       if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(el.getAttribute('aria-busy')==='true') return;
       if(e.button!=null && e.button!==0) return;
       const r=el.getBoundingClientRect();
       const size=Math.ceil(Math.hypot(r.width,r.height)*2);
