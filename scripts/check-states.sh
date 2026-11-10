@@ -19,10 +19,9 @@ instates() { awk '/<section class="ui" id="states">/{f=1} f{print} f&&/<\/sectio
 for id in theme states focus spinner layers soft-ripple a11y-modes; do
   [ -n "$(sec "$id")" ] && ok "index.html に #$id 節がある" || ng "index.html に #$id 節がない"
 done
-for id in states spinner soft-ripple; do
-  s=$(sec "$id")
-  printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok "#$id: 推奨案と代替を区別" || ng "#$id: 推奨案／代替の区別がない"
-done
+# #states はボタン（採用）とスイッチ・ラジオ（推奨案・代替つき）が同居する。#spinner / #soft-ripple は全面「採用」（下の (8) で確認）
+s=$(sec states)
+printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok '#states: スイッチ・ラジオは推奨案と代替を区別' || ng '#states: スイッチ・ラジオの推奨案／代替の区別がない'
 insec '切替: 3 モードと system 初期値'            theme  'system.*prefers-color-scheme'
 insec '切替: aria-pressed'                        theme  'aria-pressed="true"'
 insec '切替: Space / Enter のキーボード操作'      theme  'Space / Enter'
@@ -93,16 +92,131 @@ notinsec '#layers: 推奨案タグが残っていない'               layers '�
 notinsec '#layers: 「401 を足さず文章だけ」案を消した'     layers '401 を足さず'
 notinsec '#layers: 影の 24% / 32% 案を消した'              layers '24%|32%'
 notinsec '#layers: 「確定値としては断定しない」を消した'   layers '断定しない'
-chk '冒頭（index）: 採用済み 5 項目を明記' '推奨案（未確定）。テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は採用済み' "$idx"
+chk '冒頭（index）: 採用済みと未確定 4 件を明記' 'スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外は採用済み。スイッチのラベル・入力の文字サイズ・メニュー項目の無効の opacity・全幅バナーの出入りは未確定' "$idx"
 ! has "$idx" '新しい節は推奨案（未確定）' && ok '冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した' || ng '冒頭（index）: 旧文言が残っている'
-for id in st-theme st-focus st-z st-shadow st-soft; do
+for id in st-theme st-focus st-z st-shadow st-soft st-buttons st-spinner st-ripple st-dialog st-pane proposals-draft; do
   grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">採用</span></h3>" "$prev" && ok "tokens-preview: #$id が採用" || ng "tokens-preview: #$id が採用になっていない"
 done
-for id in st-buttons st-switch st-spinner st-ripple; do
-  grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">推奨案</span></h3>" "$prev" && ok "tokens-preview: #$id は推奨案のまま" || ng "tokens-preview: #$id が推奨案でない"
-done
-grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*テーマ切替.*3 モード.*実線リング.*--z-popup.*401.*40%.*--ink.*採用' && ok '冒頭（tokens-preview）: 採用済み 5 項目を明記' || ng '冒頭（tokens-preview）: 採用済みの明記がない'
+grep -Eq '<h3 id="st-switch">[^<]*<span class="tag">推奨案</span></h3>' "$prev" && ok 'tokens-preview: #st-switch は推奨案のまま' || ng 'tokens-preview: #st-switch が推奨案でない'
+grep -Eq '<h3 id="st-pending">[^<]*<span class="tag">未確定</span></h3>' "$prev" && ok 'tokens-preview: #st-pending は未確定' || ng 'tokens-preview: #st-pending が未確定でない'
+grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*ボタンの loading・スピナー・リップルの対象・テーマ切替.*実線リング.*--z-popup.*401.*40%.*--mute-on-soft.*ダイアログ本文 base 16.*ペイン型デスクトップアプリの例外.*採用.*未確定' && ok '冒頭（tokens-preview）: 採用済みと未確定の明記' || ng '冒頭（tokens-preview）: 採用済み／未確定の明記がない'
 awk '/<section class="ui" id="states">|id="states-draft"/{f=1} f{print}' "$prev" | grep -q '確定と断定しない\|確定値としては断定しない' && ng 'tokens-preview: 「断定しない」が残っている' || ok 'tokens-preview: 「断定しない」を消した'
+
+# (6b) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
+#      #theme 節とテーマ切替コントロール（PR #13 の範囲）の項目はここに入れない。
+h3sec() { awk -v id="$1" '$0 ~ "^<h3 id=\"" id "\""{f=1;print;next} f&&(/^<h3 id=/||/^<\/section>/){exit} f{print}' "$prev"; }
+inh3()  { h3sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
+inh3no(){ h3sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
+# (8-1) 採用: 推奨案・代替の残骸がない
+insec    '#states: ボタンは採用タグ'                        states '<h3>ボタン <span class="tag">採用</span>'
+insec    '#states: loading は薄くしない（opacity を掛けない）' states 'loading</strong>: 寸法を維持し、薄くしない（opacity を掛けない）'
+insec    '#states: loading は aria-busy・クリック無効'      states 'aria-busy="true"</code>、クリックは無効'
+notinsec '#states: loading の代替（文言のみ「保存中…」）を消した' states '保存中…'
+insec    '#spinner: 採用タグ'                               spinner '寸法・色・周期 <span class="tag">採用</span>'
+insec    '#spinner: 20px・線 2px・トラック accent-soft・先端 accent・0.9s linear' spinner '20px・線 2px・トラック <code>--accent-soft</code>・先端 <code>--accent</code>・<strong>0\.9s linear</strong>'
+notinsec '#spinner: 推奨案タグ・代替が残っていない'        spinner '推奨案|代替'
+notinsec '#spinner: 周期 0.8s・sm / md 2 段の案を消した'    spinner '0\.8s|sm / md'
+insec    '#spinner: reduced-motion は回転を止め aria-busy・ラベルを残す' spinner '回転を止める</strong>.*aria-busy'
+insec    '#soft-ripple: リップルの対象が採用'                soft-ripple 'リップルの対象 <span class="tag">採用</span>'
+notinsec '#soft-ripple: 推奨案タグ・代替が残っていない'    soft-ripple '推奨案|代替'
+notinsec '#soft-ripple: タブ・セレクトにも付ける案を消した' soft-ripple 'タブやセレクトのトリガにも付ける'
+insec    '#soft-ripple: 対象は通常ボタンとアイコンボタンだけ' soft-ripple '通常ボタン（pri / sec / ghost / dan）とクローズ等のアイコンボタンだけ'
+insec    '#soft-ripple: 非対象（行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー）' soft-ripple '行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー'
+insec    '#soft-ripple: 押下は背景色・文字色の変化で示す'   soft-ripple '押下は背景色・文字色の変化'
+insec    '#soft-ripple: loading 中と reduced-motion では出さない' soft-ripple 'loading 中と reduced-motion では出さない'
+# (8-2) --mute-on-soft
+insec    '#soft-ripple: --mute-on-soft の定義（新しい HEX を作らない）' soft-ripple 'color-mix\(in srgb, var\(--mute\) 85%, var\(--ink\)\)'
+insec    '#soft-ripple: Light ≈ #5c5c5e・約 5.4:1'          soft-ripple 'Light ≈ <code>#5c5c5e</code>.*5\.4:1'
+insec    '#soft-ripple: Dark ≈ #9c9c9f・約 5.2:1（--mute のままは 4.29 / 4.22）' soft-ripple 'Dark ≈ <code>#9c9c9f</code>.*5\.2:1.*4\.29 / 4\.22:1'
+insec    '#soft-ripple: accent-soft 地の補助文字は --ink か --mute-on-soft、--mute のまま置かない' soft-ripple '<code>--accent-soft</code> を地にする面の補助テキストは <strong><code>--ink</code></strong> か <strong><code>--mute-on-soft</code></strong>。<code>--mute</code> のまま置かない'
+insec    '#soft-ripple: 主テキストとの階層は --mute-on-soft' soft-ripple '残したいときは <code>--mute-on-soft</code>'
+chk 'index: --mute-on-soft を :root と [data-theme] に定義' ':root,\[data-theme\]\{--mute-on-soft:color-mix\(in srgb,var\(--mute\) 85%,var\(--ink\)\)' "$idx"
+chk 'tokens-preview: --mute-on-soft を :root と [data-theme] に定義' ':root,\[data-theme\]\{--mute-on-soft:color-mix\(in srgb,var\(--mute\) 85%,var\(--ink\)\)' "$prev"
+! has "$idx" '--mute-on-soft:#' && ! has "$prev" '--mute-on-soft:#' && ok '--mute-on-soft に HEX を直書きしていない' || ng '--mute-on-soft に HEX を直書きしている'
+inh3 'tokens-preview #st-soft: --mute-on-soft の見本とライブ計算'   st-soft 'class="s-mos".*data-cr="mos"|data-cr="mos"'
+inh3 'tokens-preview #st-soft: Light / Dark を並べた見本'          st-soft 'id="mos-pair"'
+inh3 'tokens-preview #st-soft: Light ペインと Dark ペイン'          st-soft 'data-theme="light"'
+inh3 'tokens-preview #st-soft: Dark ペイン'                         st-soft 'data-theme="dark"'
+# (8-3) ダイアログの本文
+insec    '#dialog: 節がある'                                dialog '<h2>ダイアログの本文と閉じ方'
+insec    '#dialog: 本文は base 16・行間 1.8'                 dialog '本文は base 16.*base</code>（16px・行間 1\.8）'
+insec    '#dialog: 補足・説明文は sm 14、14px 未満を本文にしない' dialog 'sm 14 のままでよい。14px 未満を本文にしない'
+grep -Eq '#states \.dlg \.dlg-body\{margin:0;font-size:16px;line-height:1\.8\}' "$prev" && ok 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8' || ng 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8 でない'
+grep -Eq '#states \.dlg \.dlg-note\{[^}]*font-size:14px' "$prev" && ok 'tokens-preview: ダイアログの補足は 14px' || ng 'tokens-preview: ダイアログの補足が 14px でない'
+# (8-4) モーダルの閉じ方
+insec    '#dialog: Esc と外側クリックで閉じる・× も出す'     dialog 'Esc と外側クリック（スクラム）で閉じられる</strong>。× も出す'
+insec    '#dialog: 閉じることは確認（acknowledge）扱いにしない' dialog '「確認した（acknowledge）」扱いにしない'
+insec    '#dialog: 確認済みにするのは明示のボタンだけ'       dialog '確認済みにするのは明示のボタンだけ'
+insec    '#dialog: 止めてよいのは処理中だけ・× を隠すか無効に・戻す' dialog '処理中（送信中・保存中など）だけ</strong>.*処理中は × を隠すか無効に.*終わったら戻す'
+insec    '#dialog: 「確認必須だから常に閉じられない」は不可' dialog '「確認必須だから常に閉じられない」は不可'
+grep -Eq 'dlg\.addEventListener\(.cancel.,e=>\{if\(busy\)\{e\.preventDefault\(\)' "$prev" && ok 'tokens-preview: 処理中は Esc（cancel）を受けない' || ng 'tokens-preview: 処理中の Esc 無効化がない'
+grep -Eq "if\(e\.target===dlg&&!busy\)finish\('外側クリック'\)" "$prev" && ok 'tokens-preview: 外側クリックで閉じる（処理中は除く）' || ng 'tokens-preview: 外側クリックの処理がない'
+grep -Eq "xB\.disabled=true" "$prev" && grep -Eq "xB\.disabled=false" "$prev" && ok 'tokens-preview: 処理中は × を無効にし、終わったら戻す' || ng 'tokens-preview: × の無効化と復帰がない'
+grep -Eq "okB\.addEventListener\('click',\(\)=>\{if\(busy\)return;\\$\('dlg-ack'\)\.textContent='確認済み'" "$prev" && ok 'tokens-preview: 確認済みになるのは「確認しました」ボタンだけ' || ng 'tokens-preview: 確認ボタンの処理がない'
+# (8-5) ペイン型デスクトップアプリの例外
+insec    '#pane-app: 節がある（ページ型には当てはめない）'  pane-app 'ペイン型デスクトップアプリの例外.*ページ型の画面には当てはめない'
+insec    '#pane-app: ツールバー gap 4（--s-1）・文字ボタン混在は --gap-inline 8' pane-app 'アイコンボタンだけのツールバーは gap 4（<code>--s-1</code>）。文字ボタン混在は <code>--gap-inline</code> 8'
+insec    '#pane-app: 複合行の選択リスト 8・素のラジオ行 --gap-option 4' pane-app '項目間 8。素のラジオ行は <code>--gap-option</code> 4'
+insec    '#pane-app: ダイアログ内サブセクション --gap-field 16' pane-app 'h4 付きサブセクションの間は <code>--gap-field</code> 16'
+insec    '#pane-app: ペイン内 padding --s-4、ガター --s-6 は 12 カラム向け' pane-app '<code>--s-4</code>（モバイル・デスクトップ共通）。ガター <code>--s-6</code> は 12 カラムのページグリッド向け'
+insec    '#pane-app: サイドナビの 2 行項目 ~62px・1 行は 40'  pane-app '2 行（名前 sm ＋メール xs の注記）、高さ ~62px まで可。1 行項目は従来の 40'
+insec    '#pane-app: ドロップダウン等は項目間 gap 0・パネル padding 4' pane-app '項目間 gap 0、パネル padding 4（<code>--s-1</code>）'
+insec    '#pane-app: アカウント識別色の帯 4 / 6 / 8px'       pane-app 'ヘッダー上 4px／行・サイドナビ 6px／差出人バッジ 8px'
+insec    '#pane-app: スウォッチ選択は 2px の --ink・フォーカスは --focus' pane-app '2px の <code>--ink</code>.*<code>--focus</code> リング'
+insec    '#pane-app: 見出しの段 lg 18 / h3 base 16 / h4 sm 14（SemiBold）' pane-app 'モーダルの題 lg 18／h3 base 16／h4 sm 14（いずれも SemiBold）'
+insec    '#pane-app: インラインアラートの題は SemiBold・sm'  pane-app '見出し扱いで SemiBold・sm'
+insec    '#pane-app: トーストのタイマーは入場アニメ後に数える' pane-app '入場アニメーションが終わってから数える'
+insec    '#pane-app: お知らせのロックは処理中だけ'          pane-app '閉じる操作を止めるのは処理中だけ'
+inh3 'tokens-preview #st-pane: ページ型には当てはめない（3 ペイン）' st-pane 'ページ型の画面には当てはめない'
+grep -Eq '#states \.tbr\{display:flex;align-items:center;gap:var\(--s-1\)\}#states \.tbr\.tx\{gap:var\(--gap-inline\)\}' "$prev" && ok 'tokens-preview: ツールバー gap --s-1 / 文字混在 --gap-inline' || ng 'tokens-preview: ツールバー gap の CSS がない'
+grep -Eq '#states \.nv a\.acct\{[^}]*min-height:62px[^}]*border-left:6px' "$prev" && ok 'tokens-preview: 2 行項目 62px・帯 6px' || ng 'tokens-preview: 2 行項目 62px・帯 6px の CSS がない'
+grep -Eq '#states \.dpn\{[^}]*gap:0;padding:var\(--s-1\)' "$prev" && ok 'tokens-preview: ドロップダウン gap 0・padding --s-1' || ng 'tokens-preview: ドロップダウン gap 0・padding の CSS がない'
+grep -Eq '#states \.sws button\[aria-pressed=true\]\{border-color:var\(--ink\)\}' "$prev" && ok 'tokens-preview: スウォッチ選択は --ink の 2px' || ng 'tokens-preview: スウォッチ選択の CSS がない'
+# (8-6) Hitomado #283〜#287 の残り。未確定 4 件は「未確定」と明記し、規範にしない
+n=$(sec proposals | grep -o '<td><span class="tag">未確定</span></td>' | wc -l)
+[ "$n" -eq 4 ] && ok "#proposals: 未確定の行が 4 件（$n）" || ng "#proposals: 未確定の行が 4 件でない（$n）"
+insec    '#proposals: 未確定 4 件の枠は 未確定 で、採用ではない' proposals 'id="pending"><span class="tag">未確定</span>'
+insec    '#proposals: 未確定・スイッチのラベル（案: base 16）' proposals 'スイッチのラベルのサイズ.*Regular 15.*案: base 16.*未確定'
+insec    '#proposals: 未確定・入力の文字サイズ（案 base 16・ペイン型は sm 14 可）' proposals 'フォーム入力の文字サイズ.*案: base 16 を既定、ペイン型デスクトップでは sm 14 可.*未確定'
+insec    '#proposals: 未確定・メニュー項目の無効 opacity（.4 か .5）' proposals 'メニュー項目の無効の opacity.*<code>\.4</code>.*<code>\.5</code>.*案: <code>\.4</code>.*未確定'
+insec    '#proposals: 未確定・全幅バナーの出入り（案 a 即時／案 b）' proposals '全幅バナーの出入り.*案 a 即時.*案 b.*案: a.*未確定'
+insec    '#controls: スイッチのラベルサイズは未確定（Regular 15 を確定扱いにしない）' controls 'サイズは <span class="tag">未確定</span>'
+notinsec '#controls: 「Regular 15」を規範として残していない' controls 'ラベルは Regular 15'
+insec    '#proposals: --font-mono の日本語フォールバック'    proposals '"JetBrains Mono", "Noto Sans JP", ui-monospace, monospace'
+insec    '#proposals: Variable 版の family 名を許容'         proposals '"Sora Variable"'
+insec    '#proposals: 入力下の補足 1 文は xs・複数文は sm'   proposals '1 文の注記は xs、複数文の補足は sm'
+insec    '#proposals: 単独ラベルの数字は桁が変わる値だけ Mono' proposals '桁が変わり並べて比べる値だけ Mono'
+insec    '#proposals: リッチテキストの太字は 600'            proposals '太字は 600'
+insec    '#proposals: --label-col 72〜96px'                  proposals '--label-col</code>（72〜96px'
+insec    '#proposals: モバイルのトップバー左右 padding --s-4'  proposals 'トップバーの左右 padding は <code>--s-4</code> 16'
+insec    '#proposals: タブ（40・--s-3・下線 2px --accent・非選択 mute・hover ink）' proposals 'タブ</strong>: 高さ 40、左右 padding <code>--s-3</code> 12.*下線 2px <code>--accent</code>、非選択 <code>--mute</code>・ホバー <code>--ink</code>'
+insec    '#proposals: --bp-* と JS 定数 BP_SM の対応表'      proposals '<code>BP_SM</code>.*<code>BP_XL</code>'
+insec    '#proposals: トグル pressed は accent-soft 地＋ink'  proposals 'aria-pressed="true"</code> で <code>--accent-soft</code> 地＋<code>--ink</code> 文字'
+insec    '#proposals: 主ボタンのホバーは accent を bone へ 15%' proposals 'color-mix\(in srgb, var\(--accent\) 85%, var\(--bone\)\)'
+insec    '#proposals: スイッチ OFF のつまみ・枠 mute 案は見本で確認' proposals 'スイッチ OFF のつまみ.*surface.*枠を <code>--mute</code> にする案'
+insec    '#proposals: ドロップダウンのリングは :focus-visible のときだけ 2px・offset 2' proposals ':focus-visible</code> のときだけ 2px <code>--focus</code>・offset 2'
+insec    '#proposals: メニュー・ナビ項目の角丸 --r-sm'       proposals 'メニュー・ナビ項目の角丸は <code>--r-sm</code>'
+insec    '#proposals: ショートカット表記は Mono・xs・mute（強調行は mute-on-soft）' proposals 'Mono・xs・<code>--mute</code>（強調行では <code>--mute-on-soft</code>）'
+insec    '#proposals: アコーディオンのシェブロン 180°・reduced-motion' proposals '180° 回転・<code>--motion-base</code>'
+insec    '#proposals: title 属性は使わずツールチップに統一'  proposals '標準の <code>title</code> 属性は使わず'
+insec    '#proposals: ツールチップ遅延 400ms・--tip-pad-y/x'  proposals '表示遅延 400ms（フォーカス時は即時）.*--tip-pad-y: 6px.*--tip-pad-x: 10px'
+insec    '#proposals: --toast-duration 3s / --toast-duration-action 5s' proposals '--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s'
+insec    '#proposals: トーストの先頭アイコンは成功・お知らせのみ 16px' proposals '成功・お知らせのみ可、16px（<code>--icon-sm</code>）'
+insec    '#proposals: インラインアラート --r-md・12×16'      proposals '角丸 <code>--r-md</code>、padding 12×16'
+insec    '#proposals: 読み込みはスピナー単体・2 秒以上は「読み込み中…」' proposals '領域の中央にスピナー単体。2 秒以上かかる場合は下に「読み込み中…」を xs'
+insec    '#proposals: 文字数カウンタ xs・mute・Mono・danger・role=status' proposals '入力下の文字数カウンタ: xs・<code>--mute</code>・数字は Mono、超過は <code>--danger</code>、<code>role="status"</code>'
+insec    '#proposals: ドロワー dialog・aria-modal・フォーカス・Esc' proposals 'role="dialog"</code>・<code>aria-modal="true"</code>.*フォーカストラップ、Esc'
+insec    '#proposals: ドロワー幅 78vw・上限 320px・fade＋8px'  proposals '78vw・上限 320px。出入りは fade＋8px の移動'
+insec    '#proposals: ドロップ先はドラッグ中だけ accent-soft＋破線' proposals 'ドラッグ中だけ <code>--accent-soft</code> 地＋1px <code>--accent</code> の破線（内側 offset 4）'
+insec    '#proposals: リサイズハンドルは --z-sticky を流用'   proposals 'リサイズハンドルは <code>--z-sticky</code> を流用'
+chk 'tokens-preview: --tip-pad-y / --toast-duration を定義' ':root\{--tip-pad-y:6px;--tip-pad-x:10px;--toast-duration:3s;--toast-duration-action:5s\}' "$prev"
+inh3 'tokens-preview #st-pending: 4 件の比較見本（スイッチ・入力・opacity・バナー）' st-pending 'sw2 l16.*'
+for k in 'sw2 l14' 'fld f14' 'dpn o4' 'dpn o5' 'id="bn-a"' 'id="bn-b"'; do
+  inh3 "tokens-preview #st-pending: 見本 $k" st-pending "$k"
+done
+for k in 'class="mono14"' 'class="tb40"' 'id="tgl"' 'class="tipw"' 'id="cnt-in"' 'class="ld"' 'id="dz"' 'class="lblrow"'; do
+  inh3 "tokens-preview #proposals-draft: 見本 $k" proposals-draft "$k"
+done
 
 # (7) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
 chk 'ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px で切替が縦に折れない）' '@media\(max-width:720px\)\{\.badge\{display:none\}\}' "$idx"
