@@ -1,0 +1,184 @@
+PASS  index.html に #theme 節がある
+PASS  index.html に #states 節がある
+PASS  index.html に #focus 節がある
+PASS  index.html に #spinner 節がある
+PASS  index.html に #layers 節がある
+PASS  index.html に #soft-ripple 節がある
+PASS  index.html に #a11y-modes 節がある
+PASS  #states: 推奨案と代替を区別
+PASS  #spinner: 推奨案と代替を区別
+PASS  #soft-ripple: 推奨案と代替を区別
+PASS  切替: 3 モードと system 初期値
+PASS  切替: aria-pressed
+PASS  切替: Space / Enter のキーボード操作
+PASS  フォーカス: 入力系 2px
+PASS  フォーカス: 離散コントロール 3px
+PASS  フォーカス: 非テキスト 3:1
+PASS  スピナー: 20px・線 2px・0.9s linear
+PASS  z: --z-popup 401
+PASS  z: 既存の段を並べ替えない
+PASS  影: Light 6% / Dark 40%
+PASS  ラジオ: 18px・6px の点
+PASS  theme.js がある
+PASS  theme.js: system 追従 (matchMedia change)
+PASS  theme.js: light/dark だけ保存
+PASS  index.html: head で theme.js を同期読み込み
+PASS  index.html: 切替コントロール 3 ボタン
+PASS  tokens-preview.html: head で theme.js を同期読み込み
+PASS  tokens-preview.html: 切替コントロール 3 ボタン
+PASS  旧キー theme / oth を使っていない
+PASS  tokens-preview: #st-theme
+PASS  tokens-preview: #st-buttons
+PASS  tokens-preview: #st-switch
+PASS  tokens-preview: #st-focus
+PASS  tokens-preview: #st-spinner
+PASS  tokens-preview: #st-z
+PASS  tokens-preview: #st-shadow
+PASS  tokens-preview: #st-soft
+PASS  tokens-preview: #st-ripple
+PASS  tokens-preview: --z-popup:401
+PASS  tokens-preview #states: loading（aria-busy）
+PASS  tokens-preview: Light 側の影トークン（並置見本用）
+PASS  tokens-preview: Dark の影 40%
+PASS  tokens-preview: 入力は outline 2px
+PASS  tokens-preview: ボタンは outline 3px
+PASS  tokens-preview: 旧 --ring の box-shadow を使わない
+PASS  tokens-preview #states: forced-colors 対応
+PASS  tokens-preview #states: reduced-motion の遷移停止
+PASS  tokens-preview #states: スピナー周期は .spin 既存（0.9s）を使う
+PASS  index.html: Dark 背景 --bone #050505
+PASS  index.html: --mute Light #6b6b6e
+PASS  index.html: --mute Dark #8b8b8e
+PASS  index.html: --focus Light #4a72d0
+PASS  index.html: --focus Dark #60a5fa
+PASS  tokens-preview.html: Dark 背景 --bone #050505
+PASS  tokens-preview.html: --mute Light #6b6b6e
+PASS  tokens-preview.html: --mute Dark #8b8b8e
+PASS  tokens-preview.html: --focus Light #4a72d0
+PASS  tokens-preview.html: --focus Dark #60a5fa
+PASS  tokens-preview: --z-base:0
+PASS  tokens-preview: --z-dropdown:100
+PASS  tokens-preview: --z-sticky:200
+PASS  tokens-preview: --z-drawer:300
+PASS  tokens-preview: --z-modal:400
+PASS  tokens-preview: --z-toast:500
+PASS  tokens-preview: --motion-fade-in:320ms
+PASS  tokens-preview: --motion-fade-out:240ms
+PASS  tokens-preview: --motion-slow:280ms
+PASS  真っ黒 #000 を背景に使っていない
+PASS  ヘッダー: 480px 以下は .top のアイコンだけ形（見える 38×38・padding 3px）で、ラベルは視覚的に隠す
+PASS  ヘッダー: 480px 以下でラベルを視覚的に隠す（読み上げ用に残す）
+PASS  accent-soft 上の文字（ink）は推奨案ではなく採用
+PASS  #theme: 採用タグ
+PASS  #theme: 採用済みの部分に推奨案タグが残っていない
+PASS  #theme: 代替 A（2 モードのみ）を消した
+PASS  #theme: 代替 B（クッキー保存）は参考として残す
+PASS  #focus: 幅の使い分け（入力 2px / 離散 3px）が採用
+PASS  #focus: 推奨案タグが残っていない
+PASS  #focus: 「すべて 2px / すべて 3px」案を消した
+PASS  #layers: z-index が採用
+PASS  #layers: モーダルの影が採用
+PASS  #layers: 推奨案タグが残っていない
+PASS  #layers: 「401 を足さず文章だけ」案を消した
+PASS  #layers: 影の 24% / 32% 案を消した
+PASS  #layers: 「確定値としては断定しない」を消した
+PASS  冒頭（index）: 採用済み 5 項目を明記
+PASS  冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した
+PASS  tokens-preview: #st-theme が採用
+PASS  tokens-preview: #st-focus が採用
+PASS  tokens-preview: #st-z が採用
+PASS  tokens-preview: #st-shadow が採用
+PASS  tokens-preview: #st-soft が採用
+PASS  tokens-preview: #st-buttons は推奨案のまま
+PASS  tokens-preview: #st-switch は推奨案のまま
+PASS  tokens-preview: #st-spinner は推奨案のまま
+PASS  tokens-preview: #st-ripple は推奨案のまま
+PASS  冒頭（tokens-preview）: 採用済み 5 項目を明記
+PASS  tokens-preview: 「断定しない」を消した
+PASS  ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px で切替が縦に折れない）
+PASS  ヘッダー（index）: 旧 480px のバッジ規則を残さない
+PASS  ヘッダー（index）: .seg button は white-space:nowrap
+PASS  ヘッダー（tokens-preview）: .seg button は white-space:nowrap
+PASS  index.html: 見本「文字付き横並び」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  index.html: 見本「文字付き横並び」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  index.html: 見本「アイコンだけ」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  index.html: 見本「アイコンだけ」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  index.html: 見本「縦積み」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  index.html: 見本「縦積み」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  index.html: 見本のクラス（.seg-icon / .seg-stack）
+PASS  index.html: 要素に role=radiogroup を付けない（role=group + aria-pressed）
+PASS  index.html: アイコンだけは見える部分 38×38 のボタン（外枠 padding 3px）
+PASS  index.html: アイコンだけのラベルは視覚的に隠し、hover / focus-visible で吹き出しに出す
+PASS  index.html: アイコンだけのツールチップは hover と focus-visible の両方
+PASS  index.html: 縦積みは 1 行 44px 以上
+PASS  index.html: 縦積みはラジオ印（18px の円・6px の点）
+PASS  index.html: 文字付きは見た目を変えずタップ領域だけ 44px 以上（::before で縦に広げる）
+PASS  index.html: forced-colors で縦積みのラジオ印も HighlightText
+PASS  index.html: 選択中は Highlight / HighlightText（全形共通）
+PASS  index.html: ヘッダーのアイコンだけ形のツールチップ（≤480px）
+PASS  index.html: フォーカスの実線リング（3px・offset 2px）を維持
+PASS  index.html: P2-1 アイコンだけのタップ範囲は ::before の inset:-3px で 44px を保つ
+PASS  index.html: P2-1 ヘッダー（≤480px）も ::before の inset:-3px でタップ範囲 44px
+PASS  index.html: P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regular 400・320ms フェードイン
+PASS  index.html: P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）
+PASS  index.html: P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし
+PASS  index.html: P2-2 reduced-motion では吹き出しのアニメを止める
+PASS  index.html: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない
+PASS  index.html: P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字
+PASS  index.html: P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）
+PASS  index.html: P3-1 文字付き見本の注記（右端が切れる）の置き場
+PASS  index.html: P3-1 320px の見本に「システムが切れる」注記がある
+PASS  index.html: P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠
+PASS  index.html: P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠
+PASS  tokens-preview.html: 見本「文字付き横並び」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  tokens-preview.html: 見本「文字付き横並び」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  tokens-preview.html: 見本「アイコンだけ」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  tokens-preview.html: 見本「アイコンだけ」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  tokens-preview.html: 見本「縦積み」（role=group・3 ボタン・aria-pressed・data-theme-control）
+PASS  tokens-preview.html: 見本「縦積み」は 3 ボタンとも文字ラベル（.lb）を持つ（アクセシブルな名前）
+PASS  tokens-preview.html: 見本のクラス（.seg-icon / .seg-stack）
+PASS  tokens-preview.html: 要素に role=radiogroup を付けない（role=group + aria-pressed）
+PASS  tokens-preview.html: アイコンだけは見える部分 38×38 のボタン（外枠 padding 3px）
+PASS  tokens-preview.html: アイコンだけのラベルは視覚的に隠し、hover / focus-visible で吹き出しに出す
+PASS  tokens-preview.html: アイコンだけのツールチップは hover と focus-visible の両方
+PASS  tokens-preview.html: 縦積みは 1 行 44px 以上
+PASS  tokens-preview.html: 縦積みはラジオ印（18px の円・6px の点）
+PASS  tokens-preview.html: 文字付きは見た目を変えずタップ領域だけ 44px 以上（::before で縦に広げる）
+PASS  tokens-preview.html: forced-colors で縦積みのラジオ印も HighlightText
+PASS  tokens-preview.html: 選択中は Highlight / HighlightText（全形共通）
+PASS  tokens-preview.html: ヘッダーのアイコンだけ形のツールチップ（≤480px）
+PASS  tokens-preview.html: フォーカスの実線リング（3px・offset 2px）を維持
+PASS  tokens-preview.html: P2-1 アイコンだけのタップ範囲は ::before の inset:-3px で 44px を保つ
+PASS  tokens-preview.html: P2-1 ヘッダー（≤480px）も ::before の inset:-3px でタップ範囲 44px
+PASS  tokens-preview.html: P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regular 400・320ms フェードイン
+PASS  tokens-preview.html: P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）
+PASS  tokens-preview.html: P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし
+PASS  tokens-preview.html: P2-2 reduced-motion では吹き出しのアニメを止める
+PASS  tokens-preview.html: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない
+PASS  tokens-preview.html: P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字
+PASS  tokens-preview.html: P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）
+PASS  tokens-preview.html: P3-1 文字付き見本の注記（右端が切れる）の置き場
+PASS  tokens-preview.html: P3-1 320px の見本に「システムが切れる」注記がある
+PASS  tokens-preview.html: P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠
+PASS  tokens-preview.html: P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠
+PASS  #theme-forms: 推奨案タグ
+PASS  #theme-forms: 両方を定義して場所で使い分けるのは決定済み
+PASS  #theme-forms: 使い分け表（ヘッダー等の横一列で狭い→アイコンだけ）
+PASS  #theme-forms: 使い分け表（縦に余裕がある→縦積み）
+PASS  #theme-forms: 使い分け表（幅が十分→文字付き横並び）
+PASS  #theme-forms: 切り替えの基準はコンテナ幅（または置く場所）で、閾値は未確定
+PASS  #theme-forms: 3 形の見本（id=theme-forms-demo）
+PASS  #theme-forms: 3 形とも theme.js の契約と role=group を保つ
+PASS  #theme-forms: タップ範囲は縦 44px（アイコンだけ）
+PASS  #theme-forms: P2-1 見える部分 38×38 とタップ範囲（::before inset -3px）
+PASS  #theme-forms: P2-2 吹き出しは Tooltip の規定（6×10・角丸 4px・Regular・320ms・reduced-motion・forced-colors）
+PASS  #theme-forms: P2-3 縦積みの選択中は --accent-soft の行＋--ink、ラジオの円だけ塗る
+PASS  #theme-forms: 使い分け表の幅は見える 38px × 3（約 122px）
+PASS  tokens-preview #st-theme: 使い分け表の幅は約 122px
+PASS  #theme: 採用済み「狭い幅（≤480px）ではアイコンのみ（ラベルは読み上げ用に残す）」を変えていない
+PASS  tokens-preview #st-theme: 3 形の見本ブロック（推奨案）
+PASS  tokens-preview #st-theme: 両方を定義して場所で使い分けるのは決定済み
+PASS  tokens-preview #st-theme: 使い分け表
+PASS  tokens-preview #st-theme: 3 形の見本が #st-theme の中にある
+PASS  #st-theme は採用のまま（新ブロックだけ推奨案）
+PASS  theme.js: 保存キーは ousiass-theme のまま

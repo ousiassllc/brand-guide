@@ -75,7 +75,7 @@ done
 ! has "$idx" '--bone:#000000|--bone:#000;' && ! has "$prev" '--bone:#000000|--bone:#000;' && ok '真っ黒 #000 を背景に使っていない' || ng '真っ黒背景がある'
 
 # (5) index.html: ヘッダーと確定／推奨案の表記（PR #11 レビュー反映）
-chk 'ヘッダー: 480px 以下は .top のアイコンだけ形（44×44）で、ラベルは視覚的に隠す' '@media\(max-width:480px\)\{\.top \.seg\{padding:0\}\.top \.seg button\{[^}]*width:44px;height:44px' "$idx"
+chk 'ヘッダー: 480px 以下は .top のアイコンだけ形（見える 38×38・padding 3px）で、ラベルは視覚的に隠す' '@media\(max-width:480px\)\{\.top \.seg\{padding:3px\}\.top \.seg button\{[^}]*width:38px;height:38px' "$idx"
 chk 'ヘッダー: 480px 以下でラベルを視覚的に隠す（読み上げ用に残す）' '\.top \.seg \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$idx"
 insec 'accent-soft 上の文字（ink）は推奨案ではなく採用' soft-ripple '地の補助文字 <span class="tag">採用</span>'
 
@@ -128,16 +128,30 @@ for f in "$idx" "$prev"; do
   form_of "$f" 'アイコンだけ' | grep -q 'class="seg seg-icon"' && form_of "$f" '縦積み' | grep -q 'class="seg seg-stack"' && ok "$n: 見本のクラス（.seg-icon / .seg-stack）" || ng "$n: 見本のクラスがない"
   ! has "$f" '<[a-z]+ [^>]*role="radiogroup"' && ok "$n: 要素に role=radiogroup を付けない（role=group + aria-pressed）" || ng "$n: role=radiogroup の要素がある"
   # CSS（44px・ツールチップ・ラジオ印・forced-colors・タップ領域）
-  chk "$n: アイコンだけは 44×44 のボタン" '\.seg-icon button\{[^}]*width:44px;height:44px' "$f"
+  chk "$n: アイコンだけは見える部分 38×38 のボタン（外枠 padding 3px）" '\.seg-icon\{padding:3px\}\.seg-icon button\{[^}]*width:38px;height:38px' "$f"
   chk "$n: アイコンだけのラベルは視覚的に隠し、hover / focus-visible で吹き出しに出す" '\.seg-icon \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$f"
   chk "$n: アイコンだけのツールチップは hover と focus-visible の両方" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{' "$f"
   chk "$n: 縦積みは 1 行 44px 以上" '\.seg-stack button\{[^}]*min-height:44px' "$f"
   chk "$n: 縦積みはラジオ印（18px の円・6px の点）" '\.seg-stack button::after\{[^}]*width:18px;height:18px.*radial-gradient\(circle,var\(--bone\) 0 3px' "$f"
   chk "$n: 文字付きは見た目を変えずタップ領域だけ 44px 以上（::before で縦に広げる）" '\.seg button::before\{content:"";position:absolute;inset:-8px 0\}' "$f"
-  chk "$n: forced-colors で縦積みのラジオ印も HighlightText" 'forced-colors:active\)\{.*\.seg-stack button\[aria-pressed=true\]::after\{background:radial-gradient\(circle,HighlightText' "$f"
+  chk "$n: forced-colors で縦積みのラジオ印も HighlightText" 'forced-colors:active\)\{.*\.seg-stack button\[aria-pressed=true\]::after\{border-color:HighlightText;background:radial-gradient\(circle,HighlightText' "$f"
   chk "$n: 選択中は Highlight / HighlightText（全形共通）" '\.seg button\[aria-pressed=true\]\{background:Highlight;color:HighlightText;forced-color-adjust:none\}' "$f"
   chk "$n: ヘッダーのアイコンだけ形のツールチップ（≤480px）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{' "$f"
   chk "$n: フォーカスの実線リング（3px・offset 2px）を維持" '\.seg button:focus-visible\{outline:3px solid var\(--focus\);outline-offset:2px\}' "$f"
+  # --- 直し 1 回目（PR #13 レビュー P2-1〜P3-3）。aa4129d では FAIL する ---
+  chk "$n: P2-1 アイコンだけのタップ範囲は ::before の inset:-3px で 44px を保つ" '\.seg-icon button::before\{inset:-3px\}' "$f"
+  chk "$n: P2-1 ヘッダー（≤480px）も ::before の inset:-3px でタップ範囲 44px" '\.top \.seg button::before\{inset:-3px\}' "$f"
+  chk "$n: P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regular 400・320ms フェードイン" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$f"
+  chk "$n: P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$f"
+  chk "$n: P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし" '@keyframes seg-tip\{from\{opacity:0\}\}' "$f"
+  chk "$n: P2-2 reduced-motion では吹き出しのアニメを止める" '@media\(prefers-reduced-motion:reduce\)\{\.seg \.lb\{animation:none!important\}\}' "$f"
+  ! has "$f" 'border:1px solid var\(--ink\);border-radius:6px' && ok "$n: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "$n: P2-2 旧い吹き出しの指定が残っている"
+  chk "$n: P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$f"
+  chk "$n: P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$f"
+  chk "$n: P3-1 文字付き見本の注記（右端が切れる）の置き場" '\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
+  grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
+  chk "$n: P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠" 'forced-colors:active\)\{.*\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText;background:Canvas;color:CanvasText\}' "$f"
+  chk "$n: P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠" '@media\(forced-colors:active\) and \(max-width:480px\)\{\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText' "$f"
 done
 # 文言: 新節は推奨案、ただし「両方を定義して場所で使い分ける」は決定済み
 insec '#theme-forms: 推奨案タグ' theme '<div class="rec" id="theme-forms"><span class="tag">推奨案</span>'
@@ -148,7 +162,12 @@ insec '#theme-forms: 使い分け表（幅が十分→文字付き横並び）' 
 insec '#theme-forms: 切り替えの基準はコンテナ幅（または置く場所）で、閾値は未確定' theme 'コンテナ幅（または置く場所そのもの）.*数値は確定ではなく'
 insec '#theme-forms: 3 形の見本（id=theme-forms-demo）' theme 'id="theme-forms-demo"'
 insec '#theme-forms: 3 形とも theme.js の契約と role=group を保つ' theme 'role="radiogroup"</code> にはせず、<code>role="group"</code> \+ <code>aria-pressed</code>'
-insec '#theme-forms: タップ領域 44' theme '44×44px'
+insec '#theme-forms: タップ範囲は縦 44px（アイコンだけ）' theme '縦 44px</strong> を保つ'
+insec '#theme-forms: P2-1 見える部分 38×38 とタップ範囲（::before inset -3px）' theme '<strong>38×38px</strong>.*inset: -3px.*<strong>縦 44px</strong>'
+insec '#theme-forms: P2-2 吹き出しは Tooltip の規定（6×10・角丸 4px・Regular・320ms・reduced-motion・forced-colors）' theme 'padding 6×10・角丸 4px・<code>--ink</code> 地に <code>--bone</code> 文字・320ms のフェードイン。<code>prefers-reduced-motion: reduce</code> ではアニメなし。<code>forced-colors: active</code> では <code>1px solid CanvasText</code>'
+insec '#theme-forms: P2-3 縦積みの選択中は --accent-soft の行＋--ink、ラジオの円だけ塗る' theme '縦積みは行を <code>--accent-soft</code> の地＋<code>--ink</code> の文字にし、<strong>ラジオ印の円だけ</strong>'
+insec '#theme-forms: 使い分け表の幅は見える 38px × 3（約 122px）' theme '約 122px（見える 38px × 3'
+thm_prev | grep -q '約 122px（見える 38px × 3' && ok 'tokens-preview #st-theme: 使い分け表の幅は約 122px' || ng 'tokens-preview #st-theme: 使い分け表の幅が 3×44px のまま'
 # 採用済みの文言は変えない（3 モードの箇条書き・ヘッダー見本の ≤480px 記述）
 insec '#theme: 採用済み「狭い幅（≤480px）ではアイコンのみ（ラベルは読み上げ用に残す）」を変えていない' theme '狭い幅（≤480px）ではアイコンのみ（ラベルは読み上げ用に残す）'
 thm_prev | grep -q 'id="st-theme-forms"' && thm_prev | grep -q '推奨案' && ok 'tokens-preview #st-theme: 3 形の見本ブロック（推奨案）' || ng 'tokens-preview #st-theme: 3 形の見本ブロックがない'
