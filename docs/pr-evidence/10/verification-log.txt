@@ -48,17 +48,17 @@ PASS ripple 非対象: 行型選択  ripple spans=0
 PASS ripple 非対象: タブ  ripple spans=0
 PASS ripple 非対象: セレクトのトリガ  ripple spans=0
 PASS ripple 非対象: スイッチ/ラジオ に .ripple-host が付かない
-PASS kbd light: Tab 1 回目でテーマ切替に到達しフォーカス表示（outline 2px）  {"tag":"BUTTON","ow":"2px","os":"solid","oo":"2px","oc":"rgb(74, 114, 208)","bg":"rgb(245, 245, 244)"}
+PASS kbd light: Tab 1 回目でテーマ切替に到達しフォーカス表示（outline 3px）  {"tag":"BUTTON","ow":"3px","os":"solid","oo":"2px","oc":"rgb(74, 114, 208)","bg":"rgb(245, 245, 244)"}
 PASS kbd light: ボタン focus-visible = 3px solid / offset 2px  {"tag":"BUTTON.btn","ow":"3px","os":"solid","oo":"2px","oc":"rgb(74, 114, 208)","bg":"rgb(245, 245, 244)"}
 PASS kbd light: フォーカス色と背景(bone)の比 ≥ 3  4.18
 PASS kbd light: 入力 focus = 2px solid  {"id":"f1","ow":"2px","os":"solid","oc":"rgb(74, 114, 208)","bc":"rgb(231, 231, 229)"}
-PASS kbd light: Space でスイッチ ON・3px フォーカス  {"checked":true,"ow":"3px","os":"solid","bg":"rgb(231, 231, 229)"}
+PASS kbd light: Space でスイッチ ON・3px フォーカス・背景=accent・つまみ=bone（遷移後）  {"checked":true,"ow":"3px","os":"solid","bg":"rgb(5, 5, 5)","thumb":"rgb(245, 245, 244)"}
 PASS kbd light: ラジオを矢印キーで移動・選択・3px フォーカス  {"name":"st-r","checked":true,"ow":"3px","os":"solid"}
-PASS kbd dark: Tab 1 回目でテーマ切替に到達しフォーカス表示（outline 2px）  {"tag":"BUTTON","ow":"2px","os":"solid","oo":"2px","oc":"rgb(96, 165, 250)","bg":"rgb(5, 5, 5)"}
+PASS kbd dark: Tab 1 回目でテーマ切替に到達しフォーカス表示（outline 3px）  {"tag":"BUTTON","ow":"3px","os":"solid","oo":"2px","oc":"rgb(96, 165, 250)","bg":"rgb(5, 5, 5)"}
 PASS kbd dark: ボタン focus-visible = 3px solid / offset 2px  {"tag":"BUTTON.btn","ow":"3px","os":"solid","oo":"2px","oc":"rgb(96, 165, 250)","bg":"rgb(5, 5, 5)"}
 PASS kbd dark: フォーカス色と背景(bone)の比 ≥ 3  8.02
 PASS kbd dark: 入力 focus = 2px solid  {"id":"f1","ow":"2px","os":"solid","oc":"rgb(96, 165, 250)","bc":"rgb(42, 42, 42)"}
-PASS kbd dark: Space でスイッチ ON・3px フォーカス  {"checked":true,"ow":"3px","os":"solid","bg":"rgb(42, 42, 42)"}
+PASS kbd dark: Space でスイッチ ON・3px フォーカス・背景=accent・つまみ=bone（遷移後）  {"checked":true,"ow":"3px","os":"solid","bg":"rgb(245, 245, 244)","thumb":"rgb(5, 5, 5)"}
 PASS kbd dark: ラジオを矢印キーで移動・選択・3px フォーカス  {"name":"st-r","checked":true,"ow":"3px","os":"solid"}
 PASS reduced-motion: スピナー回転なし・スイッチ/ボタン/入力の遷移 0s・スケルトンも停止  {"env":"reduce","spinAnim":"none","swTr":"0s","btTr":"0s","fldTr":"0s","sk":"none"}
 PASS reduced-motion: 見本の環境表示が reduce
@@ -72,28 +72,28 @@ PASS forced-colors desktop/light: ラジオ選択の点が背景と区別でき�
 PASS forced-colors desktop/light: スピナー先端とトラックが別色  {"track":"rgba(0, 0, 0, 0)","tip":"rgb(0, 0, 0)"}
 PASS forced-colors desktop/light: テーマ切替の選択中が区別できる  ["rgba(255, 255, 255, 0)|false","rgba(255, 255, 255, 0)|false","rgba(5, 0, 73, 0.8)|true"]
 PASS forced-colors desktop/light: ボタンのフォーカス outline が残る（3px solid）  {"ow":"3px","os":"solid","oc":"rgba(5, 0, 73, 0.8)","cv":"rgb(255, 255, 255)"}
-PASS forced-colors desktop/light: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"2px","os":"solid"}
+PASS forced-colors desktop/light: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"3px","os":"solid"}
 PASS forced-colors desktop/dark: 有効
 PASS forced-colors desktop/dark: スイッチ ON/OFF が色で区別できる（Highlight vs Canvas）  {"swOff":"rgb(0, 0, 0) / rgb(255, 255, 255)","swOn":"rgba(0, 230, 255, 0.8) / rgba(0, 230, 255, 0.8)","thumbOff":"rgb(255, 255, 255)","thumbOn":"rgb(0, 0, 0)"}
 PASS forced-colors desktop/dark: ラジオ選択の点が背景と区別できる  {"dot":"rgba(0, 230, 255, 0.8)","on":"rgba(0, 230, 255, 0.8)","off":"rgb(255, 255, 255)"}
 PASS forced-colors desktop/dark: スピナー先端とトラックが別色  {"track":"rgba(0, 0, 0, 0)","tip":"rgb(255, 255, 255)"}
 PASS forced-colors desktop/dark: テーマ切替の選択中が区別できる  ["rgba(0, 0, 0, 0)|false","rgba(0, 0, 0, 0)|false","rgba(0, 230, 255, 0.8)|true"]
 PASS forced-colors desktop/dark: ボタンのフォーカス outline が残る（3px solid）  {"ow":"3px","os":"solid","oc":"rgba(0, 230, 255, 0.8)","cv":"rgb(0, 0, 0)"}
-PASS forced-colors desktop/dark: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"2px","os":"solid"}
+PASS forced-colors desktop/dark: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"3px","os":"solid"}
 PASS forced-colors mobile375/light: 有効
 PASS forced-colors mobile375/light: スイッチ ON/OFF が色で区別できる（Highlight vs Canvas）  {"swOff":"rgb(255, 255, 255) / rgb(0, 0, 0)","swOn":"rgba(5, 0, 73, 0.8) / rgba(5, 0, 73, 0.8)","thumbOff":"rgb(0, 0, 0)","thumbOn":"rgb(255, 255, 255)"}
 PASS forced-colors mobile375/light: ラジオ選択の点が背景と区別できる  {"dot":"rgba(5, 0, 73, 0.8)","on":"rgba(5, 0, 73, 0.8)","off":"rgb(0, 0, 0)"}
 PASS forced-colors mobile375/light: スピナー先端とトラックが別色  {"track":"rgba(0, 0, 0, 0)","tip":"rgb(0, 0, 0)"}
 PASS forced-colors mobile375/light: テーマ切替の選択中が区別できる  ["rgba(255, 255, 255, 0)|false","rgba(255, 255, 255, 0)|false","rgba(5, 0, 73, 0.8)|true"]
 PASS forced-colors mobile375/light: ボタンのフォーカス outline が残る（3px solid）  {"ow":"3px","os":"solid","oc":"rgba(5, 0, 73, 0.8)","cv":"rgb(255, 255, 255)"}
-PASS forced-colors mobile375/light: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"2px","os":"solid"}
+PASS forced-colors mobile375/light: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"3px","os":"solid"}
 PASS forced-colors mobile375/dark: 有効
 PASS forced-colors mobile375/dark: スイッチ ON/OFF が色で区別できる（Highlight vs Canvas）  {"swOff":"rgb(0, 0, 0) / rgb(255, 255, 255)","swOn":"rgba(0, 230, 255, 0.8) / rgba(0, 230, 255, 0.8)","thumbOff":"rgb(255, 255, 255)","thumbOn":"rgb(0, 0, 0)"}
 PASS forced-colors mobile375/dark: ラジオ選択の点が背景と区別できる  {"dot":"rgba(0, 230, 255, 0.8)","on":"rgba(0, 230, 255, 0.8)","off":"rgb(255, 255, 255)"}
 PASS forced-colors mobile375/dark: スピナー先端とトラックが別色  {"track":"rgba(0, 0, 0, 0)","tip":"rgb(255, 255, 255)"}
 PASS forced-colors mobile375/dark: テーマ切替の選択中が区別できる  ["rgba(0, 0, 0, 0)|false","rgba(0, 0, 0, 0)|false","rgba(0, 230, 255, 0.8)|true"]
 PASS forced-colors mobile375/dark: ボタンのフォーカス outline が残る（3px solid）  {"ow":"3px","os":"solid","oc":"rgba(0, 230, 255, 0.8)","cv":"rgb(0, 0, 0)"}
-PASS forced-colors mobile375/dark: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"2px","os":"solid"}
+PASS forced-colors mobile375/dark: index のテーマ切替にフォーカス outline  {"tag":"BUTTON","ow":"3px","os":"solid"}
 0 FAIL / 28
 firefox 159.0
 PASS firefox desktop/light: 初期テーマが system(OS) に従う  {"theme":"light","mode":"system","sw":2077,"bad":0}
@@ -112,3 +112,18 @@ PASS firefox mobile375/dark: 新規節のはみ出し 0  scrollWidth 432 (既存
 PASS firefox mobile375/dark: 切替で反転・保存
 PASS firefox reduced-motion: スピナー回転なし
 0 FAIL / 15
+PASS chromium: スライダーの focus-visible が 3px outline  {"cls":"rng","fv":true,"wk":"3px","mz":""}
+PASS chromium: エラー入力は focus 中も danger 枠が見える（outline と枠の間に 1px）  {"id":"f2","bc":"rgb(122, 69, 69)","ow":"2px","oc":"rgb(74, 114, 208)","oo":"1px"}
+PASS chromium: テーマ切替ボタンの focus が 3px  {"t":"light","ow":"3px","os":"solid"}
+PASS chromium: setItem だけ失敗する環境でも選択が効く（dark）
+PASS chromium: その環境で system に戻せる
+PASS firefox: スライダーの focus-visible が 3px outline  {"cls":"rng","fv":true,"wk":"","mz":"3px"}
+PASS firefox: エラー入力は focus 中も danger 枠が見える（outline と枠の間に 1px）  {"id":"f2","bc":"rgb(122, 69, 69)","ow":"2px","oc":"rgb(74, 114, 208)","oo":"1px"}
+PASS firefox: テーマ切替ボタンの focus が 3px  {"t":"light","ow":"3px","os":"solid"}
+PASS firefox: setItem だけ失敗する環境でも選択が効く（dark）
+PASS firefox: その環境で system に戻せる
+0 FAIL / 10
+light switch OFF bg rgb(231, 231, 229) | ON(after 400ms) {"chk":true,"bg":"rgb(5, 5, 5)","border":"rgb(5, 5, 5)","thumb":"rgb(245, 245, 244)"} PASS(bg=accent)
+light focused is first: true
+dark switch OFF bg rgb(42, 42, 42) | ON(after 400ms) {"chk":true,"bg":"rgb(245, 245, 244)","border":"rgb(245, 245, 244)","thumb":"rgb(5, 5, 5)"} PASS(bg=accent)
+dark focused is first: true

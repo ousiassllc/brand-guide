@@ -10,6 +10,10 @@ ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
 has() { grep -Eq -- "$2" "$1"; }
 chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
 sec() { awk -v id="$1" '$0 ~ "<section id=\"" id "\""{f=1} f{print} f&&/<\/section>/{exit}' "$idx"; }
+# 節の中だけを grep する（他の節の同じ語で誤って通らないように）
+insec() { sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
+# tokens-preview の新節 #states の中だけ（main に既にある行で通らないように）
+instates() { awk '/<section class="ui" id="states">/{f=1} f{print} f&&/<\/section>/{exit}' "$prev" | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
 
 # (1) index.html: 節と推奨案／代替の区別
 for id in theme states focus spinner layers soft-ripple a11y-modes; do
@@ -19,16 +23,17 @@ for id in theme states focus spinner layers soft-ripple; do
   s=$(sec "$id")
   printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok "#$id: 推奨案と代替を区別" || ng "#$id: 推奨案／代替の区別がない"
 done
-chk '切替: 3 モードと system 初期値'            "light.*dark.*system"                 "$idx"
-chk '切替: aria-pressed とキーボード操作'        'aria-pressed="true".*|Space / Enter'  "$idx"
-chk 'フォーカス: 入力系 2px'                     '入力系 2px'                           "$idx"
-chk 'フォーカス: 離散コントロール 3px'            '離散コントロール 3px'                  "$idx"
-chk 'フォーカス: 非テキスト 3:1'                '3:1'                                 "$idx"
-chk 'スピナー: 20px・線 2px・0.9s linear'       '20px・線 2px.*0\.9s linear'           "$idx"
-chk 'z: --z-popup 401'                          '--z-popup 401'                       "$idx"
-chk 'z: 既存の段を並べ替えない'                  '並べ替えない'                         "$idx"
-chk '影: Light 6% / Dark 40%'                   '6%.*40%'                              "$idx"
-chk 'ラジオ: 18px・6px の点'                     '18px.*6px'                            "$idx"
+insec '切替: 3 モードと system 初期値'            theme  'system.*prefers-color-scheme'
+insec '切替: aria-pressed'                        theme  'aria-pressed="true"'
+insec '切替: Space / Enter のキーボード操作'      theme  'Space / Enter'
+insec 'フォーカス: 入力系 2px'                    focus  '入力系 2px'
+insec 'フォーカス: 離散コントロール 3px'          focus  '離散コントロール 3px'
+insec 'フォーカス: 非テキスト 3:1'                focus  '3:1'
+insec 'スピナー: 20px・線 2px・0.9s linear'       spinner '20px・線 2px.*0\.9s linear'
+insec 'z: --z-popup 401'                          layers '--z-popup 401'
+insec 'z: 既存の段を並べ替えない'                 layers '並べ替えない'
+insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
+insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
@@ -45,12 +50,15 @@ for id in st-theme st-buttons st-switch st-focus st-spinner st-z st-shadow st-so
   chk "tokens-preview: #$id" "id=\"$id\"" "$prev"
 done
 chk 'tokens-preview: --z-popup:401'              '--z-popup:401'                        "$prev"
-chk 'tokens-preview: loading（aria-busy）'        'is-loading.*aria-busy="true"'         "$prev"
+instates 'tokens-preview #states: loading（aria-busy）'    'is-loading.*aria-busy="true"'
+chk 'tokens-preview: Light 側の影トークン（並置見本用）'   '\[data-theme=light\]\{--shadow-modal:0 1px 2px rgba\(0,0,0,\.06\)\}' "$prev"
 chk 'tokens-preview: Dark の影 40%'              'dark\]\{--shadow-modal:0 1px 2px rgba\(0,0,0,\.4\)\}' "$prev"
-chk 'tokens-preview: 入力 2px / 離散 3px の outline' 'outline:2px solid var\(--focus\)'     "$prev"
-chk 'tokens-preview: 3px outline'                 'outline:3px solid var\(--focus\)'     "$prev"
-chk 'tokens-preview: forced-colors 対応'          'forced-colors:active'                 "$prev"
-chk 'tokens-preview: reduced-motion でスピナー停止' 'reduced-motion:reduce\)\{\.spin'    "$prev"
+chk 'tokens-preview: 入力は outline 2px'           '\.ui \.fld:focus,\.ui \.fld\.is-focus\{outline:2px solid var\(--focus\)' "$prev"
+chk 'tokens-preview: ボタンは outline 3px'         '\.ui \.btn:focus-visible,\.ui \.btn\.is-focus\{outline:3px solid var\(--focus\)' "$prev"
+! has "$prev" 'box-shadow:0 0 0 3px var\(--ring\)' && ok 'tokens-preview: 旧 --ring の box-shadow を使わない' || ng 'tokens-preview: 旧 --ring の box-shadow が残っている'
+instates 'tokens-preview #states: forced-colors 対応'       'forced-colors:active'
+instates 'tokens-preview #states: reduced-motion の遷移停止' 'prefers-reduced-motion:reduce\)\{\.ui \.btn'
+instates 'tokens-preview #states: スピナー周期は .spin 既存（0.9s）を使う' 'class="spin"'
 
 # (4) 既存の正本を壊していない
 for f in "$idx" "$prev"; do

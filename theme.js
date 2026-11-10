@@ -29,9 +29,9 @@
       var v = localStorage.getItem(KEY);
       if (v === 'light' || v === 'dark') return v;
     } catch (e) {
-      return session;
+      /* 読めない環境は session を使う */
     }
-    return null;
+    return session;
   }
 
   function mode() {
