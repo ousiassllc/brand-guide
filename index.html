@@ -19,8 +19,8 @@ h1{font-weight:300;font-size:clamp(32px,6vw,56px);line-height:1.3;margin:0 0 16p
 .meta{padding:20px}.tok{font-size:15px}.meta p{margin:8px 0 0;font-size:13px;color:var(--mute)}
 .hex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.hex button{font:inherit;font-size:12px;background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer}
 .hex button:hover{background:var(--accent-soft)}.hex button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.seg button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:var(--mute);font:600 14px/1.2 Sora,"Noto Sans JP",sans-serif;padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-@media(max-width:480px){.badge{display:none}}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:0;background:none;color:var(--mute);font:600 14px/1.2 Sora,"Noto Sans JP",sans-serif;padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:720px){.badge{display:none}}
 @media(max-width:480px){.seg .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.seg button{padding:6px 12px}}
 @media(forced-colors:active){.seg button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .prismbar{height:120px;border-radius:16px;background:var(--prism);margin-top:40px}
@@ -42,7 +42,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 .jump{font-size:14px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
-<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">状態・フォーカス・z・影・テーマ切替などの新しい節は推奨案（未確定）。ただし accent-soft 上の文字は <code>--ink</code> で採用済み。</p></header>
+<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">状態・スピナー・リップルなどは推奨案（未確定）。テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は採用済み。</p></header>
 <p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
@@ -114,7 +114,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 }</pre>
 <ul class="p"><li><strong>優先関係:</strong> Chromium 121 以降は <code>scrollbar-width</code> / <code>scrollbar-color</code> が <code>auto</code> 以外だと <code>::-webkit-scrollbar</code> を無視する。標準指定を先に書くだけでは 8px・hover / drag の色にならないため、擬似要素が使える環境（<code>@supports selector(::-webkit-scrollbar)</code>）では標準指定を <code>auto</code> に戻す</li><li><strong>対応差:</strong> WebKit / Blink = 擬似要素で幅・矢印・hover / drag を制御できる。Firefox = <code>thin</code> と色のみで、幅は OS 任せ・hover / drag の色は変えられない・矢印は出ないことが多い</li><li><strong>OS の制約:</strong> macOS やモバイルのオーバーレイ（自動で隠れる）スクロールバーは、擬似要素でカスタムすると常時表示の従来型に変わることがある。OS の設定で常に表示にしている場合も同様に見え方が変わる。これらは仕様上の制限として許容し、スクロール機能自体は維持する</li><li><strong>アクセシビリティ例外:</strong> <code>forced-colors: active</code>（Windows ハイコントラスト等）や OS が太いバーを要求する設定では、上のカスタムを外して <strong>OS 側の見やすさを優先</strong>する（上の例は <code>forced-colors: none</code> のときだけ適用）</li></ul></section>
 <section id="theme" class="spec"><h2>ライト／ダーク切替 Theme switch</h2><p class="sub">ライト／ダークの両対応は必須。切替コントロールの形、初期値、保存、切替時の挙動を共通で決める。色トークンの値（<code>--bone</code> など）は変えず、<code>data-theme</code> で切り替える。<a href="tokens-preview.html#st-theme">操作できる見本 →</a></p>
-<div class="rec"><span class="tag">推奨案</span><strong>3 モード（Light / Dark / System）</strong>
+<div class="rec"><span class="tag">採用</span><strong>3 モード（Light / Dark / System）</strong>
 <ul class="p"><li>モードは <code>light</code> / <code>dark</code> / <code>system</code>。未選択の初期値は <code>system</code>（<code>prefers-color-scheme</code> に従う）</li>
 <li>利用者が <code>light</code> か <code>dark</code> を選んだらブラウザのローカルに保存し、以後は OS の変更で上書きしない</li>
 <li><code>system</code>（または未保存）のときだけ <code>matchMedia('(prefers-color-scheme: dark)')</code> の変化にリロードなしで追従する</li>
@@ -122,7 +122,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <li>コントロールは Iconoir（sun-light / half-moon / computer）のセグメント。<strong>キーボードで操作できる</strong>：Tab で入り、←→（↑↓・Home・End）で移動、Space / Enter で選択。選択中は <code>aria-pressed="true"</code>。プリズム色や OS 標準コントロールの直出しはしない。狭い幅（≤480px）ではアイコンのみ（ラベルは読み上げ用に残す）</li>
 <li>色のクロスフェードは付けない（<code>prefers-reduced-motion: reduce</code> に関係なく、切替の瞬間は transition を止めて即時に切り替える）。付ける場合もホバー相当（≤180ms）の静かな変化に留め、reduced-motion では色アニメなし</li>
 <li>保存キーはプロダクトの名前空間で決めてよい。このガイドは <code>ousiass-theme</code>（ガイド用）を使う。旧デモ用の <code>theme</code> / <code>oth</code> に合わせる必要はない</li></ul></div>
-<div class="alt"><span class="tag">代替</span><strong>A</strong> <code>light</code> / <code>dark</code> の 2 モードのみ（system は初期値の計算にだけ使い、保存後は OS 追従しない）。 <strong>B</strong> 保存先をクッキー等にする（同一オリジンのローカル保存であることだけを規定する）。</div>
+<div class="alt"><span class="tag">参考</span>保存先をクッキー等にする案（同一オリジンのローカル保存であることだけを規定する）。</div>
 <h3>最小の実装（head に置く）</h3>
 <pre class="code" tabindex="0" role="region" aria-label="テーマ初期化の例">&lt;script&gt;
 (() =&gt; {
@@ -143,11 +143,11 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <li><strong>ラジオ</strong>: <strong>18px の円</strong>、枠は <code>--mute</code> 1px。選択は <code>--accent</code> 地の中央に <strong>6px の <code>--bone</code> の点</strong>。focus は 3px の <code>--focus</code> リング、disabled は opacity <code>.4</code>（ラベルは <code>--mute</code>）</li></ul>
 <p class="sub" style="font-size:14px"><strong>代替:</strong> スイッチの disabled を opacity ではなく border / mute だけで示す。</p></div></div></section>
 <section id="focus" class="spec"><h2>フォーカスリング Focus ring</h2><p class="sub"><code>--focus</code>（Light #4a72d0 / Dark #60a5fa。プリズム blue の薄い借用）の色は変えない。幅は部品の種類で 2 つに分ける。<a href="tokens-preview.html#st-focus">見本と測定（ライブ）→</a></p>
-<div class="dd"><div><h3>幅の使い分け <span class="tag">推奨案</span></h3><ul class="p"><li><strong>入力系 2px</strong>（input / textarea / select / タグ欄）: 枠がすでにあるため、枠を <code>--focus</code> にして 2px の線で囲う（<code>outline: 2px solid var(--focus); outline-offset: -1px</code>）</li>
+<div class="dd"><div><h3>幅の使い分け <span class="tag">採用</span></h3><ul class="p"><li><strong>入力系 2px</strong>（input / textarea / select / タグ欄）: 枠がすでにあるため、枠を <code>--focus</code> にして 2px の線で囲う（<code>outline: 2px solid var(--focus); outline-offset: -1px</code>）</li>
 <li><strong>離散コントロール 3px</strong>（ボタン・アイコンボタン・スイッチ・チェック・ラジオ・スライダー）: リングが主要な囲いになるため太くし、<code>outline-offset: 2px</code> で隣接背景との間に余白を置く（Dark の primary は塗り #f5f5f4 と focus が 2.33:1 になるため、余白で背景側に逃がして 3:1 を確保する）（<code>outline: 3px solid var(--focus); outline-offset: 2px</code>）</li>
 <li>テキストリンク等の既定 <code>:focus-visible</code> は 2px・offset 2px のまま</li>
 <li>リングは <code>outline</code> で描く（<code>box-shadow</code> は forced-colors で消えるため）</li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> すべて 2px、またはすべて 3px に統一する。または <code>--ring</code>（focus 40%）の halo を残し、内側に 1px の実線 <code>--focus</code> を足す。</p></div>
+<p class="sub" style="font-size:14px"><strong>代替:</strong> <code>--ring</code>（focus 40%）の halo を残し、内側に 1px の実線 <code>--focus</code> を足す。</p></div>
 <div><h3>非テキストコントラスト 3:1</h3><ul class="p"><li>フォーカスインジケータは隣接背景（<code>--bone</code> / <code>--surface</code> / <code>--accent-soft</code>）に対して WCAG の非テキスト <strong>3:1</strong>（SC 1.4.11）を満たす</li>
 <li>色（<code>--focus</code>）は変えない。足りない場合はリングの置き方（余白・offset・実線）で確保する</li>
 <li><code>--ring</code>（focus 40%）は背景に溶けて 3:1 に届かない（Light で約 1.6:1）。単独でフォーカスの目印に使わない（装飾の halo まで）</li></ul>
@@ -160,14 +160,13 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <div><h3>reduced-motion</h3><ul class="p"><li><code>prefers-reduced-motion: reduce</code> では<strong>回転を止める</strong>。先端のアーク・<code>aria-busy</code>・ラベルで処理中であることは残す（モーションの既定「スピナーは維持」と矛盾しない）</li>
 <li><code>forced-colors: active</code> ではトラックを透明にし、先端の円弧だけを <code>CanvasText</code> で残す（回転しなくても処理中と分かる）</li></ul></div></div></section>
 <section id="layers" class="spec"><h2>重なり順とモーダルの影 Layers &amp; shadow</h2><p class="sub">既存の 0–500 の段は並べ替えない。<a href="tokens-preview.html#st-z">操作できる見本（モーダルの上にメニュー、その上に toast）</a> ／ <a href="tokens-preview.html#st-shadow">影の Light / Dark 比較</a></p>
-<div class="dd"><div><h3>z-index <span class="tag">推奨案</span></h3><ul class="p"><li><code>--z-base 0</code> / <code>--z-dropdown 100</code> / <code>--z-sticky 200</code> / <code>--z-drawer 300</code> / <code>--z-modal 400</code> / <code>--z-toast 500</code>（既存・変更なし）</li>
+<div class="dd"><div><h3>z-index <span class="tag">採用</span></h3><ul class="p"><li><code>--z-base 0</code> / <code>--z-dropdown 100</code> / <code>--z-sticky 200</code> / <code>--z-drawer 300</code> / <code>--z-modal 400</code> / <code>--z-toast 500</code>（既存・変更なし）</li>
 <li><strong>追加: <code>--z-popup 401</code></strong>（<code>--z-modal + 1</code>）。モーダル内のメニュー／ポップオーバーなど「modal より手前、toast より後ろ」が必要な面に使う</li>
 <li>dropdown（100）は通常面、popup（401）はモーダルの上、toast（500）は常に最前</li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> 401 を足さず「モーダル内のメニューは同じ stacking context で modal の上に置く」と文章だけにする。既存スケールを 50 刻みで組み直すことはしない。</p></div>
-<div><h3>モーダルの影 <span class="tag">推奨案</span></h3><ul class="p"><li>影はモーダルだけ（カードは影なし）。<code>--shadow-modal</code></li>
+<p class="sub" style="font-size:14px">既存スケールを 50 刻みで組み直すことはしない。</p></div>
+<div><h3>モーダルの影 <span class="tag">採用</span></h3><ul class="p"><li>影はモーダルだけ（カードは影なし）。<code>--shadow-modal</code></li>
 <li>Light: <code>0 1px 2px rgb(0 0 0 / 6%)</code> ／ Dark: <code>0 1px 2px rgb(0 0 0 / 40%)</code></li>
-<li>Dark の背景 <code>#050505</code> では黒い影はほぼ見えない。面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う</li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> Dark を 24% や 32% など一段穏やかにする（Light の 6% は触らない）。濃さは静かな見え方を優先し、確定値としては断定しない。</p></div></div></section>
+<li>Dark の背景 <code>#050505</code> では黒い影はほぼ見えない。面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う</li></ul></div></div></section>
 <section id="soft-ripple" class="spec"><h2>accent-soft 上の文字とリップル対象</h2>
 <div class="dd"><div><h3>accent-soft 地の補助文字 <span class="tag">採用</span></h3><ul class="p"><li>ホバー／選択行など <code>--accent-soft</code> を地にする面の文字は、短い補助テキストでも <strong><code>--ink</code></strong> を使う（または同等に 4.5:1 を満たす色）。<code>--mute</code> のまま置かない</li>
 <li>理由: <code>--mute</code> は bone / surface 上では AA 4.5:1 だが、<code>--accent-soft</code> 上では Light 4.29:1 / Dark 4.22:1 と下回る</li>

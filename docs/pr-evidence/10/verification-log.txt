@@ -134,3 +134,13 @@ scripts/check-states.sh 74 PASS（+3: ヘッダーのバッジ非表示 / 冒頭
 scripts/check-scrollbar.sh 27 PASS / scripts/check-typography.sh 20 PASS
 index.html 375px（viewport 375x800、Light/Dark）: scrollWidth 375 = clientWidth 375、.top の高さ 85px（修正前 127px = バッジ 2 行）、.top/header 内で右端が viewport を超える要素 0、.badge は display:none
 参考（修正前）375px: .top 127px、.badge 179x52（2 行）。480px: 104px、481px: 136px（481px と 600px で測定: 3 モード切替の文字ラベルとバッジで依然折れる。範囲外のため未変更）
+
+--- 再チェック #2（採用表記・ヘッダー幅）---
+verify: 0 FAIL / 22
+verify2: 0 FAIL / 43
+verify3: 0 FAIL / 28
+verify5: 0 FAIL / 10
+verify-ff: 0 FAIL / 15
+合計 118 項目 PASS / FAIL 0（Chromium 156 / Firefox 159）
+scripts/check-states.sh 100 PASS / check-scrollbar.sh 27 PASS / check-typography.sh 20 PASS
+ヘッダー幅測定: index・tokens-preview × 375/480/520/600/690/720px × Light/Dark = 24 行、1 行・はみ出し 0（measurements.md）

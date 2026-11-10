@@ -19,7 +19,7 @@ instates() { awk '/<section class="ui" id="states">/{f=1} f{print} f&&/<\/sectio
 for id in theme states focus spinner layers soft-ripple a11y-modes; do
   [ -n "$(sec "$id")" ] && ok "index.html に #$id 節がある" || ng "index.html に #$id 節がない"
 done
-for id in theme states focus spinner layers soft-ripple; do
+for id in states spinner soft-ripple; do
   s=$(sec "$id")
   printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok "#$id: 推奨案と代替を区別" || ng "#$id: 推奨案／代替の区別がない"
 done
@@ -75,8 +75,39 @@ done
 ! has "$idx" '--bone:#000000|--bone:#000;' && ! has "$prev" '--bone:#000000|--bone:#000;' && ok '真っ黒 #000 を背景に使っていない' || ng '真っ黒背景がある'
 
 # (5) index.html: ヘッダーと確定／推奨案の表記（PR #11 レビュー反映）
-chk 'ヘッダー: 480px 以下でバッジを非表示（375px で 2 行に折れない）' '@media\(max-width:480px\)\{\.badge\{display:none\}\}' "$idx"
-chk '冒頭: 新しい節は推奨案（未確定）と明記' '新しい節は推奨案（未確定）' "$idx"
+chk 'ヘッダー: 切替ラベルは 480px 以下でアイコンのみ' '@media\(max-width:480px\)\{\.seg \.lb\{position:absolute' "$idx"
 insec 'accent-soft 上の文字（ink）は推奨案ではなく採用' soft-ripple '地の補助文字 <span class="tag">採用</span>'
+
+# (6) 決定①〜⑤は採用: タグが「採用」で、採用と食い違う代替が残っていない（PR #11 レビュー反映）
+notinsec() { sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
+insec    '#theme: 採用タグ'                                theme  '<div class="rec"><span class="tag">採用</span><strong>3 モード'
+notinsec '#theme: 推奨案タグが残っていない'                theme  '推奨案'
+notinsec '#theme: 代替 A（2 モードのみ）を消した'          theme  '2 モードのみ'
+insec    '#theme: 代替 B（クッキー保存）は参考として残す'  theme  '<span class="tag">参考</span>.*クッキー'
+insec    '#focus: 幅の使い分け（入力 2px / 離散 3px）が採用' focus  '幅の使い分け <span class="tag">採用</span>'
+notinsec '#focus: 推奨案タグが残っていない'                focus  '推奨案'
+notinsec '#focus: 「すべて 2px / すべて 3px」案を消した'   focus  'すべて 2px|すべて 3px'
+insec    '#layers: z-index が採用'                         layers 'z-index <span class="tag">採用</span>'
+insec    '#layers: モーダルの影が採用'                     layers 'モーダルの影 <span class="tag">採用</span>'
+notinsec '#layers: 推奨案タグが残っていない'               layers '推奨案'
+notinsec '#layers: 「401 を足さず文章だけ」案を消した'     layers '401 を足さず'
+notinsec '#layers: 影の 24% / 32% 案を消した'              layers '24%|32%'
+notinsec '#layers: 「確定値としては断定しない」を消した'   layers '断定しない'
+chk '冒頭（index）: 採用済み 5 項目を明記' '推奨案（未確定）。テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は採用済み' "$idx"
+! has "$idx" '新しい節は推奨案（未確定）' && ok '冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した' || ng '冒頭（index）: 旧文言が残っている'
+for id in st-theme st-focus st-z st-shadow st-soft; do
+  grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">採用</span></h3>" "$prev" && ok "tokens-preview: #$id が採用" || ng "tokens-preview: #$id が採用になっていない"
+done
+for id in st-buttons st-switch st-spinner st-ripple; do
+  grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">推奨案</span></h3>" "$prev" && ok "tokens-preview: #$id は推奨案のまま" || ng "tokens-preview: #$id が推奨案でない"
+done
+grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*テーマ切替.*3 モード.*実線リング.*--z-popup.*401.*40%.*--ink.*採用' && ok '冒頭（tokens-preview）: 採用済み 5 項目を明記' || ng '冒頭（tokens-preview）: 採用済みの明記がない'
+awk '/<section class="ui" id="states">|id="states-draft"/{f=1} f{print}' "$prev" | grep -q '確定と断定しない\|確定値としては断定しない' && ng 'tokens-preview: 「断定しない」が残っている' || ok 'tokens-preview: 「断定しない」を消した'
+
+# (7) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
+chk 'ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px で切替が縦に折れない）' '@media\(max-width:720px\)\{\.badge\{display:none\}\}' "$idx"
+! has "$idx" '@media\(max-width:480px\)\{\.badge' && ok 'ヘッダー（index）: 旧 480px のバッジ規則を残さない' || ng 'ヘッダー（index）: 旧 480px のバッジ規則が残っている'
+chk 'ヘッダー（index）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$idx"
+chk 'ヘッダー（tokens-preview）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$prev"
 
 exit $fail

@@ -11,7 +11,7 @@
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{border:0;background:none;color:var(--mute);font:600 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg button{display:inline-flex;align-items:center;gap:6px;line-height:1.2}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.seg button:hover:not([aria-pressed=true]){background:var(--accent-soft);color:var(--ink)}.seg button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{border:0;background:none;color:var(--mute);font:600 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg button{display:inline-flex;align-items:center;gap:6px;line-height:1.2;white-space:nowrap}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.seg button:hover:not([aria-pressed=true]){background:var(--accent-soft);color:var(--ink)}.seg button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 @media(max-width:480px){.seg .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.seg button{padding:6px 12px}}
 @media(forced-colors:active){.seg button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap-grid-lg)}.sw{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;font-size:13px}
@@ -473,10 +473,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 }
 </style>
 <h2 id="states-draft">状態・フォーカス・重なり・切替 States, focus, layers, theme</h2>
-<p class="mute" style="font-size:14px">操作して確かめる見本。数値・振る舞いのうち未確定のものは <span class="tag">推奨案</span> を付け、代替は本文（<a href="./#theme">ガイド本体</a>）に併記。確定と断定しない。</p>
+<p class="mute" style="font-size:14px">操作して確かめる見本。状態・スピナー・リップルなど未確定のものは <span class="tag">推奨案</span>、テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は <span class="tag">採用</span> を付ける。代替は本文（<a href="./#theme">ガイド本体</a>）に併記。</p>
 <p class="rule"><strong>ルール：</strong>ガイドにない部品は使わない。必要なら先にガイドへ追加する。</p>
 
-<h3 id="st-theme">ライト／ダーク切替 Theme switch <span class="tag">推奨案</span></h3>
+<h3 id="st-theme">ライト／ダーク切替 Theme switch <span class="tag">採用</span></h3>
 <div class="card">
 <div class="f2">
 <div><span class="lbl" id="st-theme-lbl">切替コントロール（Light / Dark / System）</span>
@@ -543,7 +543,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <p class="help">focus は 3px の <code>--focus</code> リング。disabled は opacity .4。</p></div>
 </div></div>
 
-<h3 id="st-focus">フォーカスリング幅と 3:1 Focus ring <span class="tag">推奨案</span></h3>
+<h3 id="st-focus">フォーカスリング幅と 3:1 Focus ring <span class="tag">採用</span></h3>
 <div class="card"><div class="st-grid">
 <div><p class="st-h">入力系 = 2px（input / textarea / select / タグ欄）</p><div class="fcmp">
 <input class="fld is-focus" value="focus（固定表示）" aria-label="入力のフォーカス見本">
@@ -576,7 +576,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <p class="help">周期 0.9s は #9（pull-to-refresh）の前提（0.9s・20・線 2）と同じ。変更していない。</p></div>
 </div></div>
 
-<h3 id="st-z">重なり順の見本 z-index <span class="tag">推奨案</span></h3>
+<h3 id="st-z">重なり順の見本 z-index <span class="tag">採用</span></h3>
 <div class="zctl" role="group" aria-label="重なり順の表示切替">
 <label class="chk"><input type="checkbox" data-z="modal" checked> モーダル（400）</label>
 <label class="chk"><input type="checkbox" data-z="pop" checked> メニュー（popup 401）</label>
@@ -590,14 +590,14 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 </div>
 <p class="help" style="max-width:520px">dropdown（100）は通常面。<strong>popup（401）はモーダルの上</strong>、toast（500）は常に最前。<code>--z-popup = --z-modal + 1</code> で、既存の 0–500 の段は並べ替えない。</p>
 
-<h3 id="st-shadow">モーダル影の Light / Dark 比較 Modal shadow <span class="tag">推奨案</span></h3>
+<h3 id="st-shadow">モーダル影の Light / Dark 比較 Modal shadow <span class="tag">採用</span></h3>
 <div class="shpair">
 <div class="shpane" data-theme="light"><p class="st-h">Light — <code>0 1px 2px rgb(0 0 0 / 6%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Light のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 <div class="shpane" data-theme="dark"><p class="st-h">Dark — <code>0 1px 2px rgb(0 0 0 / 40%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Dark のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 </div>
-<p class="help">影の中身は CSS 上の現状。濃さは静かな見え方を優先して再調整してよい（確定値としては断定しない）。<code>#050505</code> 背景では黒い影はほぼ見えず、面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う。</p>
+<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う。</p>
 
-<h3 id="st-soft">accent-soft 地の補助文字 Text on accent-soft <span class="tag">推奨案</span></h3>
+<h3 id="st-soft">accent-soft 地の補助文字 Text on accent-soft <span class="tag">採用</span></h3>
 <div class="card"><div class="st-grid">
 <div><p class="st-h">推奨: <code>--ink</code></p><div class="soft"><span>選択中の行</span><span class="s-ink">補助テキスト（ink）</span></div><p class="help">ratio <strong data-cr="ink">-</strong></p></div>
 <div><p class="st-h">非推奨: <code>--mute</code> のまま</p><div class="soft"><span>選択中の行</span><span class="s-mute">補助テキスト（mute）</span></div><p class="help">ratio <strong data-cr="mute">-</strong>（AA 本文 4.5:1）</p></div>
