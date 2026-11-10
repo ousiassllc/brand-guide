@@ -143,7 +143,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <li>フォーカスは採用済みの実線リング（3px・<code>--focus</code>・offset 2px）。切替時の色の transition は付けない（既存どおり）</li></ul></div>
 <h3>使い分け <span class="tag">推奨案</span></h3>
 <table class="ut"><thead><tr><th>置く場所</th><th>形</th><th>理由</th></tr></thead><tbody>
-<tr><td>ヘッダー・ツールバーなど、横一列で狭い</td><td>アイコンだけ</td><td>横幅が 3×44px で済む。ガイドのヘッダーもこの形</td></tr>
+<tr><td>ヘッダー・ツールバーなど、横一列で狭い</td><td>アイコンだけ</td><td>横幅が 3×44px で済む。ガイドのヘッダーは ≤480px でこの形に切り替わる（481px 以上は文字付き横並び）</td></tr>
 <tr><td>サイドバー・ドロワー・設定ページ・モバイルメニューなど、縦に余裕がある</td><td>縦積み</td><td>ラベルが常に見え、選択中が一覧で分かる</td></tr>
 <tr><td>幅が十分（横にラベルが 1 行で収まる）</td><td>文字付き横並び（<code>.seg</code>）</td><td>現行どおり。ラベルとアイコンの両方で伝わる</td></tr></tbody></table>
 <p class="sub" style="font-size:14px"><strong>切り替えの基準（推奨案）:</strong> ビューポートではなく<strong>コンテナ幅（または置く場所そのもの）</strong>で決める。同じ画面幅でも、ヘッダーはアイコンだけ・サイドバーは縦積み、のように場所で形が変わるため。閾値の目安は、文字付き横並びが 1 行で収まる幅（このガイドの実測で約 300px）。置き場がそれより狭ければアイコンだけ。数値は確定ではなく、アイコンだけのタップ領域 44px を満たしたあとで測り直す。<strong>代替:</strong> ビューポートの <code>@media (max-width: 480px)</code> でラベルを隠す（このガイドのヘッダーはこの方式。ガイドのヘッダーだけなら足りるが、プロダクトの部品としては推奨しない）。</p>

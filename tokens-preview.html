@@ -505,7 +505,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div id="st-theme-forms"><span class="lbl">幅が足りないときの形（3 形を置く場所で使い分ける） <span class="tag">推奨案</span></span>
 <p class="help" style="font-size:14px;color:var(--ink)"><strong>決定済み:</strong> 「アイコンだけ」と「縦積み」の<strong>両方を定義し、置く場所で使い分ける</strong>こと自体は悠太さんの決定。切り替えの基準と数値の閾値は推奨案（未確定）。3 形とも同じ 3 モード・同じ <code>theme.js</code> の契約（<code>aria-pressed</code>・保存キー・キーボード）で、<code>role="radiogroup"</code> にはしない。</p>
 <table class="ut"><thead><tr><th>置く場所</th><th>形</th><th>理由</th></tr></thead><tbody>
-<tr><td>ヘッダー・ツールバーなど、横一列で狭い</td><td>アイコンだけ</td><td>横幅が 3×44px で済む。この画面のヘッダーもこの形</td></tr>
+<tr><td>ヘッダー・ツールバーなど、横一列で狭い</td><td>アイコンだけ</td><td>横幅が 3×44px で済む。この画面のヘッダーは ≤480px でこの形に切り替わる（481px 以上は文字付き横並び）</td></tr>
 <tr><td>サイドバー・ドロワー・設定ページ・モバイルメニューなど、縦に余裕がある</td><td>縦積み</td><td>ラベルが常に見え、選択中が一覧で分かる</td></tr>
 <tr><td>幅が十分（横にラベルが 1 行で収まる）</td><td>文字付き横並び（<code>.seg</code>）</td><td>現行どおり。ラベルとアイコンの両方で伝わる</td></tr></tbody></table>
 <p class="help" style="font-size:14px;color:var(--ink)"><strong>切り替えの基準（推奨案）:</strong> ビューポートではなく<strong>コンテナ幅（または置く場所そのもの）</strong>で決める。閾値の目安は、文字付き横並びが 1 行で収まる幅（実測で約 300px）。置き場がそれより狭ければアイコンだけ。数値は確定ではなく、44px のタップ領域を満たしたあとで測り直す。<strong>代替:</strong> ビューポートの <code>@media (max-width: 480px)</code> でラベルを隠す（この画面のヘッダーはこの方式。プロダクトの部品としては推奨しない）。</p>
