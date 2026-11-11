@@ -338,7 +338,7 @@ insec    '#puppet-parts: カードの題は lg 18 SemiBold・タグは h2 / h3 �
 insec    '#puppet-parts: カードの題の下に --border の 1px の線'   puppet-parts '題の下に <code>--border</code> の 1px の線'
 insec    '#puppet-parts: カードの本文 padding --s-6（24）・影なし' puppet-parts '本文の padding は <code>--s-6</code>（24）。<strong>影は付けない</strong>'
 # 2. 秘密の入力欄
-insec    '#puppet-parts: 保存済みの値・伏せ字を描画しない'          puppet-parts '保存済みの値は描画しない</strong>。伏せ字（●●●）も描画しない'
+insec    '#puppet-parts: 保存済みの値・伏せ字を描画しない'          puppet-parts '保存済みの値は<strong>描画しない</strong>。伏せ字も描画しない'
 insec    '#puppet-parts: 登録済みバッジは accent-soft 地＋mute-on-soft 文字・xs 12' puppet-parts '<code>--accent-soft</code> 地＋<code>--mute-on-soft</code> 文字、xs 12'
 insec    '#puppet-parts: 「変更」で空の入力欄・入力文字は base 16'  puppet-parts '「変更」ボタンを押すと<strong>空の入力欄</strong>になる。入力文字は base 16'
 insec    '#puppet-parts: 表示切り替えは Iconoir の Eye / EyeClosed のアイコンボタン' puppet-parts 'Iconoir の <strong>Eye</strong>.*<strong>EyeClosed</strong>.*アイコンボタン'
@@ -355,9 +355,11 @@ insec    '#puppet-parts: 端ではその側のボタンを disabled（opacity .4
 chk      'index: ジャンプ行に #puppet-parts のリンク'               '<a href="#puppet-parts">puppet-remo 部品</a>' "$idx"
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
 grep -Eq '<h3 id="st-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-parts が採用' || ng 'tokens-preview: #st-parts が採用になっていない'
-for k in 'class="np-card"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
+for k in 'class="np-card"' '<h3 class="np-card-t"' '<h2 class="np-card-t"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
   inh3 "tokens-preview #st-parts: 見本 $k" st-parts "$k"
 done
+# 規定は Issue #16 にある内容だけ（Issue にない補足を規定として書かない。案は PR 本文の「要判断」へ）
+notinsec '#puppet-parts: Issue にない補足（aria-label の文言・左に前へ／右に次へ・P1 との使い分け・1〜2 文）を規定にしない' puppet-parts '入力を表示する|左に「前へ」|P1 のページネーション|1〜2 文|トーストの代わり'
 inh3     'tokens-preview #st-parts: 秘密の入力欄は value を描画しない（伏せ字・自動入力停止）' st-parts 'id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder'
 inh3no   'tokens-preview #st-parts: 秘密の入力欄に value 属性を書かない' st-parts 'id="np-sec-in"[^>]* value='
 chk      'tokens-preview: カードの題 lg 18 SemiBold・下に 1px の線'  '#states \.np-card-t\{[^}]*padding:var\(--s-4\) var\(--s-6\)[^}]*border-bottom:1px solid var\(--border\)[^}]*font-size:18px;font-weight:600' "$prev"
