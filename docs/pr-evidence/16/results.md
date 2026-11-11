@@ -22,3 +22,26 @@
 ## レビュー反映（規定は Issue #16 にある内容だけにした）
 - index の `#puppet-parts` から、Issue にない補足（aria-label の文言・「左に前へ・右に次へ」・P1 のページネーションとの使い分け・Eye/EyeClosed のどちらをどの状態に使うか・見出しの階層の補足）を外した。見本の実装上必要な値（aria-label など）は tokens-preview に残した。`check-states.sh` に、これらを規定として書かない項目を追加
 - カードの見本を、実際の `<h3>` と `<h2>` のカード 1 枚ずつにした（見た目は同じ lg 18）
+
+## fix1: いろはの決定 6 点（head e1a3943 の次のコミット）
+1. 秘密の入力欄は「バッジ＋変更」の形。バッジと入力欄は並べない（保存済みの値を匂わせる欄を出さないため）
+2. 題なしアラートの色は左の線だけ。`--warning`: データの扱い・取り消せないことなど、ずっと出す注意書き。`--info`: 同意のチェックの枠とただの補足。地は既存のまま
+3. ページ送り: 押したボタンが端で使えなくなったら、フォーカスを反対側のボタンへ移す（規定に明記）
+4. カードの見本は本物の h3 / h2（見た目はクラスで lg 18 SemiBold。タグと見た目は別）。規定にも「クラスでそろえる」と明記
+5. 節の名前を `#puppet-parts` → `#settings-parts`（題「設定画面のパーツ」）、見本を `#st-parts` → `#st-settings-parts`。`#proposals` のすぐ後ろのまま、相互リンクあり
+6. 見本の「見本を最初に戻す」を、小さいリンク風（sm 14・--mute・400・下線）にし、部品から 24px 離した
+
+| 項目 | PASS | FAIL |
+|---|---|---|
+| scripts/check-states.sh（320→375） | 375 | 0 |
+| scripts/check-typography.sh | 20 | 0 |
+| scripts/check-scrollbar.sh | 27 | 0 |
+| e1a3943 のツリーに新しい check-states.sh を当てる | 328 | 47（想定どおり FAIL） |
+| #16 の Playwright（Chromium / Firefox。戻すリンク・アラートの色・節の位置を追加） | 136 / 136 | 0 / 0 |
+| 既存 Playwright Chromium（verify / verify2 / verify3 / verify5） | 103 | 0 |
+| 既存 Playwright Firefox（verify-ff） | 15 | 0 |
+| #14（verify14 Chromium / Firefox） | 105 / 105 | 0 / 0 |
+| #14 決定 4 件（Chromium / Firefox） | 42 / 42 | 0 / 0 |
+| #12（Chromium / Firefox） | 210 / 197 | 0 / 0 |
+
+- スクショは全部撮り直した（60 枚。/tmp/swarm-console/shots-bg-16-fix1/ と同じもの）

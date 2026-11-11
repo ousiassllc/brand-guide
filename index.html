@@ -58,7 +58,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>.4</code>・全幅バナーの即時の出入りは採用済み。<a href="#dialog">ダイアログ</a> ／ <a href="#pane-app">ペイン型アプリの例外</a> ／ <a href="#proposals">Hitomado 提案の反映（#283〜#287）</a></p></header>
-<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#puppet-parts">puppet-remo 部品</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#settings-parts">設定画面のパーツ</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -281,26 +281,29 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <li>ドロワーの幅は 78vw・上限 320px。出入りは fade＋8px の移動（<code>--motion-*</code>）</li>
 <li>ペイン全体をドロップ先にする場合: 常設の枠は不要。ドラッグ中だけ <code>--accent-soft</code> 地＋1px <code>--accent</code> の破線（内側 offset 4）</li>
 <li>ペイン分割のリサイズハンドルは <code>--z-sticky</code> を流用してよい</li></ul></section>
-<section id="puppet-parts" class="spec ty"><h2>puppet-remo 由来の部品 5 種 Parts</h2><p class="sub">puppet-remo のデザイン棚卸し（puppet-remo#148〜#152）で見つかった、ガイドにまだなかった部品の形。値は既存のトークンと「<a href="#pane-app">アプリ内の見出しの段</a>」（モーダルの題 lg 18／h3 base 16／h4 sm 14、いずれも SemiBold）にそろえた。新しい色・サイズは作らない。<a href="tokens-preview.html#st-parts">操作できる見本（Light / Dark）→</a></p>
+<section id="settings-parts" class="spec ty"><h2>設定画面のパーツ Settings parts</h2><p class="sub">設定画面などで使う 5 つの部品（puppet-remo#148〜#152 の棚卸しで見つかった、ガイドにまだなかった形）。値は既存のトークンと「<a href="#pane-app">アプリ内の見出しの段</a>」（モーダルの題 lg 18／h3 base 16／h4 sm 14、いずれも SemiBold）にそろえた。新しい色・サイズは作らない。<a href="tokens-preview.html#st-settings-parts">操作できる見本（Light / Dark）→</a></p>
 <h3 id="parts-card">1. 見出し付きカード <span class="tag">採用</span></h3><ul class="p">
-<li>題は lg 18 SemiBold。タグは h2 / h3 のどちらでもよい（<strong>タグと表示サイズは独立</strong>）</li>
+<li>題は lg 18 SemiBold。タグは h2 / h3 のどちらでもよい（<strong>タグと表示サイズは独立</strong>。見た目はタグ（既定のサイズ）に頼らず、クラスで lg 18 SemiBold にそろえる）</li>
 <li>題の下に <code>--border</code> の 1px の線</li>
 <li>本文の padding は <code>--s-6</code>（24）。<strong>影は付けない</strong>（影はモーダルだけ。<a href="#layers">重なり・影</a>）</li></ul>
 <h3 id="parts-secret">2. 秘密の入力欄 <span class="tag">採用</span></h3><ul class="p">
 <li>保存済みの値は<strong>描画しない</strong>。伏せ字も描画しない</li>
 <li>登録済みのときは入力欄の代わりに「登録済み」バッジを出す。<code>--accent-soft</code> 地＋<code>--mute-on-soft</code> 文字、xs 12（<a href="#soft-ripple">accent-soft 上の文字</a>のとおり <code>--mute</code> のままにしない）</li>
-<li>「変更」ボタンを押すと<strong>空の入力欄</strong>になる。入力文字は base 16</li>
+<li>形は<strong>「バッジ＋変更」</strong>。「変更」ボタンを押すと<strong>空の入力欄</strong>になる。入力文字は base 16</li>
+<li><strong>バッジと入力欄は並べない</strong>。保存済みの値を匂わせる欄を出さないため</li>
 <li>表示切り替えは Iconoir の <strong>Eye</strong> / <strong>EyeClosed</strong>、アイコンボタン</li></ul>
 <h3 id="parts-notice">3. 題なしのインラインアラート <span class="tag">採用</span></h3><ul class="p">
 <li>形は既存の<a href="#proposals">インラインアラート</a>と同じ（角丸 <code>--r-md</code>、padding 12×16）。アイコン 16 ＋ 本文 sm 14。<strong>題は付けない</strong></li>
-<li>常設の注意書き・同意の枠に使う</li></ul>
+<li>常設の注意書き・同意の枠に使う</li>
+<li>色は<strong>左の線だけ</strong>に付ける（地は既存のアラートのまま）。<code>--warning</code>: データの扱いや取り消せないことなど、ずっと出しておく注意書き。<code>--info</code>: 同意のチェックを入れる枠と、ただの補足</li></ul>
 <h3 id="parts-fieldset">4. フォームのグループ見出し（fieldset / legend） <span class="tag">採用</span></h3><ul class="p">
 <li>グループは <code>&lt;fieldset&gt;</code>、見出しは <code>&lt;legend&gt;</code>。legend は <strong>h4 の段（sm 14 SemiBold）</strong></li>
 <li>グループの上に <code>--border</code> の 1px の線。グループ間の間隔は <code>--gap-field</code>（16）</li></ul>
 <h3 id="parts-pager">5. 前へ／次へだけのページ送り <span class="tag">採用</span></h3><ul class="p">
 <li>全体の件数が分からない一覧（ログなど）向けの簡易形として許可する</li>
 <li>中央に「N ページ目」を sm 14・<code>--mute</code></li>
-<li>端ではその側のボタンを disabled にする（opacity <code>.4</code>）</li></ul></section>
+<li>端ではその側のボタンを disabled にする（opacity <code>.4</code>）</li>
+<li>押したボタンが端で使えなくなったら、<strong>フォーカスを反対側のボタンへ移す</strong>（キーボードの操作が途切れないようにする）</li></ul></section>
 <section id="p1"><h2>UI部品 P1</h2><p class="sub">日付・時刻ピッカー、ファイルアップロード／ドロップゾーン、検索（クリア・候補）、ページネーション／もっと見る、ステップ／ウィザード、アコーディオン、通知バッジ数、スライダー、タグ入力（chips）。ガイドにない部品は使わない。<a href="tokens-preview.html#p1">ライブ見本を見る →</a></p></section>
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
