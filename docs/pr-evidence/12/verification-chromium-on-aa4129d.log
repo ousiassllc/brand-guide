@@ -1,0 +1,230 @@
+PASS ヘッダー index.html light 320px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":336,"iw":320,"segRight":292}
+PASS ヘッダー index.html light 320px: 横スクロールなし(ヘッダー起因)  seg右端=292 / vw=320, scrollWidth=336
+FAIL ヘッダー index.html light 320px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー index.html light 320px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー index.html light 375px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":375,"iw":375,"segRight":347}
+PASS ヘッダー index.html light 375px: 横スクロールなし(ヘッダー起因)  seg右端=347 / vw=375, scrollWidth=375
+FAIL ヘッダー index.html light 375px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー index.html light 375px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー index.html light 720px: 1行・縦折れなし  {"h":85.8,"one":true,"label":"表示","btn":"92×29 92×29 106×29","tapV":"46 46 46","tapH":"79 79 79","sw":720,"iw":720,"segRight":692}
+PASS ヘッダー index.html light 720px: 横スクロールなし(ヘッダー起因)  seg右端=692 / vw=720, scrollWidth=720
+PASS ヘッダー index.html dark 320px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":336,"iw":320,"segRight":292}
+PASS ヘッダー index.html dark 320px: 横スクロールなし(ヘッダー起因)  seg右端=292 / vw=320, scrollWidth=336
+FAIL ヘッダー index.html dark 320px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー index.html dark 320px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー index.html dark 375px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":375,"iw":375,"segRight":347}
+PASS ヘッダー index.html dark 375px: 横スクロールなし(ヘッダー起因)  seg右端=347 / vw=375, scrollWidth=375
+FAIL ヘッダー index.html dark 375px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー index.html dark 375px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー index.html dark 720px: 1行・縦折れなし  {"h":85.8,"one":true,"label":"表示","btn":"92×29 92×29 106×29","tapV":"46 46 46","tapH":"79 79 79","sw":720,"iw":720,"segRight":692}
+PASS ヘッダー index.html dark 720px: 横スクロールなし(ヘッダー起因)  seg右端=692 / vw=720, scrollWidth=720
+PASS ヘッダー tokens-preview.html light 320px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":377,"iw":320,"segRight":292}
+PASS ヘッダー tokens-preview.html light 320px: 横スクロールなし(ヘッダー起因)  seg右端=292 / vw=320, scrollWidth=377
+FAIL ヘッダー tokens-preview.html light 320px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー tokens-preview.html light 320px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー tokens-preview.html light 375px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":432,"iw":375,"segRight":347}
+PASS ヘッダー tokens-preview.html light 375px: 横スクロールなし(ヘッダー起因)  seg右端=347 / vw=375, scrollWidth=432
+FAIL ヘッダー tokens-preview.html light 375px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー tokens-preview.html light 375px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー tokens-preview.html light 720px: 1行・縦折れなし  {"h":85.8,"one":true,"label":"表示","btn":"92×29 92×29 106×29","tapV":"46 46 46","tapH":"79 79 79","sw":777,"iw":720,"segRight":692}
+PASS ヘッダー tokens-preview.html light 720px: 横スクロールなし(ヘッダー起因)  seg右端=692 / vw=720, scrollWidth=777
+PASS ヘッダー tokens-preview.html dark 320px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":377,"iw":320,"segRight":292}
+PASS ヘッダー tokens-preview.html dark 320px: 横スクロールなし(ヘッダー起因)  seg右端=292 / vw=320, scrollWidth=377
+FAIL ヘッダー tokens-preview.html dark 320px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー tokens-preview.html dark 320px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー tokens-preview.html dark 375px: 1行・縦折れなし  {"h":95,"one":true,"label":"視覚的に隠す","btn":"44×44 44×44 44×44","tapV":"44 44 44","tapH":"44 44 44","sw":432,"iw":375,"segRight":347}
+PASS ヘッダー tokens-preview.html dark 375px: 横スクロールなし(ヘッダー起因)  seg右端=347 / vw=375, scrollWidth=432
+FAIL ヘッダー tokens-preview.html dark 375px: アイコンだけ・見える部分 38×38  44×44 44×44 44×44
+PASS ヘッダー tokens-preview.html dark 375px: タップ範囲は縦 44px 以上  縦 44 44 44 / 横 44 44 44
+PASS ヘッダー tokens-preview.html dark 720px: 1行・縦折れなし  {"h":85.8,"one":true,"label":"表示","btn":"92×29 92×29 106×29","tapV":"46 46 46","tapH":"79 79 79","sw":777,"iw":720,"segRight":692}
+PASS ヘッダー tokens-preview.html dark 720px: 横スクロールなし(ヘッダー起因)  seg右端=692 / vw=720, scrollWidth=777
+| page | theme | w | header高 | 1行 | ラベル | ボタン w×h | scrollWidth/vw |
+|---|---|---|---|---|---|---|---|
+| index.html | light | 320 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 336/320 |
+| index.html | light | 375 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 375/375 |
+| index.html | light | 720 | 85.8 | Y | 表示 | 92×29 92×29 106×29 | 720/720 |
+| index.html | dark | 320 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 336/320 |
+| index.html | dark | 375 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 375/375 |
+| index.html | dark | 720 | 85.8 | Y | 表示 | 92×29 92×29 106×29 | 720/720 |
+| tokens-preview.html | light | 320 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 377/320 |
+| tokens-preview.html | light | 375 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 432/375 |
+| tokens-preview.html | light | 720 | 85.8 | Y | 表示 | 92×29 92×29 106×29 | 777/720 |
+| tokens-preview.html | dark | 320 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 377/320 |
+| tokens-preview.html | dark | 375 | 95 | Y | 視覚的に隠す | 44×44 44×44 44×44 | 432/375 |
+| tokens-preview.html | dark | 720 | 85.8 | Y | 表示 | 92×29 92×29 106×29 | 777/720 |
+PASS 見本 index.html light: 3 形とも role=group・3 ボタン
+FAIL 見本 index.html light: アイコンだけは見える部分 38×38  [[44,44],[44,44],[44,44]]
+PASS 見本 index.html light: アイコンだけのタップ範囲は縦 44px 以上  [44,44,44]
+PASS 見本 index.html light: アイコンだけのアイコンは 20px・stroke-width 1.5  [[20,"1.5px"],[20,"1.5px"],[20,"1.5px"]]
+PASS 見本 index.html light: 縦積みは 1 行 44px 以上・幅いっぱい  [[270,44],[270,44],[270,44]]
+PASS 見本 index.html light: 文字付き横並びの見た目の高さは現行（≤30px）のまま  [[92,28.8],[92,28.8],[105.6,28.8]]
+PASS 見本 index.html light: 文字付き横並びのタップ領域は縦 44px 以上  [46,46,46]
+PASS 見本 index.html light: 文字付きのアイコンは 16px（現行どおり）
+PASS 見本 index.html dark: 3 形とも role=group・3 ボタン
+FAIL 見本 index.html dark: アイコンだけは見える部分 38×38  [[44,44],[44,44],[44,44]]
+PASS 見本 index.html dark: アイコンだけのタップ範囲は縦 44px 以上  [44,44,44]
+PASS 見本 index.html dark: アイコンだけのアイコンは 20px・stroke-width 1.5  [[20,"1.5px"],[20,"1.5px"],[20,"1.5px"]]
+PASS 見本 index.html dark: 縦積みは 1 行 44px 以上・幅いっぱい  [[270,44],[270,44],[270,44]]
+PASS 見本 index.html dark: 文字付き横並びの見た目の高さは現行（≤30px）のまま  [[92,28.8],[92,28.8],[105.6,28.8]]
+PASS 見本 index.html dark: 文字付き横並びのタップ領域は縦 44px 以上  [46,46,46]
+PASS 見本 index.html dark: 文字付きのアイコンは 16px（現行どおり）
+PASS 見本 tokens-preview.html light: 3 形とも role=group・3 ボタン
+FAIL 見本 tokens-preview.html light: アイコンだけは見える部分 38×38  [[44,44],[44,44],[44,44]]
+PASS 見本 tokens-preview.html light: アイコンだけのタップ範囲は縦 44px 以上  [44,44,44]
+PASS 見本 tokens-preview.html light: アイコンだけのアイコンは 20px・stroke-width 1.5  [[20,"1.5px"],[20,"1.5px"],[20,"1.5px"]]
+PASS 見本 tokens-preview.html light: 縦積みは 1 行 44px 以上・幅いっぱい  [[270,44],[270,44],[270,44]]
+PASS 見本 tokens-preview.html light: 文字付き横並びの見た目の高さは現行（≤30px）のまま  [[92,28.8],[92,28.8],[105.6,28.8]]
+PASS 見本 tokens-preview.html light: 文字付き横並びのタップ領域は縦 44px 以上  [46,46,46]
+PASS 見本 tokens-preview.html light: 文字付きのアイコンは 16px（現行どおり）
+PASS 見本 tokens-preview.html dark: 3 形とも role=group・3 ボタン
+FAIL 見本 tokens-preview.html dark: アイコンだけは見える部分 38×38  [[44,44],[44,44],[44,44]]
+PASS 見本 tokens-preview.html dark: アイコンだけのタップ範囲は縦 44px 以上  [44,44,44]
+PASS 見本 tokens-preview.html dark: アイコンだけのアイコンは 20px・stroke-width 1.5  [[20,"1.5px"],[20,"1.5px"],[20,"1.5px"]]
+PASS 見本 tokens-preview.html dark: 縦積みは 1 行 44px 以上・幅いっぱい  [[270,44],[270,44],[270,44]]
+PASS 見本 tokens-preview.html dark: 文字付き横並びの見た目の高さは現行（≤30px）のまま  [[92,28.8],[92,28.8],[105.6,28.8]]
+PASS 見本 tokens-preview.html dark: 文字付き横並びのタップ領域は縦 44px 以上  [46,46,46]
+PASS 見本 tokens-preview.html dark: 文字付きのアイコンは 16px（現行どおり）
+PASS アクセシブルな名前 文字付き横並び: group 名と 3 つの名前付きボタン  - group "テーマ（文字付き横並び）": |   - button "ライト" |   - button "ダーク" |   - button "システム" [pressed]
+PASS 選択状態 文字付き横並び: system が初期 pressed
+PASS アクセシブルな名前 アイコンだけ: group 名と 3 つの名前付きボタン  - group "テーマ（アイコンだけ）": |   - button "ライト" |   - button "ダーク" |   - button "システム" [pressed]
+PASS 選択状態 アイコンだけ: system が初期 pressed
+PASS アクセシブルな名前 縦積み: group 名と 3 つの名前付きボタン  - group "テーマ（縦積み）": |   - button "ライト" |   - button "ダーク" |   - button "システム" [pressed]
+PASS 選択状態 縦積み: system が初期 pressed
+PASS アイコンだけでダークを押すと pressed が移る  - group "テーマ（アイコンだけ）": |   - button "ライト" |   - button "ダーク" [pressed] |   - button "システム"
+PASS アイコンだけ: 視覚ラベルは hidden ではなく読み上げ可能（textContent あり）  ライト,ダーク,システム
+PASS ツールチップ: 通常時はラベルが視覚的に隠れている（1px）  {"w":1,"h":1,"bg":"rgba(0, 0, 0, 0)","col":"rgb(107, 107, 110)"}
+PASS ツールチップ: hover でラベルが見える  {"w":54,"h":27,"bg":"rgb(5, 5, 5)","col":"rgb(245, 245, 244)"}
+PASS ツールチップ: キーボードフォーカスでラベルが見える  {"w":54,"h":27,"bg":"rgb(5, 5, 5)","col":"rgb(245, 245, 244)"}
+PASS キーボード 文字付き横並び: フォーカスで先頭 light
+PASS キーボード 文字付き横並び: →↓→←・Home・End で移動  dark,system,light,system,light,system
+PASS キーボード 文字付き横並び: Space で light を選択・保存
+PASS キーボード 文字付き横並び: Enter で dark を選択・保存
+PASS キーボード 文字付き横並び: 全部の切替グループ（ヘッダー含む）の aria-pressed が同期
+PASS キーボード 文字付き横並び: system で保存が消え OS に従う
+PASS キーボード 文字付き横並び: リロード後も light を維持し全グループに反映
+PASS キーボード アイコンだけ: フォーカスで先頭 light
+PASS キーボード アイコンだけ: →↓→←・Home・End で移動  dark,system,light,system,light,system
+PASS キーボード アイコンだけ: Space で light を選択・保存
+PASS キーボード アイコンだけ: Enter で dark を選択・保存
+PASS キーボード アイコンだけ: 全部の切替グループ（ヘッダー含む）の aria-pressed が同期
+PASS キーボード アイコンだけ: system で保存が消え OS に従う
+PASS キーボード アイコンだけ: リロード後も light を維持し全グループに反映
+PASS キーボード 縦積み: フォーカスで先頭 light
+PASS キーボード 縦積み: →↓→←・Home・End で移動  dark,system,light,system,light,system
+PASS キーボード 縦積み: Space で light を選択・保存
+PASS キーボード 縦積み: Enter で dark を選択・保存
+PASS キーボード 縦積み: 全部の切替グループ（ヘッダー含む）の aria-pressed が同期
+PASS キーボード 縦積み: system で保存が消え OS に従う
+PASS キーボード 縦積み: リロード後も light を維持し全グループに反映
+PASS Tab: 最初にヘッダーの切替（light→dark→system）に入り、次は見本ではなく本文へ  テーマ:light / テーマ:dark / テーマ:system / A
+PASS system: OS dark にリロードなしで追従
+PASS 明示 light は OS 変更で上書きされない
+PASS フォーカス 文字付き横並び light: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(74, 114, 208)","oo":"2px","focusVar":"#4a72d0","btn":"dark"}
+PASS フォーカス アイコンだけ light: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(74, 114, 208)","oo":"2px","focusVar":"#4a72d0","btn":"dark"}
+PASS フォーカス 縦積み light: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(74, 114, 208)","oo":"2px","focusVar":"#4a72d0","btn":"dark"}
+PASS フォーカス 文字付き横並び dark: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(96, 165, 250)","oo":"2px","focusVar":"#60a5fa","btn":"dark"}
+PASS フォーカス アイコンだけ dark: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(96, 165, 250)","oo":"2px","focusVar":"#60a5fa","btn":"dark"}
+PASS フォーカス 縦積み dark: 実線 3px・offset 2px・:focus-visible  {"fv":true,"ow":"3px","os":"solid","oc":"rgb(96, 165, 250)","oo":"2px","focusVar":"#60a5fa","btn":"dark"}
+PASS フォーカス ヘッダー(375) light: 実線 3px + ラベルの吹き出し  {"fv":true,"ow":"3px","os":"solid","oo":"2px","tip":54}
+PASS フォーカス ヘッダー(375) dark: 実線 3px + ラベルの吹き出し  {"fv":true,"ow":"3px","os":"solid","oo":"2px","tip":54}
+PASS forced-colors light seg: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(5, 0, 73, 0.8)","onFg":"rgb(255, 255, 255)","offBg":"rgba(255, 255, 255, 0)","offFg":"rgb(0, 0, 0)","after":"none"}
+PASS forced-colors light icon: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(5, 0, 73, 0.8)","onFg":"rgb(255, 255, 255)","offBg":"rgba(255, 255, 255, 0)","offFg":"rgb(0, 0, 0)","after":"none"}
+PASS forced-colors light stack: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(5, 0, 73, 0.8)","onFg":"rgb(255, 255, 255)","offBg":"rgba(255, 255, 255, 0)","offFg":"rgb(0, 0, 0)","after":"radial-gradient(circle, rgb(255, 255, 255) 0px, rgb(255, 255"}
+PASS forced-colors light stack: ラジオ印の点が選択中だけ描かれる
+PASS forced-colors dark seg: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(0, 230, 255, 0.8)","onFg":"rgb(0, 0, 0)","offBg":"rgba(0, 0, 0, 0)","offFg":"rgb(255, 255, 255)","after":"none"}
+PASS forced-colors dark icon: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(0, 230, 255, 0.8)","onFg":"rgb(0, 0, 0)","offBg":"rgba(0, 0, 0, 0)","offFg":"rgb(255, 255, 255)","after":"none"}
+PASS forced-colors dark stack: 選択中は塗りが非選択と違う（Highlight）  {"onBg":"rgba(0, 230, 255, 0.8)","onFg":"rgb(0, 0, 0)","offBg":"rgba(0, 0, 0, 0)","offFg":"rgb(255, 255, 255)","after":"radial-gradient(circle, rgb(0, 0, 0) 0px, rgb(0, 0, 0) 3px, "}
+PASS forced-colors dark stack: ラジオ印の点が選択中だけ描かれる
+PASS forced-colors ヘッダー(375 アイコンだけ): 選択中の塗りが違う  rgba(0, 230, 255, 0.8) vs rgba(0, 0, 0, 0)
+PASS reduced-motion: 3 形とヘッダーの切替ボタンに transition / animation がない  0s/0s
+PASS reduced-motion: 切替直後に Dark 背景（クロスフェードなし）  rgb(5, 5, 5)
+PASS 通常（motion あり）でも切替直後に Dark 背景（transition を止めて即時）  rgb(5, 5, 5)
+PASS 見本 index.html light 320px: 見本がビューポート内に収まる  {"sw":336,"vw":320,"over":[],"labelledScrolls":true}
+PASS 見本 index.html light 375px: 見本がビューポート内に収まる  {"sw":375,"vw":375,"over":[],"labelledScrolls":false}
+PASS 見本 index.html light 720px: 見本がビューポート内に収まる  {"sw":720,"vw":720,"over":[],"labelledScrolls":false}
+PASS 見本 index.html light 1280px: 見本がビューポート内に収まる  {"sw":1280,"vw":1280,"over":[],"labelledScrolls":false}
+PASS 見本 index.html dark 320px: 見本がビューポート内に収まる  {"sw":336,"vw":320,"over":[],"labelledScrolls":true}
+PASS 見本 index.html dark 375px: 見本がビューポート内に収まる  {"sw":375,"vw":375,"over":[],"labelledScrolls":false}
+PASS 見本 index.html dark 720px: 見本がビューポート内に収まる  {"sw":720,"vw":720,"over":[],"labelledScrolls":false}
+PASS 見本 index.html dark 1280px: 見本がビューポート内に収まる  {"sw":1280,"vw":1280,"over":[],"labelledScrolls":false}
+PASS 見本 tokens-preview.html light 320px: 見本がビューポート内に収まる  {"sw":377,"vw":320,"over":[],"labelledScrolls":true}
+PASS 見本 tokens-preview.html light 375px: 見本がビューポート内に収まる  {"sw":432,"vw":375,"over":[],"labelledScrolls":true}
+PASS 見本 tokens-preview.html light 720px: 見本がビューポート内に収まる  {"sw":777,"vw":720,"over":[],"labelledScrolls":false}
+PASS 見本 tokens-preview.html light 1280px: 見本がビューポート内に収まる  {"sw":2077,"vw":1280,"over":[],"labelledScrolls":false}
+PASS 見本 tokens-preview.html dark 320px: 見本がビューポート内に収まる  {"sw":377,"vw":320,"over":[],"labelledScrolls":true}
+PASS 見本 tokens-preview.html dark 375px: 見本がビューポート内に収まる  {"sw":432,"vw":375,"over":[],"labelledScrolls":true}
+PASS 見本 tokens-preview.html dark 720px: 見本がビューポート内に収まる  {"sw":777,"vw":720,"over":[],"labelledScrolls":false}
+PASS 見本 tokens-preview.html dark 1280px: 見本がビューポート内に収まる  {"sw":2077,"vw":1280,"over":[],"labelledScrolls":false}
+FAIL P2-1 light: アイコンだけの選択中の塗り（見える部分）は 38×38  [44,44]
+FAIL P2-1 light: 塗りと外枠の間に 3px の余白（上下左右）  L0 T0 R0 B0
+FAIL P2-1 light: ::before は 44×44（inset -3px）  ["auto","auto"]["-8px","0px"]
+PASS P2-1 light: 外枠の高さは変えない（46px。aa4129d と同じ）  [134,46]
+FAIL P2-1 dark: アイコンだけの選択中の塗り（見える部分）は 38×38  [44,44]
+FAIL P2-1 dark: 塗りと外枠の間に 3px の余白（上下左右）  L0 T0 R0 B0
+FAIL P2-1 dark: ::before は 44×44（inset -3px）  ["auto","auto"]["-8px","0px"]
+PASS P2-1 dark: 外枠の高さは変えない（46px。aa4129d と同じ）  [134,46]
+PASS P2-1 ヘッダー高さ index 320px: aa4129d と同じ（.top / .seg）  new 95/46 old 95/46
+PASS P2-1 ヘッダー高さ index 375px: aa4129d と同じ（.top / .seg）  new 95/46 old 95/46
+PASS P2-1 ヘッダー高さ index 414px: aa4129d と同じ（.top / .seg）  new 95/46 old 95/46
+PASS P2-1 ヘッダー高さ index 480px: aa4129d と同じ（.top / .seg）  new 95/46 old 95/46
+PASS P2-1 ヘッダー高さ index 481px: aa4129d と同じ（.top / .seg）  new 85.8/36.8 old 85.8/36.8
+PASS P2-1 ヘッダー高さ index 600px: aa4129d と同じ（.top / .seg）  new 85.8/36.8 old 85.8/36.8
+PASS P2-1 ヘッダー高さ index 720px: aa4129d と同じ（.top / .seg）  new 85.8/36.8 old 85.8/36.8
+PASS P2-1 ヘッダー高さ index 1280px: aa4129d と同じ（.top / .seg）  new 85.8/36.8 old 85.8/36.8
+PASS ヘッダー高さ: ≤480px は 95px のまま、>480px は 85.8px のまま  320:95 375:95 414:95 480:95 481:85.8 600:85.8 720:85.8 1280:85.8
+PASS ヘッダー高さ tokens-preview: 320/375 は 95、720 は 85.8  320:95.0 375:95.0 720:85.8
+FAIL P2-2 見本 light: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本 light: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 見本 light: 500ms 後は opacity 1  1
+PASS P2-2 見本 light reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 ヘッダー375 light: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 ヘッダー375 light: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 ヘッダー375 light: 500ms 後は opacity 1  1
+PASS P2-2 ヘッダー375 light reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本(tokens-preview) light: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本(tokens-preview) light: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 見本(tokens-preview) light: 500ms 後は opacity 1  1
+PASS P2-2 見本(tokens-preview) light reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本 dark: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本 dark: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 見本 dark: 500ms 後は opacity 1  1
+PASS P2-2 見本 dark reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 ヘッダー375 dark: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 ヘッダー375 dark: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 ヘッダー375 dark: 500ms 後は opacity 1  1
+PASS P2-2 ヘッダー375 dark reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本(tokens-preview) dark: 吹き出しは padding 6×10・角丸 4px・Regular 400・12px・枠なし  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-2 見本(tokens-preview) dark: 320ms のフェードイン（opacity アニメ）  n=0 duration=null opacity@30ms=1
+PASS P2-2 見本(tokens-preview) dark: 500ms 後は opacity 1  1
+PASS P2-2 見本(tokens-preview) dark reduced-motion: アニメなし（animation none・Animation 0 件）  {"pad":"4px 8px","rad":"6px","fw":"600","fs":"12px","bw":"1px","an":"none","dur":null,"n":0,"op":1,"w":54.015625}
+FAIL P2-3 index.html light: 選択中の行は --accent-soft の地（--accent のベタではない）  rgb(5, 5, 5) (soft=rgb(231, 231, 229), accent=rgb(5, 5, 5))
+FAIL P2-3 index.html light: 選択中の行の文字は --ink  rgb(245, 245, 244) / lb rgb(245, 245, 244) (ink=rgb(5, 5, 5))
+FAIL P2-3 index.html light: ラジオの円だけ --accent で塗り、点は --bone  rgb(245, 245, 244) radial-gradient(circle, rgb(245, 245, 244) 0px, rgb(245, 245, 244) 3px, rgba(0, 0, 0, 0) 3.5px)
+PASS P2-3 index.html light: 非選択の行は地なし・円は塗らない  rgba(0, 0, 0, 0) / none
+FAIL P2-3 index.html dark: 選択中の行は --accent-soft の地（--accent のベタではない）  rgb(245, 245, 244) (soft=rgb(42, 42, 42), accent=rgb(245, 245, 244))
+FAIL P2-3 index.html dark: 選択中の行の文字は --ink  rgb(5, 5, 5) / lb rgb(5, 5, 5) (ink=rgb(255, 255, 255))
+FAIL P2-3 index.html dark: ラジオの円だけ --accent で塗り、点は --bone  rgb(5, 5, 5) radial-gradient(circle, rgb(5, 5, 5) 0px, rgb(5, 5, 5) 3px, rgba(0, 0, 0, 0) 3.5px)
+PASS P2-3 index.html dark: 非選択の行は地なし・円は塗らない  rgba(0, 0, 0, 0) / none
+FAIL P2-3 tokens-preview.html light: 選択中の行は --accent-soft の地（--accent のベタではない）  rgb(5, 5, 5) (soft=rgb(231, 231, 229), accent=rgb(5, 5, 5))
+FAIL P2-3 tokens-preview.html light: 選択中の行の文字は --ink  rgb(245, 245, 244) / lb rgb(245, 245, 244) (ink=rgb(5, 5, 5))
+FAIL P2-3 tokens-preview.html light: ラジオの円だけ --accent で塗り、点は --bone  rgb(245, 245, 244) radial-gradient(circle, rgb(245, 245, 244) 0px, rgb(245, 245, 244) 3px, rgba(0, 0, 0, 0) 3.5px)
+PASS P2-3 tokens-preview.html light: 非選択の行は地なし・円は塗らない  rgba(0, 0, 0, 0) / none
+FAIL P2-3 tokens-preview.html dark: 選択中の行は --accent-soft の地（--accent のベタではない）  rgb(245, 245, 244) (soft=rgb(42, 42, 42), accent=rgb(245, 245, 244))
+FAIL P2-3 tokens-preview.html dark: 選択中の行の文字は --ink  rgb(5, 5, 5) / lb rgb(5, 5, 5) (ink=rgb(255, 255, 255))
+FAIL P2-3 tokens-preview.html dark: ラジオの円だけ --accent で塗り、点は --bone  rgb(5, 5, 5) radial-gradient(circle, rgb(5, 5, 5) 0px, rgb(5, 5, 5) 3px, rgba(0, 0, 0, 0) 3.5px)
+PASS P2-3 tokens-preview.html dark: 非選択の行は地なし・円は塗らない  rgba(0, 0, 0, 0) / none
+FAIL P3-1 index.html light 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[264,304],"note":null,"inside":false}
+FAIL P3-1 index.html dark 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[264,304],"note":null,"inside":false}
+FAIL P3-1 tokens-preview.html light 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[214,304],"note":null,"inside":false}
+FAIL P3-1 tokens-preview.html dark 320px: 文字付き見本は横スクロールだが注記が見える位置にある  {"sc":[214,304],"note":null,"inside":false}
+PASS P3-1 1280px: 注記を足しても文字付き見本は横スクロールしない（幅が足りる置き場では出ない）  [310,310]
+PASS P3-3 見本 light forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+INFO  P3-3 見本 light aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+PASS P3-3 ヘッダー375 light forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+INFO  P3-3 ヘッダー375 light aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(0, 0, 0)","bg":"rgb(255, 255, 255)","fg":"rgb(0, 0, 0)","CanvasText":"rgb(0, 0, 0)","Canvas":"rgb(255, 255, 255)"}
+PASS P3-3 見本 dark forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+INFO  P3-3 見本 dark aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+PASS P3-3 ヘッダー375 dark forced-colors: 吹き出しに 1px solid CanvasText の枠が残り、背景は Canvas・文字は CanvasText  new {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+INFO  P3-3 ヘッダー375 dark aa4129d の同じ計算値: {"bw":"1px","bs":"solid","bc":"rgb(255, 255, 255)","bg":"rgb(0, 0, 0)","fg":"rgb(255, 255, 255)","CanvasText":"rgb(255, 255, 255)","Canvas":"rgb(0, 0, 0)"}
+
+SUMMARY chromium: PASS=164 FAIL=46
