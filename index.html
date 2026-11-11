@@ -6,7 +6,9 @@
 @font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism:linear-gradient(90deg,#8b6ad4,#4a72d0,#3aaaba,#3d9a7a,#b8a24a)}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism:linear-gradient(90deg,#a78bfa,#60a5fa,#22d3ee,#34d399,#fbbf24)}
+:root,[data-theme]{--mute-on-soft:color-mix(in srgb,var(--mute) 85%,var(--ink));--font-mono:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif}
+a{color:var(--ink);text-decoration-color:var(--mute);text-underline-offset:3px}
 .wrap{max-width:960px;margin:0 auto;padding:0 28px}header{padding:96px 0 64px}
 .top{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--border)}
 .logo{font-weight:400;letter-spacing:.3em;font-size:14px}
@@ -52,10 +54,11 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 .tag{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:999px;padding:0 10px;font-size:12px;margin-right:8px;line-height:1.7}
 pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow-x:auto;font-size:14px;line-height:1.6}pre.code:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .jump{font-size:14px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
+.h14t{width:100%}.h14t .tag{white-space:nowrap;margin-right:0}.h14t.src td:last-child{color:var(--mute)}@media(max-width:640px){.h14t thead{display:none}.h14t tr{display:block;padding:10px 0;border-bottom:1px solid var(--border)}.h14t td{display:block;padding:0;border:0}.h14t td:first-child{font-weight:600}.h14t.src td:last-child{font-size:12px}}
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
-<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">状態・スピナー・リップルなどは推奨案（未確定）。テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code>）は採用済み。</p></header>
-<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>.4</code>・全幅バナーの即時の出入りは採用済み。<a href="#dialog">ダイアログ</a> ／ <a href="#pane-app">ペイン型アプリの例外</a> ／ <a href="#proposals">Hitomado 提案の反映（#283〜#287）</a></p></header>
+<p class="jump"><a href="#color">色</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -84,7 +87,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <h3 class="h">フォントスタック</h3><table><tr><th>用途</th><th>フォント</th><th>CSS</th></tr>
 <tr><td>英字・UI 英語</td><td>Sora</td><td><code>font-family: Sora, "Noto Sans JP", sans-serif</code></td></tr>
 <tr><td>日本語</td><td>Noto Sans JP</td><td>（上記スタックのフォールバックとして日本語に適用）</td></tr>
-<tr><td>コード・数値</td><td>JetBrains Mono</td><td><code>font-family: "JetBrains Mono", ui-monospace, monospace</code></td></tr></table>
+<tr><td>コード・数値</td><td>JetBrains Mono</td><td><code>--font-mono: "JetBrains Mono", "Noto Sans JP", ui-monospace, monospace</code>（日本語はフォールバックで Noto Sans JP。<a href="#proposals">提案の反映</a>）</td></tr></table>
 <h3 class="h">サイズスケール</h3><table><tr><th>トークン</th><th>rem</th><th>px</th><th>行間</th><th>用途（例）</th></tr>
 <tr><td><code>xs</code></td><td>0.75</td><td>12</td><td>1.6</td><td>注記・バッジ</td></tr>
 <tr><td><code>sm</code></td><td>0.875</td><td>14</td><td>1.7</td><td>補足・表・ボタン小</td></tr>
@@ -102,7 +105,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <section id="motion"><h2>モーション Motion</h2><p class="sub">基本的に静かだけど動きがある。静か・短く・目的があるときだけ。fast 120 / base 180 / slow 280、フェードイン 320 / フェードアウト 240。ボタン／クローズ押下時は小さくリップル（円がファン）。バウンスや UI 上のプリズムモーションは使わない。reduced-motion 対応。トーストは下中央・3秒（アクション付き5秒）・同時1つ。<a href="tokens-preview.html#motion">ライブ見本を見る →</a></p></section>
 <section id="p0"><h2>骨格コンポーネント P0</h2><p class="sub">ナビ（トップ／サイド／モバイル畳み）、パンくず、ドロップダウン、ツールチップ／ポップオーバー、右ドロワー、ブレークポイント（sm 640 / md 768 / lg 1024 / xl 1280）と 4/8/12 カラム、z-index スケール（dropdown 100 → toast 500）、UI アイコンは <a href="https://iconoir.com" rel="noopener">Iconoir</a>（MIT・16 / 20 / 24、empty は 32 可・ブランドロゴは別）。ガイドにない部品は使わない。<a href="tokens-preview.html#p0">ライブ見本を見る →</a></p></section>
 <section id="controls"><h2>スイッチ・スライダー</h2><p class="sub">フォームのオンオフとレンジはガイド見た目必須。OS／ブラウザの標準コントロールをそのまま出さない。<a href="tokens-preview.html#controls-switch">スイッチ見本</a> ／ <a href="tokens-preview.html#p1-slider">スライダー見本</a></p>
-<div class="dd"><div><h3>スイッチ</h3><ul class="p"><li>トラック 36×20、つまみ 14、角丸 full</li><li>OFF: accent-soft＋border／ON: accent（つまみは bone）</li><li>フォーカスは --focus の 3px 実線リング（offset 2px。<a href="#focus">フォーカスリング</a>）</li><li>ラベルは Regular 15、SemiBold にしない</li></ul></div><div><h3>スライダー</h3><ul class="p"><li>トラック高さ 4、角丸 full、未充填は accent-soft、充填は accent</li><li>つまみ 16 円・surface＋1px border（ダークも同じ構造）</li><li>accent-color だけに頼らず、track／thumb を明示スタイル</li><li>値表示は Mono mute 可</li></ul></div></div></section>
+<div class="dd"><div><h3>スイッチ</h3><ul class="p"><li>トラック 36×20、つまみ 14、角丸 full</li><li>OFF: accent-soft＋border／ON: accent（つまみは bone）</li><li>フォーカスは --focus の 3px 実線リング（offset 2px。<a href="#focus">フォーカスリング</a>）</li><li>ラベルは Regular、SemiBold にしない。サイズは base 16 <span class="tag">採用</span>（15 はスケールに無いので使わない。<a href="#decided">決定 4 件</a>）</li></ul></div><div><h3>スライダー</h3><ul class="p"><li>トラック高さ 4、角丸 full、未充填は accent-soft、充填は accent</li><li>つまみ 16 円・surface＋1px border（ダークも同じ構造）</li><li>accent-color だけに頼らず、track／thumb を明示スタイル</li><li>値表示は Mono mute 可</li></ul></div></div></section>
 <section id="scrollbar"><h2>スクロールバー Scrollbar</h2><p class="sub">対象は<strong>コンテンツのスクロールバー</strong>（<code>overflow: auto</code> の領域）。値を変える<a href="#controls">スライダー</a>とは別物で、スライダーの規定（トラック 4・つまみ 16）は適用しない。OS 標準の太く明るいバーと矢印を、静かな UI から浮かせない。<a href="tokens-preview.html#scrollbar">縦・横・両方向の操作できる見本 →</a></p>
 <div class="dd"><div><h3>見た目（縦横で同じ設計）</h3><ul class="p"><li>矢印（スクロールボタン）なし・細め・<strong>透明トラック</strong>・角丸 full のグレー thumb</li><li>カスタム可能な環境では<strong>縦幅・横高さ 8px</strong>を基本とする。Firefox 等は <code>scrollbar-width: thin</code> で近似し、<strong>全ブラウザで厳密な 8px は保証しない</strong></li><li>縦横の交差部分（corner）も透明</li><li>thumb は通常 <code>--mute</code>（Light #6b6b6e / Dark #8b8b8e）。hover / drag は <code>--ink</code> 側へ強める（Light は少し濃く、Dark は少し明るく）。背景（bone / surface）との視認性を実際に確認する</li></ul></div><div><h3>守ること</h3><ul class="p"><li><strong>ネイティブスクロール</strong>を使う。独自 JS のドラッグ機構に置き換えない</li><li>バーを強制的に常時非表示にしない。スクロールできること・操作性を損なわない</li><li>キーボード（Tab でフォーカス → 縦は ↑↓・PageUp／PageDown・Space・Home／End、横は ←→）、タッチ、ホイール、トラックパッドを維持する。thumb は細くドラッグしにくいので、ドラッグ以外の操作を必ず使える状態にする</li><li>対応できない環境があっても、隠すためにスクロール機能を消さない</li></ul></div></div>
 <h3>CSS の適用例と優先関係</h3>
@@ -169,10 +172,9 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 &lt;/script&gt;</pre>
 <p class="sub" style="font-size:14px">上は初期値の決定だけ。System の追従（<code>matchMedia(...).addEventListener('change', …)</code>）・保存・切替ボタン・<code>aria-pressed</code> を含む参照実装は <a href="theme.js"><code>theme.js</code></a>（このページと tokens-preview が読み込む）。</p></section>
 <section id="states" class="spec"><h2>ボタン・スイッチ・ラジオの状態 States</h2><p class="sub">通常・disabled（opacity <code>.4</code>）・スイッチ OFF/ON・ラジオの見本は変えず、足りない状態を決める。<a href="tokens-preview.html#st-buttons">ボタン</a> ／ <a href="tokens-preview.html#st-switch">スイッチ・ラジオ</a> の操作できる見本。</p>
-<div class="dd"><div><h3>ボタン <span class="tag">推奨案</span></h3><ul class="p"><li>default / hover（色・背景のみ、≤180ms）/ focus-visible / active（リップルは既存）/ disabled（opacity <code>.4</code>・操作不可）/ <strong>loading</strong></li>
-<li><strong>loading</strong>: 寸法を維持し、薄くしない。ラベルは透明にして幅を保ち、中央にスピナーを重ねる。<code>aria-busy="true"</code>、クリックは無効（<code>disabled</code> の opacity <code>.4</code> とは別に扱う）</li>
-<li>危険ボタン（<code>dan</code>）: 地・枠・文字は既存の <code>--danger</code>（枠 45% / hover は 10% の薄い混ぜ）。新しい色は作らない</li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> loading をスピナーではなく文言（「保存中…」）のみにする。</p></div>
+<div class="dd"><div><h3>ボタン <span class="tag">採用</span></h3><ul class="p"><li>default / hover（色・背景のみ、≤180ms）/ focus-visible / active（リップルは既存）/ disabled（opacity <code>.4</code>・操作不可）/ <strong>loading</strong></li>
+<li><strong>loading</strong>: 寸法を維持し、薄くしない（opacity を掛けない）。ラベルは透明にして幅を保ち、中央にスピナーを重ねる。<code>aria-busy="true"</code>、クリックは無効（<code>disabled</code> の opacity <code>.4</code> とは別に扱う）。参照: hitomado#254</li>
+<li>危険ボタン（<code>dan</code>）: 地・枠・文字は既存の <code>--danger</code>（枠 45% / hover は 10% の薄い混ぜ）。新しい色は作らない</li></ul></div>
 <div><h3>スイッチ・ラジオ <span class="tag">推奨案</span></h3><ul class="p"><li><strong>スイッチ</strong>: 既定寸法（36×20・つまみ 14）・OFF（accent-soft＋border）/ ON（accent・つまみ bone）は維持。disabled は他部品と同じ opacity <code>.4</code>。つまみの移動と背景の遷移は <code>--motion-base</code>（180ms）の色・位置のみ（バウンス禁止）</li>
 <li><strong>ラジオ</strong>: <strong>18px の円</strong>、枠は <code>--mute</code> 1px。選択は <code>--accent</code> 地の中央に <strong>6px の <code>--bone</code> の点</strong>。focus は 3px の <code>--focus</code> リング、disabled は opacity <code>.4</code>（ラベルは <code>--mute</code>）</li></ul>
 <p class="sub" style="font-size:14px"><strong>代替:</strong> スイッチの disabled を opacity ではなく border / mute だけで示す。</p></div></div></section>
@@ -188,9 +190,8 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px"><thead><tr><th style="text-align:left;color:var(--mute)">--focus 対</th><th style="text-align:left;color:var(--mute)">bone</th><th style="text-align:left;color:var(--mute)">surface</th><th style="text-align:left;color:var(--mute)">soft</th></tr></thead><tbody>
 <tr><td>Light</td><td>4.18</td><td>4.56</td><td>3.68</td></tr><tr><td>Dark</td><td>8.02</td><td>7.25</td><td>5.65</td></tr></tbody></table></div></div></section>
 <section id="spinner" class="spec"><h2>スピナー Spinner</h2><p class="sub">既存の Feedback 見本（<a href="tokens-preview.html#feedback">読み込み中</a>）を文章にする。<a href="tokens-preview.html#st-spinner">通常面と primary ボタン内の見本 →</a></p>
-<div class="dd"><div><h3>寸法・色・周期 <span class="tag">推奨案</span></h3><ul class="p"><li>20px・線 2px・トラック <code>--accent-soft</code>・先端 <code>--accent</code>・<strong>0.9s linear</strong></li>
-<li>ボタン内は <code>currentColor</code> の先端＋ 25% のトラック（primary では先端が <code>--bone</code> 側になり、反転して見える）</li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> 周期 0.8s。サイズを sm / md の 2 段にする。周期を変える場合は #9（pull-to-refresh、0.9s・20・線 2 を前提）と矛盾しないことを確認する（本ガイドは 0.9s のまま）。</p></div>
+<div class="dd"><div><h3>寸法・色・周期 <span class="tag">採用</span></h3><ul class="p"><li>20px・線 2px・トラック <code>--accent-soft</code>・先端 <code>--accent</code>・<strong>0.9s linear</strong>（#9 の pull-to-refresh と同じ 0.9s・20・線 2）。参照: hitomado#259</li>
+<li>ボタン内は <code>currentColor</code> の先端＋ 25% のトラック（primary では先端が <code>--bone</code> 側になり、反転して見える）</li></ul></div>
 <div><h3>reduced-motion</h3><ul class="p"><li><code>prefers-reduced-motion: reduce</code> では<strong>回転を止める</strong>。先端のアーク・<code>aria-busy</code>・ラベルで処理中であることは残す（モーションの既定「スピナーは維持」と矛盾しない）</li>
 <li><code>forced-colors: active</code> ではトラックを透明にし、先端の円弧だけを <code>CanvasText</code> で残す（回転しなくても処理中と分かる）</li></ul></div></div></section>
 <section id="layers" class="spec"><h2>重なり順とモーダルの影 Layers &amp; shadow</h2><p class="sub">既存の 0–500 の段は並べ替えない。<a href="tokens-preview.html#st-z">操作できる見本（モーダルの上にメニュー、その上に toast）</a> ／ <a href="tokens-preview.html#st-shadow">影の Light / Dark 比較</a></p>
@@ -202,18 +203,84 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <li>Light: <code>0 1px 2px rgb(0 0 0 / 6%)</code> ／ Dark: <code>0 1px 2px rgb(0 0 0 / 40%)</code></li>
 <li>Dark の背景 <code>#050505</code> では黒い影はほぼ見えない。面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う</li></ul></div></div></section>
 <section id="soft-ripple" class="spec"><h2>accent-soft 上の文字とリップル対象</h2>
-<div class="dd"><div><h3>accent-soft 地の補助文字 <span class="tag">採用</span></h3><ul class="p"><li>ホバー／選択行など <code>--accent-soft</code> を地にする面の文字は、短い補助テキストでも <strong><code>--ink</code></strong> を使う（または同等に 4.5:1 を満たす色）。<code>--mute</code> のまま置かない</li>
+<div class="dd"><div><h3>accent-soft 地の補助文字 <span class="tag">採用</span></h3><ul class="p"><li>ホバー・選択・複数選択の行、候補一覧の強調行など <code>--accent-soft</code> を地にする面の補助テキストは <strong><code>--ink</code></strong> か <strong><code>--mute-on-soft</code></strong>。<code>--mute</code> のまま置かない</li>
+<li>主テキストとの階層（未読/既読、名前/メールなど）を残したいときは <code>--mute-on-soft</code> を使う</li>
+<li>定義: <code>--mute-on-soft: color-mix(in srgb, var(--mute) 85%, var(--ink));</code>（新しい HEX は作らない。テーマごとに <code>--mute</code> と <code>--ink</code> から計算される）</li>
+<li>計算値の目安: Light ≈ <code>#5c5c5e</code>、<code>--accent-soft</code> #e7e7e5 上で約 5.4:1／Dark ≈ <code>#9c9c9f</code>、#2a2a2a 上で約 5.2:1（<code>--mute</code> のままだと 4.29 / 4.22:1）</li>
 <li>理由: <code>--mute</code> は bone / surface 上では AA 4.5:1 だが、<code>--accent-soft</code> 上では Light 4.29:1 / Dark 4.22:1 と下回る</li>
-<li>色トークンの値は変えない。<a href="tokens-preview.html#st-soft">見本（ライブ計算）→</a></li></ul></div>
-<div><h3>リップルの対象 <span class="tag">推奨案</span></h3><ul class="p"><li><strong>対象</strong>: 通常ボタン（pri / sec / ghost / dan）とクローズ等のアイコンボタン。周期は slow 帯 280ms（既存）</li>
-<li><strong>非対象</strong>: テキストリンク、行型・カード型の選択、タブ、セレクトのトリガ、スイッチ／ラジオ／スライダー（ホバーは色のみ）</li>
-<li>loading 中のボタンには出さない。reduced-motion では出さない。<a href="tokens-preview.html#st-ripple">対象／非対象の見本 →</a></li></ul>
-<p class="sub" style="font-size:14px"><strong>代替:</strong> タブやセレクトのトリガにも付ける。行・カード型に付ける場合は見本で静かな大きさを確認する。テキストリンクには付けない。</p></div></div></section>
+<li>既存の色トークンの値は変えない（<code>--mute-on-soft</code> を足すだけ）。<a href="tokens-preview.html#st-soft">見本（Light / Dark のライブ計算）→</a>。参照: hitomado#267・#271</li></ul></div>
+<div><h3>リップルの対象 <span class="tag">採用</span></h3><ul class="p"><li><strong>対象</strong>: 通常ボタン（pri / sec / ghost / dan）とクローズ等のアイコンボタンだけ。周期は slow 帯 280ms（既存）</li>
+<li><strong>非対象</strong>: 行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー。押下は背景色・文字色の変化で示す</li>
+<li>loading 中と reduced-motion では出さない。<a href="tokens-preview.html#st-ripple">対象／非対象の見本 →</a>。参照: hitomado#268</li></ul></div></div></section>
 <section id="a11y-modes" class="spec"><h2>forced-colors と reduced-motion の扱い</h2><div class="dd"><div><h3>forced-colors（ハイコントラスト）</h3><ul class="p"><li>色だけで見せていた状態は、システム色に置き換えて残す：スイッチ ON/OFF（<code>Highlight</code> / <code>Canvas</code>）、ラジオ・チェックの選択、スピナーの先端、テーマ切替の選択中（<code>Highlight</code>）</li>
 <li>フォーカスは <code>outline</code>（forced-colors でも残る）。<code>box-shadow</code> だけに頼らない</li>
 <li>スクロールバーは既存の規定どおり forced-colors では OS 標準に任せる</li></ul></div>
 <div><h3>prefers-reduced-motion</h3><ul class="p"><li>色の遷移（ボタン・スイッチ・入力）、スピナーの回転、リップルを止める</li>
 <li>処理中表示（スピナーのアーク・<code>aria-busy</code>）と状態の変化そのものは残す</li></ul></div></div></section>
+<section id="dialog" class="spec"><h2>ダイアログの本文と閉じ方 Dialog</h2><p class="sub">確認・案内・AI の要約／回答など、読ませる主文を持つモーダルと、お知らせ（notice）の規定。参照: hitomado#277・#281・#282。<a href="tokens-preview.html#st-dialog">操作できる見本（Esc・× ・外側クリック・処理中）→</a></p>
+<div class="dd"><div><h3>本文は base 16 <span class="tag">採用</span></h3><ul class="p"><li>ダイアログの本文（確認・案内・AI の要約／回答など読ませる主文）は<a href="#typography">サイズ表</a>の <code>base</code>（16px・行間 1.8）。Hitomado の名前では <code>--font-size-base</code> ＋ <code>--line-height-base</code></li>
+<li>注記・確認ダイアログ内の補足・設定タブ冒頭の説明文は sm 14 のままでよい。14px 未満を本文にしない（従来どおり）</li>
+<li>題は lg 18 SemiBold（<a href="#pane-app">見出しの段</a>）</li></ul></div>
+<div><h3>閉じ方 <span class="tag">採用</span></h3><ul class="p"><li>モーダル・お知らせ（notice）は <strong>Esc と外側クリック（スクラム）で閉じられる</strong>。× も出す</li>
+<li>閉じることは<strong>「確認した（acknowledge）」扱いにしない</strong>。確認済みにするのは明示のボタンだけ</li>
+<li>閉じる操作を止めてよいのは<strong>処理中（送信中・保存中など）だけ</strong>。処理中は × を隠すか無効にし（Esc・外側クリックも受けない）、終わったら戻す</li>
+<li>「確認必須だから常に閉じられない」は不可。閉じても確認済みにはしない</li></ul></div></div></section>
+<section id="pane-app" class="spec ty"><h2>ペイン型デスクトップアプリの例外 Pane apps</h2><p class="sub">3 ペインのメールクライアントのような、密度の高いデスクトップアプリで使ってよい値。<strong>ページ型の画面には当てはめない</strong>（ページ型は従来の間隔・12 カラムのまま）。参照: hitomado#261・#263・#265・#281。<a href="tokens-preview.html#st-pane">見本 →</a></p>
+<table class="h14t src"><thead><tr><th>対象</th><th>値・ルール</th><th>出典</th></tr></thead><tbody>
+<tr><td>ツールバー</td><td>アイコンボタンだけのツールバーは gap 4（<code>--s-1</code>）。文字ボタン混在は <code>--gap-inline</code> 8</td><td>hitomado#261</td></tr>
+<tr><td>複合行の選択リスト</td><td>ラジオ＋ラベル＋32px の操作ボタンが並ぶ行は項目間 8。素のラジオ行は <code>--gap-option</code> 4</td><td>hitomado#261</td></tr>
+<tr><td>ダイアログ内サブセクション</td><td>h4 付きサブセクションの間は <code>--gap-field</code> 16（<code>--gap-section-sm</code> 48 は不要）</td><td>hitomado#261</td></tr>
+<tr><td>ペイン内 padding</td><td><code>--s-4</code>（モバイル・デスクトップ共通）。ガター <code>--s-6</code> は 12 カラムのページグリッド向け</td><td>hitomado#265</td></tr>
+<tr><td>サイドナビの 2 行項目</td><td>アカウント項目は 2 行（名前 sm ＋メール xs の注記）、高さ ~62px まで可。1 行項目は従来の 40</td><td>hitomado#263</td></tr>
+<tr><td>ドロップダウン・セレクト・候補の項目</td><td>項目間 gap 0、パネル padding 4（<code>--s-1</code>）。ホバーが途切れないようにするため</td><td>hitomado#265</td></tr>
+<tr><td>アカウント識別色の帯</td><td>帯は枠（S4 の 1px）ではなく識別マーク扱い。ヘッダー上 4px／行・サイドナビ 6px／差出人バッジ 8px</td><td>hitomado#265</td></tr>
+<tr><td>色見本（スウォッチ）の選択</td><td>2px の <code>--ink</code>（色の上で非テキスト 3:1 を確保するため）。フォーカスは別に <code>--focus</code> リング</td><td>hitomado#265</td></tr>
+<tr><td>アプリ内の見出しの段</td><td>モーダルの題 lg 18／h3 base 16／h4 sm 14（いずれも SemiBold）。見出しを本文より小さくしない</td><td>hitomado#281</td></tr>
+<tr><td>インラインアラートの題</td><td>見出し扱いで SemiBold・sm（タグは strong でもよい）</td><td>hitomado#281</td></tr>
+<tr><td>トーストのタイマー</td><td>表示時間（3 秒／アクション付き 5 秒）は入場アニメーションが終わってから数える</td><td>—</td></tr>
+<tr><td>お知らせのロック</td><td>閉じる操作を止めるのは処理中だけ（<a href="#dialog">ダイアログの閉じ方</a>と同じ）</td><td>hitomado#282</td></tr></tbody></table></section>
+<section id="proposals" class="spec ty"><h2>Hitomado の提案 #283〜#287 の反映 Proposals</h2><p class="sub">hitomado#283〜#287 のうち、既存ガイドと上の規定（<a href="#soft-ripple">--mute-on-soft</a>・<a href="#dialog">ダイアログ</a>・<a href="#pane-app">ペイン型の例外</a>）で決着したものを除いた分。<a href="tokens-preview.html#proposals-draft">操作できる見本 →</a></p>
+<div class="rec" id="decided"><span class="tag">採用</span><strong>未確定だった 4 件の決定</strong>
+<p style="margin:8px 0 0">決まった値。<a href="tokens-preview.html#st-decided">操作できる見本 →</a></p>
+<table class="h14t"><thead><tr><th>項目</th><th>決定</th><th>状態</th></tr></thead><tbody>
+<tr><td>スイッチのラベルのサイズ</td><td>base 16（Regular）。15 はスケールに無いので使わない</td><td><span class="tag">採用</span></td></tr>
+<tr><td>フォーム入力の文字サイズ</td><td>基本は base 16。設定ペインのような狭い場所だけ sm 14 も可。モバイル（<code>--bp-sm</code> 640px 以下）では必ず 16（iOS の自動拡大を防ぐため）</td><td><span class="tag">採用</span></td></tr>
+<tr><td>使えないメニュー項目の opacity</td><td><code>.4</code>（ボタンの disabled と同じ値）。<code>.5</code> は使わない</td><td><span class="tag">採用</span></td></tr>
+<tr><td>全幅バナーの出入り</td><td>アニメーションなしで、すぐ出す・すぐ消す（高さが動くため、フェードや高さの遷移は付けない）</td><td><span class="tag">採用</span></td></tr></tbody></table></div>
+<h3>タイポ（hitomado#283）</h3><ul class="p">
+<li><code>--font-mono</code> に日本語フォールバックを足す: <code>"JetBrains Mono", "Noto Sans JP", ui-monospace, monospace</code></li>
+<li>同梱の Variable 版を使う場合の family 名（<code>"Sora Variable"</code> など）は許容する。スタックの並び（Sora → Noto Sans JP → sans-serif）は変えない</li>
+<li>入力下の補足: 1 文の注記は xs、複数文の補足は sm</li>
+<li>単独ラベル中の数字（件数など）: 桁が変わり並べて比べる値だけ Mono。文中の数字は sans</li>
+<li>リッチテキストの利用者の太字は 600（ガイドの最大ウェイトに揃える）</li></ul>
+<h3>間隔（hitomado#284）</h3><ul class="p">
+<li>ラベル列幅は名前付きトークン <code>--label-col</code>（72〜96px。画面ごとに 1 値を選ぶ）を使う</li>
+<li>モバイルのトップバーの左右 padding は <code>--s-4</code> 16（トップナビの 16–24 をモバイルにも適用）</li>
+<li><strong>タブ</strong>: 高さ 40、左右 padding <code>--s-3</code> 12、項目間 0〜<code>--s-1</code>。選択は下線 2px <code>--accent</code>、非選択 <code>--mute</code>・ホバー <code>--ink</code></li>
+<li><code>--bp-*</code> は <code>@media</code> の条件に使えない。JS では定数で持ってよい（名前の対応は下表）。CSS の <code>@media</code> には値を直接書く</li></ul>
+<table class="h14t"><thead><tr><th>CSS トークン</th><th>JS の定数（例）</th><th>値</th></tr></thead><tbody>
+<tr><td><code>--bp-sm</code></td><td><code>BP_SM</code></td><td>640px</td></tr><tr><td><code>--bp-md</code></td><td><code>BP_MD</code></td><td>768px</td></tr><tr><td><code>--bp-lg</code></td><td><code>BP_LG</code></td><td>1024px</td></tr><tr><td><code>--bp-xl</code></td><td><code>BP_XL</code></td><td>1280px</td></tr></tbody></table>
+<h3>部品の状態（hitomado#285）</h3><ul class="p">
+<li>ボタンのトグル（pressed）: <code>aria-pressed="true"</code> で <code>--accent-soft</code> 地＋<code>--ink</code> 文字</li>
+<li>主ボタンのホバー: <code>--accent</code> を <code>--bone</code> へ 15% 寄せる（<code>color-mix(in srgb, var(--accent) 85%, var(--bone))</code>）</li>
+<li>スイッチ OFF のつまみ: <code>--surface</code>＋1px <code>--border</code>。OFF トラックの輪郭は非テキスト 3:1 を満たす必要があり、枠を <code>--mute</code> にする案を<a href="tokens-preview.html#st-sw-off">見本</a>で確認する</li>
+<li>ドロップダウン項目のキーボード強調: ハイライトは <code>--accent-soft</code> 地だけ。リングは <code>:focus-visible</code> のときだけ 2px <code>--focus</code>・offset 2（パネル padding 4 に収める）。ホバーでは出さない</li>
+<li>メニュー・ナビ項目の角丸は <code>--r-sm</code></li>
+<li>ショートカット表記: Mono・xs・<code>--mute</code>（強調行では <code>--mute-on-soft</code>）</li>
+<li>アコーディオンのシェブロン: 開閉で 180° 回転・<code>--motion-base</code>。reduced-motion では回転の遷移なしで向きだけ変える</li></ul>
+<h3>フィードバック（hitomado#286）</h3><ul class="p">
+<li>標準の <code>title</code> 属性は使わず、ツールチップ部品に統一する。文字がすでに見えている所は何も足さない。無効ボタンの理由は近くの文言で示す</li>
+<li>ツールチップの表示遅延 400ms（フォーカス時は即時）。padding 6×10 用に <code>--tip-pad-y: 6px</code> / <code>--tip-pad-x: 10px</code></li>
+<li>トーストの表示時間: <code>--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s を正式トークンにする。JS 側で同名の定数を持ってよい</li>
+<li>トーストの先頭アイコン: 成功・お知らせのみ可、16px（<code>--icon-sm</code>）・<code>currentColor</code></li>
+<li>インラインアラートの形: 角丸 <code>--r-md</code>、padding 12×16</li>
+<li>一覧・ペイン全体の読み込み: 領域の中央にスピナー単体。2 秒以上かかる場合は下に「読み込み中…」を xs <code>--mute</code> で添える</li>
+<li>入力下の文字数カウンタ: xs・<code>--mute</code>・数字は Mono、超過は <code>--danger</code>、<code>role="status"</code></li></ul>
+<h3>オーバーレイ（hitomado#287）</h3><ul class="p">
+<li>モバイルナビのドロワー: <code>role="dialog"</code>・<code>aria-modal="true"</code>。開いたら最初の項目へフォーカス、閉じたらトリガへ戻す、フォーカストラップ、Esc／Android の戻るで閉じる</li>
+<li>ドロワーの幅は 78vw・上限 320px。出入りは fade＋8px の移動（<code>--motion-*</code>）</li>
+<li>ペイン全体をドロップ先にする場合: 常設の枠は不要。ドラッグ中だけ <code>--accent-soft</code> 地＋1px <code>--accent</code> の破線（内側 offset 4）</li>
+<li>ペイン分割のリサイズハンドルは <code>--z-sticky</code> を流用してよい</li></ul></section>
 <section id="p1"><h2>UI部品 P1</h2><p class="sub">日付・時刻ピッカー、ファイルアップロード／ドロップゾーン、検索（クリア・候補）、ページネーション／もっと見る、ステップ／ウィザード、アコーディオン、通知バッジ数、スライダー、タグ入力（chips）。ガイドにない部品は使わない。<a href="tokens-preview.html#p1">ライブ見本を見る →</a></p></section>
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
