@@ -544,6 +544,24 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .zs .zst,#states .zs .pop,#states .zs .mdl{border:1px solid CanvasText}
 .ui .btn.pri{border-width:2px}
 }
+/* puppet-remo 由来の部品 5 種（#16。puppet-remo#148〜#152）。新しい色・サイズは作らない */
+#states .np-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+#states .np-card-t{margin:0;padding:var(--s-4) var(--s-6);border-bottom:1px solid var(--border);font-size:18px;font-weight:600;line-height:1.4}
+#states .np-card-b{padding:var(--s-6);font-size:14px;line-height:1.6}
+#states .np-badge{display:inline-flex;align-items:center;height:22px;padding:0 var(--s-2);border-radius:var(--r-full);background:var(--accent-soft);color:var(--mute-on-soft);font-size:12px;line-height:1;white-space:nowrap}
+#states .np-secret [hidden]{display:none}
+#states .np-sec-saved{display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap}#states .np-sec-name{font-size:14px;font-weight:600}
+#states .np-sec-row{display:flex;align-items:center;gap:var(--s-2)}#states .np-sec-row .fld{flex:1;min-width:0}
+#states .np-eye svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#states .np-eye .e-closed{display:none}#states .np-eye[data-shown=true] .e-open{display:none}#states .np-eye[data-shown=true] .e-closed{display:block}
+#states .np-note{margin:0 0 var(--s-2);align-items:flex-start;line-height:1.6}#states .np-note p,#states .np-note label{margin:0}
+#states .np-note svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--c);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}#states .np-agree input,#states .np-chk input{width:auto;height:auto;padding:0;flex:none}
+#states .np-form{display:flex;flex-direction:column;gap:var(--gap-field)}
+#states .np-fs{margin:0;min-width:0;padding:var(--gap-field) 0 0;border:0;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:var(--gap-field)}
+#states .np-fs legend{padding:0 var(--s-2) 0 0;font-size:14px;font-weight:600;line-height:1.4}
+#states .np-pager{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3)}
+#states .np-pg-n{font-size:14px;color:var(--mute)}
 </style>
 <h2 id="states-draft">状態・フォーカス・重なり・切替 States, focus, layers, theme</h2>
 <p class="mute" style="font-size:14px">操作して確かめる見本。スイッチ・ラジオの状態は <span class="tag">推奨案</span>、ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16 とモーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ 14 可、モバイルは 16）・使えないメニュー項目の opacity <code>.4</code>・全幅バナーの即時の出入りは <span class="tag">採用</span>（<a href="#st-decided">決定 4 件の見本</a>）。本文は<a href="./#theme">ガイド本体</a>。</p>
@@ -769,6 +787,15 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div><p class="st-h">読み込み（中央にスピナー単体 → 2 秒以上は「読み込み中…」）</p><div class="ld"><span class="spin" role="status" aria-label="読み込み中"></span></div><div class="ld" style="margin-top:8px"><span class="spin" aria-hidden="true"></span><p>読み込み中…</p></div></div>
 <div><p class="st-h">ペイン全体のドロップ先（ドラッグ中だけ）</p><div class="dz" id="dz">ドラッグ中だけ accent-soft 地＋破線</div><button type="button" class="btn sec sm" id="dz-t" style="margin-top:8px" aria-pressed="false">ドラッグ中を切り替える</button></div>
 </div></div>
+<h3 id="st-parts">puppet-remo 由来の部品 5 種 Parts <span class="tag">採用</span></h3>
+<p class="help" style="margin:0 0 8px">参照: puppet-remo#148〜#152。値は既存のトークンと「アプリ内の見出しの段」にそろえた（新しい色・サイズは作らない）。Light / Dark は右上の切替で見られる。</p>
+<div class="card"><div class="pp">
+<div><p class="st-h">1. 見出し付きカード（題 lg 18 SemiBold・下に <code>--border</code> 1px・本文 padding <code>--s-6</code>・影なし）</p><section class="np-card" aria-labelledby="np-card-t"><div class="np-card-t" id="np-card-t" role="heading" aria-level="3">接続の設定</div><div class="np-card-b"><p style="margin:0">本文の padding は 24（<code>--s-6</code>）。カードに影は付けない。</p></div></section><p class="help">タグは h2 / h3 のどちらでもよい（見た目は lg 18 のまま）</p></div>
+<div><p class="st-h">2. 秘密の入力欄（保存済みの値は描画しない）</p><div class="np-secret"><div class="np-sec-saved" id="np-sec-saved"><span class="np-sec-name">API キー</span><span class="np-badge">登録済み</span><button type="button" class="btn sec sm" id="np-sec-change">変更</button></div><div id="np-sec-edit" hidden><label class="lbl" for="np-sec-in">API キー</label><div class="np-sec-row"><input class="fld" id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="新しいキーを入力"><button type="button" class="ib np-eye" id="np-eye" data-shown="false" aria-label="入力を表示する"><svg class="e-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13C6.6 5 17.4 5 21 13"/><path d="M12 17C10.3431 17 9 15.6569 9 14C9 12.3431 10.3431 11 12 11C13.6569 11 15 12.3431 15 14C15 15.6569 13.6569 17 12 17Z"/></svg><svg class="e-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 16L17.0248 12.6038"/><path d="M12 17.5V14"/><path d="M4.5 16L6.96895 12.6124"/><path d="M3 8C6.6 16 17.4 16 21 8"/></svg></button></div><p class="help">入力文字は base 16。伏せ字が既定</p></div></div><div class="tbr tx" style="margin-top:8px"><button type="button" class="btn ghost sm" id="np-sec-reset">見本を最初に戻す</button></div><p class="help">登録済みのときは入力欄も伏せ字も出さず、バッジと「変更」だけ。「見本を最初に戻す」はこの見本の操作用（部品の一部ではない）</p></div>
+<div><p class="st-h">3. 題なしのインラインアラート（アイコン 16 ＋ 本文 sm 14）</p><div class="al np-note" role="note" style="--c:var(--warning)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.0429 21H3.95705C2.41902 21 1.45658 19.3364 2.22324 18.0031L10.2662 4.01533C11.0352 2.67792 12.9648 2.67791 13.7338 4.01532L21.7768 18.0031C22.5434 19.3364 21.581 21 20.0429 21Z"/><path d="M12 9V13"/><path d="M12 17.01L12.01 16.9989"/></svg><p>入力の本文は暗号化されず、平文でこの PC に保存されます。</p></div><div class="al np-note" style="--c:var(--info)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11.5V16.5"/><path d="M12 7.51L12.01 7.49889"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/></svg><label class="np-agree"><input type="checkbox"> 上記を理解したうえで有効にする</label></div><p class="help">常設の注意書き・同意の枠に使う。形は題つきのアラートと同じ（<code>--r-md</code>・padding 12×16）</p></div>
+<div><p class="st-h">4. フォームのグループ見出し（legend は h4 の段・上に <code>--border</code> の線・グループ間 <code>--gap-field</code>）</p><form class="np-form" onsubmit="return false"><fieldset class="np-fs"><legend>監査ログ</legend><label class="np-chk"><input type="checkbox" checked> サムネイルを保存する</label><div><label class="lbl" for="np-fs-days">保持期間（日）</label><input class="fld" id="np-fs-days" type="number" value="90" min="1"></div></fieldset><fieldset class="np-fs"><legend>更新</legend><div><label class="lbl" for="np-fs-ch">更新のチャネル</label><select class="fld" id="np-fs-ch"><option>正式版</option><option>ナイトリー</option></select></div></fieldset></form></div>
+<div><p class="st-h">5. 前へ／次へだけのページ送り（件数が分からない一覧向け。端は disabled・opacity .4）</p><nav class="np-pager" aria-label="ページ送り"><button type="button" class="btn sec sm" id="np-pg-prev">前へ</button><span class="np-pg-n" id="np-pg-n" data-page="1">1 ページ目</span><button type="button" class="btn sec sm" id="np-pg-next">次へ</button></nav><p class="help">見本は 3 ページまで。1 ページ目では「前へ」、3 ページ目では「次へ」が disabled。番号・現在ページの強調はない（件数が分かる一覧は P1 のページネーション）</p></div>
+</div></div>
 </section>
 <script>
 (()=>{
@@ -877,6 +904,20 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   const sws=$('sws');sws.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;sws.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
   // バナー（即時に出入り）
   $('bn-t').addEventListener('click',()=>$('bn-i').classList.toggle('off'));
+  // 秘密の入力欄・前へ／次へのページ送り（#16。puppet-remo#149・#152 の見本）
+  (function(){
+    const saved=$('np-sec-saved'),edit=$('np-sec-edit'),inp=$('np-sec-in'),eye=$('np-eye');
+    function eyeSet(show){inp.type=show?'text':'password';eye.dataset.shown=String(show);eye.setAttribute('aria-label',show?'入力を隠す':'入力を表示する')}
+    $('np-sec-change').addEventListener('click',()=>{saved.hidden=true;edit.hidden=false;inp.value='';eyeSet(false);inp.focus()});
+    eye.addEventListener('click',()=>eyeSet(inp.type==='password'));
+    $('np-sec-reset').addEventListener('click',()=>{saved.hidden=false;edit.hidden=true;inp.value='';eyeSet(false);$('np-sec-change').focus()});
+    const prev=$('np-pg-prev'),next=$('np-pg-next'),num=$('np-pg-n'),MAX=3;let page=1;
+    function draw(){num.textContent=page+' ページ目';num.dataset.page=String(page);prev.disabled=page<=1;next.disabled=page>=MAX}
+    // 押した側が端で disabled になっても、キーボードの操作が途切れないよう、反対側のボタンへフォーカスを移す
+    prev.addEventListener('click',()=>{if(page>1){page--;draw();if(prev.disabled)next.focus()}});
+    next.addEventListener('click',()=>{if(page<MAX){page++;draw();if(next.disabled)prev.focus()}});
+    draw();
+  })();
   // タブ・トグル・ドロップ先
   const tb=document.querySelector('#states .tb40');tb.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tb.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',String(x===b)))});
   $('tgl').addEventListener('click',e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'))});

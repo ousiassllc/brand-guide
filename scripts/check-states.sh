@@ -328,4 +328,45 @@ thm_prev | grep -q 'id="theme-forms-demo"' && ok 'tokens-preview #st-theme: 3 �
 chk '#st-theme は採用のまま（新ブロックだけ推奨案）' '<h3 id="st-theme">[^<]*<span class="tag">採用</span></h3>' "$prev"
 chk 'theme.js: 保存キーは ousiass-theme のまま' "KEY = 'ousiass-theme'" "$thm"
 
+# (11) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
+insec    '#puppet-parts: 節がある（puppet-remo#148〜#152 を参照）'  puppet-parts 'puppet-remo#148〜#152'
+for id in parts-card parts-secret parts-notice parts-fieldset parts-pager; do
+  sec puppet-parts | grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">採用</span></h3>" && ok "#puppet-parts: #$id が採用" || ng "#puppet-parts: #$id が採用になっていない"
+done
+# 1. 見出し付きカード
+insec    '#puppet-parts: カードの題は lg 18 SemiBold・タグは h2 / h3 のどちらでもよい（タグとサイズは独立）' puppet-parts '題は lg 18 SemiBold。タグは h2 / h3 のどちらでもよい（<strong>タグと表示サイズは独立</strong>'
+insec    '#puppet-parts: カードの題の下に --border の 1px の線'   puppet-parts '題の下に <code>--border</code> の 1px の線'
+insec    '#puppet-parts: カードの本文 padding --s-6（24）・影なし' puppet-parts '本文の padding は <code>--s-6</code>（24）。<strong>影は付けない</strong>'
+# 2. 秘密の入力欄
+insec    '#puppet-parts: 保存済みの値・伏せ字を描画しない'          puppet-parts '保存済みの値は描画しない</strong>。伏せ字（●●●）も描画しない'
+insec    '#puppet-parts: 登録済みバッジは accent-soft 地＋mute-on-soft 文字・xs 12' puppet-parts '<code>--accent-soft</code> 地＋<code>--mute-on-soft</code> 文字、xs 12'
+insec    '#puppet-parts: 「変更」で空の入力欄・入力文字は base 16'  puppet-parts '「変更」ボタンを押すと<strong>空の入力欄</strong>になる。入力文字は base 16'
+insec    '#puppet-parts: 表示切り替えは Iconoir の Eye / EyeClosed のアイコンボタン' puppet-parts 'Iconoir の <strong>Eye</strong>.*<strong>EyeClosed</strong>.*アイコンボタン'
+# 3. 題なしのインラインアラート
+insec    '#puppet-parts: 題なしアラートは既存と同じ形（--r-md・padding 12×16）・アイコン 16＋本文 sm 14・題なし' puppet-parts '角丸 <code>--r-md</code>、padding 12×16）。アイコン 16 ＋ 本文 sm 14。<strong>題は付けない</strong>'
+insec    '#puppet-parts: 題なしアラートは常設の注意書き・同意の枠に使う' puppet-parts '常設の注意書き・同意の枠に使う'
+# 4. fieldset / legend
+insec    '#puppet-parts: legend は h4 の段（sm 14 SemiBold）'        puppet-parts 'legend は <strong>h4 の段（sm 14 SemiBold）</strong>'
+insec    '#puppet-parts: グループの上に --border の線・グループ間 --gap-field' puppet-parts 'グループの上に <code>--border</code> の 1px の線。グループ間の間隔は <code>--gap-field</code>'
+# 5. 前へ／次へのページ送り
+insec    '#puppet-parts: 件数が分からない一覧向けの簡易形'          puppet-parts '全体の件数が分からない一覧（ログなど）向けの簡易形として許可する'
+insec    '#puppet-parts: 中央に「N ページ目」を sm 14・--mute'      puppet-parts '中央に「N ページ目」を sm 14・<code>--mute</code>'
+insec    '#puppet-parts: 端ではその側のボタンを disabled（opacity .4）' puppet-parts '端ではその側のボタンを disabled にする（opacity <code>\.4</code>'
+chk      'index: ジャンプ行に #puppet-parts のリンク'               '<a href="#puppet-parts">puppet-remo 部品</a>' "$idx"
+# tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
+grep -Eq '<h3 id="st-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-parts が採用' || ng 'tokens-preview: #st-parts が採用になっていない'
+for k in 'class="np-card"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
+  inh3 "tokens-preview #st-parts: 見本 $k" st-parts "$k"
+done
+inh3     'tokens-preview #st-parts: 秘密の入力欄は value を描画しない（伏せ字・自動入力停止）' st-parts 'id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder'
+inh3no   'tokens-preview #st-parts: 秘密の入力欄に value 属性を書かない' st-parts 'id="np-sec-in"[^>]* value='
+chk      'tokens-preview: カードの題 lg 18 SemiBold・下に 1px の線'  '#states \.np-card-t\{[^}]*padding:var\(--s-4\) var\(--s-6\)[^}]*border-bottom:1px solid var\(--border\)[^}]*font-size:18px;font-weight:600' "$prev"
+chk      'tokens-preview: カードの本文 padding --s-6'                '#states \.np-card-b\{padding:var\(--s-6\)' "$prev"
+! has "$prev" '#states \.np-card\{[^}]*shadow' && ok 'tokens-preview: カードに影を付けない' || ng 'tokens-preview: カードに影が付いている'
+chk      'tokens-preview: 登録済みバッジは accent-soft 地＋mute-on-soft・xs 12' '#states \.np-badge\{[^}]*background:var\(--accent-soft\);color:var\(--mute-on-soft\);font-size:12px' "$prev"
+chk      'tokens-preview: 題なしアラートのアイコンは 16px'           '#states \.np-note svg\{width:16px;height:16px' "$prev"
+chk      'tokens-preview: legend は sm 14 SemiBold'                  '#states \.np-fs legend\{[^}]*font-size:14px;font-weight:600' "$prev"
+chk      'tokens-preview: fieldset は上に --border の 1px・間隔は --gap-field' '#states \.np-fs\{[^}]*border-top:1px solid var\(--border\)[^}]*gap:var\(--gap-field\)' "$prev"
+chk      'tokens-preview: ページ送りの「N ページ目」は sm 14・--mute'  '#states \.np-pg-n\{font-size:14px;color:var\(--mute\)\}' "$prev"
+
 exit $fail
