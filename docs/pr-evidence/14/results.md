@@ -40,3 +40,22 @@
 
 - ペイン型デスクトップアプリの例外の表は本文 12 行（`<thead>` の 1 行を含めた 13 を「13 項目」と数えていた）。ファイル内には「13 項目」の記述は無く、PR 本文だけを直した。
 - スクショ（追加）: `14-<chromium|firefox>-index-<desktop|mobile375>-<light|dark>-link.png`（本文リンク）、`14-<chromium|firefox>-tokens-<desktop|mobile375>-<light|dark>-primary-hover.png`（主ボタン hover。「操作できるボタン」の「保存する」にマウスを置いた状態と、固定 hover 見本の並び）。既存スクショのうち 40 枚は検証スクリプトの再実行で撮り直されて差分になっている。
+
+## fix2: 未確定だった 4 件の決定（head 715c874 の次のコミット）
+
+決定: (1) スイッチのラベル base 16 (2) 入力は基本 16・狭い設定ペインだけ 14 可・モバイル（640px 以下）は必ず 16 (3) 使えないメニュー項目は opacity .4 (4) 全幅バナーはアニメーションなしで即時。
+
+| 項目 | PASS | FAIL |
+|---|---|---|
+| scripts/check-states.sh（決定 4 件の項目を差し替え・追加。223→234） | 234 | 0 |
+| scripts/check-scrollbar.sh | 27 | 0 |
+| scripts/check-typography.sh | 20 | 0 |
+| 715c874 のツリーに新しい check-states.sh を当てる | 209 | 25（想定どおり FAIL） |
+| 既存 Playwright Chromium（verify / verify2 / verify3 / verify5） | 22 + 43 + 28 + 10 = 103 | 0 |
+| 既存 Playwright Firefox（verify-ff） | 15 | 0 |
+| #14 の Playwright Chromium / Firefox（バナー・無効 opacity の項目を決定に合わせて差し替え） | 105 / 105 | 0 / 0 |
+| fix2 の Playwright Chromium / Firefox（Light/Dark × 1280/375、境界 640/641、index の #decided） | 42 / 42 | 0 / 0 |
+
+- 旧ガイド（715c874）には `#st-decided` が無いため、fix2 の Playwright は旧ツリーでは最初の待機でタイムアウトする（想定どおり）。
+- 旧「未確定」比較見本のスクショ（`*-pending.png` 8 枚）は節を削除したので削除。
+- スクショ: `fix2/bg15-fix2-<chromium|firefox>-<desktop|mobile375>-<light|dark>-<switch|input|disabled-menu|banner>.png`（32 枚）と `fix2/bg15-fix2-<chromium|firefox>-index-desktop-<light|dark>-decided-table.png`（4 枚）。`/tmp/swarm-console/shots-bg-15-fix2/` に同じもの。

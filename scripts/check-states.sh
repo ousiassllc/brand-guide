@@ -92,14 +92,14 @@ notinsec '#layers: 推奨案タグが残っていない'               layers '�
 notinsec '#layers: 「401 を足さず文章だけ」案を消した'     layers '401 を足さず'
 notinsec '#layers: 影の 24% / 32% 案を消した'              layers '24%|32%'
 notinsec '#layers: 「確定値としては断定しない」を消した'   layers '断定しない'
-chk '冒頭（index）: 採用済みと未確定 4 件を明記' 'スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外は採用済み。スイッチのラベル・入力の文字サイズ・メニュー項目の無効の opacity・全幅バナーの出入りは未確定' "$idx"
+chk '冒頭（index）: 採用済み（決定 4 件を含む）を明記' 'スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>\.4</code>・全幅バナーの即時の出入りは採用済み' "$idx"
 ! has "$idx" '新しい節は推奨案（未確定）' && ok '冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した' || ng '冒頭（index）: 旧文言が残っている'
 for id in st-theme st-focus st-z st-shadow st-soft st-buttons st-spinner st-ripple st-dialog st-pane proposals-draft; do
   grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">採用</span></h3>" "$prev" && ok "tokens-preview: #$id が採用" || ng "tokens-preview: #$id が採用になっていない"
 done
 grep -Eq '<h3 id="st-switch">[^<]*<span class="tag">推奨案</span></h3>' "$prev" && ok 'tokens-preview: #st-switch は推奨案のまま' || ng 'tokens-preview: #st-switch が推奨案でない'
-grep -Eq '<h3 id="st-pending">[^<]*<span class="tag">未確定</span></h3>' "$prev" && ok 'tokens-preview: #st-pending は未確定' || ng 'tokens-preview: #st-pending が未確定でない'
-grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*ボタンの loading・スピナー・リップルの対象・テーマ切替.*実線リング.*--z-popup.*401.*40%.*--mute-on-soft.*ダイアログ本文 base 16.*ペイン型デスクトップアプリの例外.*採用.*未確定' && ok '冒頭（tokens-preview）: 採用済みと未確定の明記' || ng '冒頭（tokens-preview）: 採用済み／未確定の明記がない'
+grep -Eq '<h3 id="st-decided">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-decided は採用' || ng 'tokens-preview: #st-decided が採用になっていない'
+grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*ボタンの loading・スピナー・リップルの対象・テーマ切替.*実線リング.*--z-popup.*401.*40%.*--mute-on-soft.*ダイアログ本文 base 16.*ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ.*狭い設定ペインだけ 14 可、モバイルは 16.*使えないメニュー項目の opacity <code>\.4</code>.*全幅バナーの即時の出入りは <span class="tag">採用</span>' && ok '冒頭（tokens-preview）: 採用済みの明記（決定 4 件を含む）' || ng '冒頭（tokens-preview）: 採用済みの明記がない'
 awk '/<section class="ui" id="states">|id="states-draft"/{f=1} f{print}' "$prev" | grep -q '確定と断定しない\|確定値としては断定しない' && ng 'tokens-preview: 「断定しない」が残っている' || ok 'tokens-preview: 「断定しない」を消した'
 
 # (6b) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
@@ -172,16 +172,20 @@ grep -Eq '#states \.tbr\{display:flex;align-items:center;gap:var\(--s-1\)\}#stat
 grep -Eq '#states \.nv a\.acct\{[^}]*min-height:62px[^}]*border-left:6px' "$prev" && ok 'tokens-preview: 2 行項目 62px・帯 6px' || ng 'tokens-preview: 2 行項目 62px・帯 6px の CSS がない'
 grep -Eq '#states \.dpn\{[^}]*gap:0;padding:var\(--s-1\)' "$prev" && ok 'tokens-preview: ドロップダウン gap 0・padding --s-1' || ng 'tokens-preview: ドロップダウン gap 0・padding の CSS がない'
 grep -Eq '#states \.sws button\[aria-pressed=true\]\{border-color:var\(--ink\)\}' "$prev" && ok 'tokens-preview: スウォッチ選択は --ink の 2px' || ng 'tokens-preview: スウォッチ選択の CSS がない'
-# (8-6) Hitomado #283〜#287 の残り。未確定 4 件は「未確定」と明記し、規範にしない
-n=$(sec proposals | grep -o '<td><span class="tag">未確定</span></td>' | wc -l)
-[ "$n" -eq 4 ] && ok "#proposals: 未確定の行が 4 件（$n）" || ng "#proposals: 未確定の行が 4 件でない（$n）"
-insec    '#proposals: 未確定 4 件の枠は 未確定 で、採用ではない' proposals 'id="pending"><span class="tag">未確定</span>'
-insec    '#proposals: 未確定・スイッチのラベル（案: base 16）' proposals 'スイッチのラベルのサイズ.*Regular 15.*案: base 16.*未確定'
-insec    '#proposals: 未確定・入力の文字サイズ（案 base 16・ペイン型は sm 14 可）' proposals 'フォーム入力の文字サイズ.*案: base 16 を既定、ペイン型デスクトップでは sm 14 可.*未確定'
-insec    '#proposals: 未確定・メニュー項目の無効 opacity（.4 か .5）' proposals 'メニュー項目の無効の opacity.*<code>\.4</code>.*<code>\.5</code>.*案: <code>\.4</code>.*未確定'
-insec    '#proposals: 未確定・全幅バナーの出入り（案 a 即時／案 b）' proposals '全幅バナーの出入り.*案 a 即時.*案 b.*案: a.*未確定'
-insec    '#controls: スイッチのラベルサイズは未確定（Regular 15 を確定扱いにしない）' controls 'サイズは <span class="tag">未確定</span>'
+# (8-6) Hitomado #283〜#287 の残り。未確定だった 4 件は決定済み（採用）。「未確定」「判断待ち」「案」を残さない
+decided=$(sec proposals | awk '/id="decided"/{f=1} f{print} f&&/<\/table>/{exit}')
+n=$(printf '%s\n' "$decided" | grep -o '<td><span class="tag">採用</span></td>' | wc -l)
+[ "$n" -eq 4 ] && ok "#proposals: 決定の行が採用 4 件（$n）" || ng "#proposals: 決定の行が採用 4 件でない（$n）"
+insec    '#proposals: 決定 4 件の枠は 採用' proposals 'id="decided"><span class="tag">採用</span>'
+notinsec '#proposals: 「未確定」「判断待ち」「案:」が残っていない' proposals 'id="pending"|判断待ち|<span class="tag">未確定</span>|案: base|案 a'
+indec() { printf '%s\n' "$decided" | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
+indec    '#proposals: スイッチのラベルは base 16（15 は使わない）' 'スイッチのラベルのサイズ</td><td>base 16（Regular）。15 はスケールに無いので使わない'
+indec    '#proposals: 入力は基本 16・狭い設定ペインだけ sm 14 可・モバイル 640px 以下は必ず 16（iOS の自動拡大）' 'フォーム入力の文字サイズ</td><td>基本は base 16。設定ペインのような狭い場所だけ sm 14 も可。モバイル（<code>--bp-sm</code> 640px 以下）では必ず 16（iOS の自動拡大を防ぐため）'
+indec    '#proposals: 使えないメニュー項目は .4（ボタンの disabled と同じ）・.5 は使わない' '使えないメニュー項目の opacity</td><td><code>\.4</code>（ボタンの disabled と同じ値）。<code>\.5</code> は使わない'
+indec    '#proposals: 全幅バナーはアニメーションなしで即時' '全幅バナーの出入り</td><td>アニメーションなしで、すぐ出す・すぐ消す'
+insec    '#controls: スイッチのラベルは base 16（採用）' controls 'サイズは base 16 <span class="tag">採用</span>'
 notinsec '#controls: 「Regular 15」を規範として残していない' controls 'ラベルは Regular 15'
+! has "$idx" '#pending|id="pending"' && ! has "$prev" 'st-pending|悠太さんの判断待ち' && ok 'index / tokens-preview: 旧 #pending / #st-pending と「判断待ち」を残していない' || ng 'index / tokens-preview: 旧 #pending / #st-pending か「判断待ち」が残っている'
 insec    '#proposals: --font-mono の日本語フォールバック'    proposals '"JetBrains Mono", "Noto Sans JP", ui-monospace, monospace'
 insec    '#proposals: Variable 版の family 名を許容'         proposals '"Sora Variable"'
 insec    '#proposals: 入力下の補足 1 文は xs・複数文は sm'   proposals '1 文の注記は xs、複数文の補足は sm'
@@ -210,10 +214,11 @@ insec    '#proposals: ドロワー幅 78vw・上限 320px・fade＋8px'  proposa
 insec    '#proposals: ドロップ先はドラッグ中だけ accent-soft＋破線' proposals 'ドラッグ中だけ <code>--accent-soft</code> 地＋1px <code>--accent</code> の破線（内側 offset 4）'
 insec    '#proposals: リサイズハンドルは --z-sticky を流用'   proposals 'リサイズハンドルは <code>--z-sticky</code> を流用'
 chk 'tokens-preview: --tip-pad-y / --toast-duration を定義' ':root\{--tip-pad-y:6px;--tip-pad-x:10px;--toast-duration:3s;--toast-duration-action:5s\}' "$prev"
-inh3 'tokens-preview #st-pending: 4 件の比較見本（スイッチ・入力・opacity・バナー）' st-pending 'sw2 l16.*'
-for k in 'sw2 l14' 'fld f14' 'dpn o4' 'dpn o5' 'id="bn-a"' 'id="bn-b"'; do
-  inh3 "tokens-preview #st-pending: 見本 $k" st-pending "$k"
+inh3 'tokens-preview #st-decided: 4 件の見本（スイッチ・入力・メニュー・バナー）' st-decided 'class="sw2"'
+for k in 'class="fld f14"' 'role="menuitem" disabled' 'id="bn-t"' 'id="bn-i"'; do
+  inh3 "tokens-preview #st-decided: 見本 $k" st-decided "$k"
 done
+inh3no 'tokens-preview #st-decided: 比較用の案（l14 / o4 / o5 / 案 a・b）を置かない' st-decided 'sw2 l1[46]|dpn o[45]|bn-ia|bn-ib|fadeh|案 [ab]'
 for k in 'class="mono14"' 'class="tb40"' 'id="tgl"' 'class="tipw"' 'id="cnt-in"' 'class="ld"' 'id="dz"' 'class="lblrow"'; do
   inh3 "tokens-preview #proposals-draft: 見本 $k" proposals-draft "$k"
 done
@@ -239,5 +244,21 @@ chk 'tokens-preview: loading 中の主ボタンは hover で色を変えない' 
 n=$(sec pane-app | grep -c '<tr><td>')
 [ "$n" -eq 12 ] && ok "#pane-app: 表の行が 12（$n）" || ng "#pane-app: 表の行が 12 でない（$n）"
 ! has "$idx" '13 ?項目' && ! has "$prev" '13 ?項目' && ok 'index / tokens-preview: 「13 項目」と書いていない' || ng 'index / tokens-preview: 「13 項目」が残っている'
+
+# (10) PR #15 fix2: 未確定だった 4 件の決定を CSS で担保する（回帰）
+# 1. スイッチのラベルは 16（15 はスケールに無い）
+chk 'tokens-preview: .sw2 のラベルは 16px' '\.sw2\{[^}]*font-size:16px\}' "$prev"
+! has "$prev" '\.sw2\{[^}]*font-size:15px' && ok 'tokens-preview: .sw2 に 15px を使わない' || ng 'tokens-preview: .sw2 に 15px が残っている'
+# 2. 入力: 基本 16（.fld）。狭い場所だけ 14（.f14）。モバイル（640px 以下）は必ず 16
+chk 'tokens-preview: .fld の基本は 16px' '\.ui \.fld\{[^}]*font:400 16px' "$prev"
+chk 'tokens-preview: 狭い場所だけ使う .fld.f14 は 14px' '#states \.fld\.f14\{font-size:14px\}' "$prev"
+chk 'tokens-preview: 640px 以下は .fld.f14 も 16px（iOS の自動拡大を防ぐ）' '@media \(max-width:640px\)\{#states \.fld\.f14\{font-size:16px\}\}' "$prev"
+# 3. 使えないメニュー項目は opacity .4（ボタンの disabled と同じ）。.5 は使わない。ホバーに反応しない
+chk 'tokens-preview: 使えないメニュー項目は opacity .4' '#states \.dpn button:disabled\{opacity:\.4;cursor:not-allowed\}' "$prev"
+chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付かない' '#states \.dpn button:disabled:hover\{background:transparent\}' "$prev"
+! has "$prev" 'dpn\.o[45]' && ok 'tokens-preview: 比較用の .dpn.o4 / .o5 を残さない' || ng 'tokens-preview: .dpn.o4 / .o5 が残っている'
+# 4. 全幅バナーはアニメーションなし（即時）
+chk 'tokens-preview: バナーは .off で display:none（即時）' '#states \.bn\.off\{display:none\}' "$prev"
+! has "$prev" '#states \.bn[^{]*\{[^}]*transition' && ! has "$prev" 'fadeh' && ok 'tokens-preview: バナーに transition・フェード（fadeh）を使わない' || ng 'tokens-preview: バナーに transition かフェードが残っている'
 
 exit $fail
