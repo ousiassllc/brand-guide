@@ -328,4 +328,58 @@ thm_prev | grep -q 'id="theme-forms-demo"' && ok 'tokens-preview #st-theme: 3 �
 chk '#st-theme は採用のまま（新ブロックだけ推奨案）' '<h3 id="st-theme">[^<]*<span class="tag">採用</span></h3>' "$prev"
 chk 'theme.js: 保存キーは ousiass-theme のまま' "KEY = 'ousiass-theme'" "$thm"
 
+# (11) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
+insec    '#settings-parts: 節がある（puppet-remo#148〜#152 を参照）・題は「設定画面のパーツ」'  settings-parts '<h2>設定画面のパーツ Settings parts</h2>.*puppet-remo#148〜#152'
+grep -B1 '^<section id="settings-parts"' "$idx" | head -1 | grep -q '流用してよい</li></ul></section>$' && ok 'index: #settings-parts は #proposals のすぐ後ろ' || ng 'index: #settings-parts が #proposals のすぐ後ろにない'
+! has "$idx" 'puppet-parts' && ! has "$prev" 'puppet-parts|id="st-parts"' && ok '旧 #puppet-parts / #st-parts を残していない' || ng '旧 #puppet-parts か #st-parts が残っている'
+for id in parts-card parts-secret parts-notice parts-fieldset parts-pager; do
+  sec settings-parts | grep -Eq "<h3 id=\"$id\">[^<]*<span class=\"tag\">採用</span></h3>" && ok "#settings-parts: #$id が採用" || ng "#settings-parts: #$id が採用になっていない"
+done
+# 1. 見出し付きカード
+insec    '#settings-parts: カードの題は lg 18 SemiBold・タグは h2 / h3 のどちらでもよい（タグとサイズは独立。見た目はクラスでそろえる）' settings-parts '題は lg 18 SemiBold。タグは h2 / h3 のどちらでもよい（<strong>タグと表示サイズは独立</strong>。見た目はタグ（既定のサイズ）に頼らず、クラスで lg 18 SemiBold にそろえる）'
+insec    '#settings-parts: カードの題の下に --border の 1px の線'   settings-parts '題の下に <code>--border</code> の 1px の線'
+insec    '#settings-parts: カードの本文 padding --s-6（24）・影なし' settings-parts '本文の padding は <code>--s-6</code>（24）。<strong>影は付けない</strong>'
+# 2. 秘密の入力欄
+insec    '#settings-parts: 保存済みの値・伏せ字を描画しない'          settings-parts '保存済みの値は<strong>描画しない</strong>。伏せ字も描画しない'
+insec    '#settings-parts: 登録済みバッジは accent-soft 地＋mute-on-soft 文字・xs 12' settings-parts '<code>--accent-soft</code> 地＋<code>--mute-on-soft</code> 文字、xs 12'
+insec    '#settings-parts: 形は「バッジ＋変更」・「変更」で空の入力欄・入力文字は base 16'  settings-parts '形は<strong>「バッジ＋変更」</strong>。「変更」ボタンを押すと<strong>空の入力欄</strong>になる。入力文字は base 16'
+insec    '#settings-parts: バッジと入力欄は並べない（保存済みの値を匂わせる欄を出さないため）' settings-parts '<strong>バッジと入力欄は並べない</strong>。保存済みの値を匂わせる欄を出さないため'
+insec    '#settings-parts: 表示切り替えは Iconoir の Eye / EyeClosed のアイコンボタン' settings-parts 'Iconoir の <strong>Eye</strong>.*<strong>EyeClosed</strong>.*アイコンボタン'
+# 3. 題なしのインラインアラート
+insec    '#settings-parts: 題なしアラートは既存と同じ形（--r-md・padding 12×16）・アイコン 16＋本文 sm 14・題なし' settings-parts '角丸 <code>--r-md</code>、padding 12×16）。アイコン 16 ＋ 本文 sm 14。<strong>題は付けない</strong>'
+insec    '#settings-parts: 題なしアラートは常設の注意書き・同意の枠に使う' settings-parts '常設の注意書き・同意の枠に使う'
+insec    '#settings-parts: 題なしアラートの色は左の線だけ。warning=データの扱い・取り消せないこと／info=同意の枠とただの補足' settings-parts '色は<strong>左の線だけ</strong>に付ける（地は既存のアラートのまま）。<code>--warning</code>: データの扱いや取り消せないことなど、ずっと出しておく注意書き。<code>--info</code>: 同意のチェックを入れる枠と、ただの補足'
+# 4. fieldset / legend
+insec    '#settings-parts: legend は h4 の段（sm 14 SemiBold）'        settings-parts 'legend は <strong>h4 の段（sm 14 SemiBold）</strong>'
+insec    '#settings-parts: グループの上に --border の線・グループ間 --gap-field' settings-parts 'グループの上に <code>--border</code> の 1px の線。グループ間の間隔は <code>--gap-field</code>'
+# 5. 前へ／次へのページ送り
+insec    '#settings-parts: 件数が分からない一覧向けの簡易形'          settings-parts '全体の件数が分からない一覧（ログなど）向けの簡易形として許可する'
+insec    '#settings-parts: 中央に「N ページ目」を sm 14・--mute'      settings-parts '中央に「N ページ目」を sm 14・<code>--mute</code>'
+insec    '#settings-parts: 押したボタンが端で使えなくなったらフォーカスを反対側へ移す' settings-parts '押したボタンが端で使えなくなったら、<strong>フォーカスを反対側のボタンへ移す</strong>'
+insec    '#settings-parts: 端ではその側のボタンを disabled（opacity .4）' settings-parts '端ではその側のボタンを disabled にする（opacity <code>\.4</code>'
+chk      'index: ジャンプ行に #settings-parts のリンク'               '<a href="#settings-parts">設定画面のパーツ</a>' "$idx"
+# tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
+grep -Eq '<h3 id="st-settings-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-settings-parts が採用' || ng 'tokens-preview: #st-settings-parts が採用になっていない'
+for k in 'class="np-card"' '<h3 class="np-card-t"' '<h2 class="np-card-t"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
+  inh3 "tokens-preview #st-settings-parts: 見本 $k" st-settings-parts "$k"
+done
+# 規定は Issue #16 にある内容だけ（Issue にない補足を規定として書かない。案は PR 本文の「要判断」へ）
+notinsec '#settings-parts: Issue にない補足（aria-label の文言・左に前へ／右に次へ・P1 との使い分け・1〜2 文）を規定にしない' settings-parts '入力を表示する|左に「前へ」|P1 のページネーション|1〜2 文|トーストの代わり'
+inh3     'tokens-preview #st-settings-parts: 秘密の入力欄は value を描画しない（伏せ字・自動入力停止）' st-settings-parts 'id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder'
+inh3no   'tokens-preview #st-settings-parts: 秘密の入力欄に value 属性を書かない' st-settings-parts 'id="np-sec-in"[^>]* value='
+chk      'tokens-preview: カードの題 lg 18 SemiBold・下に 1px の線'  '#states \.np-card-t\{[^}]*padding:var\(--s-4\) var\(--s-6\)[^}]*border-bottom:1px solid var\(--border\)[^}]*font-size:18px;font-weight:600' "$prev"
+chk      'tokens-preview: カードの本文 padding --s-6'                '#states \.np-card-b\{padding:var\(--s-6\)' "$prev"
+! has "$prev" '#states \.np-card\{[^}]*shadow' && ok 'tokens-preview: カードに影を付けない' || ng 'tokens-preview: カードに影が付いている'
+chk      'tokens-preview: 登録済みバッジは accent-soft 地＋mute-on-soft・xs 12' '#states \.np-badge\{[^}]*background:var\(--accent-soft\);color:var\(--mute-on-soft\);font-size:12px' "$prev"
+chk      'tokens-preview: 題なしアラートのアイコンは 16px'           '#states \.np-note svg\{width:16px;height:16px' "$prev"
+chk      'tokens-preview: legend は sm 14 SemiBold'                  '#states \.np-fs legend\{[^}]*font-size:14px;font-weight:600' "$prev"
+chk      'tokens-preview: fieldset は上に --border の 1px・間隔は --gap-field' '#states \.np-fs\{[^}]*border-top:1px solid var\(--border\)[^}]*gap:var\(--gap-field\)' "$prev"
+chk      'tokens-preview: #st-settings-parts から本体の #settings-parts へ戻るリンク' '<a href="./#settings-parts">' "$prev"
+chk      'tokens-preview: 「見本を最初に戻す」は小さいリンク風（sm 14・mute・太字でない）で部品から離す' '#states \.np-reset\{[^}]*font:400 14px[^}]*color:var\(--mute\)' "$prev"
+chk      'tokens-preview: 「見本を最初に戻す」の上の間隔は --s-6' '#states \.np-reset-wrap\{margin-top:var\(--s-6\)\}' "$prev"
+! has "$prev" 'id="np-sec-reset"[^>]*>' || { grep -o '<button[^>]*id="np-sec-reset"' "$prev" | grep -q 'class="np-reset"' && ok 'tokens-preview: 「見本を最初に戻す」は .np-reset（btn の太字にしない）' || ng 'tokens-preview: 「見本を最初に戻す」が .np-reset でない'; }
+inh3     'tokens-preview #st-settings-parts: 題なしアラートは warning と info の両方' st-settings-parts 'class="al np-note" role="note" style="--c:var\(--warning\)"'
+inh3     'tokens-preview #st-settings-parts: info のアラート' st-settings-parts 'class="al np-note" style="--c:var\(--info\)"'
+chk      'tokens-preview: ページ送りの「N ページ目」は sm 14・--mute'  '#states \.np-pg-n\{font-size:14px;color:var\(--mute\)\}' "$prev"
+
 exit $fail
