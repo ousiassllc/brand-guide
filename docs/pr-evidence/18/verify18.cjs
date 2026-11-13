@@ -12,7 +12,7 @@ let pass=0, fail=0; const t=(n,c,d='')=>{ c?pass++:fail++; console.log((c?'PASS 
     for (const theme of ['light','dark']) {
       const ctx = await b.newContext({ viewport:{width:w,height:h}, deviceScaleFactor:1 });
       const p = await ctx.newPage();
-      await p.goto('file://'+root+'/index.html'); await p.waitForTimeout(400);
+      await p.goto('file://'+root+'/index.html'); await p.waitForSelector('#overlay');
       await p.click(`[data-set-theme=${theme}]`);
       t(`${wn}/${theme}: data-theme=${theme}`, await p.evaluate(()=>document.documentElement.dataset.theme)===theme);
       const v = await p.evaluate(()=>{ const cs=getComputedStyle(document.documentElement); return [cs.getPropertyValue('--overlay-deep').trim(), cs.getPropertyValue('--overlay-pale').trim()] });
@@ -31,12 +31,15 @@ let pass=0, fail=0; const t=(n,c,d='')=>{ c?pass++:fail++; console.log((c?'PASS 
           const sel=(ph==='bright'&&tok==='deep')||(ph==='dark'&&tok==='pale');
           t(`見本の見え方: ${ph}×${tok}（${sel?'選ぶ':'選ばない'}）`, sel? rs.every(r=>r>=3) : rs.every(r=>r<3), rs.map(r=>r.toFixed(2)).join('/'));
         }
-        const lum=await p.evaluate(()=>{ const out={}; for (const k of ['bright','dark']){ const c=document.createElement('canvas');c.width=c.height=16;const x=c.getContext('2d'); const el=document.querySelector('#overlay .ov-'+k); const g=getComputedStyle(el).backgroundImage; out[k]=g } return out });
-        console.log('  gradient', JSON.stringify(lum));
+        // 見本のグラデーション両端の相対輝度の平均が、見出しの条件（明るい=0.11 以上、暗い=0.11 より暗い）を満たす
+        const avg=ends=>ends.reduce((a,c)=>a+L(c),0)/ends.length;
+        t('明るい写真の見本: 平均の相対輝度 0.11 以上', avg(ends.bright)>=.11, avg(ends.bright).toFixed(3));
+        t('暗い写真の見本: 平均の相対輝度 0.11 より暗い', avg(ends.dark)<.11, avg(ends.dark).toFixed(3));
+        const gr=await p.evaluate(()=>['bright','dark'].map(k=>getComputedStyle(document.querySelector('#overlay .ov-'+k)).backgroundImage));
+        t('グラデーションの色が ends と一致（CSS を変えたらここも直す）', gr[0].includes('rgb(247, 244, 238)')&&gr[0].includes('rgb(211, 205, 192)')&&gr[1].includes('rgb(5, 5, 5)')&&gr[1].includes('rgb(28, 28, 32)'));
       }
       const ov = await p.evaluate(()=>{const cw=document.documentElement.clientWidth; return {cw, n:[...document.querySelectorAll('#overlay, #overlay *')].filter(e=>e.getBoundingClientRect().right>cw+.5||e.getBoundingClientRect().left<-.5).length}});
       t(`${wn}/${theme}: #overlay 内にはみ出す要素なし（ページ全体の 396px は main 既存の #theme の code で、この節とは無関係）`, ov.n===0, `n=${ov.n} cw=${ov.cw}`);
-      await p.waitForTimeout(150);
       const f = `${out}/bg18-chromium-${wn}-${theme}-overlay.png`;
       await sec.screenshot({ path:f }); console.log('shot', f);
       await ctx.close();

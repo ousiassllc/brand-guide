@@ -44,7 +44,7 @@ inov '輝度が読めない写真も deep'                   '輝度が読めな
 inov '不透明度は .55'                              '不透明度は <strong>\.55</strong>'
 inov 'ライト／ダークで変えない定数'                'ライト／ダークで値を変えない定数'
 inov '他プロダクトも同じトークン・独自色は作らない' '他プロダクトが写真の上に塗るときも同じトークンを使う。独自色は作らない'
-inov '制限: 中間調（0.02〜0.4）で 3:1 に届かない'  '中間調の写真（相対輝度およそ 0\.02〜0\.4）では、半透明の 1 色だけではコントラスト 3:1 に届かない'
+inov '制限: 中間調（0.02〜0.4）で 3:1 に届かない'  '中間調の写真（輝度およそ 0\.02〜0\.4）では、半透明の 1 色だけではコントラスト 3:1 に届かない'
 inov '制限: 不透明度を上げる・縁取りを足す案は採らない' '不透明度を上げる・縁取りを足す案は採らない'
 notov '節の中で状態色トークンを使っていない'      'var\(--(success|warning|danger|info)\)'
 
@@ -53,6 +53,15 @@ notov '節の中で状態色トークンを使っていない'      'var\(--(suc
 [ "$(printf '%s' "$ov" | grep -o 'class="ov-ph ov-dark"' | wc -l)" -eq 2 ] && ok '暗い写真の見本が 2 つ（deep・pale）' || ng '暗い写真の見本が 2 つでない'
 [ "$(printf '%s' "$ov" | grep -o 'stroke:var(--overlay-deep)' | wc -l)" -eq 2 ] && [ "$(printf '%s' "$ov" | grep -o 'stroke:var(--overlay-pale)' | wc -l)" -eq 2 ] && ok '見本の塗りはトークンを読む（deep 2・pale 2。直書きしない）' || ng '見本の塗りがトークンを読んでいない'
 chk '見本の塗りは不透明度 .55' '\.ov-ph path\{[^}]*opacity:\.55' "$idx"
+
+# (5b) 見本のラベル: 写真ごとに「選ぶ」側が入れ替わっていない（明るい=deep、暗い=pale）
+fig() { printf '%s' "$ov" | grep -E "class=\"ov-ph $1\".*--overlay-$2 を不透明度.*<span class=\"tag\">$3</span>" >/dev/null; }
+fig ov-bright deep 'この写真では選ぶ'   && ok '明るい写真×deep は「この写真では選ぶ」'   || ng '明るい写真×deep のラベルが違う'
+fig ov-bright pale 'この写真では選ばない' && ok '明るい写真×pale は「この写真では選ばない」' || ng '明るい写真×pale のラベルが違う'
+fig ov-dark   pale 'この写真では選ぶ'   && ok '暗い写真×pale は「この写真では選ぶ」'     || ng '暗い写真×pale のラベルが違う'
+fig ov-dark   deep 'この写真では選ばない' && ok '暗い写真×deep は「この写真では選ばない」'   || ng '暗い写真×deep のラベルが違う'
+inov '見本は role="img" と aria-label を持つ' 'class="ov-ph ov-bright" role="img" aria-label="'
+chk 'forced-colors でも見本の色を保つ' '@media\(forced-colors:active\)\{\.ov-ph,\.ov-sw\{forced-color-adjust:none\}\}' "$idx"
 
 # (6) トークン表: 名前・HEX・用途・テーマで変えないこと
 inov 'トークン表の列（名前・HEX・用途・テーマで変えるか）' '<th>名前</th><th>HEX</th><th>用途</th><th>テーマで変えるか</th>'
