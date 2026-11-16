@@ -80,13 +80,17 @@ const exp = { light:{bone:'rgb(245, 245, 244)',card:'rgb(255, 255, 255)',sel:'rg
           alBorder: bw(al), alLeft: al.borderLeftStyle + ' ' + al.borderLeftColor, alBg: al.backgroundColor, alRadius: al.borderRadius,
           danBorder: bw(dan), danColor: dan.borderTopColor, infoColor: al.borderTopColor, warnColor: warn.borderTopColor, icon: getComputedStyle(ic).color, warnVar: getComputedStyle(ic.parentElement).getPropertyValue('--c').trim(),
           cardTBorder: bw(cardT), fsBorder: bw(fsStyle), fsGap: fs.length === 2 ? Math.round(fs[1].top - fs[0].bottom) : -1, fsItemGap: fsStyle.rowGap,
-          figOutline: fig.outlineStyle + ' ' + fig.outlineWidth, figBorder: bw(fig), warnTok: getComputedStyle(document.documentElement).getPropertyValue('--warning').trim(), bodyColor: getComputedStyle(document.querySelector('#al-stage .al[data-al=warning] > div')).color };
+          figOutline: fig.outlineStyle + ' ' + fig.outlineWidth, figBorder: bw(fig),
+          tok: (v => { const q = document.createElement('i'); q.style.color = 'var(' + v + ')'; document.body.appendChild(q); const c = getComputedStyle(q).color; q.remove(); return c })('--warning'),
+          tokInfo: (() => { const q = document.createElement('i'); q.style.color = 'var(--info)'; document.body.appendChild(q); const c = getComputedStyle(q).color; q.remove(); return c })(),
+          iconInfo: getComputedStyle(document.querySelector('#al-stage .al[data-al=info] > span:first-child')).color,
+          bodyWarn: getComputedStyle(document.querySelector('#al-stage .al[data-al=warning] > div')).color, bodyInfo: getComputedStyle(document.querySelector('#al-stage .al[data-al=info] > div')).color };
       });
       t(`${tag}: 浮かぶ面（モーダル・ドロップダウン・ポップオーバー ほか 12 種）は 1px の --line-soft の枠・影あり/なしは従来どおり`, fx.floats.every(f => f[1]==='1px 1px 1px 1px' && f[2]===fx.soft), fx.floats.filter(f => !(f[1]==='1px 1px 1px 1px' && f[2]===fx.soft)).map(f => f.join(' ')).join(' | ') || fx.soft);
       t(`${tag}: モーダルの影は従来どおり（Light 0 1px 2px 6% / Dark 0 1px 2px 40%）`, (() => { const s = fx.floats.find(f => f[0]==='.modal')[3]; return theme==='light' ? /0\.06\)? 0px 1px 2px 0px|rgba\(0, 0, 0, 0\.06\) 0px 1px 2px 0px/.test(s) : /rgba\(0, 0, 0, 0\.4\) 0px 1px 2px 0px/.test(s) })(), fx.floats.find(f => f[0]==='.modal')[3]);
       t(`${tag}: アラートは左の帯なし・地 surface-sel・角 16px・枠は透明 1px（danger 以外）`, /^1px 1px 1px 1px$/.test(fx.alBorder) && fx.alLeft.endsWith('rgba(0, 0, 0, 0)') && fx.alBg===e.sel && fx.alRadius==='16px' && fx.infoColor==='rgba(0, 0, 0, 0)' && fx.warnColor==='rgba(0, 0, 0, 0)', `${fx.alBorder} / ${fx.alLeft} / ${fx.alBg} / ${fx.alRadius}`);
       t(`${tag}: danger のアラートだけ枠 40%（--danger）`, fx.danColor !== 'rgba(0, 0, 0, 0)' && /(\/ 0\.4\)|, 0\.4\))$/.test(fx.danColor), fx.danColor);
-      t(`${tag}: アラートの状態色は先頭のアイコンだけ（アイコンの色 = --c。本文の色とは別）`, fx.icon !== fx.bodyColor && fx.warnVar === fx.warnTok, `icon ${fx.icon} / 本文 ${fx.bodyColor} / --c ${fx.warnVar}`);
+      t(`${tag}: アラートの状態色は先頭のアイコンだけ（アイコン色 = --warning / --info の実測値・本文色はそれと別）`, fx.icon===fx.tok && fx.iconInfo===fx.tokInfo && fx.bodyWarn!==fx.tok && fx.bodyInfo!==fx.tokInfo, `icon ${fx.icon} (--warning ${fx.tok}) / info icon ${fx.iconInfo} (--info ${fx.tokInfo}) / 本文 ${fx.bodyWarn}, ${fx.bodyInfo}`);
       t(`${tag}: .np-card の題に下線なし・.np-fs に上線なし・項目 16px・まとまり 24px`, fx.cardTBorder==='0px 0px 0px 0px' && fx.fsBorder==='0px 0px 0px 0px' && fx.fsItemGap==='16px' && fx.fsGap===24, `${fx.cardTBorder} / ${fx.fsBorder} / 項目 ${fx.fsItemGap} / まとまり ${fx.fsGap}`);
       t(`${tag}: 「面は濃さで分ける」の図に点線の枠なし`, fx.figOutline.startsWith('none') && fx.figBorder==='0px 0px 0px 0px', `${fx.figOutline} / ${fx.figBorder}`);
       // フォーカスの輪は残る
