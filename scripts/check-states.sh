@@ -208,7 +208,7 @@ insec    '#proposals: title 属性は使わずツールチップに統一'  prop
 insec    '#proposals: ツールチップ遅延 400ms・--tip-pad-y/x'  proposals '表示遅延 400ms（フォーカス時は即時）.*--tip-pad-y: 6px.*--tip-pad-x: 10px'
 insec    '#proposals: --toast-duration 3s / --toast-duration-action 5s' proposals '--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s'
 insec    '#proposals: トーストの先頭アイコンは成功・お知らせのみ 16px' proposals '成功・お知らせのみ可、16px（<code>--icon-sm</code>）'
-insec    '#proposals: インラインアラート --r-md・12×16'      proposals '角丸 <code>--r-md</code>、padding 12×16'
+insec    '#proposals: インラインアラート 角 16px・12×16・地 surface-sel・左の帯なし・danger だけ枠 40%'      proposals '角 16px（<code>--r-card</code>）、padding 12×16、地は <code>--surface-sel</code>。左の状態色の帯は使わない。状態色は先頭のアイコンか丸だけ。danger だけは枠 40%'
 insec    '#proposals: 読み込みはスピナー単体・2 秒以上は「読み込み中…」' proposals '領域の中央にスピナー単体。2 秒以上かかる場合は下に「読み込み中…」を xs'
 insec    '#proposals: 文字数カウンタ xs・mute・Mono・danger・role=status' proposals '入力下の文字数カウンタ: xs・<code>--mute</code>・数字は Mono、超過は <code>--danger</code>、<code>role="status"</code>'
 insec    '#proposals: ドロワー dialog・aria-modal・フォーカス・Esc' proposals 'role="dialog"</code>・<code>aria-modal="true"</code>.*フォーカストラップ、Esc'
@@ -337,7 +337,7 @@ for id in parts-card parts-secret parts-notice parts-fieldset parts-pager; do
 done
 # 1. 見出し付きカード
 insec    '#settings-parts: カードの題は lg 18 SemiBold・タグは h2 / h3 のどちらでもよい（タグとサイズは独立。見た目はクラスでそろえる）' settings-parts '題は lg 18 SemiBold。タグは h2 / h3 のどちらでもよい（<strong>タグと表示サイズは独立</strong>。見た目はタグ（既定のサイズ）に頼らず、クラスで lg 18 SemiBold にそろえる）'
-insec    '#settings-parts: カードの題の下に --border の 1px の線'   settings-parts '題の下に <code>--border</code> の 1px の線'
+insec    '#settings-parts: カードの題の下に線は引かない（余白だけ）'   settings-parts '題の下に線は引かない。題と本文のあいだは余白だけ'
 insec    '#settings-parts: カードの本文 padding --s-6（24）・影なし' settings-parts '本文の padding は <code>--s-6</code>（24）。<strong>影は付けない</strong>'
 # 2. 秘密の入力欄
 insec    '#settings-parts: 保存済みの値・伏せ字を描画しない'          settings-parts '保存済みの値は<strong>描画しない</strong>。伏せ字も描画しない'
@@ -346,12 +346,12 @@ insec    '#settings-parts: 形は「バッジ＋変更」・「変更」で空�
 insec    '#settings-parts: バッジと入力欄は並べない（保存済みの値を匂わせる欄を出さないため）' settings-parts '<strong>バッジと入力欄は並べない</strong>。保存済みの値を匂わせる欄を出さないため'
 insec    '#settings-parts: 表示切り替えは Iconoir の Eye / EyeClosed のアイコンボタン' settings-parts 'Iconoir の <strong>Eye</strong>.*<strong>EyeClosed</strong>.*アイコンボタン'
 # 3. 題なしのインラインアラート
-insec    '#settings-parts: 題なしアラートは既存と同じ形（--r-md・padding 12×16）・アイコン 16＋本文 sm 14・題なし' settings-parts '角丸 <code>--r-md</code>、padding 12×16）。アイコン 16 ＋ 本文 sm 14。<strong>題は付けない</strong>'
+insec    '#settings-parts: 題なしアラートは既存と同じ形（角 16px・padding 12×16・地 surface-sel）・アイコン 16＋本文 sm 14・題なし' settings-parts '角 16px、padding 12×16、地は <code>--surface-sel</code>）。アイコン 16 ＋ 本文 sm 14。<strong>題は付けない</strong>'
 insec    '#settings-parts: 題なしアラートは常設の注意書き・同意の枠に使う' settings-parts '常設の注意書き・同意の枠に使う'
-insec    '#settings-parts: 題なしアラートの色は左の線だけ。warning=データの扱い・取り消せないこと／info=同意の枠とただの補足' settings-parts '色は<strong>左の線だけ</strong>に付ける（地は既存のアラートのまま）。<code>--warning</code>: データの扱いや取り消せないことなど、ずっと出しておく注意書き。<code>--info</code>: 同意のチェックを入れる枠と、ただの補足'
+insec    '#settings-parts: 題なしアラートの色は先頭のアイコンだけ（左の帯なし）。warning=データの扱い・取り消せないこと／info=同意の枠とただの補足' settings-parts '色は<strong>先頭のアイコンだけ</strong>に付ける（左の帯は使わない）。<code>--warning</code>: データの扱いや取り消せないことなど、ずっと出しておく注意書き。<code>--info</code>: 同意のチェックを入れる枠と、ただの補足'
 # 4. fieldset / legend
 insec    '#settings-parts: legend は h4 の段（sm 14 SemiBold）'        settings-parts 'legend は <strong>h4 の段（sm 14 SemiBold）</strong>'
-insec    '#settings-parts: グループの上に --border の線・グループ間 --gap-field' settings-parts 'グループの上に <code>--border</code> の 1px の線。グループ間の間隔は <code>--gap-field</code>'
+insec    '#settings-parts: グループの上に線は引かない・項目 --gap-field 16・グループ同士 --s-6 24' settings-parts 'グループの上に線は引かない。区切りは余白だけ: グループ内の項目のあいだは <code>--gap-field</code>（16）、グループ同士のあいだは <code>--s-6</code>（24）'
 # 5. 前へ／次へのページ送り
 insec    '#settings-parts: 件数が分からない一覧向けの簡易形'          settings-parts '全体の件数が分からない一覧（ログなど）向けの簡易形として許可する'
 insec    '#settings-parts: 中央に「N ページ目」を sm 14・--mute'      settings-parts '中央に「N ページ目」を sm 14・<code>--mute</code>'
@@ -367,13 +367,14 @@ done
 notinsec '#settings-parts: Issue にない補足（aria-label の文言・左に前へ／右に次へ・P1 との使い分け・1〜2 文）を規定にしない' settings-parts '入力を表示する|左に「前へ」|P1 のページネーション|1〜2 文|トーストの代わり'
 inh3     'tokens-preview #st-settings-parts: 秘密の入力欄は value を描画しない（伏せ字・自動入力停止）' st-settings-parts 'id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder'
 inh3no   'tokens-preview #st-settings-parts: 秘密の入力欄に value 属性を書かない' st-settings-parts 'id="np-sec-in"[^>]* value='
-chk      'tokens-preview: カードの題 lg 18 SemiBold・下に 1px の線'  '#states \.np-card-t\{[^}]*padding:var\(--s-4\) var\(--s-6\)[^}]*border-bottom:1px solid var\(--border\)[^}]*font-size:18px;font-weight:600' "$prev"
+chk      'tokens-preview: カードの題 lg 18 SemiBold・下に線なし（余白で区切る）'  '#states \.np-card-t\{margin:0;padding:var\(--s-6\) var\(--s-6\) 0;font-size:18px;font-weight:600' "$prev"
 chk      'tokens-preview: カードの本文 padding --s-6'                '#states \.np-card-b\{padding:var\(--s-6\)' "$prev"
 ! has "$prev" '#states \.np-card\{[^}]*shadow' && ok 'tokens-preview: カードに影を付けない' || ng 'tokens-preview: カードに影が付いている'
 chk      'tokens-preview: 登録済みバッジは accent-soft 地＋mute-on-soft・xs 12' '#states \.np-badge\{[^}]*background:var\(--accent-soft\);color:var\(--mute-on-soft\);font-size:12px' "$prev"
 chk      'tokens-preview: 題なしアラートのアイコンは 16px'           '#states \.np-note svg\{width:16px;height:16px' "$prev"
 chk      'tokens-preview: legend は sm 14 SemiBold'                  '#states \.np-fs legend\{[^}]*font-size:14px;font-weight:600' "$prev"
-chk      'tokens-preview: fieldset は上に --border の 1px・間隔は --gap-field' '#states \.np-fs\{[^}]*border-top:1px solid var\(--border\)[^}]*gap:var\(--gap-field\)' "$prev"
+chk      'tokens-preview: fieldset は線なし・項目の間隔 --gap-field' '#states \.np-fs\{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var\(--gap-field\)\}' "$prev"
+chk      'tokens-preview: フォームのグループ同士は --s-6（24）'       '#states \.np-form\{[^}]*gap:var\(--s-6\)\}' "$prev"
 chk      'tokens-preview: #st-settings-parts から本体の #settings-parts へ戻るリンク' '<a href="./#settings-parts">' "$prev"
 chk      'tokens-preview: 「見本を最初に戻す」は小さいリンク風（sm 14・mute・太字でない）で部品から離す' '#states \.np-reset\{[^}]*font:400 14px[^}]*color:var\(--mute\)' "$prev"
 chk      'tokens-preview: 「見本を最初に戻す」の上の間隔は --s-6' '#states \.np-reset-wrap\{margin-top:var\(--s-6\)\}' "$prev"

@@ -41,3 +41,13 @@
 - `bg20-{light,dark}-tp-ripple.png` / `-tp-states-buttons.png` / `-tp-theme.png`: リップルの対象・ボタンの状態・テーマ切替
 - `bg20-{light,dark}-idx-app-ui.png`: index.html の規定の節
 - `bg20-{desktop,mobile390}-{light,dark}-app-ui.png`: verify20.cjs が出す #app-ui（1280 / 390）
+
+## いろはの決定による直し（PR #21 への追加コミット）
+- 浮かぶ面（モーダル・ダイアログ・ドロップダウン・ポップオーバー・メニュー・コマンドパレット・コーチ・スナックバー・ドロワー）: 1px の枠は残し、色を `--line-soft` に。影（`--shadow-modal`）は変えない
+- インラインアラート `.al`: 左の状態色の帯をなくし、地 `--surface-sel`・角 16px（`--r-card`）。状態色は先頭のアイコンだけ。danger だけ枠 40%（`.al-dan`）
+- `.np-card` の題の下線・`.np-fs` の上線をなくし、余白で区切る（項目のあいだ 16px・まとまりのあいだ 24px）
+- 「面は濃さで分ける」の図 `.au-fig` の点線の枠をなくした
+- 28px のアプリ画面専用 3 段・Light の surface-sel 上の 13px は `--mute-on-soft`・管理画面の見本（24/18/16）は触らない（`#app-ui` へ誘導）: 変更なし
+- 上の「規定の対象外にしたもの」のうち、浮かぶ面の枠・アラートの帯と角・`.np-card` / `.np-fs` の線は、この直しで規定に入った
+- 検査: check-app-ui 105 / check-states 376 / check-typography 20 / check-scrollbar 27 / check-overlay 37 / Playwright（Chromium。Light/Dark × 1280/390）88、すべて FAIL 0
+

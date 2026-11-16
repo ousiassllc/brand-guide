@@ -64,13 +64,38 @@ const exp = { light:{bone:'rgb(245, 245, 244)',card:'rgb(255, 255, 255)',sel:'rg
       t(`${tag}: mute のコントラスト（bone / card / sel）`, ctr[0]>=4.5 && ctr[1]>=4.5, ctr.map(v => v.toFixed(2)).join(' / ') + (ctr[2]<4.5 ? '（sel 上は --mute-on-soft を使う規定）' : ''));
       const ms = await p.evaluate(() => { const c = document.querySelector('#app-ui .au-chip'); return getComputedStyle(c).color });
       const cc = cr(rgb(ms), bg.sel); t(`${tag}: sel 上のチップ文字（--mute-on-soft）4.5:1 以上`, cc>=4.5, cc.toFixed(2));
+      // いろはの決定（PR #21 の直し）: 浮かぶ面の枠・アラート・線でなく余白・図の点線なし
+      const fx = await p.evaluate(() => {
+        const cs = (s, i=0) => getComputedStyle(document.querySelectorAll(s)[i]);
+        const probe = document.createElement('i'); probe.style.cssText = 'border:1px solid var(--line-soft)'; document.body.appendChild(probe);
+        const soft = getComputedStyle(probe).borderTopColor; probe.remove();
+        const bw = c => ['Top','Right','Bottom','Left'].map(k => c['border'+k+'Width']).join(' ');
+        const floats = ['.modal', '#states .zs .dd1', '#states .zs .mdl', '#states .zs .pop', '#states .dlg', '#states .dpn', '#p0 .dd-panel', '#p0 .pop', '#p1 .sugg', '#p2 .cmdk', '#p2 .coach-tip', '#p2 .snackbar']
+          .map(s => { const c = cs(s); return [s, bw(c), c.borderTopColor, c.boxShadow] });
+        const al = cs('#al-stage .al[data-al=info]'), dan = cs('#al-stage .al[data-al=danger]'), warn = cs('#al-stage .al[data-al=warning]');
+        const ic = document.querySelector('#al-stage .al[data-al=warning] > span:first-child');
+        const fs = [...document.querySelectorAll('#states .np-fs')].map(e => e.getBoundingClientRect());
+        const fsStyle = cs('#states .np-fs'), cardT = cs('#states .np-card-t'), fig = cs('#app-ui .au-fig');
+        return { soft, floats,
+          alBorder: bw(al), alLeft: al.borderLeftStyle + ' ' + al.borderLeftColor, alBg: al.backgroundColor, alRadius: al.borderRadius,
+          danBorder: bw(dan), danColor: dan.borderTopColor, infoColor: al.borderTopColor, warnColor: warn.borderTopColor, icon: getComputedStyle(ic).color, warnVar: getComputedStyle(ic.parentElement).getPropertyValue('--c').trim(),
+          cardTBorder: bw(cardT), fsBorder: bw(fsStyle), fsGap: fs.length === 2 ? Math.round(fs[1].top - fs[0].bottom) : -1, fsItemGap: fsStyle.rowGap,
+          figOutline: fig.outlineStyle + ' ' + fig.outlineWidth, figBorder: bw(fig), warnTok: getComputedStyle(document.documentElement).getPropertyValue('--warning').trim(), bodyColor: getComputedStyle(document.querySelector('#al-stage .al[data-al=warning] > div')).color };
+      });
+      t(`${tag}: 浮かぶ面（モーダル・ドロップダウン・ポップオーバー ほか 12 種）は 1px の --line-soft の枠・影あり/なしは従来どおり`, fx.floats.every(f => f[1]==='1px 1px 1px 1px' && f[2]===fx.soft), fx.floats.filter(f => !(f[1]==='1px 1px 1px 1px' && f[2]===fx.soft)).map(f => f.join(' ')).join(' | ') || fx.soft);
+      t(`${tag}: モーダルの影は従来どおり（Light 0 1px 2px 6% / Dark 0 1px 2px 40%）`, (() => { const s = fx.floats.find(f => f[0]==='.modal')[3]; return theme==='light' ? /0\.06\)? 0px 1px 2px 0px|rgba\(0, 0, 0, 0\.06\) 0px 1px 2px 0px/.test(s) : /rgba\(0, 0, 0, 0\.4\) 0px 1px 2px 0px/.test(s) })(), fx.floats.find(f => f[0]==='.modal')[3]);
+      t(`${tag}: アラートは左の帯なし・地 surface-sel・角 16px・枠は透明 1px（danger 以外）`, /^1px 1px 1px 1px$/.test(fx.alBorder) && fx.alLeft.endsWith('rgba(0, 0, 0, 0)') && fx.alBg===e.sel && fx.alRadius==='16px' && fx.infoColor==='rgba(0, 0, 0, 0)' && fx.warnColor==='rgba(0, 0, 0, 0)', `${fx.alBorder} / ${fx.alLeft} / ${fx.alBg} / ${fx.alRadius}`);
+      t(`${tag}: danger のアラートだけ枠 40%（--danger）`, fx.danColor !== 'rgba(0, 0, 0, 0)' && /(\/ 0\.4\)|, 0\.4\))$/.test(fx.danColor), fx.danColor);
+      t(`${tag}: アラートの状態色は先頭のアイコンだけ（アイコンの色 = --c。本文の色とは別）`, fx.icon !== fx.bodyColor && fx.warnVar === fx.warnTok, `icon ${fx.icon} / 本文 ${fx.bodyColor} / --c ${fx.warnVar}`);
+      t(`${tag}: .np-card の題に下線なし・.np-fs に上線なし・項目 16px・まとまり 24px`, fx.cardTBorder==='0px 0px 0px 0px' && fx.fsBorder==='0px 0px 0px 0px' && fx.fsItemGap==='16px' && fx.fsGap===24, `${fx.cardTBorder} / ${fx.fsBorder} / 項目 ${fx.fsItemGap} / まとまり ${fx.fsGap}`);
+      t(`${tag}: 「面は濃さで分ける」の図に点線の枠なし`, fx.figOutline.startsWith('none') && fx.figBorder==='0px 0px 0px 0px', `${fx.figOutline} / ${fx.figBorder}`);
       // フォーカスの輪は残る
       await p.focus('#app-ui .au-hd .btn'); await p.keyboard.press('Tab'); await p.keyboard.press('Shift+Tab');
       const fo = await p.evaluate(() => { const c = getComputedStyle(document.activeElement); return c.outlineStyle+' '+c.outlineWidth });
       t(`${tag}: :focus-visible の輪が出る`, /solid [23]px/.test(fo), fo);
       const ov = await p.evaluate(() => { const cw = document.documentElement.clientWidth; return [...document.querySelectorAll('#app-ui, #app-ui *')].filter(x => x.getBoundingClientRect().right > cw+.5 && !x.closest('[style*="overflow"]') && getComputedStyle(x).position!=='fixed').map(x => x.className||x.tagName).slice(0,5) });
       t(`${tag}: #app-ui の見本がはみ出さない`, ov.length===0, ov.join(','));
-      await p.locator('#app-ui').screenshot({ path:`${out}/bg20-${wn}-${theme}-app-ui.png` });
+      await p.locator('#app-ui').screenshot({ path:`${out}/${process.env.PREFIX||"bg20"}-${wn}-${theme}-app-ui.png` });
       await p.close();
     }
   }

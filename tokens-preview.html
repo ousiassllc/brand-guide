@@ -74,15 +74,15 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .sk{background:linear-gradient(90deg,var(--accent-soft) 0%,color-mix(in srgb,var(--accent-soft) 50%,var(--surface)) 50%,var(--accent-soft) 100%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite;border-radius:var(--r-sm);height:12px;margin:8px 0}@keyframes sk{from{background-position:100% 0}to{background-position:-100% 0}}
 @media (prefers-reduced-motion:reduce){.spin,.sk{animation:none}}
 .pill.neu{background:var(--surface-sel);color:var(--mute-on-soft)}
-.al{display:flex;gap:12px;padding:12px 16px;border:0;border-left:3px solid var(--c,var(--info));border-radius:var(--r-md);background:var(--surface-sel);font-size:14px;margin-bottom:10px}.al b{font-weight:600}
+.al{display:flex;gap:12px;padding:12px 16px;border:1px solid transparent;border-radius:var(--r-card);background:var(--surface-sel);font-size:14px;margin-bottom:10px}.al b{font-weight:600}.al>span:first-child{color:var(--c,var(--info))}.al.al-dan{border-color:color-mix(in srgb,var(--danger) 40%,transparent)}
 .tst{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);padding:0 18px;height:40px;border-radius:var(--r-full);font:400 14px Sora,"Noto Sans JP";line-height:1}.tst button{background:none;border:0;color:inherit;opacity:.85;cursor:pointer;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;display:inline-flex;align-items:center;height:100%}
 .empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
 .panel{background:var(--surface-sel);border-radius:var(--r-card);padding:var(--pad-card-sm)}hr.dv{border:0;border-top:1px solid var(--line-soft);margin:var(--gap-card-section) 0}
 .tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .tb40 button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .ui .seg2{display:inline-flex;background:var(--surface-sel);border-radius:var(--r-pill);padding:3px}.seg2 button{border:0;background:none;color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP";padding:6px 14px;border-radius:var(--r-pill);cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink)}@media(forced-colors:active){.seg2 button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:380px;padding:48px 16px 0;align-content:end;justify-items:center;overflow:visible}
-.modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--border)}
-.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-top:0;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 28px;align-self:end;justify-self:center}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
+.modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-soft)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--line-soft)}
+.sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line-soft);border-top:0;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 28px;align-self:end;justify-self:center}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
 .tbl{width:100%;border-collapse:collapse;font-size:var(--table-body-size,15px)}.tbl td,.tbl th{text-align:left;padding:var(--table-pad-y,10px) var(--table-pad-x,12px);border-bottom:var(--table-divider,1px solid var(--line-soft))}.tbl th{font-weight:400;color:var(--mute);font-size:var(--table-head-size,13px)}
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-field)}
 </style></head><body><div class="w">
@@ -129,7 +129,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <tr><td>選択・ホバー</td><td><code>--surface-sel</code></td><td><div class="hx" style="margin:0"><button type="button" data-hex="#ebebea">#ebebea</button></div></td><td><div class="hx" style="margin:0"><button type="button" data-hex="#1e1e21">#1e1e21</button></div></td></tr>
 <tr><td>表の行の区切り</td><td><code>--line-soft</code></td><td colspan="2">ink 6%（Dark は <code>--accent</code> = bone 6%）</td></tr>
 </tbody></table></div>
-<ul class="vals" style="font-family:inherit;font-size:14px;margin-top:12px"><li>地より一段上げる。ページ上のカードは <code>--surface</code>、カードの中の入れ子・選択・ホバーは <code>--surface-sel</code></li><li>表の行の区切りは <code>--line-soft</code> のごく薄い線、または余白だけ</li><li>例外（枠を残す）: 入力欄（input / textarea / select）の枠、<code>:focus-visible</code> の <code>--focus</code> の輪、危険（danger）の枠 40%</li><li>浮かぶ面（モーダル・ドロップダウン・ポップオーバー）とアラートの状態色の帯はこの規定の対象外。従来どおり（<a href="#st-shadow">影</a>・<a href="#st-decided">状態色</a>）</li><li><code>--mute</code> の 13px を選択色の面に置くときは <code>--mute-on-soft</code>（Light の <code>--mute</code> は <code>--surface-sel</code> 上で 4.45:1 のため）</li></ul>
+<ul class="vals" style="font-family:inherit;font-size:14px;margin-top:12px"><li>地より一段上げる。ページ上のカードは <code>--surface</code>、カードの中の入れ子・選択・ホバーは <code>--surface-sel</code></li><li>表の行の区切りは <code>--line-soft</code> のごく薄い線、または余白だけ。カードの題の下・グループの上にも線を引かず、余白で区切る（項目のあいだ 16px・まとまりのあいだ 24px）</li><li>例外（枠を残す）: 入力欄（input / textarea / select）の枠、<code>:focus-visible</code> の <code>--focus</code> の輪、危険（danger）の枠 40%</li><li>浮かぶ面（モーダル・ドロップダウン・ポップオーバー）は 1px の枠を残す。色は <code>--line-soft</code>、影は今のまま（<a href="#st-shadow">影</a>）</li><li>インラインアラートは地 <code>--surface-sel</code>・角 16px。左の状態色の帯は使わず、状態色は先頭のアイコンか丸だけ。danger だけ枠 40%（<a href="#st-decided">状態色</a>）</li><li><code>--mute</code> の 13px を選択色の面に置くときは <code>--mute-on-soft</code>（Light の <code>--mute</code> は <code>--surface-sel</code> 上で 4.45:1 のため）</li></ul>
 
 <h3 id="app-ui-type">文字は 3 段だけ Type steps</h3>
 <div class="card"><div class="au-ty">
@@ -160,7 +160,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </div>
 <p class="help" style="margin-top:12px">表の行は <code>--surface-sel</code> でホバー（枠線なし）。表の見出しは 13px / 400 mute、本文は 15px / 400、行の区切りは <code>--line-soft</code>。</p>
 <style>
-#app-ui .au-fig{background:var(--bone);border-radius:var(--r-card);padding:16px;outline:1px dashed var(--mute);outline-offset:-1px;font-size:13px;color:var(--mute)}
+#app-ui .au-fig{background:var(--bone);border-radius:var(--r-card);padding:16px;font-size:13px;color:var(--mute)}
 #app-ui .au-fig-card{background:var(--surface);border-radius:var(--r-card);padding:16px;margin-top:12px}
 #app-ui .au-fig-sel{background:var(--surface-sel);border-radius:var(--r-pill);padding:8px 16px;margin-top:12px;color:var(--mute-on-soft)}
 #app-ui .au-tbl th,#app-ui .au-tbl td{padding:14px 22px}#app-ui .au-tbl tbody tr:last-child td{border-bottom:0}#app-ui .au-tbl .it,#app-ui .au-tbl .au-it{font-weight:600}
@@ -322,7 +322,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="al mfade on" data-al="info" style="--c:var(--info)"><span>ℹ</span><div><b>お知らせ</b><br>メンテナンスは 11/10 2:00–3:00 (JST) に予定しています。</div></div>
 <div class="al mfade on" data-al="success" style="--c:var(--success)"><span>✓</span><div><b>保存しました</b><br>変更内容を反映しました。</div></div>
 <div class="al mfade on" data-al="warning" style="--c:var(--warning)"><span>!</span><div><b>確認が必要です</b><br>支払い方法の有効期限が近づいています。</div></div>
-<div class="al mfade on" data-al="danger" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
+<div class="al al-dan mfade on" data-al="danger" style="--c:var(--danger)"><span>×</span><div><b>送信できませんでした</b><br>通信を確認して再度お試しください。</div></div>
 </div>
 <h4 id="toast-rules" style="margin:20px 0 8px;font:600 15px Sora,'Noto Sans JP'">トースト Toast</h4>
 <p class="mute" style="font-size:14px;margin:0 0 12px">軽い完了・コピー・短いエラー向き。確認や破壊的操作はモーダル／インラインアラートを使う。</p>
@@ -510,13 +510,13 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .zs{position:relative;height:392px;max-width:520px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden;isolation:isolate;font-size:13px}
 #states .zs .zt{font:12px "JetBrains Mono",monospace;color:var(--mute)}
 #states .zs .bar{position:absolute;left:0;right:0;top:0;height:40px;z-index:var(--z-sticky);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
-#states .zs .dd1{position:absolute;left:12px;top:48px;width:160px;z-index:var(--z-dropdown);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--gap-option,4px)}
+#states .zs .dd1{position:absolute;left:12px;top:48px;width:160px;z-index:var(--z-dropdown);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:var(--gap-option,4px)}
 #states .zs .dd1 div{padding:6px 8px;border-radius:var(--r-sm)}
 #states .zs .scr{position:absolute;inset:0;z-index:var(--z-modal);background:color-mix(in srgb,var(--ink) 18%,transparent);display:grid;place-items:start center;padding-top:24px}
-#states .zs .mdl{width:min(340px,86%);height:232px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal);display:flex;flex-direction:column}
-#states .zs .mdl header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600}
-#states .zs .mdl .bd{padding:16px;flex:1}#states .zs .mdl footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
-#states .zs .pop{position:absolute;left:max(8px,calc(50% - 210px));top:247px;width:180px;z-index:var(--z-popup);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option,4px)}
+#states .zs .mdl{width:min(340px,86%);height:232px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);box-shadow:var(--shadow-modal);display:flex;flex-direction:column}
+#states .zs .mdl header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line-soft);font-weight:600}
+#states .zs .mdl .bd{padding:16px;flex:1}#states .zs .mdl footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid var(--line-soft)}
+#states .zs .pop{position:absolute;left:max(8px,calc(50% - 210px));top:247px;width:180px;z-index:var(--z-popup);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option,4px)}
 #states .zs .pop button{display:block;width:100%;text-align:left;border:0;background:none;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;height:var(--menu-item-h,40px);padding:0 var(--menu-pad-x,12px);border-radius:var(--r-sm);cursor:pointer}
 #states .zs .pop button:hover{background:var(--accent-soft)}#states .zs .pop button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 #states .zs .zst{position:absolute;left:12px;bottom:12px;z-index:var(--z-toast);max-width:calc(100% - 24px)}
@@ -540,14 +540,14 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 /* ---- Issue #14: accent-soft 地の補助文字・ダイアログ・ペイン型の例外・Hitomado 提案の反映 ---- */
 :root{--tip-pad-y:6px;--tip-pad-x:10px;--toast-duration:3s;--toast-duration-action:5s}
 #states .soft .s-mos{color:var(--mute-on-soft);font-size:12px}#states .soft>span:first-child{white-space:nowrap}
-#states .dlg{width:min(440px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:0;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);color:var(--ink);font-weight:400;box-shadow:var(--shadow-modal)}
+#states .dlg{width:min(440px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:0;border:1px solid var(--line-soft);border-radius:var(--r-xl);background:var(--surface);color:var(--ink);font-weight:400;box-shadow:var(--shadow-modal)}
 #states .dlg::backdrop{background:color-mix(in srgb,var(--ink) 22%,transparent)}
-#states .dlg header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border)}
+#states .dlg header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line-soft)}
 #states .dlg h4{margin:0;font:600 18px/1.7 Sora,"Noto Sans JP",sans-serif}
 #states .dlg .bd{padding:16px 20px}
 #states .dlg .dlg-body{margin:0;font-size:16px;line-height:1.8}
 #states .dlg .dlg-note{margin:12px 0 0;font-size:14px;line-height:1.7;color:var(--mute)}
-#states .dlg footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--border)}
+#states .dlg footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--line-soft)}
 #states .dlg .ib:disabled{opacity:.4;cursor:not-allowed}
 #states .pn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:var(--s-4)}
 #states .pn>*{min-width:0;border-radius:var(--r-card);background:var(--surface-sel);padding:var(--s-4)}
@@ -562,7 +562,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .rws{display:flex;flex-direction:column;gap:0}
 #states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute)}
 #states .rw.on{background:var(--surface-sel)}#states .rw.on small{color:var(--mute-on-soft)}
-#states .dpn{display:flex;flex-direction:column;gap:0;padding:var(--s-1);border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
+#states .dpn{display:flex;flex-direction:column;gap:0;padding:var(--s-1);border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface)}
 #states .dpn button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;text-align:left;cursor:pointer}
 #states .dpn button:hover,#states .dpn button.hl{background:var(--accent-soft)}
 #states .dpn button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
@@ -614,7 +614,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 }
 /* puppet-remo 由来の部品 5 種（#16。puppet-remo#148〜#152）。新しい色・サイズは作らない */
 #states .np-card{background:var(--surface);border-radius:var(--r-card)}
-#states .np-card-t{margin:0;padding:var(--s-4) var(--s-6);border-bottom:1px solid var(--border);font-size:18px;font-weight:600;line-height:1.4}
+#states .np-card-t{margin:0;padding:var(--s-6) var(--s-6) 0;font-size:18px;font-weight:600;line-height:1.4}
 #states .np-card-b{padding:var(--s-6);font-size:14px;line-height:1.6}
 #states .np-badge{display:inline-flex;align-items:center;height:22px;padding:0 var(--s-2);border-radius:var(--r-full);background:var(--accent-soft);color:var(--mute-on-soft);font-size:12px;line-height:1;white-space:nowrap}
 #states .np-secret [hidden]{display:none}
@@ -625,9 +625,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .np-note{margin:0 0 var(--s-2);align-items:flex-start;line-height:1.6}#states .np-note p,#states .np-note label{margin:0}
 #states .np-note svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--c);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}#states .np-agree input,#states .np-chk input{width:auto;height:auto;padding:0;flex:none}
-#states .np-form{display:flex;flex-direction:column;gap:var(--gap-field)}
-#states .np-fs{margin:0;min-width:0;padding:var(--gap-field) 0 0;border:0;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:var(--gap-field)}
-#states .np-fs legend{padding:0 var(--s-2) 0 0;font-size:14px;font-weight:600;line-height:1.4}
+#states .np-form{display:flex;flex-direction:column;gap:var(--s-6)}
+#states .np-fs{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var(--gap-field)}
+#states .np-fs legend{margin:0 0 var(--gap-field);padding:0;font-size:14px;font-weight:600;line-height:1.4}
 #states .np-pager{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3)}
 #states .np-reset-wrap{margin-top:var(--s-6)}#states .np-reset{background:none;border:0;padding:var(--s-1) 0;font:400 14px Sora,"Noto Sans JP",sans-serif;color:var(--mute);text-decoration:underline;text-underline-offset:3px;cursor:pointer}#states .np-reset:hover{color:var(--ink)}
 #states .np-pg-n{font-size:14px;color:var(--mute)}
@@ -770,7 +770,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="shpane" data-theme="light"><p class="st-h">Light — <code>0 1px 2px rgb(0 0 0 / 6%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Light のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 <div class="shpane" data-theme="dark"><p class="st-h">Dark — <code>0 1px 2px rgb(0 0 0 / 40%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Dark のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 </div>
-<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、浮かぶ面（モーダルなど）の分離は 1px の <code>--border</code> が担う。カードは <code>--surface</code> の濃さで分け、枠線は付けない。</p>
+<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、浮かぶ面（モーダルなど）の分離は 1px の <code>--line-soft</code> の枠が担う。カードは <code>--surface</code> の濃さで分け、枠線は付けない。</p>
 
 <h3 id="st-soft">accent-soft 地の補助文字 Text on accent-soft <span class="tag">採用</span></h3>
 <div class="card"><div class="st-grid">
@@ -830,7 +830,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="sws" id="sws" role="group" aria-label="アカウントの色"><button type="button" aria-label="青" style="--c:var(--info)" aria-pressed="true"></button><button type="button" aria-label="緑" style="--c:var(--success)" aria-pressed="false"></button><button type="button" aria-label="黄" style="--c:var(--warning)" aria-pressed="false"></button></div>
 <p class="st-h">見出しの段</p>
 <p class="hg-m">モーダルの題（lg 18）</p><p class="hg-3">h3（base 16）</p><p class="hg-4">h4（sm 14）</p>
-<p class="st-h">インラインアラートの題</p><div class="al" style="--c:var(--warning);margin:0"><div><div class="alt-t">注意が必要です</div><span style="font-size:14px">題は SemiBold・sm</span></div></div></div>
+<p class="st-h">インラインアラートの題</p><div class="al" style="--c:var(--warning);margin:0"><span>!</span><div><div class="alt-t">注意が必要です</div><span style="font-size:14px">題は SemiBold・sm</span></div></div></div>
 </div></div>
 
 <h3 id="st-decided">未確定だった 4 件の決定 Decisions <span class="tag">採用</span></h3>
@@ -859,10 +859,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <h3 id="st-settings-parts">設定画面のパーツ Settings parts <span class="tag">採用</span></h3>
 <p class="help" style="margin:0 0 8px">参照: puppet-remo#148〜#152。<a href="./#settings-parts">規定は本体の「設定画面のパーツ」</a>。値は既存のトークンと「アプリ内の見出しの段」にそろえた（新しい色・サイズは作らない）。Light / Dark は右上の切替で見られる。</p>
 <div class="card"><div class="pp">
-<div><p class="st-h">1. 見出し付きカード（題 lg 18 SemiBold・下に <code>--border</code> 1px・本文 padding <code>--s-6</code>・影なし。タグは h2 / h3 のどちらでもよい）</p><section class="np-card" aria-labelledby="np-card-h3"><h3 class="np-card-t" id="np-card-h3">接続の設定（h3）</h3><div class="np-card-b"><p style="margin:0">本文の padding は 24（<code>--s-6</code>）。カードに影は付けない。</p></div></section><section class="np-card" aria-labelledby="np-card-h2" style="margin-top:var(--s-3)"><h2 class="np-card-t" id="np-card-h2">接続の設定（h2）</h2><div class="np-card-b"><p style="margin:0">タグが h2 でも、題の見た目は同じ（lg 18 SemiBold）。</p></div></section><p class="help">タグ（h2 / h3）と見た目は別。見た目は <code>.np-card-t</code> のクラスで lg 18 SemiBold にそろえている</p></div>
+<div><p class="st-h">1. 見出し付きカード（題 lg 18 SemiBold・下に線なし・本文 padding <code>--s-6</code>・影なし。タグは h2 / h3 のどちらでもよい）</p><section class="np-card" aria-labelledby="np-card-h3"><h3 class="np-card-t" id="np-card-h3">接続の設定（h3）</h3><div class="np-card-b"><p style="margin:0">本文の padding は 24（<code>--s-6</code>）。カードに影は付けない。</p></div></section><section class="np-card" aria-labelledby="np-card-h2" style="margin-top:var(--s-3)"><h2 class="np-card-t" id="np-card-h2">接続の設定（h2）</h2><div class="np-card-b"><p style="margin:0">タグが h2 でも、題の見た目は同じ（lg 18 SemiBold）。</p></div></section><p class="help">タグ（h2 / h3）と見た目は別。見た目は <code>.np-card-t</code> のクラスで lg 18 SemiBold にそろえている</p></div>
 <div><p class="st-h">2. 秘密の入力欄（「バッジ＋変更」の形。保存済みの値は描画せず、バッジと入力欄は並べない）</p><div class="np-secret"><div class="np-sec-saved" id="np-sec-saved"><span class="np-sec-name">API キー</span><span class="np-badge">登録済み</span><button type="button" class="btn sec sm" id="np-sec-change">変更</button></div><div id="np-sec-edit" hidden><label class="lbl" for="np-sec-in">API キー</label><div class="np-sec-row"><input class="fld" id="np-sec-in" name="api_key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="新しいキーを入力"><button type="button" class="ib np-eye" id="np-eye" data-shown="false" aria-label="入力を表示する"><svg class="e-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13C6.6 5 17.4 5 21 13"/><path d="M12 17C10.3431 17 9 15.6569 9 14C9 12.3431 10.3431 11 12 11C13.6569 11 15 12.3431 15 14C15 15.6569 13.6569 17 12 17Z"/></svg><svg class="e-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 16L17.0248 12.6038"/><path d="M12 17.5V14"/><path d="M4.5 16L6.96895 12.6124"/><path d="M3 8C6.6 16 17.4 16 21 8"/></svg></button></div><p class="help">入力文字は base 16。伏せ字が既定</p></div></div><div class="np-reset-wrap"><button type="button" class="np-reset" id="np-sec-reset">見本を最初に戻す</button></div><p class="help">登録済みのときは入力欄も伏せ字も出さず、バッジと「変更」だけ。「見本を最初に戻す」はこの見本の操作用（部品の一部ではない）</p></div>
-<div><p class="st-h">3. 題なしのインラインアラート（アイコン 16 ＋ 本文 sm 14）</p><div class="al np-note" role="note" style="--c:var(--warning)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.0429 21H3.95705C2.41902 21 1.45658 19.3364 2.22324 18.0031L10.2662 4.01533C11.0352 2.67792 12.9648 2.67791 13.7338 4.01532L21.7768 18.0031C22.5434 19.3364 21.581 21 20.0429 21Z"/><path d="M12 9V13"/><path d="M12 17.01L12.01 16.9989"/></svg><p>入力の本文は暗号化されず、平文でこの PC に保存されます。</p></div><div class="al np-note" style="--c:var(--info)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11.5V16.5"/><path d="M12 7.51L12.01 7.49889"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/></svg><label class="np-agree"><input type="checkbox"> 上記を理解したうえで有効にする</label></div><p class="help">常設の注意書き・同意の枠に使う。色は左の線だけ（<code>--warning</code>: データの扱い・取り消せないことなど、ずっと出す注意書き／<code>--info</code>: 同意のチェックの枠とただの補足）。地は既存のまま</p></div>
-<div><p class="st-h">4. フォームのグループ見出し（legend は h4 の段・上に <code>--border</code> の線・グループ間 <code>--gap-field</code>）</p><form class="np-form" onsubmit="return false"><fieldset class="np-fs"><legend>監査ログ</legend><label class="np-chk"><input type="checkbox" checked> サムネイルを保存する</label><div><label class="lbl" for="np-fs-days">保持期間（日）</label><input class="fld" id="np-fs-days" type="number" value="90" min="1"></div></fieldset><fieldset class="np-fs"><legend>更新</legend><div><label class="lbl" for="np-fs-ch">更新のチャネル</label><select class="fld" id="np-fs-ch"><option>正式版</option><option>ナイトリー</option></select></div></fieldset></form></div>
+<div><p class="st-h">3. 題なしのインラインアラート（アイコン 16 ＋ 本文 sm 14）</p><div class="al np-note" role="note" style="--c:var(--warning)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.0429 21H3.95705C2.41902 21 1.45658 19.3364 2.22324 18.0031L10.2662 4.01533C11.0352 2.67792 12.9648 2.67791 13.7338 4.01532L21.7768 18.0031C22.5434 19.3364 21.581 21 20.0429 21Z"/><path d="M12 9V13"/><path d="M12 17.01L12.01 16.9989"/></svg><p>入力の本文は暗号化されず、平文でこの PC に保存されます。</p></div><div class="al np-note" style="--c:var(--info)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11.5V16.5"/><path d="M12 7.51L12.01 7.49889"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/></svg><label class="np-agree"><input type="checkbox"> 上記を理解したうえで有効にする</label></div><p class="help">常設の注意書き・同意の枠に使う。色は先頭のアイコンだけ（左の帯は使わない。<code>--warning</code>: データの扱い・取り消せないことなど、ずっと出す注意書き／<code>--info</code>: 同意のチェックの枠とただの補足）。地は surface-sel・角 16px</p></div>
+<div><p class="st-h">4. フォームのグループ見出し（legend は h4 の段・線なし・グループ内の項目 <code>--gap-field</code> 16・グループ同士 <code>--s-6</code> 24）</p><form class="np-form" onsubmit="return false"><fieldset class="np-fs"><legend>監査ログ</legend><label class="np-chk"><input type="checkbox" checked> サムネイルを保存する</label><div><label class="lbl" for="np-fs-days">保持期間（日）</label><input class="fld" id="np-fs-days" type="number" value="90" min="1"></div></fieldset><fieldset class="np-fs"><legend>更新</legend><div><label class="lbl" for="np-fs-ch">更新のチャネル</label><select class="fld" id="np-fs-ch"><option>正式版</option><option>ナイトリー</option></select></div></fieldset></form></div>
 <div><p class="st-h">5. 前へ／次へだけのページ送り（件数が分からない一覧向け。端は disabled・opacity .4）</p><nav class="np-pager" aria-label="ページ送り"><button type="button" class="btn sec sm" id="np-pg-prev">前へ</button><span class="np-pg-n" id="np-pg-n" data-page="1">1 ページ目</span><button type="button" class="btn sec sm" id="np-pg-next">次へ</button></nav><p class="help">見本は 3 ページまで。1 ページ目では「前へ」、3 ページ目では「次へ」が disabled。押したボタンが端で使えなくなったら、フォーカスを反対側のボタンへ移す</p></div>
 </div></div>
 </section>
@@ -1024,7 +1024,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .phone .mbar .brand{font-weight:600;letter-spacing:.1em;font-size:12px}
 #p0 .phone .mbody{padding:16px;font-size:13px;color:var(--mute)}
 #p0 .mnav-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:4}
-#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:220px;background:var(--surface);border-right:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(-105%);transition:transform var(--motion-slow) var(--ease-out);z-index:5;display:flex;flex-direction:column;gap:var(--gap-menu);padding:12px 8px}
+#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:220px;background:var(--surface);border-right:1px solid var(--line-soft);box-shadow:var(--shadow-modal);transform:translateX(-105%);transition:transform var(--motion-slow) var(--ease-out);z-index:5;display:flex;flex-direction:column;gap:var(--gap-menu);padding:12px 8px}
 #p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
 #p0 .phone.open .mnav-panel{transform:translateX(0)}
 #p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px}
@@ -1038,18 +1038,18 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .bc a{color:var(--mute);text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 #p0 .bc .sep{color:var(--mute)}#p0 .bc .cur{color:var(--ink)}
 #p0 .dd{position:relative;display:inline-block;z-index:var(--z-dropdown)}
-#p0 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option);z-index:var(--z-dropdown);display:none}
+#p0 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option);z-index:var(--z-dropdown);display:none}
 #p0 .dd.open .dd-panel{display:flex;flex-direction:column;gap:var(--gap-option)}
 #p0 .dd-panel button{display:flex;align-items:center;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
 #p0 .dd-panel button:hover{background:var(--accent-soft)}
 #p0 .dd-panel button.danger{color:var(--danger)}
-#p0 .dd-panel hr{border:0;border-top:1px solid var(--border);margin:4px 0}
+#p0 .dd-panel hr{border:0;border-top:1px solid var(--line-soft);margin:4px 0}
 #p0 .tip-wrap{position:relative;display:inline-flex}
 #p0 .tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;padding:6px 10px;border-radius:var(--r-sm);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-in) var(--ease-out);z-index:var(--z-dropdown)}
 #p0 .tip-wrap:hover .tip,#p0 .tip-wrap:focus-within .tip{opacity:1}
-#p0 .tip.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border)}
+#p0 .tip.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line-soft)}
 #p0 .pop-host{position:relative;display:inline-block}
-#p0 .pop{position:absolute;top:calc(100% + 8px);left:0;width:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px;z-index:var(--z-dropdown);display:none}
+#p0 .pop{position:absolute;top:calc(100% + 8px);left:0;width:260px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px;z-index:var(--z-dropdown);display:none}
 #p0 .pop-host.open .pop{display:block}
 #p0 .pop h4{margin:0 0 var(--gap-heading-body);font-size:14px;font-weight:600}
 #p0 .pop p{margin:0 0 12px;font-size:13px;color:var(--mute)}
@@ -1059,10 +1059,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .drawer-stage{position:relative;height:320px;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bone)}
 #p0 .drawer-stage .drawer-bg{position:absolute;inset:0;padding:16px;font-size:14px;color:var(--mute);pointer-events:none}
 #p0 .drawer-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:1}
-#p0 .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,85%);background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform var(--motion-slow) var(--ease-out);z-index:2;display:flex;flex-direction:column;opacity:1}
+#p0 .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,85%);background:var(--surface);border-left:1px solid var(--line-soft);box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform var(--motion-slow) var(--ease-out);z-index:2;display:flex;flex-direction:column;opacity:1}
 #p0 .drawer-stage.open .drawer-scrim{opacity:1;pointer-events:auto}
 #p0 .drawer-stage.open .drawer-panel{transform:translateX(0)}
-#p0 .drawer-panel header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:15px}
+#p0 .drawer-panel header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line-soft);font-weight:600;font-size:15px}
 #p0 .drawer-panel .bd{padding:16px;font-size:14px;flex:1;overflow:auto}
 @media (prefers-reduced-motion:reduce){
 #p0 .drawer-panel{transform:none!important;opacity:0;transition:opacity 100ms linear}
@@ -1345,7 +1345,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .search .clr{right:8px;width:28px;height:28px;border-radius:var(--r-full)}
 #p1 .search .clr:hover{background:var(--accent-soft);color:var(--ink)}
 #p1 .search .clr svg,#p1 .search .si svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-#p1 .sugg{margin-top:4px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--shadow-modal);padding:var(--gap-option);display:none;z-index:var(--z-dropdown);position:relative}
+#p1 .sugg{margin-top:4px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--shadow-modal);padding:var(--gap-option);display:none;z-index:var(--z-dropdown);position:relative}
 #p1 .sugg.open{display:flex;flex-direction:column;gap:var(--gap-option)}
 #p1 .sugg button{display:flex;align-items:center;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
 #p1 .sugg button:hover,#p1 .sugg button[aria-selected=true]{background:var(--accent-soft)}
@@ -1622,8 +1622,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .stage{position:relative;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden;min-height:220px}
 #p2 .cmdk-stage{min-height:280px;display:grid;place-items:center;padding:24px}
 #p2 .cmdk-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent)}
-#p2 .cmdk{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);overflow:hidden}
-#p2 .cmdk-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
+#p2 .cmdk{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);overflow:hidden}
+#p2 .cmdk-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
 #p2 .cmdk-hd svg{flex:none;width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
 #p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 15px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
 #p2 .cmdk-hd input:focus{outline:none;box-shadow:none;border:0}
@@ -1631,7 +1631,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .cmdk-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
 #p2 .cmdk-list button:hover,#p2 .cmdk-list button[aria-selected=true]{background:var(--accent-soft)}
 #p2 .cmdk-list .meta{color:var(--mute);font:12px "JetBrains Mono",monospace}
-#p2 .cmdk-ft{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--border);font-size:12px;color:var(--mute)}
+#p2 .cmdk-ft{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--mute)}
 #p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
 #p2 .chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 #p2 .fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:var(--r-pill);border:0;background:var(--surface-sel);font-size:13px;color:var(--ink);cursor:pointer}
@@ -1695,7 +1695,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .coach-spot::after{content:"";position:absolute;inset:-6px;border-radius:calc(var(--r-md) + 6px);border:2px solid color-mix(in srgb,var(--ink) 45%,transparent);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 32%,transparent);pointer-events:none;animation:coach-pulse 2.2s var(--ease-in-out) infinite}
 @keyframes coach-pulse{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 36%,transparent);opacity:1}55%{transform:scale(1.12);box-shadow:0 0 0 14px color-mix(in srgb,var(--ink) 14%,transparent);opacity:.9}100%{transform:scale(1.18);box-shadow:0 0 0 22px color-mix(in srgb,var(--ink) 0%,transparent);opacity:0}}
 @media (prefers-reduced-motion:reduce){#p2 .coach-spot::after{animation:none;inset:-4px;border:2px solid color-mix(in srgb,var(--ink) 55%,transparent);box-shadow:none;opacity:1}}
-#p2 .coach-tip{position:absolute;z-index:3;left:min(320px,55%);top:48px;width:min(240px,70%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px}
+#p2 .coach-tip{position:absolute;z-index:3;left:min(320px,55%);top:48px;width:min(240px,70%);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px}
 #p2 .coach-tip b{display:block;font-size:14px;margin-bottom:6px}
 #p2 .coach-tip p{margin:0 0 12px;font-size:13px;color:var(--mute)}
 #p2 .coach-tip .acts{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -1705,7 +1705,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .print-card ul{margin:0;padding-left:1.2em}
 #p2 .print-card li{margin:4px 0}
 #p2 .snack-demo{position:relative;min-height:120px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bone);overflow:hidden}
-#p2 .snackbar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-modal);font-size:14px}
+#p2 .snackbar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 14px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);box-shadow:var(--shadow-modal);font-size:14px}
 #p2 .snackbar .msg{flex:1;min-width:0}
 #p2 .snackbar .act{border:0;background:transparent;color:var(--ink);font:600 14px Sora,"Noto Sans JP";cursor:pointer;padding:0;flex:none}
 #p2 .toast-static{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;border-radius:999px;font:400 14px Sora,"Noto Sans JP";white-space:nowrap;max-width:min(92%,360px)}

@@ -90,4 +90,32 @@ if printf '%s' "$pv" | awk '/<style>/{f=1} f{print}' | grep -Eq 'border:1px soli
 sizes=$(printf '%s' "$pv" | awk '/<style>/{f=1} f&&/<\/style>/{exit} f{print}' | grep -o 'font-size:[0-9.]*px' | sort -u | tr '\n' ' ')
 case "$sizes" in *"font-size:12px"*|*"font-size:14px"*) ng "#app-ui の見本に中間サイズがある: $sizes";; *) ok "#app-ui の見本の font-size は 28 / 15 / 13 のみ: $sizes";; esac
 
+# (5) いろはの決定（#21 の直し）: 浮かぶ面は --line-soft の枠・アラートは帯なし・線でなく余白・図の点線なし
+inau '浮かぶ面は 1px の枠を残す・色は --line-soft・影は今のまま'  '浮かぶ面は、<strong>1px の枠を残す</strong>。色は <code>--line-soft</code>（ink 6%、Dark は bone 6%）、影は今のまま'
+inau 'アラート: 地 surface-sel・角 16px・左の帯なし・状態色はアイコンか丸だけ・danger だけ枠 40%' 'インラインアラートの地は <code>--surface-sel</code>、角は 16px.*左の状態色の帯は使わない</strong>。状態色は先頭のアイコンか丸だけ.*danger のアラートだけは枠 40%'
+inau '題の下・グループの上に線を引かない・項目 16px・まとまり 24px'  'カードの題の下やフォームのグループの上に線を引かない。区切りは余白で出す: 項目のあいだは 16px、まとまりのあいだは 24px。線にするより、面の濃さの差を優先する'
+notchk 'アラートの状態色の帯を「規定の対象外」にしていない'          '状態色の帯は、この規定の対象外|アラートの角は、この規定の対象外' "$idx"
+# 浮かぶ面（モーダル・ダイアログ・ドロップダウン・ポップオーバー）の枠は 1px の --line-soft。--border の枠は残さない
+for sel in '\.modal' '\.sheet' '#states \.zs \.dd1' '#states \.zs \.mdl' '#states \.zs \.pop' '#states \.dlg' '#states \.dpn' '#p0 \.dd-panel' '#p0 \.pop' '#p1 \.sugg' '#p2 \.cmdk' '#p2 \.coach-tip' '#p2 \.snackbar'; do
+  chk "浮かぶ面 $sel: 1px の --line-soft の枠" "^$sel\{[^}]*border:1px solid var\(--line-soft\)" "$prev"
+  notchk "浮かぶ面 $sel: --border の枠を残していない" "^$sel\{[^}]*border:1px solid var\(--border\)" "$prev"
+done
+chk 'モーダルの影は今のまま（--shadow-modal）'                '^\.modal\{[^}]*box-shadow:var\(--shadow-modal\)' "$prev"
+chk '--shadow-modal の値は変えない（Light）'                  '\[data-theme=light\]\{--shadow-modal:0 1px 2px rgba\(0,0,0,\.06\)\}' "$prev"
+chk '--shadow-modal の値は変えない（Dark）'                   '\[data-theme=dark\]\{--shadow-modal:0 1px 2px rgba\(0,0,0,\.4\)\}' "$prev"
+# アラート .al: 左の帯なし・surface-sel・角 16px・danger だけ枠 40%・状態色はアイコンだけ
+chk 'アラート .al: surface-sel・角 --r-card・左の帯なし'      '^\.al\{[^}]*border:1px solid transparent;border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
+notchk 'アラート .al に border-left がない'                   '^\.al\{[^}]*border-left' "$prev"
+chk 'アラートの状態色は先頭のアイコンだけ'                    '\.al>span:first-child\{color:var\(--c,var\(--info\)\)\}' "$prev"
+chk 'danger のアラートだけ枠 40%'                             '\.al\.al-dan\{border-color:color-mix\(in srgb,var\(--danger\) 40%,transparent\)\}' "$prev"
+n=$(grep -c 'class="al al-dan ' "$prev"); [ "$n" -eq 1 ] && ok 'al-dan は danger のアラート 1 つだけ' || ng "al-dan の数が違う: $n"
+# 線でなく余白: .np-card の題の下線・.np-fs の上線をなくし、項目 16 / まとまり 24
+chk '.np-card-t: 下線なし・上と左右 24'                       '#states \.np-card-t\{margin:0;padding:var\(--s-6\) var\(--s-6\) 0;' "$prev"
+notchk '.np-card-t に border がない'                          '#states \.np-card-t\{[^}]*border' "$prev"
+chk '.np-fs: 上線なし・項目のあいだ 16（--gap-field）'        '#states \.np-fs\{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var\(--gap-field\)\}' "$prev"
+notchk '.np-fs に border-top がない'                          '#states \.np-fs\{[^}]*border-top' "$prev"
+chk '.np-form: まとまりのあいだ 24（--s-6）'                  '#states \.np-form\{[^}]*gap:var\(--s-6\)\}' "$prev"
+# 「面は濃さで分ける」の図: 点線の枠をなくし、濃さの差だけで見せる
+notchk '#app-ui の図 .au-fig に点線・破線の枠がない'           '\.au-fig\{[^}]*(outline|border)[^}]*(dashed|dotted)' "$prev"
+notchk '#app-ui の節に点線・破線がない'                       'dashed|dotted' <(printf '%s' "$pv")
 exit "$fail"
