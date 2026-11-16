@@ -17,7 +17,8 @@ const exp = { light:{bone:'rgb(245, 245, 244)',card:'rgb(255, 255, 255)',sel:'rg
   for (const [w,h,wn] of [[1280,900,'desktop'],[390,844,'mobile390']]) {
     for (const theme of ['light','dark']) {
       const p = await (await b.newContext({ viewport:{width:w,height:h} })).newPage();
-      await p.goto('file://'+root+'/tokens-preview.html'); await p.waitForSelector('#app-ui');
+      await p.goto('file://'+root+'/tokens-preview.html',{waitUntil:'domcontentloaded',timeout:120000}); await p.waitForSelector('#app-ui');
+      await Promise.race([p.evaluate(() => document.fonts.ready), new Promise(r => setTimeout(r, 5000))]); // 外部フォントを待ちすぎない
       await p.click(`[data-set-theme=${theme}]`);
       const e = exp[theme]; const tag = `${wn}/${theme}`;
       const m = await p.evaluate(() => {
