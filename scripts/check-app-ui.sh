@@ -41,7 +41,7 @@ chk 'tokens-preview: --r-card 16px / --r-pill 999px' '--r-card:16px;--r-pill:999
 inau '1px の枠線を使わない（カード・表・サブナビ・バナー）' 'カード・表・サブナビ・バナーに <strong>1px の枠線を使わない'
 inau 'Light の面: #f5f5f4 → #ffffff → #ebebea'               '#f5f5f4.*#ffffff.*#ebebea'
 inau 'Dark の面: #050505・#141414 のまま・選択は #1e1e21'    '#050505.*#141414.*#1e1e21'
-inau '表の行の区切りは ink / bone 6%'                         '<code>--line-soft</code>（Light は ink 6%、Dark は bone 6%）'
+inau '表の行の区切りは ink / bone 6%（--accent の 6%）'          '<code>--line-soft</code>（<code>--accent</code> の 6%。Light は ink、Dark は bone'
 inau '例外: 入力欄・:focus-visible・danger 40%'               '入力欄.*focus-visible.*危険（danger）の枠 40%'
 inau '文字 3 段: 28 / 700'                                    '<td>28px / 700</td>'
 inau '文字 3 段: 15 / 600（節・項目名・ボタン・ナビ）'        '節・項目名・ボタン・ナビ</td><td>15px / 600</td>'
@@ -75,6 +75,14 @@ chk '縦のナビ .nv a はピル・15px / 600'                 '#states \.nv a\
 chk 'バナー .bn .in は surface-sel・角 16・枠線なし'     '#states \.bn \.in\{[^}]*border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
 chk '入力欄の枠は残す（.ui .fld）'                      '^\.ui \.fld\{[^}]*border:1px solid var\(--border\)' "$prev"
 chk ':focus-visible の --focus の輪は残す'              '^:focus-visible\{outline:2px solid var\(--focus\)' "$prev"
+# 状態の見分け（背景色だけで示す部品が --surface-sel と同色にならない）
+chk '.sec のホバーは surface-sel に ink 8% を重ねる'        '\.sec:hover\{background:color-mix\(in srgb,var\(--ink\) 8%,var\(--surface-sel\)\)\}' "$prev"
+chk '押下トグル .tgl: 未押下は透明・押下は accent-soft'     '#states \.btn\.sec\.tgl\{background:transparent\}.*#states \.btn\.sec\.tgl\[aria-pressed=true\]\{background:var\(--accent-soft\)' "$prev"
+chk 'フィルタチップ .fchip の押下は --accent の塗り'          '#p2 \.fchip\[aria-pressed=true\]\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
+chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\{background:var\(--surface-sel\)\}' "$prev"
+chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
+chk 'forced-colors: タブ・ナビの選択は Highlight'            'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.tb40 button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight' "$prev"
+chk 'ペイン .pn・.ld・.rowsel は枠なしの surface-sel'         '#states \.pn>\*\{min-width:0;border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
 # #app-ui の見本: 文字は 28 / 15 / 13 だけ・枠線なし
 inpv '#app-ui の見本: ページタイトル 28 / 700'            '\.au-t1\{font-size:28px;font-weight:700'
 inpv '#app-ui の見本: 項目名 15 / 600・説明 13 / 400'     '\.au-item\{margin:0;font-size:15px;font-weight:600.*\.au-desc\{[^}]*font-size:13px;font-weight:400'

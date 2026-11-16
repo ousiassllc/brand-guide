@@ -33,7 +33,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 .prism{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--prism-violet),var(--prism-blue),var(--prism-cyan),var(--prism-green),var(--prism-yellow));margin-bottom:14px}
 .card{background:var(--surface);border-radius:var(--r-card);padding:var(--pad-card,22px)}.row{display:flex;gap:20px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}.lab{width:120px;color:var(--mute);font-size:12px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}
-.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:not(.pri):hover{opacity:.85}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:var(--accent-soft)}.ghost:hover{background:var(--surface-sel)}
+.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:not(.pri):hover{opacity:.85}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ghost:hover{background:var(--surface-sel)}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;font-weight:400;padding:3px 12px;border-radius:var(--r-pill);color:var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:auto;font-size:14px;line-height:1.6}
@@ -67,7 +67,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .btn:focus-visible,.ui .btn.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui .dan{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}.ui .dan:hover{background:color-mix(in srgb,var(--danger) 10%,transparent)}
 .ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 14px;font-size:15px}
-.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:0;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--ink);cursor:pointer}.ib:hover{background:var(--accent-soft)}.ib.gh{background:transparent}.ib.gh:hover{background:var(--surface-sel)}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
+.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:0;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--ink);cursor:pointer}.ib:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ib.gh{background:transparent}.ib.gh:hover{background:var(--surface-sel)}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui a.tl{color:var(--ink);text-decoration:underline;text-decoration-color:var(--mute);text-underline-offset:3px}.ui a.tl:hover{text-decoration-color:var(--ink)}
 .pg{height:6px;background:var(--accent-soft);border-radius:var(--r-full);overflow:hidden}.pg i{display:block;height:100%;background:var(--accent);border-radius:inherit}
 .spin{width:20px;height:20px;border:2px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}
@@ -78,7 +78,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .tst{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);padding:0 18px;height:40px;border-radius:var(--r-full);font:400 14px Sora,"Noto Sans JP";line-height:1}.tst button{background:none;border:0;color:inherit;opacity:.85;cursor:pointer;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;display:inline-flex;align-items:center;height:100%}
 .empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
 .panel{background:var(--surface-sel);border-radius:var(--r-card);padding:var(--pad-card-sm)}hr.dv{border:0;border-top:1px solid var(--line-soft);margin:var(--gap-card-section) 0}
-.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .tb40 button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .ui .seg2{display:inline-flex;background:var(--surface-sel);border-radius:var(--r-pill);padding:3px}.seg2 button{border:0;background:none;color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP";padding:6px 14px;border-radius:var(--r-pill);cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink)}@media(forced-colors:active){.seg2 button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:380px;padding:48px 16px 0;align-content:end;justify-items:center;overflow:visible}
 .modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--border)}
@@ -202,7 +202,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .adm .adm-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .adm .pg-t{font-size:24px;line-height:1.5}
 .adm .sec-row{margin-top:32px}.adm .sec-t{font-size:18px;line-height:1.7}
-.adm .cap{font-size:12px;line-height:1.6;font-weight:400;color:var(--mute);margin:0}
+.adm .cap{font-size:12px;line-height:1.6;font-weight:400;color:var(--mute);margin:0}.adm .cd .cap{color:var(--mute-on-soft)}
 .adm .adm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--gap-grid-dense,12px);margin-top:12px}
 .adm .cd{background:var(--surface-sel);border-radius:var(--r-card);padding:16px}
 .adm .cd-t{font-size:16px;line-height:1.5}
@@ -264,7 +264,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h3 id="stroke">線と影 Stroke / Shadow</h3>
 <div class="f2">
 <div class="card"><code style="white-space:nowrap;display:inline-block;max-width:100%;overflow-x:auto">--stroke: 1px solid var(--border)</code><p class="help">入力欄・浮かぶ面（モーダルなど）・ページ区切り。カード・表・サブナビ・バナーには使わない（<a href="#app-ui-surface">面は濃さで分ける</a>）</p></div>
-<div class="card" style="border:1px solid var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）</p></div>
+<div class="card" style="border:1px solid var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）。以下の枠の見本は、線そのものを見せるための例外</p></div>
 <div class="card" style="border:1px dashed var(--border)"><code>1px dashed</code><p class="help">空状態・ドロップ領域</p></div>
 <div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">Light 0 1px 2px rgb(0 0 0 / 6%) ／ Dark 0 1px 2px rgb(0 0 0 / 40%) — モーダルのみ。カードは影なし（<a href="#st-shadow">Light / Dark 比較</a>）</p></div>
 </div>
@@ -417,7 +417,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 :root{--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1)}
 .mt{width:100%;border-collapse:collapse;font-size:14px}.mt th,.mt td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line-soft)}.mt th{font-size:12px;color:var(--mute);font-weight:600}
 .mbtn{border:0;background:var(--surface-sel);color:var(--ink);font:600 15px Sora,"Noto Sans JP";padding:10px 18px;border-radius:var(--r-pill);cursor:pointer;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
-.mbtn:hover{background:var(--accent-soft)}.mbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.mbtn:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.mbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .mfade{opacity:0;transform:translateY(8px);transition:opacity var(--motion-fade-out) var(--ease-in),transform var(--motion-fade-out) var(--ease-in)}.mfade.on{opacity:1;transform:none;transition:opacity var(--motion-fade-in) var(--ease-out),transform var(--motion-fade-in) var(--ease-out)}
 .mstage{position:relative;height:180px;overflow:hidden;border-radius:var(--r-card);background:var(--bone)}
 .mscrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out)}
@@ -489,7 +489,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}
 #states .mx td:first-child,#states .mx th:first-child{padding-right:16px}
 /* ボタン状態の固定表示（実機の :hover / :focus-visible と同じ見た目） */
-.ui .btn.is-hover.pri{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.ui .btn.is-hover.sec,.ui .btn.is-hover.ghost{background:var(--accent-soft)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
+.ui .btn.is-hover.pri{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.ui .btn.is-hover.sec{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ui .btn.is-hover.ghost{background:var(--surface-sel)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
 /* loading: 寸法を維持（ラベルは透明にして残す）。薄くしない（disabled の opacity .4 とは別） */
 .ui .btn .spin{display:none}
 .ui .btn.is-loading{cursor:progress}.ui .btn.is-loading .bt{opacity:0}
@@ -531,9 +531,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .soft .s-ink{color:var(--ink);font-size:12px}#states .soft .s-mute{color:var(--mute);font-size:12px}
 /* リップル */
 #states .rp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--gap-grid)}#states .rp>*{min-width:0}
-#states .rpitem{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;border-radius:var(--r-card);background:var(--surface-sel)}
-#states .rowsel{display:block;width:100%;text-align:left;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;padding:10px 12px;cursor:pointer}
-#states .rowsel:hover{background:var(--accent-soft)}#states .rowsel:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+#states .rpitem{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0}
+#states .rowsel{display:block;width:100%;text-align:left;border:0;border-radius:var(--r-card);background:var(--surface-sel);color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;padding:10px 12px;cursor:pointer}
+#states .rowsel:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}#states .rowsel:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 #states .selbtn{display:flex;align-items:center;justify-content:space-between;width:100%;height:40px;font:400 16px Sora,"Noto Sans JP",sans-serif;padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);cursor:pointer}
 #states .selbtn:hover{border-color:var(--mute)}#states .selbtn:focus-visible{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}
 #states .selbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
@@ -550,7 +550,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .dlg footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--border)}
 #states .dlg .ib:disabled{opacity:.4;cursor:not-allowed}
 #states .pn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:var(--s-4)}
-#states .pn>*{min-width:0;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bone);padding:var(--s-4)}
+#states .pn>*{min-width:0;border-radius:var(--r-card);background:var(--surface-sel);padding:var(--s-4)}
 #states .pn .st-h{margin-top:var(--s-4)}#states .pn .st-h:first-child{margin-top:0}
 #states .tbr{display:flex;align-items:center;gap:var(--s-1)}#states .tbr.tx{gap:var(--gap-inline)}
 #states .tbr .ib{width:32px;height:32px}
@@ -558,10 +558,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .nv a{display:flex;align-items:center;min-height:40px;padding:0 var(--menu-pad-x);border-radius:var(--r-pill);color:var(--ink);text-decoration:none;font-size:15px;font-weight:600}
 #states .nv a:hover{background:var(--surface-sel)}
 #states .nv a.acct{flex-direction:column;align-items:flex-start;justify-content:center;min-height:62px;border-left:6px solid var(--c,var(--info));border-radius:0 var(--r-sm) var(--r-sm) 0}
-#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute)}#states .nv a.acct.on{background:var(--accent-soft)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
+#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute)}#states .nv a.acct.on{background:var(--surface-sel)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
 #states .rws{display:flex;flex-direction:column;gap:0}
 #states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute)}
-#states .rw.on{background:var(--accent-soft)}#states .rw.on small{color:var(--mute-on-soft)}
+#states .rw.on{background:var(--surface-sel)}#states .rw.on small{color:var(--mute-on-soft)}
 #states .dpn{display:flex;flex-direction:column;gap:0;padding:var(--s-1);border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
 #states .dpn button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;text-align:left;cursor:pointer}
 #states .dpn button:hover,#states .dpn button.hl{background:var(--accent-soft)}
@@ -582,12 +582,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .tb40 button{height:40px;padding:0 var(--s-4);background:none;border:0;border-radius:var(--r-pill);color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP",sans-serif;cursor:pointer}
 #states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);background:var(--surface-sel)}
 #states .tb40 button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
-#states .btn.sec.tgl[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
+#states .btn.sec.tgl{background:transparent}#states .btn.sec.tgl:hover{background:var(--surface-sel)}#states .btn.sec.tgl[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
 #states .cnt-over{color:var(--danger)}
 #states .tipw{position:relative;display:inline-flex}
 #states .tipw .tp{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;line-height:1.6;padding:var(--tip-pad-y) var(--tip-pad-x);border-radius:var(--r-sm);white-space:nowrap;z-index:var(--z-dropdown)}
 #states .tipw .tp[hidden]{display:none}
-#states .ld{display:grid;place-items:center;align-content:center;gap:8px;height:120px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bone)}
+#states .ld{display:grid;place-items:center;align-content:center;gap:8px;height:120px;border-radius:var(--r-card);background:var(--surface-sel)}
 #states .ld p{margin:0;font-size:12px;color:var(--mute)}
 #states .dz{display:grid;place-items:center;height:96px;border-radius:var(--r-md);font-size:14px;color:var(--mute)}
 #states .dz.drag{background:var(--accent-soft);outline:1px dashed var(--accent);outline-offset:-4px;color:var(--ink)}
@@ -770,7 +770,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="shpane" data-theme="light"><p class="st-h">Light — <code>0 1px 2px rgb(0 0 0 / 6%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Light のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 <div class="shpane" data-theme="dark"><p class="st-h">Dark — <code>0 1px 2px rgb(0 0 0 / 40%)</code></p><div class="scrim"><div class="modal" role="group" aria-label="Dark のモーダル見本"><header><span style="font-weight:600">プロジェクトを削除</span></header><div class="bd">影はモーダルだけ。</div><footer><button type="button" class="btn sec sm">キャンセル</button><button type="button" class="btn dan sm">削除</button></footer></div></div></div>
 </div>
-<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、面の分離は <code>--surface</code> と 1px の <code>--border</code> が担う。</p>
+<p class="help"><code>#050505</code> 背景では黒い影はほぼ見えず、浮かぶ面（モーダルなど）の分離は 1px の <code>--border</code> が担う。カードは <code>--surface</code> の濃さで分け、枠線は付けない。</p>
 
 <h3 id="st-soft">accent-soft 地の補助文字 Text on accent-soft <span class="tag">採用</span></h3>
 <div class="card"><div class="st-grid">
