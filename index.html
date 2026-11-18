@@ -63,10 +63,19 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 .ov-r figcaption{margin-top:6px;font-size:13px;line-height:1.5}.ov-r .tag{margin-right:0}
 .ov-sw{display:inline-block;width:20px;height:20px;border-radius:4px;border:1px solid var(--border);vertical-align:middle;margin-right:8px}.ov-t .hex{display:inline-flex;margin-top:0;vertical-align:middle}
 @media(forced-colors:active){.ov-ph,.ov-sw{forced-color-adjust:none}}
+/* 製品の名前の節（Issue #22）。線なしの surface のカード。forced-colors では地が消えるので枠を足す */
+.nm-list{display:grid;gap:24px;margin-top:32px}.nm-card{background:var(--surface);border:0;border-radius:16px;padding:24px}
+.nm-card h3{margin:0 0 8px;font-weight:400;font-size:18px}.nm-card p{margin:8px 0 0}.nm-card .ut{margin-top:8px}.nm-card ul.p{margin:8px 0 0}
+/* 表は線を使わず、1 行おきの面の明るさの差で分ける。見出し行の下線・行間の線は消す（.nm-card 内だけ） */
+.nm-card .ut th,.nm-card .ut td{border:0;padding:14px 12px}.nm-card .ut th{font-size:13px;padding-bottom:6px}
+.nm-card .ut tbody tr:nth-child(odd){background:color-mix(in srgb,var(--ink) 4%,var(--surface))}
+.nm-card .ut tbody tr:nth-child(odd) td:first-child{border-radius:8px 0 0 8px}.nm-card .ut tbody tr:nth-child(odd) td:last-child{border-radius:0 8px 8px 0}
+@media(max-width:640px){.nm-card .h14t tr{border:0;padding:14px 12px}.nm-card .h14t td{padding:0}.nm-card .h14t tbody tr:nth-child(odd){border-radius:8px}}
+@media(forced-colors:active){.nm-card{border:1px solid CanvasText}.nm-card .ut tbody tr:nth-child(odd){background:none}.nm-card .ut tbody tr{border-top:1px solid CanvasText}}
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>.4</code>・全幅バナーの即時の出入りは採用済み。<a href="#dialog">ダイアログ</a> ／ <a href="#pane-app">ペイン型アプリの例外</a> ／ <a href="#proposals">Hitomado 提案の反映（#283〜#287）</a></p></header>
-<p class="jump"><a href="#color">色</a><a href="#overlay">重ね塗り</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#settings-parts">設定画面のパーツ</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<p class="jump"><a href="#color">色</a><a href="#overlay">重ね塗り</a><a href="#product-names">製品の名前</a><a href="#typography">文字</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#settings-parts">設定画面のパーツ</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -108,6 +117,36 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border:1px solid
 <tr><td><code>--overlay-pale</code></td><td><span class="ov-sw" style="background:#ff8c96"></span><span class="hex"><button data-hex="#ff8c96">#ff8c96</button></span></td><td>平均の相対輝度が 0.11 より暗い写真に塗る</td><td>変えない（ライト／ダーク共通）</td></tr></tbody></table>
 <div class="warn" id="overlay-limit"><strong>制限</strong>：中間調の写真（輝度およそ 0.02〜0.4）では、半透明の 1 色だけではコントラスト 3:1 に届かない。不透明度を上げる・縁取りを足す案は採らない（悠太さんの決定）。</div></section>
 <section><h2>Do / Don't</h2><div class="dd"><div><h3>Do</h3><ul class="p"><li>背景は bone（ダークはほぼ黒 #050505）、カード／ペインは surface（#141414）、区切りは border。真っ黒 #000 は使わない</li><li>主操作は accent（インク色）で示す</li><li>プリズムはロゴとキービジュアルだけに</li><li>状態はアイコン＋文言＋くすんだ状態色で伝える</li><li>ライト / ダーク両方で確認する</li></ul></div><div><h3>Don't</h3><ul class="p"><li>ボタン・リンク・フォームにプリズムを使う</li><li>鮮やかな赤・緑などの原色を状態色に使う</li><li>プロダクトごとに独自パレットを作る</li><li>ページ背景に真っ黒 #000 / #000000 を直置きする（ダークは --bone = #050505）</li><li>OS／ブラウザ標準のままのスイッチ・スライダーを出す（ガイドの見た目に合わせる）</li><li>mute を本文の長文に使う（コントラスト不足）</li><li>色だけで意味を伝える</li></ul></div></div></section>
+<section id="product-names" class="nm"><h2>製品の名前 Product names</h2><p class="sub">有料の仕事ツールの頭の名前は <strong>Nefos</strong>（2026-11-18 決定）。</p>
+<div class="nm-list">
+<div class="nm-card" id="names-rule"><h3>1. 名前の仕組み</h3><ul class="p">
+<li>有料の仕事ツールは「<strong>Nefos</strong>」＋ふつうの英単語 1 つ（例: Nefos Video）</li>
+<li>由来: Nefos（ネフォス）はギリシャ語で「雲」。AI が手間を引き受けて、作業を雲のように軽くする</li>
+<li>会社名 <strong>Ousiass は製品名の頭につけない</strong></li></ul></div>
+<div class="nm-card" id="names-nefos"><h3>2. Nefos の製品</h3>
+<table class="ut h14t"><thead><tr><th>製品名</th><th>旧名・リポジトリ</th></tr></thead><tbody>
+<tr><td>Nefos Video</td><td>mam</td></tr>
+<tr><td>Nefos Inbox</td><td>Hitomado（日本語のニックネーム「ひと窓」）</td></tr>
+<tr><td>Nefos Browser</td><td>kozue-browser</td></tr>
+<tr><td>Nefos Hub</td><td>swarm-console</td></tr>
+<tr><td>Nefos Monitor</td><td>swarm-viewer</td></tr>
+<tr><td>Nefos Remote</td><td>puppet-remo</td></tr>
+<tr><td>Nefos Messages</td><td>Reloop</td></tr>
+<tr><td>Nefos Calendar</td><td>Calenshare</td></tr>
+<tr><td>Nefos Projects</td><td>SWORD</td></tr>
+<tr><td>Nefos Phone</td><td>dw</td></tr></tbody></table></div>
+<div class="nm-card" id="names-bare"><h3>3. 頭に何もつけない製品</h3>
+<table class="ut h14t"><thead><tr><th>製品名</th><th>リポジトリ</th></tr></thead><tbody>
+<tr><td>AI Liver</td><td>ai-liver</td></tr>
+<tr><td>Fun ID</td><td>funid</td></tr>
+<tr><td>Buddy AI</td><td>buddy-ai</td></tr>
+<tr><td>Stock Finder</td><td>pitha-trador</td></tr></tbody></table></div>
+<div class="nm-card" id="names-oss"><h3>4. オープンソースは今の名前のまま</h3><ul class="p"><li>MolePort</li><li>Linterly</li></ul></div>
+<div class="nm-card" id="names-writing"><h3>5. 書き方のルール</h3><ul class="p">
+<li>欧文は「Nefos Video」のように<strong>頭だけ大文字</strong>で、間に<strong>半角スペース</strong></li>
+<li>カタカナで書くときは「<strong>ネフォス</strong>」</li>
+<li>リポジトリ名・ファイル名・パスは今のまま。<strong>製品名とは別</strong>（例: Nefos Video のリポジトリは <code>mam</code> のまま）</li></ul></div>
+</div></section>
 <section id="typography" class="ty"><h2>文字 Typography</h2><p class="sub">本文 16px 基準。フォントはすべて SIL OFL。<strong>フォント: 確定（A = Sora＋Noto Sans JP / JetBrains Mono）</strong>。サイズスケール: 確定（xs 12 / sm 14 / base 16 / lg 18 / xl 24 / 2xl 32 / 3xl 40）。<a href="tokens-preview.html">ライト／ダークで実フォント表示を見る →</a></p>
 <h3 class="h">フォントスタック</h3><table><tr><th>用途</th><th>フォント</th><th>CSS</th></tr>
 <tr><td>英字・UI 英語</td><td>Sora</td><td><code>font-family: Sora, "Noto Sans JP", sans-serif</code></td></tr>
