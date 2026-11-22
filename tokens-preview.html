@@ -426,7 +426,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .mscrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out)}
 .msheet{position:absolute;left:8px;right:8px;bottom:0;height:110px;background:var(--surface);border-radius:16px 16px 0 0;padding:16px;font-size:14px;transform:translateY(100%);transition:transform var(--motion-slow) var(--ease-out)}
 #mt-sh:checked~.mstage .mscrim{opacity:1}#mt-sh:checked~.mstage .msheet{transform:none}
-@media (prefers-reduced-motion:reduce){#motion .mfade,#motion .mfade.on{transform:none;transition:opacity 100ms linear}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}
+@media (prefers-reduced-motion:reduce){.mfade,.mfade.on{transform:none;transition:opacity 100ms linear}.mbtn{transition:none}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}
 .ripple-host .ripple{display:none!important}}
 .ripple-host{position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .ripple{position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;background:color-mix(in srgb,var(--ink) 22%,transparent);animation:ripple-fan var(--motion-slow) var(--ease-out) forwards}
@@ -1027,9 +1027,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .phone .mbar .brand{font-weight:600;letter-spacing:.1em;font-size:12px}
 #p0 .phone .mbody{padding:16px;font-size:13px;color:var(--mute)}
 #p0 .mnav-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:4}
-#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:220px;background:var(--surface);border-right:1px solid var(--line-soft);box-shadow:var(--shadow-modal);transform:translateX(-105%);transition:transform var(--motion-slow) var(--ease-out);z-index:5;display:flex;flex-direction:column;gap:var(--gap-menu);padding:12px 8px}
+#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:320px;background:var(--surface);border-right:1px solid var(--line-soft);box-shadow:var(--shadow-modal);opacity:0;visibility:hidden;transform:translateX(-8px);transition:opacity var(--motion-slow) var(--ease-out),transform var(--motion-slow) var(--ease-out),visibility 0s linear var(--motion-slow);z-index:5;padding:12px 8px}
+#p0 .mnav-panel nav{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
-#p0 .phone.open .mnav-panel{transform:translateX(0)}
+#p0 .phone.open .mnav-panel{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 #p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px}
 #p0 .mnav-panel a[aria-current=page],#p0 .mnav-panel a:hover{background:var(--accent-soft);color:var(--ink)}
 #p0 .topnav .burger{display:none}
@@ -1072,7 +1073,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .drawer-stage.open .drawer-panel{opacity:1}
 #p0 .drawer-scrim{transition:opacity 100ms linear}
 #p0 .tip{transition:opacity 100ms linear}
-#p0 .mnav-panel{transition:opacity 100ms linear!important;transform:none!important}
+#p0 .mnav-scrim{transition:opacity 100ms linear}
+#p0 .mnav-panel{transition:opacity 100ms linear,visibility 0s linear 100ms;transform:none}
 }
 #p0 .bp-table{width:100%;border-collapse:collapse;font-size:14px}#p0 .bp-table th,#p0 .bp-table td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line-soft)}#p0 .bp-table th{font-size:12px;color:var(--mute);font-weight:600}
 #p0 .grid-demo{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4);margin-top:8px}
@@ -1121,18 +1123,21 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
     <div class="mbody">コンテンツ領域。ハンバーガーで左ドロワー（ナビ）が開きます。</div>
     <div class="mnav-scrim" id="p0-mnav-scrim"></div>
-    <nav class="mnav-panel" id="p0-mnav-panel" aria-label="モバイルナビ">
-      <a href="#" aria-current="page">概要</a>
-      <a href="#">プロジェクト</a>
-      <a href="#">請求</a>
-      <a href="#">設定</a>
-    </nav>
+    <div class="mnav-panel" id="p0-mnav-panel" role="dialog" aria-modal="true" aria-label="モバイルナビ">
+      <nav aria-label="メインメニュー">
+        <a href="#" aria-current="page">概要</a>
+        <a href="#">プロジェクト</a>
+        <a href="#">請求</a>
+        <a href="#">設定</a>
+      </nav>
+    </div>
   </div>
   <div style="flex:1;min-width:200px">
-    <p class="help" style="margin:0 0 8px">モバイル見本（操作可）：リンクは畳んでハンバーガー → <strong>左ドロワー</strong>。スクラム／外側タップで閉じる。</p>
+    <p class="help" style="margin:0 0 8px">モバイル見本（操作可）：リンクは畳んでハンバーガー → <strong>左ドロワー</strong>（<code>role="dialog"</code>・<code>aria-modal="true"</code>）。開くと先頭の項目へフォーカス、スクラム／項目クリック／Esc で閉じてトリガへ戻る。開いている間は Tab がパネルの外へ出ない。</p>
     <ul class="vals">
       <li>トップバー高さ ~52–56</li>
-      <li>ドロワー幅 ~78%（上限 220 in 見本）</li>
+      <li>ドロワー幅は規定どおり 78vw・上限 320px。見本は電話枠（280px）の中なので、枠幅の 78%（約 218px）で近似し、上限だけ 320px</li>
+      <li>出入りは fade＋8px の移動（<code>--motion-slow</code>。reduced-motion はフェードのみ 100ms）</li>
       <li>ナビリンクは Regular（SemiBold にしない）</li>
       <li>短い選択肢だけなら Bottom sheet でも可</li>
     </ul>
@@ -1266,10 +1271,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </figure>
   </div>
   <div class="icon-row" aria-label="Iconoir サンプル">
-    <span class="ico" title="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
-    <span class="ico" title="search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
-    <span class="ico" title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
-    <span class="ico" title="xmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg>xmark / close</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg>xmark / close</span>
   </div>
   <p class="help" style="margin-top:12px">実装時は Iconoir の SVG／パッケージから取得（このページはインライン見本のみ・依存なし）。ストローク 1.5・currentColor。</p>
 </div>
@@ -1294,12 +1299,22 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   openB&&openB.addEventListener('click',openDr);
   closeB&&closeB.addEventListener('click',closeDr);
   scrim&&scrim.addEventListener('click',closeDr);
-  const phone=document.getElementById('p0-phone'), mOpen=document.getElementById('p0-mnav-open'), mScrim=document.getElementById('p0-mnav-scrim');
-  function openM(){if(!phone)return;phone.classList.add('open');mOpen&&mOpen.setAttribute('aria-expanded','true')}
-  function closeM(){if(!phone)return;phone.classList.remove('open');mOpen&&mOpen.setAttribute('aria-expanded','false')}
+  const phone=document.getElementById('p0-phone'), mOpen=document.getElementById('p0-mnav-open'), mScrim=document.getElementById('p0-mnav-scrim'), mPanel=document.getElementById('p0-mnav-panel');
+  const mLinks=()=>mPanel?Array.from(mPanel.querySelectorAll('a')):[];
+  function openM(){if(!phone)return;phone.classList.add('open');mOpen&&mOpen.setAttribute('aria-expanded','true');const l=mLinks();l.length&&l[0].focus()}
+  function closeM(){if(!phone||!phone.classList.contains('open'))return;phone.classList.remove('open');mOpen&&mOpen.setAttribute('aria-expanded','false');mOpen&&mOpen.focus()}
   mOpen&&mOpen.addEventListener('click',e=>{e.stopPropagation();phone.classList.contains('open')?closeM():openM()});
   mScrim&&mScrim.addEventListener('click',closeM);
-  phone&&phone.querySelectorAll('.mnav-panel a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeM()}));
+  mLinks().forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeM()}));
+  document.addEventListener('keydown',e=>{
+    if(!phone||!phone.classList.contains('open'))return;
+    if(e.key==='Escape'){e.preventDefault();closeM();return}
+    if(e.key!=='Tab')return;
+    const l=mLinks(), first=l[0], last=l[l.length-1], cur=document.activeElement;
+    if(!l.includes(cur)){e.preventDefault();(e.shiftKey?last:first).focus()}
+    else if(e.shiftKey&&cur===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&cur===last){e.preventDefault();first.focus()}
+  });
   // attach ripples for new buttons
   const sel='#p0 .btn, #p0 .ib';
   document.querySelectorAll(sel).forEach(el=>{
@@ -1341,6 +1356,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .drop{border:1px dashed var(--border);border-radius:var(--r-lg);padding:28px 16px;text-align:center;background:var(--bone);color:var(--mute);font-size:14px;transition:border-color var(--motion-base) var(--ease-out),background var(--motion-base) var(--ease-out)}
 #p1 .drop.over{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
 #p1 .drop svg{margin:0 auto 8px;display:block;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);opacity:.7}
+@media (prefers-reduced-motion:reduce){#p1 .drop{transition:none}}
 #p1 .search{position:relative;max-width:420px}
 #p1 .search .fld{padding-left:40px;padding-right:36px}
 #p1 .search .si,#p1 .search .clr{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-content:center;border:0;background:transparent;color:var(--mute);padding:0;cursor:pointer}
@@ -1371,6 +1387,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .acc summary::-webkit-details-marker{display:none}
 #p1 .acc summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(45deg);transition:transform var(--motion-base) var(--ease-out);flex:none;margin-top:-4px}
 #p1 .acc details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
+@media (prefers-reduced-motion:reduce){#p1 .acc summary::after{transition:none}}
 #p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute-on-soft)}
 #p1 .bell{position:relative;display:inline-grid;place-content:center;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink)}
 #p1 .bell svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -1445,7 +1462,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <ul class="vals"><li>破線 border / r-lg / pad 24–28</li><li>ドラッグ中: accent-soft + accent 破線</li><li>アイコン --icon-xl 任意</li></ul>
 </div>
 
-<h3 id="p1-search">検索フィールド（クリア・候補）</h3>
+<h3 id="p1-search-h">検索フィールド（クリア・候補）</h3>
 <div class="card">
   <div class="search" id="p1-search">
     <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg></span>
@@ -1536,7 +1553,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="help">OS標準見た目は使わない。トラック 4px（充填 accent／未充填 accent-soft）・つまみ 16 円（surface＋border）。フォーカスは 3px の --focus 実線リング（<a href="#st-focus">フォーカス幅</a>）。キーボード操作可。</p>
 </div>
 
-<h3 id="p1-tags">タグ入力（chips input）</h3>
+<h3 id="p1-tags-h">タグ入力（chips input）</h3>
 <div class="card">
   <span class="lbl">タグ</span>
   <div class="tags" id="p1-tags" role="group" aria-label="タグ入力見本">
@@ -2089,7 +2106,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <div class="land" aria-hidden="true"></div>
     <div class="road" aria-hidden="true"></div>
     <div class="road2" aria-hidden="true"></div>
-    <div class="pin" aria-hidden="true" title="静かなピン"></div>
+    <div class="pin" aria-hidden="true"></div>
     <div class="chrome" aria-hidden="true">
       <button type="button" tabindex="-1">+</button>
       <button type="button" tabindex="-1">−</button>

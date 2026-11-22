@@ -66,6 +66,21 @@ chk 'tokens-preview: ボタンは outline 3px'         '\.ui \.btn:focus-visible
 ! has "$prev" 'box-shadow:0 0 0 3px var\(--ring\)' && ok 'tokens-preview: 旧 --ring の box-shadow を使わない' || ng 'tokens-preview: 旧 --ring の box-shadow が残っている'
 instates 'tokens-preview #states: forced-colors 対応'       'forced-colors:active'
 instates 'tokens-preview #states: reduced-motion の遷移停止' 'prefers-reduced-motion:reduce\)\{\.ui \.btn'
+# Issue #52: reduced-motion の停止漏れ（見本ごとに、停止する規則が reduced-motion ブロックの中にあること）
+rmblk() { awk '/prefers-reduced-motion:reduce\)\{/{f=1} f{print} f&&/^\}$|\}\}$/{f=0}' "$prev"; }
+for sel in '\.mbtn\{transition:none\}' '#p1 \.drop\{transition:none\}' '#p1 \.acc summary::after\{transition:none\}' '#p0 \.mnav-scrim\{transition:opacity 100ms linear\}' '\.mfade,\.mfade\.on\{transform:none;transition:opacity 100ms linear\}'; do
+  rmblk | grep -Eq -- "$sel" && ok "tokens-preview: reduced-motion で停止: $sel" || ng "tokens-preview: reduced-motion の停止漏れ: $sel"
+done
+# Issue #41: title 属性（<title> 要素を除く）を使わない（ツールチップ部品に統一）
+! grep -Eq '[ ]title="' "$prev" "$idx" && ok 'title 属性を使っていない（tokens-preview / index）' || ng 'title 属性が残っている（tokens-preview / index）'
+# Issue #34: id の重複がない（getElementById が別の要素を返して見本の JS が壊れるため）
+[ -z "$(grep -o ' id="[^"]*"' "$prev" | sort | uniq -d)" ] && ok 'tokens-preview: id の重複がない' || ng "tokens-preview: id が重複している: $(grep -o ' id="[^"]*"' "$prev" | sort | uniq -d | tr '\n' ' ')"
+# Issue #26: モバイルナビのドロワー見本は dialog・aria-modal・Esc・フォーカス戻し・幅上限 320px・fade＋8px
+chk 'tokens-preview: モバイルナビのドロワーは role=dialog・aria-modal' 'id="p0-mnav-panel" role="dialog" aria-modal="true"' "$prev"
+chk 'tokens-preview: モバイルナビのドロワー幅の上限は 320px' '#p0 \.mnav-panel\{[^}]*width:78%;max-width:320px' "$prev"
+chk 'tokens-preview: モバイルナビの出入りは opacity＋8px の移動' '#p0 \.mnav-panel\{[^}]*opacity:0;[^}]*transform:translateX\(-8px\)' "$prev"
+chk 'tokens-preview: モバイルナビは Esc で閉じる' "e\.key==='Escape'\)\{e\.preventDefault\(\);closeM\(\)" "$prev"
+chk 'tokens-preview: モバイルナビを閉じたらトリガへフォーカスを戻す' "function closeM\(\)\{[^}]*mOpen&&mOpen\.focus\(\)" "$prev"
 instates 'tokens-preview #states: スピナー周期は .spin 既存（0.9s）を使う' 'class="spin"'
 
 # (4) 既存の正本を壊していない
