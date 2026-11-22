@@ -5,7 +5,7 @@
 #   need "$idx" "$prev"              # 前提のファイルが無ければ「ERROR: <path> がありません」を 1 行出して exit 2
 #   …ok / ng / chk / notchk / insec などで検査…
 #   finish                           # 末尾に「PASS n / FAIL m」を出し、FAIL があれば exit 1
-# check-render.sh・check-theme.sh（headless Chrome を使う）と check-product-names.sh は単体で動く作りで、これを読み込まない。
+# check-render.sh・check-theme.sh（headless Chrome を使う）は単体で動く作りで、これを読み込まない。
 # 検査の中身（文言・正規表現）はここに置かない。ここは出力・集計・節の取り出しだけを持つ。
 
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
