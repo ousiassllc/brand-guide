@@ -33,6 +33,15 @@ insec 'z: --z-popup 401'                          layers '--z-popup 401'
 insec 'z: 既存の段を並べ替えない'                 layers '並べ替えない'
 insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
 insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
+chk 'tokens-preview: .chk input は padding:0（グローバル input{} の padding で 18px が膨らまない）' '^\.chk input[^{]*\{[^}]*width:18px;height:18px;[^}]*padding:0' "$prev"
+chk 'tokens-preview: スライダー .rng は枠・padding・角丸を残さない（グローバル input{} の漏れ止め）' '^#p1 \.rng\{[^}]*padding:0;border:0;border-radius:0' "$prev"
+chk 'tokens-preview: スライダーのつまみ（webkit）は 16px 円・1px border' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*width:16px;height:16px;[^}]*border-radius:50%;[^}]*border:1px solid var\(--border\)' "$prev"
+! has "$prev" '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-shadow' && ok 'tokens-preview: スライダーのつまみ（webkit）に box-shadow を付けない' || ng 'tokens-preview: スライダーのつまみ（webkit）に box-shadow が残っている'
+chk 'tokens-preview: スライダーのつまみ（webkit）は box-sizing:border-box（border 込みで 16px）' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-sizing:border-box' "$prev"
+chk 'tokens-preview: スライダーのつまみ（moz）も box-sizing:border-box・16px・box-shadow なし（webkit とそろえる）' '^#p1 \.rng::-moz-range-thumb\{box-sizing:border-box;width:16px;height:16px;[^}]*box-shadow:none' "$prev"
+chk 'tokens-preview: 同意チェック（.np-agree / .np-chk）は .chk と同じ見た目（OS 標準にしない）' '^\.chk input,#states \.np-agree input,#states \.np-chk input[^{]*\{appearance:none;width:18px' "$prev"
+chk 'tokens-preview: データテーブルのチェックボックスは .chk と同じ見た目（OS 標準にしない）' '^\.chk input,[^{]*#p2 \.atable input\[type=checkbox\]\{appearance:none;width:18px' "$prev"
+! has "$prev" 'accent-color:' && ok 'tokens-preview: accent-color だけに頼る標準コントロールがない' || ng 'tokens-preview: accent-color による標準コントロールが残っている'
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
@@ -265,6 +274,10 @@ chk 'tokens-preview: .sw2 のラベルは 16px' '\.sw2\{[^}]*font-size:16px\}' "
 chk 'tokens-preview: .fld の基本は 16px' '\.ui \.fld\{[^}]*font:400 16px' "$prev"
 chk 'tokens-preview: 狭い場所だけ使う .fld.f14 は 14px' '#states \.fld\.f14\{font-size:14px\}' "$prev"
 chk 'tokens-preview: 640px 以下は .fld.f14 も 16px（iOS の自動拡大を防ぐ）' '@media \(max-width:640px\)\{#states \.fld\.f14\{font-size:16px\}\}' "$prev"
+chk 'tokens-preview: P1 のタグ入力は 640px 以下で 16px（iOS の自動拡大を防ぐ）' '^  #p1 \.tags input\{font-size:16px\}$' "$prev"
+chk 'tokens-preview: P2 のコマンドパレット検索は 16px（15px はスケール外）' '^#p2 \.cmdk-hd input\{[^}]*font:400 16px' "$prev"
+chk 'tokens-preview: 文字数カウンタの入力欄（#cnt-in）に名前（aria-label）がある' '<input[^>]*id="cnt-in"[^>]*aria-label="[^"]+"' "$prev"
+chk 'tokens-preview: 検索欄（#p1-search-input）は role=combobox で名前（aria-label）がある（aria-expanded は combobox の属性）' '<input[^>]*id="p1-search-input"[^>]*role="combobox"[^>]*aria-label="[^"]+"[^>]*aria-expanded="' "$prev"
 # 3. 使えないメニュー項目は opacity .4（ボタンの disabled と同じ）。.5 は使わない。ホバーに反応しない
 chk 'tokens-preview: 使えないメニュー項目は opacity .4' '#states \.dpn button:disabled\{opacity:\.4;cursor:not-allowed\}' "$prev"
 chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付かない' '#states \.dpn button:disabled:hover\{background:transparent\}' "$prev"
