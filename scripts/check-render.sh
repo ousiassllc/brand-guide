@@ -170,6 +170,20 @@ const MEASURE_MOTION = `(() => { ${PAGE_LIB}
   return { bad, n: document.querySelectorAll('*').length };
 })()`;
 
+// 文字付き .seg（約 298px 幅）がカードの外へはみ出さないか。.seg とカードの間に overflow-x の祖先（.scr）があれば、その箱の右端で測る。
+const MEASURE_SEG = `(() => { ${PAGE_LIB}
+  const bad = []; let n = 0;
+  for (const e of document.querySelectorAll('.seg')) {
+    const card = e.closest('.card'); if (!card || !rendered(e)) continue;
+    n++;
+    let clip = null;
+    for (let p = e.parentElement; p && p !== card; p = p.parentElement) if (getComputedStyle(p).overflowX !== 'visible') { clip = p; break; }
+    const right = (clip || e).getBoundingClientRect().right, cardRight = card.getBoundingClientRect().right;
+    if (right > cardRight + 1) bad.push(sel(e) + ' 右端 ' + Math.round(right) + ' > カード ' + Math.round(cardRight) + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  }
+  return { bad, n };
+})()`;
+
 // tokens-preview.html の見本
 const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   const out = {}; const cs = (e, p) => getComputedStyle(e, p);
@@ -278,6 +292,20 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
               const sbOk = sb.every(x => !x.missing) && sb[0].sh && sb[0].v === 8 && sb[1].sw && sb[1].h === 8 && sb[2].sh && sb[2].sw && sb[2].v === 8 && sb[2].h === 8;
               t(`${tag}: スクロールバー見本の幅 8px（縦・横・両方向）`, sbOk, sb.map(x => x.missing ? x.id + ' なし' : `${x.id} 縦${x.v} 横${x.h}${x.sh || x.sw ? '' : '（溢れていない）'}`).join(' / '));
             }
+          }
+        } finally { await page.close(); }
+      }
+      // #67: 狭い幅（375 / Android の標準 360 / 最小 320）で、文字付き .seg がカードの外へ出ない。はみ出すなら .scr の内側で横スクロールにする
+      if (file === 'tokens-preview.html') for (const width of [375, 360, 320]) {
+        const tag = `${file} ${width}/light`;
+        const page = await open(browser, file, width, 'light', false);
+        try {
+          const g = await page.ev(MEASURE_SEG);
+          t(`${tag}: カード内の .seg の右端がカードの右端を越えない（.scr の内側で横スクロール）`, g.n > 0 && g.bad.length === 0, g.bad.slice(0, 3).join(' | ') || `${g.n} 個`);
+          if (width !== 375) { // 375 はこの上の本線で測っている
+            const c = await page.ev(MEASURE_COMMON);
+            const others = c.over.filter(e => !e.known6).map(e => e.s);
+            t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
           }
         } finally { await page.close(); }
       }
