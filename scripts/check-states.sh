@@ -358,6 +358,29 @@ insec    '#settings-parts: 中央に「N ページ目」を sm 14・--mute'     
 insec    '#settings-parts: 押したボタンが端で使えなくなったらフォーカスを反対側へ移す' settings-parts '押したボタンが端で使えなくなったら、<strong>フォーカスを反対側のボタンへ移す</strong>'
 insec    '#settings-parts: 端ではその側のボタンを disabled（opacity .4）' settings-parts '端ではその側のボタンを disabled にする（opacity <code>\.4</code>'
 chk      'index: ジャンプ行に #settings-parts のリンク'               '<a href="#settings-parts">設定画面のパーツ</a>' "$idx"
+# <section id> はすべてページ先頭のジャンプ導線（nav.jump）にリンクがある（Issue #58）
+jump=$(grep -o '<nav class="jump"[^>]*>.*</nav>' "$idx")
+missing=''
+for id in $(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//'); do
+  printf '%s' "$jump" | grep -q "href=\"#$id\"" || missing="$missing #$id"
+done
+[ -n "$jump" ] && [ -z "$missing" ] && ok 'index: すべての <section id> がジャンプ導線にある' || ng "index: ジャンプ導線にない節:$missing"
+# index.html の tokens-preview.html#… 参照がすべて tokens-preview.html の id に解決する（Issue #25）
+badref=''
+for r in $(grep -o 'tokens-preview\.html#[A-Za-z0-9_-]*' "$idx" | sed 's/.*#//' | sort -u); do
+  grep -q "id=\"$r\"" "$prev" || badref="$badref #$r"
+done
+[ -z "$badref" ] && ok 'index: tokens-preview.html#… の参照がすべて実在する id' || ng "index: tokens-preview.html に無い id への参照:$badref"
+# ランドマーク・スキップリンク・トーストの live region と当たり判定（Issue #40・#35・#36）
+for f in "$idx" "$prev"; do
+  n=$(basename "$f")
+  [ "$(grep -o '<main[ >]' "$f" | wc -l)" -eq 1 ] && ok "$n: <main> が 1 つ" || ng "$n: <main> が 1 つでない"
+  chk "$n: main#main とスキップリンク" '<a class="skip" href="#main">本文へ移動</a>' "$f"
+  chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
+  chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
+  chk "$n: 非表示の #toast は pointer-events:none・visibility:hidden" '#toast\{[^}]*pointer-events:none[^}]*visibility:hidden' "$f"
+  chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
+done
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
 grep -Eq '<h3 id="st-settings-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-settings-parts が採用' || ng 'tokens-preview: #st-settings-parts が採用になっていない'
 for k in 'class="np-card"' '<h3 class="np-card-t"' '<h2 class="np-card-t"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
