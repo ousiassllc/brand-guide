@@ -265,6 +265,28 @@ async function measureFocusRings(page) {
   return { stops, focus, bad: Object.keys(bad) };
 }
 
+// #toast が待機中も a11y ツリーに残ること（#69）。ライブリージョンは「ツリーにある要素の本文が変わる」ことで通知される。
+// 待機中: role=status・ignored でない・opacity 0・pointer-events none（クリックを塞がない）・本文が空。showToast の後: 本文が入る。hideToast の後: 本文が空に戻る。
+async function measureToast(page) {
+  const { s, ev } = page;
+  await s('DOM.enable'); await s('Accessibility.enable');
+  const ax = async () => {
+    const { root } = await s('DOM.getDocument', { depth: 0 });
+    const { nodeId } = await s('DOM.querySelector', { nodeId: root.nodeId, selector: '#toast' });
+    const n = (await s('Accessibility.getPartialAXTree', { nodeId, fetchRelatives: false })).nodes[0];
+    return { role: n.role && n.role.value, ignored: !!n.ignored };
+  };
+  const state = () => ev(`(() => { const e = document.getElementById('toast'), c = getComputedStyle(e), r = e.getBoundingClientRect(), hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return { op: c.opacity, pe: c.pointerEvents, vis: c.visibility, text: e.textContent, hit: !!hit && (hit === e || e.contains(hit)), focusable: e.querySelectorAll('button,a[href],[tabindex]').length }; })()`);
+  const until = async (pred) => { let v; for (let i = 0; i < 60; i++) { v = await state(); if (pred(v)) return v; await new Promise(r => setTimeout(r, 50)); } return v; };
+  const idle = { ax: await ax(), ...(await state()) };
+  await ev(`showToast('テスト'); 1`);
+  const shown = { ax: await ax(), ...(await until(v => v.op === '1')) };
+  await ev(`hideToast(); 1`);
+  const hidden = { ax: await ax(), ...(await until(v => v.text === '' && v.op === '0')) };
+  return { idle, shown, hidden };
+}
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -324,6 +346,11 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
               t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
+          if (width === 1280 && theme === 'light') {
+            const tt = await measureToast(page);
+            const idleOk = tt.idle.ax.role === 'status' && !tt.idle.ax.ignored && tt.idle.op === '0' && tt.idle.pe === 'none' && tt.idle.vis !== 'hidden' && tt.idle.text === '' && !tt.idle.hit && tt.idle.focusable === 0;
+            t(`${tag}: #69 待機中の #toast が a11y ツリーにあり（role=status・ignored でない）、見えず・クリックを塞がず（#35）・読み上げる本文もない`, idleOk, JSON.stringify(tt.idle));
+            t(`${tag}: #69 showToast で表示され本文が入り、hideToast の後は本文が空に戻っても a11y ツリーに残る`, tt.shown.op === '1' && tt.shown.text === 'テスト' && !tt.shown.ax.ignored && tt.hidden.text === '' && tt.hidden.op === '0' && tt.hidden.ax.role === 'status' && !tt.hidden.ax.ignored, JSON.stringify({ shown: tt.shown, hidden: tt.hidden }));
           }
         } finally { await page.close(); }
       }

@@ -34,9 +34,9 @@ ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
 .demo{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border-radius:999px;padding:10px 18px;font-size:15px;font-weight:600;border:0;background:var(--surface-sel)}
 .st{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.st span{font-size:13px;padding:4px 12px;border-radius:999px;background:color-mix(in srgb,currentColor 10%,transparent)}
 footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid var(--border)}
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;visibility:hidden;white-space:nowrap;max-width:min(92vw,420px);z-index:var(--z-toast,500);transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in),visibility 0s linear var(--motion-fade-out,240ms)}
-#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out),visibility 0s}
-@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear,visibility 0s linear 100ms}#toast.on{transition:opacity 100ms linear,visibility 0s}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;white-space:nowrap;max-width:min(92vw,420px);z-index:var(--z-toast,500);transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in)}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}
+@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}#toast.on{transition:opacity 100ms linear}}
 .sub code,li code,p code{overflow-wrap:anywhere}
 .mono,.ty code{font-family:"JetBrains Mono",ui-monospace,monospace}.tbox{background:var(--surface);border-radius:16px;padding:22px;margin-top:16px}
 .ty .h{font-weight:600}.ty .b{font-weight:400}.sbtn{font:600 16px/1.2 Sora,"Noto Sans JP",sans-serif;background:var(--accent);color:var(--bone);border:0;border-radius:999px;padding:12px 22px}.sbtn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.sbtn.o{background:var(--surface-sel);color:var(--ink)}
@@ -381,17 +381,25 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16
 </main>
 <footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</footer></div><div id="toast" role="status"></div>
 <script>
-let toastTimer;
+let toastTimer,toastClearTimer;
+function hideToast(){
+  const el=document.getElementById('toast');
+  el.classList.remove('on');
+  clearTimeout(toastClearTimer);
+  // 待機中も #toast は a11y ツリーに残す（opacity:0）。読み上げ対象の本文は、退場の遷移のあとで空にする
+  toastClearTimer=setTimeout(()=>{if(!el.classList.contains('on'))el.textContent=''},400);
+}
 function showToast(msg){
   const el=document.getElementById('toast');
   clearTimeout(toastTimer);
+  clearTimeout(toastClearTimer);
   el.textContent=msg;
   el.classList.remove('on');
   void el.offsetWidth;
   el.classList.add('on');
   // 表示時間 3 秒は入場の遷移が終わってから数える（transition-duration の最大値）
   const enter=Math.max(...getComputedStyle(el).transitionDuration.split(',').map(parseFloat))*1000;
-  toastTimer=setTimeout(()=>el.classList.remove('on'),enter+3000);
+  toastTimer=setTimeout(hideToast,enter+3000);
 }
 document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=async()=>{
   let copied=true;

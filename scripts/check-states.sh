@@ -419,7 +419,8 @@ for f in "$idx" "$prev"; do
   chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
   ! grep -Pq '<p[ >]((?!</p>).)*<nav' "$f" && ok "$n: nav を p の中に入れない（p が自動で閉じて、後ろの内容が箱の外に出る）" || ng "$n: nav が p の中にある"
   chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
-  chk "$n: 非表示の #toast は pointer-events:none・visibility:hidden" '#toast\{[^}]*pointer-events:none[^}]*visibility:hidden' "$f"
+  chk "$n: #69 非表示の #toast は pointer-events:none（#35）で opacity:0。visibility:hidden にしない（a11y ツリーに残して role=status の本文の差し替えを通知させる）" '#toast\{[^}]*opacity:0;pointer-events:none' "$f"
+  notchk "$n: #69 #toast に visibility を使わない" '#toast(\.on)?\{[^}]*visibility' "$f"
   chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
 done
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
