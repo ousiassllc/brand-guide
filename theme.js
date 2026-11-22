@@ -88,6 +88,7 @@
   });
 
   document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     var b = e.target.closest && e.target.closest('[data-theme-control] [data-set-theme]');
     if (!b) return;
     var list = Array.prototype.slice.call(b.closest('[data-theme-control]').querySelectorAll('[data-set-theme]'));
