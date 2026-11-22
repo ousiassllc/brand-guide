@@ -2,15 +2,11 @@
 # check-typography.sh — Issue #2（見出しタグと表示サイズの分離）の回帰チェック。
 # 依存なし（grep と exit code のみ）。使い方: scripts/check-typography.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"
-fail=0
-ok()  { printf 'PASS  %s\n' "$1"; }
-ng()  { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 
 # #typography 節だけを取り出す（次の <section> まで）
-ty=$(awk '/<section id="typography"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
+ty=$(sec typography)
 tyhas() { printf '%s' "$ty" | grep -Eq -- "$1"; }
 
 # (1) サイズ表の用途は「例示」であり、h1・ヒーロー等がタグとの必須対応に読めない
@@ -56,4 +52,4 @@ rs_ok=1; for d in 'font-weight:600' 'letter-spacing:normal' 'margin:0'; do print
 [ "$rs_ok" = 1 ] && ok 'ウェイト・字間・margin リセットが役割クラス側' || ng 'リセットが役割クラス側にない'
 has "$prev" '\.adm h[1-6]' && ng '.adm にタグ要素セレクタが残っている' || ok '.adm にタグ要素セレクタなし'
 
-exit "$fail"
+finish

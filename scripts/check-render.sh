@@ -34,7 +34,8 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
 
-const [root, chrome] = process.argv.slice(2);
+const [rootArg, chrome] = process.argv.slice(2);
+const root = path.resolve(rootArg); // 相対パスでも file:// が壊れないように絶対パスへ
 let pass = 0, fail = 0;
 const t = (name, ok, detail = '') => {
   ok ? pass++ : fail++;
@@ -179,8 +180,8 @@ const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   out.checks = [...document.querySelectorAll('input[type=checkbox],input[type=radio]')]
     .filter(e => !e.closest('.sw2') && rendered(e) && cs(e).position !== 'absolute')
     .map(e => ({ s: sel(e) + ' (#' + (e.closest('section[id]')?.id || '') + ')', type: e.type, w: e.offsetWidth, h: e.offsetHeight, r: px(cs(e).borderTopLeftRadius) }));
-  // スピナー 20px・線 2px・0.9s linear。#motion のデモは flex で縮む（#54 の検査で見つけた別件。下の注）
-  out.spins = [...document.querySelectorAll('.spin')].filter(e => rendered(e) && !e.closest('#motion'))
+  // スピナー 20px・線 2px・0.9s linear。#motion のデモも含む（flex で縮まないよう .spin に flex:none が要る。#60）
+  out.spins = [...document.querySelectorAll('.spin')].filter(rendered)
     .map(e => ({ s: sel(e) + ' (#' + (e.closest('section[id]')?.id || '') + ')', w: e.offsetWidth, h: e.offsetHeight, bw: cs(e).borderTopWidth, dur: cs(e).animationDuration, tf: cs(e).animationTimingFunction, name: cs(e).animationName }));
   // ピル（角が高さの半分以上）: ボタン・チップ・選択ナビ
   const pillSel = '.btn, .abtn, .pill, .au-chip, .au-nav a';
@@ -260,7 +261,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: チェックボックス 18×18（円ではない）`, all(cb, x => x.w === 18 && x.h === 18 && x.r < 9), list(cb, x => x.w === 18 && x.h === 18 && x.r < 9) || `${cb.length} 個`);
             t(`${tag}: ラジオ 18×18 の円`, all(rd, x => x.w === 18 && x.h === 18 && x.r >= 9), list(rd, x => x.w === 18 && x.h === 18 && x.r >= 9) || `${rd.length} 個`);
             const sp = x => x.w === 20 && x.h === 20 && x.bw === '2px' && x.dur === '0.9s' && x.tf === 'linear' && x.name !== 'none';
-            t(`${tag}: スピナー 20px・線 2px・0.9s linear（#motion のデモを除く）`, all(m.spins, sp), list(m.spins, sp) || `${m.spins.length} 個`);
+            t(`${tag}: スピナー 20px・線 2px・0.9s linear`, all(m.spins, sp), list(m.spins, sp) || `${m.spins.length} 個`);
             t(`${tag}: ボタン・チップ・選択ナビがピル`, all(m.pills, hasPill), list(m.pills, hasPill) || `${m.pills.length} 個`);
             t(`${tag}: カード・表・バナーの枠 0・角 16、選択ナビの枠 0`, m.flat.every(x => !x.missing && x.bw === '0px 0px 0px 0px' && x.r === '16px') && m.navBorder === '0px 0px 0px 0px', m.flat.map(x => x.missing ? x.s + ' なし' : x.bw + ' ' + x.r).join(' / ') + ' / nav ' + m.navBorder);
             const slider = await measureSlider(page);

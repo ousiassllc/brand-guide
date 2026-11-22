@@ -2,20 +2,14 @@
 # check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字 3 段・余白と丸み）の回帰チェック。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-app-ui.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
-chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
-notchk() { if has "$3" "$2"; then ng "$1"; else ok "$1"; fi; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 
 # 節だけを取り出す（他の節の同じ語で誤って通らないように）
-au=$(awk '/<section id="app-ui"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
-inau() { if printf '%s' "$au" | grep -Eq -- "$2"; then ok "$1"; else ng "$1"; fi; }
-pv=$(awk '/<section class="ui" id="app-ui">/{f=1} f{print} f&&/<\/section>/{exit}' "$prev")
-inpv() { if printf '%s' "$pv" | grep -Eq -- "$2"; then ok "$1"; else ng "$1"; fi; }
+au=$(sec app-ui)
+inau() { intext "$1" "$au" "$2"; }
+pv=$(secp app-ui)
+inpv() { intext "$1" "$pv" "$2"; }
 
 # (1) 節の有無・導線
 [ -n "$au" ] && ok 'index.html に #app-ui 節がある' || ng 'index.html に #app-ui 節がない'
@@ -118,4 +112,4 @@ chk '.np-form: まとまりのあいだ 24（--s-6）'                  '#states
 # 「面は濃さで分ける」の図: 点線の枠をなくし、濃さの差だけで見せる
 notchk '#app-ui の図 .au-fig に点線・破線の枠がない'           '\.au-fig\{[^}]*(outline|border)[^}]*(dashed|dotted)' "$prev"
 notchk '#app-ui の節に点線・破線がない'                       'dashed|dotted' <(printf '%s' "$pv")
-exit "$fail"
+finish
