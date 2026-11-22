@@ -3,7 +3,7 @@
 <title>Ousiass UI カラーガイド</title><meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Sora:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300;font-display:swap}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400;font-display:swap}
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--surface-sel:#ebebea;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism:linear-gradient(90deg,#8b6ad4,#4a72d0,#3aaaba,#3d9a7a,#b8a24a)}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--surface-sel:#1e1e21;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism:linear-gradient(90deg,#a78bfa,#60a5fa,#22d3ee,#34d399,#fbbf24)}
 :root,[data-theme]{--mute-on-soft:color-mix(in srgb,var(--mute) 85%,var(--ink));--line-soft:color-mix(in srgb,var(--accent) 6%,transparent);--font-mono:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;--overlay-deep:#5a0000;--overlay-pale:#ff8c96}
@@ -45,7 +45,10 @@ ul.p{padding-left:1.2em}ul.p li{margin:8px 0}
 .demo{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border-radius:999px;padding:10px 18px;font-size:15px;font-weight:600;border:0;background:var(--surface-sel)}
 .st{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.st span{font-size:13px;padding:4px 12px;border-radius:999px;background:color-mix(in srgb,currentColor 10%,transparent)}
 footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid var(--border)}
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.3s}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;visibility:hidden;white-space:nowrap;max-width:min(92vw,420px);z-index:var(--z-toast,500);transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in),visibility 0s linear var(--motion-fade-out,240ms)}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out),visibility 0s}
+@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear,visibility 0s linear 100ms}#toast.on{transition:opacity 100ms linear,visibility 0s}}
+.sub code,li code,p code{overflow-wrap:anywhere}
 .ty table{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}.ty th,.ty td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line-soft);vertical-align:top}.ty th{font-weight:400;font-size:13px;color:var(--mute)}
 .mono,.ty code{font-family:"JetBrains Mono",ui-monospace,monospace}.tbox{background:var(--surface);border-radius:16px;padding:22px;margin-top:16px}
 .ty .h{font-weight:600}.ty .b{font-weight:400}.sbtn{font:600 16px/1.2 Sora,"Noto Sans JP",sans-serif;background:var(--accent);color:var(--bone);border:0;border-radius:999px;padding:12px 22px}.sbtn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.sbtn.o{background:var(--surface-sel);color:var(--ink)}
@@ -53,7 +56,8 @@ footer{padding:48px 0 80px;color:var(--mute);font-size:13px;border-top:1px solid
 .rec,.alt{margin:16px 0 0;padding:16px 20px;border-radius:16px;background:var(--surface);font-size:14px}.alt{border:1px dashed var(--border);background:transparent}.rec ul.p{margin:8px 0 0}.rec ul.p:first-child{margin-top:0}
 .tag{display:inline-block;background:var(--surface-sel);color:var(--mute-on-soft);border-radius:999px;padding:0 12px;font-size:12px;margin-right:8px;line-height:1.7}
 pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16px;overflow-x:auto;font-size:14px;line-height:1.6}pre.code:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-.jump{font-size:14px;color:var(--mute)}.jump a{color:var(--ink);margin-right:12px}
+.jump{font-size:14px;color:var(--mute);margin:14px 0}.jump a{color:var(--ink);margin-right:12px}
+.skip{position:absolute;left:8px;top:-100px;z-index:var(--z-toast,500);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:999px;font-size:14px;line-height:1.4;text-decoration:none}.skip:focus-visible{top:8px;outline:2px solid var(--focus);outline-offset:2px}
 .h14t{width:100%}.h14t .tag{white-space:nowrap;margin-right:0}.h14t.src td:last-child{color:var(--mute)}@media(max-width:640px){.h14t thead{display:none}.h14t tr{display:block;padding:10px 0;border-bottom:1px solid var(--line-soft)}.h14t td{display:block;padding:0;border:0}.h14t td:first-child{font-weight:600}.h14t.src td:last-child{font-size:12px}}
 /* 重ね塗り（写真の上）の見本（Issue #18）。写真は CSS のグラデーションで代用。塗りは不透明度 .55 */
 .ov-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:24px;margin-top:16px}.ov-g h4{margin:0 0 8px;font-size:14px;font-weight:600}.ov-note{font-size:14px;margin:0}
@@ -73,9 +77,10 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16
 @media(max-width:640px){.nm-card .h14t tr{border:0;padding:14px 12px}.nm-card .h14t td{padding:0}.nm-card .h14t tbody tr:nth-child(odd){border-radius:8px}}
 @media(forced-colors:active){.nm-card{border:1px solid CanvasText}.nm-card .ut tbody tr:nth-child(odd){background:none}.nm-card .ut tbody tr{border-top:1px solid CanvasText}}
 </style></head><body><div class="wrap">
+<a class="skip" href="#main">本文へ移動</a>
 <div class="top"><span class="logo">OUSIASS<span class="badge">色・フォント・サイズ・UI確定</span></span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
 <header><h1>UI カラーガイド</h1><p class="lead">Ousiass 全プロダクト共通のカラー・タイポ・サイズ・UI ガイド（確定）。HEX はクリックでコピーできます。</p><p class="lead" style="font-size:14px">スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>.4</code>・全幅バナーの即時の出入りは採用済み。<a href="#dialog">ダイアログ</a> ／ <a href="#pane-app">ペイン型アプリの例外</a> ／ <a href="#proposals">Hitomado 提案の反映（#283〜#287）</a></p></header>
-<p class="jump"><a href="#color">色</a><a href="#overlay">重ね塗り</a><a href="#product-names">製品の名前</a><a href="#typography">文字</a><a href="#app-ui">アプリ UI</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#settings-parts">設定画面のパーツ</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></p><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
+<nav class="jump" aria-label="ページ内の目次"><a href="#color">色</a><a href="#overlay">重ね塗り</a><a href="#product-names">製品の名前</a><a href="#typography">文字</a><a href="#app-ui">アプリ UI</a><a href="#ui-draft">UI部品</a><a href="#motion">モーション</a><a href="#controls">スイッチ・スライダー</a><a href="#scrollbar">スクロールバー</a><a href="#theme">テーマ切替</a><a href="#states">状態</a><a href="#focus">フォーカス</a><a href="#spinner">スピナー</a><a href="#layers">重なり・影</a><a href="#soft-ripple">accent-soft・リップル</a><a href="#a11y-modes">forced-colors・reduced-motion</a><a href="#dialog">ダイアログ</a><a href="#pane-app">ペイン型の例外</a><a href="#proposals">Hitomado 提案</a><a href="#settings-parts">設定画面のパーツ</a><a href="#p0">P0骨格</a><a href="#p1">P1部品</a><a href="#p2">P2上級</a><a href="#p3">P3メディア</a><a href="tokens-preview.html">トークン可視化 →</a></nav><main id="main"><section id="color"><h2>方針</h2><ul class="p"><li>全プロダクトで<strong>ひとつの共通パレット</strong>を使う</li><li><strong>ライト / ダーク</strong>の両方を必須とする</li><li>UI はほぼ無彩色。静かで余白の多い画面を基本にする</li><li>プリズム（violet→yellow）は<strong>ロゴ・キービジュアル専用</strong>のヒーローアクセント</li><li>状態色は彩度を落とした、ほぼ無彩色寄りの色にする</li></ul></section>
 <section><h2>コアトークン</h2><p class="sub">ロゴキット FINAL w1+x2a と ousiass.com に準拠。</p><div class="grid"><div class="sw"><div class="chip" style="--l:#050505;--d:#ffffff"></div><div class="meta"><code class="tok">--ink</code>
 <div class="hex"><button data-hex="#050505">Light #050505</button><button data-hex="#ffffff">Dark #ffffff</button></div><p>文字・ロゴ・主要アイコン</p></div></div><div class="sw"><div class="chip" style="--l:#f5f5f4;--d:#050505"></div><div class="meta"><code class="tok">--bone</code>
 <div class="hex"><button data-hex="#f5f5f4">Light #f5f5f4</button><button data-hex="#050505">Dark #050505</button></div><p>ページ背景（ダークはほぼ黒。真っ黒 #000 禁止）</p></div></div><div class="sw"><div class="chip" style="--l:#6b6b6e;--d:#8b8b8e"></div><div class="meta"><code class="tok">--mute</code>
@@ -339,7 +344,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16
 <h3>部品の状態（hitomado#285）</h3><ul class="p">
 <li>ボタンのトグル（pressed）: <code>aria-pressed="true"</code> で <code>--accent-soft</code> 地＋<code>--ink</code> 文字</li>
 <li>主ボタンのホバー: <code>--accent</code> を <code>--bone</code> へ 15% 寄せる（<code>color-mix(in srgb, var(--accent) 85%, var(--bone))</code>）</li>
-<li>スイッチ OFF のつまみ: <code>--surface</code>＋1px <code>--border</code>。OFF トラックの輪郭は非テキスト 3:1 を満たす必要があり、枠を <code>--mute</code> にする案を<a href="tokens-preview.html#st-sw-off">見本</a>で確認する</li>
+<li>スイッチ OFF のつまみ: <code>--surface</code>＋1px <code>--border</code>。OFF トラックの輪郭は非テキスト 3:1 を満たす必要があり、枠を <code>--mute</code> にする案を<a href="tokens-preview.html#proposals-draft">見本</a>で確認する</li>
 <li>ドロップダウン項目のキーボード強調: ハイライトは <code>--accent-soft</code> 地だけ。リングは <code>:focus-visible</code> のときだけ 2px <code>--focus</code>・offset 2（パネル padding 4 に収める）。ホバーでは出さない</li>
 <li>メニュー・ナビ項目の角丸は <code>--r-sm</code></li>
 <li>ショートカット表記: Mono・xs・<code>--mute</code>（強調行では <code>--mute-on-soft</code>）</li>
@@ -384,7 +389,24 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16
 <section id="p2"><h2>UI部品 P2</h2><p class="sub">コマンドパレット／スポットライト検索、データテーブル上級（ソート・フィルタ・一括）、ツリー／ネストリスト、カレンダー（月表示）、チャート色と余白（無彩色系列・プリズム禁止）、スケルトン画面パターン、オンボーディング／コーチマーク、印刷・PDF向けスタイル、スナックバーとトーストの使い分け。ガイドにない部品は使わない。<a href="tokens-preview.html#p2">ライブ見本を見る →</a></p></section>
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
 
-<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast"></div>
+</main>
+<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</footer></div><div id="toast" role="status"></div>
 <script>
-document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);const x=document.getElementById('toast');x.textContent=b.dataset.hex+' をコピーしました';x.style.opacity=1;setTimeout(()=>x.style.opacity=0,1400)});
+let toastTimer;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  clearTimeout(toastTimer);
+  el.textContent=msg;
+  el.classList.remove('on');
+  void el.offsetWidth;
+  el.classList.add('on');
+  // 表示時間 3 秒は入場の遷移が終わってから数える（transition-duration の最大値）
+  const enter=Math.max(...getComputedStyle(el).transitionDuration.split(',').map(parseFloat))*1000;
+  toastTimer=setTimeout(()=>el.classList.remove('on'),enter+3000);
+}
+document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=async()=>{
+  let copied=true;
+  try{await navigator.clipboard.writeText(b.dataset.hex)}catch(e){copied=false}
+  showToast(copied?b.dataset.hex+' をコピーしました':'コピーできませんでした');
+});
 </script></body></html>

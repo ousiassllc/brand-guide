@@ -33,6 +33,15 @@ insec 'z: --z-popup 401'                          layers '--z-popup 401'
 insec 'z: 既存の段を並べ替えない'                 layers '並べ替えない'
 insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
 insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
+chk 'tokens-preview: .chk input は padding:0（グローバル input{} の padding で 18px が膨らまない）' '^\.chk input[^{]*\{[^}]*width:18px;height:18px;[^}]*padding:0' "$prev"
+chk 'tokens-preview: スライダー .rng は枠・padding・角丸を残さない（グローバル input{} の漏れ止め）' '^#p1 \.rng\{[^}]*padding:0;border:0;border-radius:0' "$prev"
+chk 'tokens-preview: スライダーのつまみ（webkit）は 16px 円・1px border' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*width:16px;height:16px;[^}]*border-radius:50%;[^}]*border:1px solid var\(--border\)' "$prev"
+! has "$prev" '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-shadow' && ok 'tokens-preview: スライダーのつまみ（webkit）に box-shadow を付けない' || ng 'tokens-preview: スライダーのつまみ（webkit）に box-shadow が残っている'
+chk 'tokens-preview: スライダーのつまみ（webkit）は box-sizing:border-box（border 込みで 16px）' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-sizing:border-box' "$prev"
+chk 'tokens-preview: スライダーのつまみ（moz）も box-sizing:border-box・16px・box-shadow なし（webkit とそろえる）' '^#p1 \.rng::-moz-range-thumb\{box-sizing:border-box;width:16px;height:16px;[^}]*box-shadow:none' "$prev"
+chk 'tokens-preview: 同意チェック（.np-agree / .np-chk）は .chk と同じ見た目（OS 標準にしない）' '^\.chk input,#states \.np-agree input,#states \.np-chk input[^{]*\{appearance:none;width:18px' "$prev"
+chk 'tokens-preview: データテーブルのチェックボックスは .chk と同じ見た目（OS 標準にしない）' '^\.chk input,[^{]*#p2 \.atable input\[type=checkbox\]\{appearance:none;width:18px' "$prev"
+! has "$prev" 'accent-color:' && ok 'tokens-preview: accent-color だけに頼る標準コントロールがない' || ng 'tokens-preview: accent-color による標準コントロールが残っている'
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
@@ -255,6 +264,16 @@ chk 'tokens-preview: 主ボタンの実 hover は accent 85% / bone の color-mi
 chk 'tokens-preview: 主ボタンの固定 hover 見本（.is-hover.pri）も同じ color-mix' '\.ui \.btn\.is-hover\.pri\{background:color-mix\(in srgb,var\(--accent\) 85%,var\(--bone\)\)\}' "$prev"
 ! has "$prev" '\.is-hover\.pri\{[^}]*opacity' && ok 'tokens-preview: .is-hover.pri に opacity を使わない' || ng 'tokens-preview: .is-hover.pri に opacity が残っている'
 ! has "$prev" '\.btn:hover\{opacity|\.pri:hover\{[^}]*opacity|\.btn\.pri[^{]*:hover\{[^}]*opacity:\.85' && ok 'tokens-preview: 主ボタンの hover に opacity .85 を掛けない' || ng 'tokens-preview: 主ボタンの hover に opacity が掛かっている'
+! has "$prev" '\.btn:not\(\.pri\):hover\{[^}]*opacity|\.(sec|ghost|dan):hover\{[^}]*opacity:\.[0-9]|\.btn[^{]*\.(sec|ghost|dan)[^{]*:hover\{[^}]*opacity:\.[0-9]' && ok 'tokens-preview: 非主ボタン（sec / ghost / dan）の hover に opacity を掛けない（色・背景のみ）' || ng 'tokens-preview: 非主ボタンの hover に opacity が掛かっている'
+# #50: surface-sel / accent-soft 地の補助文字は --mute-on-soft（--mute のまま置かない）
+chk 'tokens-preview: .acc .body は --mute-on-soft' '#p1 \.acc \.body\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .ld p は --mute-on-soft' '#states \.ld p\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .cmdk-list .meta は --mute-on-soft' '#p2 \.cmdk-list \.meta\{color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .grid-demo span は --mute-on-soft' '#p0 \.grid-demo span\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .topnav .avatar は --mute-on-soft' '#p0 \.topnav \.avatar\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: タグ入力の chip の × は --mute-on-soft' '#p1 \.tags \.chip button\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .adm .cd .tg は --mute-on-soft' '\.adm \.cd \.tg\{color:var\(--mute-on-soft\)\}' "$prev"
+chk 'tokens-preview: ペイン見本内の .st-h・small・.help は --mute-on-soft' '#states \.pn \.st-h,#states \.pn small,#states \.pn \.help\{color:var\(--mute-on-soft\)\}' "$prev"
 chk 'tokens-preview: loading 中の主ボタンは hover で色を変えない' '\.ui \.btn\.pri\.is-loading:hover\{background:var\(--accent\)\}' "$prev"
 ! has "$prev" 'mixh' && ok 'tokens-preview: 主ボタン hover の別枠 .mixh を残さない（現行見本と同じ値）' || ng 'tokens-preview: .mixh が残っている'
 # P3: ペイン型の例外の表は 12 行。本文の「13 項目」（thead を含めた数え間違い）を残さない
@@ -270,6 +289,10 @@ chk 'tokens-preview: .sw2 のラベルは 16px' '\.sw2\{[^}]*font-size:16px\}' "
 chk 'tokens-preview: .fld の基本は 16px' '\.ui \.fld\{[^}]*font:400 16px' "$prev"
 chk 'tokens-preview: 狭い場所だけ使う .fld.f14 は 14px' '#states \.fld\.f14\{font-size:14px\}' "$prev"
 chk 'tokens-preview: 640px 以下は .fld.f14 も 16px（iOS の自動拡大を防ぐ）' '@media \(max-width:640px\)\{#states \.fld\.f14\{font-size:16px\}\}' "$prev"
+chk 'tokens-preview: P1 のタグ入力は 640px 以下で 16px（iOS の自動拡大を防ぐ）' '^  #p1 \.tags input\{font-size:16px\}$' "$prev"
+chk 'tokens-preview: P2 のコマンドパレット検索は 16px（15px はスケール外）' '^#p2 \.cmdk-hd input\{[^}]*font:400 16px' "$prev"
+chk 'tokens-preview: 文字数カウンタの入力欄（#cnt-in）に名前（aria-label）がある' '<input[^>]*id="cnt-in"[^>]*aria-label="[^"]+"' "$prev"
+chk 'tokens-preview: 検索欄（#p1-search-input）は role=combobox で名前（aria-label）がある（aria-expanded は combobox の属性）' '<input[^>]*id="p1-search-input"[^>]*role="combobox"[^>]*aria-label="[^"]+"[^>]*aria-expanded="' "$prev"
 # 3. 使えないメニュー項目は opacity .4（ボタンの disabled と同じ）。.5 は使わない。ホバーに反応しない
 chk 'tokens-preview: 使えないメニュー項目は opacity .4' '#states \.dpn button:disabled\{opacity:\.4;cursor:not-allowed\}' "$prev"
 chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付かない' '#states \.dpn button:disabled:hover\{background:transparent\}' "$prev"
@@ -373,6 +396,29 @@ insec    '#settings-parts: 中央に「N ページ目」を sm 14・--mute'     
 insec    '#settings-parts: 押したボタンが端で使えなくなったらフォーカスを反対側へ移す' settings-parts '押したボタンが端で使えなくなったら、<strong>フォーカスを反対側のボタンへ移す</strong>'
 insec    '#settings-parts: 端ではその側のボタンを disabled（opacity .4）' settings-parts '端ではその側のボタンを disabled にする（opacity <code>\.4</code>'
 chk      'index: ジャンプ行に #settings-parts のリンク'               '<a href="#settings-parts">設定画面のパーツ</a>' "$idx"
+# <section id> はすべてページ先頭のジャンプ導線（nav.jump）にリンクがある（Issue #58）
+jump=$(grep -o '<nav class="jump"[^>]*>.*</nav>' "$idx")
+missing=''
+for id in $(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//'); do
+  printf '%s' "$jump" | grep -q "href=\"#$id\"" || missing="$missing #$id"
+done
+[ -n "$jump" ] && [ -z "$missing" ] && ok 'index: すべての <section id> がジャンプ導線にある' || ng "index: ジャンプ導線にない節:$missing"
+# index.html の tokens-preview.html#… 参照がすべて tokens-preview.html の id に解決する（Issue #25）
+badref=''
+for r in $(grep -o 'tokens-preview\.html#[A-Za-z0-9_-]*' "$idx" | sed 's/.*#//' | sort -u); do
+  grep -q "id=\"$r\"" "$prev" || badref="$badref #$r"
+done
+[ -z "$badref" ] && ok 'index: tokens-preview.html#… の参照がすべて実在する id' || ng "index: tokens-preview.html に無い id への参照:$badref"
+# ランドマーク・スキップリンク・トーストの live region と当たり判定（Issue #40・#35・#36）
+for f in "$idx" "$prev"; do
+  n=$(basename "$f")
+  [ "$(grep -o '<main[ >]' "$f" | wc -l)" -eq 1 ] && ok "$n: <main> が 1 つ" || ng "$n: <main> が 1 つでない"
+  chk "$n: main#main とスキップリンク" '<a class="skip" href="#main">本文へ移動</a>' "$f"
+  chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
+  chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
+  chk "$n: 非表示の #toast は pointer-events:none・visibility:hidden" '#toast\{[^}]*pointer-events:none[^}]*visibility:hidden' "$f"
+  chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
+done
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
 grep -Eq '<h3 id="st-settings-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-settings-parts が採用' || ng 'tokens-preview: #st-settings-parts が採用になっていない'
 for k in 'class="np-card"' '<h3 class="np-card-t"' '<h2 class="np-card-t"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
