@@ -852,7 +852,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div><p class="st-h">トグル（pressed）／主ボタンのホバー</p><div class="tbr tx"><button type="button" class="btn sec sm tgl" id="tgl" aria-pressed="false">固定表示</button><button type="button" class="btn pri sm">主ボタン</button></div><p class="help">主ボタンのホバーは <code>--accent</code> を <code>--bone</code> へ 15%（opacity は使わない）。上の「ボタンの状態」の見本も同じ</p></div>
 <div><p class="st-h">スイッチ OFF（つまみ surface＋1px border／枠 mute 案）</p><label class="sw2"><input type="checkbox"><span></span>現行の枠（border）</label><br><label class="sw2 offm"><input type="checkbox"><span></span>枠を mute にする案</label><p class="help">OFF の枠 対 bone: border <span data-sw="border">-</span> / mute <span data-sw="mute">-</span>（非テキスト 3:1）</p></div>
 <div><p class="st-h">ツールチップ（遅延 400ms・フォーカスは即時。<code>title</code> は使わない）</p><span class="tipw"><button type="button" class="ib" id="tipb" aria-label="設定" aria-describedby="tipt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/></svg></button><span class="tp" id="tipt" role="tooltip" hidden>設定</span></span><p class="help">padding <code>--tip-pad-y</code> 6 / <code>--tip-pad-x</code> 10。トースト <code>--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s</p></div>
-<div><p class="st-h">入力下の文字数カウンタ</p><input class="fld" id="cnt-in" value="" placeholder="20 字まで" aria-describedby="cnt-st"><p class="help" id="cnt-st" role="status"><span class="mono14" style="font-size:12px" id="cnt-n">0</span> / 20</p></div>
+<div><p class="st-h">入力下の文字数カウンタ</p><input class="fld" id="cnt-in" value="" placeholder="20 字まで" aria-label="本文の文字数カウンタの見本" aria-describedby="cnt-st"><p class="help" id="cnt-st" role="status"><span class="mono14" style="font-size:12px" id="cnt-n">0</span> / 20</p></div>
 <div><p class="st-h">読み込み（中央にスピナー単体 → 2 秒以上は「読み込み中…」）</p><div class="ld"><span class="spin" role="status" aria-label="読み込み中"></span></div><div class="ld" style="margin-top:8px"><span class="spin" aria-hidden="true"></span><p>読み込み中…</p></div></div>
 <div><p class="st-h">ペイン全体のドロップ先（ドラッグ中だけ）</p><div class="dz" id="dz">ドラッグ中だけ accent-soft 地＋破線</div><button type="button" class="btn sec sm" id="dz-t" style="margin-top:8px" aria-pressed="false">ドラッグ中を切り替える</button></div>
 </div></div>
@@ -1394,6 +1394,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 @media (max-width:640px){
   #p1 .steps .st{min-width:72px}
   #p1 .steps .st:not(:last-child)::after{display:none}
+  #p1 .tags input{font-size:16px}
 }
 </style>
 <h2 id="p1-draft">UI部品 P1</h2>
@@ -1445,7 +1446,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card">
   <div class="search" id="p1-search">
     <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg></span>
-    <input class="fld" id="p1-search-input" type="search" placeholder="検索…" autocomplete="off" aria-autocomplete="list" aria-controls="p1-sugg" aria-expanded="false">
+    <input class="fld" id="p1-search-input" type="search" role="combobox" placeholder="検索…" autocomplete="off" aria-label="検索" aria-autocomplete="list" aria-controls="p1-sugg" aria-expanded="false">
     <button type="button" class="clr" id="p1-search-clear" aria-label="クリア" hidden><svg viewBox="0 0 24 24" width="16" height="16"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg></button>
     <div class="sugg" id="p1-sugg" role="listbox" aria-label="候補">
       <button type="button" role="option">ブランドガイド</button>
@@ -1625,7 +1626,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .cmdk{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);overflow:hidden}
 #p2 .cmdk-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
 #p2 .cmdk-hd svg{flex:none;width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
-#p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 15px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
+#p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 16px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
 #p2 .cmdk-hd input:focus{outline:none;box-shadow:none;border:0}
 #p2 .cmdk-list{padding:var(--gap-option);display:flex;flex-direction:column;gap:var(--gap-option);max-height:220px;overflow:auto}
 #p2 .cmdk-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
