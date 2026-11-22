@@ -1,25 +1,20 @@
 #!/usr/bin/env bash
-# check-states.sh — Issue #10（切替・状態・フォーカス・スピナー・z・影）と Issue #12（テーマ切替の 3 形）の回帰チェック。
-# 依存なし（grep と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
+# check-states.sh — index.html・tokens-preview.html・theme-control.css の状態・切替・フォーカス・スピナー・z・影などの規定を、
+# grep・awk で見る回帰チェック。対象の Issue: #10（切替・状態・フォーカス・スピナー・z・影）、#12（テーマ切替の 3 形）、
+# #14（Hitomado 提案の反映）、#16（puppet-remo 由来の部品）、ほか #26・#34・#41・#52 など。
+# theme.js の動作（初期値・保存・OS 追従など）は check-theme.sh が実際に動かして確かめる（#53）。
+# 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"; thm="$root/theme.js"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
-chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
-sec() { awk -v id="$1" '$0 ~ "<section id=\"" id "\""{f=1} f{print} f&&/<\/section>/{exit}' "$idx"; }
-# 節の中だけを grep する（他の節の同じ語で誤って通らないように）
-insec() { sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 # tokens-preview の新節 #states の中だけ（main に既にある行で通らないように）
-instates() { awk '/<section class="ui" id="states">/{f=1} f{print} f&&/<\/section>/{exit}' "$prev" | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
+instates() { secp states | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
 
 # (1) index.html: 節と推奨案／代替の区別
 for id in theme states focus spinner layers soft-ripple a11y-modes; do
   [ -n "$(sec "$id")" ] && ok "index.html に #$id 節がある" || ng "index.html に #$id 節がない"
 done
-# #states はボタン（採用）とスイッチ・ラジオ（推奨案・代替つき）が同居する。#spinner / #soft-ripple は全面「採用」（下の (8) で確認）
+# #states はボタン（採用）とスイッチ・ラジオ（推奨案・代替つき）が同居する。#spinner / #soft-ripple は全面「採用」（下の (7-1) で確認）
 s=$(sec states)
 printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok '#states: スイッチ・ラジオは推奨案と代替を区別' || ng '#states: スイッチ・ラジオの推奨案／代替の区別がない'
 insec '切替: 3 モードと system 初期値'            theme  'system.*prefers-color-scheme'
@@ -103,7 +98,6 @@ chk 'ヘッダー: 480px 以下でラベルを視覚的に隠す（読み上げ�
 insec 'accent-soft 上の文字（ink）は推奨案ではなく採用' soft-ripple '地の補助文字 <span class="tag">採用</span>'
 
 # (6) 決定①〜⑤は採用: タグが「採用」で、採用と食い違う代替が残っていない（PR #11 レビュー反映）
-notinsec() { sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
 insec    '#theme: 採用タグ'                                theme  '<div class="rec"><span class="tag">採用</span><strong>3 モード'
 # 新節 #theme-forms（Issue #12・推奨案）を除いた部分に 推奨案 が残っていない
 sec theme | awk '/id="theme-forms"/{f=1} /<h3>最小の実装/{f=0} !f' | grep -Eq -- '推奨案' && ng '#theme: 採用済みの部分に推奨案タグが残っていない' || ok '#theme: 採用済みの部分に推奨案タグが残っていない'
@@ -128,12 +122,12 @@ grep -Eq '<h3 id="st-decided">[^<]*<span class="tag">採用</span></h3>' "$prev"
 grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*ボタンの loading・スピナー・リップルの対象・テーマ切替.*実線リング.*--z-popup.*401.*40%.*--mute-on-soft.*ダイアログ本文 base 16.*ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ.*狭い設定ペインだけ 14 可、モバイルは 16.*使えないメニュー項目の opacity <code>\.4</code>.*全幅バナーの即時の出入りは <span class="tag">採用</span>' && ok '冒頭（tokens-preview）: 採用済みの明記（決定 4 件を含む）' || ng '冒頭（tokens-preview）: 採用済みの明記がない'
 awk '/<section class="ui" id="states">|id="states-draft"/{f=1} f{print}' "$prev" | grep -q '確定と断定しない\|確定値としては断定しない' && ng 'tokens-preview: 「断定しない」が残っている' || ok 'tokens-preview: 「断定しない」を消した'
 
-# (6b) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
+# (7) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
 #      #theme 節とテーマ切替コントロール（PR #13 の範囲）の項目はここに入れない。
 h3sec() { awk -v id="$1" '$0 ~ "^<h3 id=\"" id "\""{f=1;print;next} f&&(/^<h3 id=/||/^<\/section>/){exit} f{print}' "$prev"; }
 inh3()  { h3sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
 inh3no(){ h3sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
-# (8-1) 採用: 推奨案・代替の残骸がない
+# (7-1) 採用: 推奨案・代替の残骸がない
 insec    '#states: ボタンは採用タグ'                        states '<h3>ボタン <span class="tag">採用</span>'
 insec    '#states: loading は薄くしない（opacity を掛けない）' states 'loading</strong>: 寸法を維持し、薄くしない（opacity を掛けない）'
 insec    '#states: loading は aria-busy・クリック無効'      states 'aria-busy="true"</code>、クリックは無効'
@@ -150,7 +144,7 @@ insec    '#soft-ripple: 対象は通常ボタンとアイコンボタンだけ' 
 insec    '#soft-ripple: 非対象（行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー）' soft-ripple '行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー'
 insec    '#soft-ripple: 押下は背景色・文字色の変化で示す'   soft-ripple '押下は背景色・文字色の変化'
 insec    '#soft-ripple: loading 中と reduced-motion では出さない' soft-ripple 'loading 中と reduced-motion では出さない'
-# (8-2) --mute-on-soft
+# (7-2) --mute-on-soft
 insec    '#soft-ripple: --mute-on-soft の定義（新しい HEX を作らない）' soft-ripple 'color-mix\(in srgb, var\(--mute\) 85%, var\(--ink\)\)'
 insec    '#soft-ripple: Light ≈ #5c5c5e・約 5.4:1'          soft-ripple 'Light ≈ <code>#5c5c5e</code>.*5\.4:1'
 insec    '#soft-ripple: Dark ≈ #9c9c9f・約 5.2:1（--mute のままは 4.29 / 4.22）' soft-ripple 'Dark ≈ <code>#9c9c9f</code>.*5\.2:1.*4\.29 / 4\.22:1'
@@ -163,13 +157,13 @@ inh3 'tokens-preview #st-soft: --mute-on-soft の見本とライブ計算'   st-
 inh3 'tokens-preview #st-soft: Light / Dark を並べた見本'          st-soft 'id="mos-pair"'
 inh3 'tokens-preview #st-soft: Light ペインと Dark ペイン'          st-soft 'data-theme="light"'
 inh3 'tokens-preview #st-soft: Dark ペイン'                         st-soft 'data-theme="dark"'
-# (8-3) ダイアログの本文
+# (7-3) ダイアログの本文
 insec    '#dialog: 節がある'                                dialog '<h2>ダイアログの本文と閉じ方'
 insec    '#dialog: 本文は base 16・行間 1.8'                 dialog '本文は base 16.*base</code>（16px・行間 1\.8）'
 insec    '#dialog: 補足・説明文は sm 14、14px 未満を本文にしない' dialog 'sm 14 のままでよい。14px 未満を本文にしない'
 grep -Eq '#states \.dlg \.dlg-body\{margin:0;font-size:16px;line-height:1\.8\}' "$prev" && ok 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8' || ng 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8 でない'
 grep -Eq '#states \.dlg \.dlg-note\{[^}]*font-size:14px' "$prev" && ok 'tokens-preview: ダイアログの補足は 14px' || ng 'tokens-preview: ダイアログの補足が 14px でない'
-# (8-4) モーダルの閉じ方
+# (7-4) モーダルの閉じ方
 insec    '#dialog: Esc と外側クリックで閉じる・× も出す'     dialog 'Esc と外側クリック（スクラム）で閉じられる</strong>。× も出す'
 insec    '#dialog: 閉じることは確認（acknowledge）扱いにしない' dialog '「確認した（acknowledge）」扱いにしない'
 insec    '#dialog: 確認済みにするのは明示のボタンだけ'       dialog '確認済みにするのは明示のボタンだけ'
@@ -179,7 +173,7 @@ grep -Eq 'dlg\.addEventListener\(.cancel.,e=>\{if\(busy\)\{e\.preventDefault\(\)
 grep -Eq "if\(e\.target===dlg&&!busy\)finish\('外側クリック'\)" "$prev" && ok 'tokens-preview: 外側クリックで閉じる（処理中は除く）' || ng 'tokens-preview: 外側クリックの処理がない'
 grep -Eq "xB\.disabled=true" "$prev" && grep -Eq "xB\.disabled=false" "$prev" && ok 'tokens-preview: 処理中は × を無効にし、終わったら戻す' || ng 'tokens-preview: × の無効化と復帰がない'
 grep -Eq "okB\.addEventListener\('click',\(\)=>\{if\(busy\)return;\\$\('dlg-ack'\)\.textContent='確認済み'" "$prev" && ok 'tokens-preview: 確認済みになるのは「確認しました」ボタンだけ' || ng 'tokens-preview: 確認ボタンの処理がない'
-# (8-5) ペイン型デスクトップアプリの例外
+# (7-5) ペイン型デスクトップアプリの例外
 insec    '#pane-app: 節がある（ページ型には当てはめない）'  pane-app 'ペイン型デスクトップアプリの例外.*ページ型の画面には当てはめない'
 insec    '#pane-app: ツールバー gap 4（--s-1）・文字ボタン混在は --gap-inline 8' pane-app 'アイコンボタンだけのツールバーは gap 4（<code>--s-1</code>）。文字ボタン混在は <code>--gap-inline</code> 8'
 insec    '#pane-app: 複合行の選択リスト 8・素のラジオ行 --gap-option 4' pane-app '項目間 8。素のラジオ行は <code>--gap-option</code> 4'
@@ -198,7 +192,7 @@ grep -Eq '#states \.tbr\{display:flex;align-items:center;gap:var\(--s-1\)\}#stat
 grep -Eq '#states \.nv a\.acct\{[^}]*min-height:62px[^}]*border-left:6px' "$prev" && ok 'tokens-preview: 2 行項目 62px・帯 6px' || ng 'tokens-preview: 2 行項目 62px・帯 6px の CSS がない'
 grep -Eq '#states \.dpn\{[^}]*gap:0;padding:var\(--s-1\)' "$prev" && ok 'tokens-preview: ドロップダウン gap 0・padding --s-1' || ng 'tokens-preview: ドロップダウン gap 0・padding の CSS がない'
 grep -Eq '#states \.sws button\[aria-pressed=true\]\{border-color:var\(--ink\)\}' "$prev" && ok 'tokens-preview: スウォッチ選択は --ink の 2px' || ng 'tokens-preview: スウォッチ選択の CSS がない'
-# (8-6) Hitomado #283〜#287 の残り。未確定だった 4 件は決定済み（採用）。「未確定」「判断待ち」「案」を残さない
+# (7-6) Hitomado #283〜#287 の残り。未確定だった 4 件は決定済み（採用）。「未確定」「判断待ち」「案」を残さない
 decided=$(sec proposals | awk '/id="decided"/{f=1} f{print} f&&/<\/table>/{exit}')
 n=$(printf '%s\n' "$decided" | grep -o '<td><span class="tag">採用</span></td>' | wc -l)
 [ "$n" -eq 4 ] && ok "#proposals: 決定の行が採用 4 件（$n）" || ng "#proposals: 決定の行が採用 4 件でない（$n）"
@@ -249,7 +243,7 @@ for k in 'class="mono14"' 'class="tb40"' 'id="tgl"' 'class="tipw"' 'id="cnt-in"'
   inh3 "tokens-preview #proposals-draft: 見本 $k" proposals-draft "$k"
 done
 
-# (7) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
+# (8) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
 chk 'ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px で切替が縦に折れない）' '@media\(max-width:720px\)\{\.badge\{display:none\}\}' "$idx"
 ! has "$idx" '@media\(max-width:480px\)\{\.badge' && ok 'ヘッダー（index）: 旧 480px のバッジ規則を残さない' || ng 'ヘッダー（index）: 旧 480px のバッジ規則が残っている'
 chk 'ヘッダー（index）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$idx"
@@ -301,7 +295,7 @@ chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付�
 chk 'tokens-preview: バナーは .off で display:none（即時）' '#states \.bn\.off\{display:none\}' "$prev"
 ! has "$prev" '#states \.bn[^{]*\{[^}]*transition' && ! has "$prev" 'fadeh' && ok 'tokens-preview: バナーに transition・フェード（fadeh）を使わない' || ng 'tokens-preview: バナーに transition かフェードが残っている'
 
-# (8) Issue #12: テーマ切替の 3 形（アイコンだけ／縦積み／文字付き横並び）
+# (11) Issue #12: テーマ切替の 3 形（アイコンだけ／縦積み／文字付き横並び）
 # 見本は 3 形 × 3 ボタン。形ごとの role=group の行（aria-label で特定。ヘッダーの .seg と取り違えない）を調べる
 form_of() { grep -F -- "aria-label=\"テーマ（$2）\"" "$1" | head -1; }
 thm_prev() { awk '/<h3 id="st-theme">/{f=1} /<h3 id="st-env">/{f=0} f' "$prev"; }
@@ -373,7 +367,7 @@ thm_prev | grep -Eq '<th>置く場所</th><th>形</th>' && ok 'tokens-preview #s
 thm_prev | grep -q 'id="theme-forms-demo"' && ok 'tokens-preview #st-theme: 3 形の見本が #st-theme の中にある' || ng 'tokens-preview #st-theme: 見本が #st-theme の外にある'
 chk '#st-theme は採用のまま（新ブロックだけ推奨案）' '<h3 id="st-theme">[^<]*<span class="tag">採用</span></h3>' "$prev"
 
-# (11) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
+# (12) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
 insec    '#settings-parts: 節がある（puppet-remo#148〜#152 を参照）・題は「設定画面のパーツ」'  settings-parts '<h2>設定画面のパーツ Settings parts</h2>.*puppet-remo#148〜#152'
 grep -B1 '^<section id="settings-parts"' "$idx" | head -1 | grep -q '流用してよい</li></ul></section>$' && ok 'index: #settings-parts は #proposals のすぐ後ろ' || ng 'index: #settings-parts が #proposals のすぐ後ろにない'
 ! has "$idx" 'puppet-parts' && ! has "$prev" 'puppet-parts|id="st-parts"' && ok '旧 #puppet-parts / #st-parts を残していない' || ng '旧 #puppet-parts か #st-parts が残っている'
@@ -451,4 +445,4 @@ inh3     'tokens-preview #st-settings-parts: 題なしアラートは warning �
 inh3     'tokens-preview #st-settings-parts: info のアラート' st-settings-parts 'class="al np-note" style="--c:var\(--info\)"'
 chk      'tokens-preview: ページ送りの「N ページ目」は sm 14・--mute'  '#states \.np-pg-n\{font-size:14px;color:var\(--mute\)\}' "$prev"
 
-exit $fail
+finish
