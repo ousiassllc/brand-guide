@@ -45,8 +45,8 @@ chk 'tokens-preview: データテーブルのチェックボックスは .chk �
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
-chk 'theme.js: system 追従 (matchMedia change)'  "addEventListener\('change'"            "$thm"
-chk 'theme.js: light/dark だけ保存'              "light.*dark"                          "$thm"
+# theme.js の動作（OS 追従・light/dark だけ保存・保存キー ousiass-theme）は scripts/check-theme.sh が実際に動かして確かめる（Issue #53）。
+# ここでは文字列の存在しか見えない grep は置かず、ファイルの有無と、両ページが head で同期読み込みすることだけを見る。
 for f in "$idx" "$prev"; do
   chk "$(basename "$f"): head で theme.js を同期読み込み" '<script src="theme.js"></script>' "$f"
   chk "$(basename "$f"): 切替コントロール 3 ボタン"       'data-set-theme="system"'        "$f"
@@ -372,7 +372,6 @@ thm_prev | grep -Eq '決定済み:</strong> 「アイコンだけ」と「縦積
 thm_prev | grep -Eq '<th>置く場所</th><th>形</th>' && ok 'tokens-preview #st-theme: 使い分け表' || ng 'tokens-preview #st-theme: 使い分け表がない'
 thm_prev | grep -q 'id="theme-forms-demo"' && ok 'tokens-preview #st-theme: 3 形の見本が #st-theme の中にある' || ng 'tokens-preview #st-theme: 見本が #st-theme の外にある'
 chk '#st-theme は採用のまま（新ブロックだけ推奨案）' '<h3 id="st-theme">[^<]*<span class="tag">採用</span></h3>' "$prev"
-chk 'theme.js: 保存キーは ousiass-theme のまま' "KEY = 'ousiass-theme'" "$thm"
 
 # (11) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
 insec    '#settings-parts: 節がある（puppet-remo#148〜#152 を参照）・題は「設定画面のパーツ」'  settings-parts '<h2>設定画面のパーツ Settings parts</h2>.*puppet-remo#148〜#152'
