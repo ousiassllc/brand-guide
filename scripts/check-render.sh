@@ -229,6 +229,25 @@ async function measureSlider(page) {
   return out;
 }
 
+// Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線 2px か 3px であること。
+async function measureFocusRings(page) {
+  const { s, ev } = page;
+  const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
+  await ev('document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); 1');
+  const bad = {}; let stops = 0, first = null;
+  for (let i = 0; i < 400; i++) {
+    await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
+      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+    if (!r) break;
+    if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
+    stops++;
+    if (!(r.st === 'solid' && (r.w === '2px' || r.w === '3px') && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + ' ' + r.c] = 1;
+  }
+  return { stops, focus, bad: Object.keys(bad) };
+}
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -277,6 +296,12 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
               const sb = m.sb;
               const sbOk = sb.every(x => !x.missing) && sb[0].sh && sb[0].v === 8 && sb[1].sw && sb[1].h === 8 && sb[2].sh && sb[2].sw && sb[2].v === 8 && sb[2].h === 8;
               t(`${tag}: スクロールバー見本の幅 8px（縦・横・両方向）`, sbOk, sb.map(x => x.missing ? x.id + ' なし' : `${x.id} 縦${x.v} 横${x.h}${x.sh || x.sw ? '' : '（溢れていない）'}`).join(' / '));
+            }
+          }
+          if (file === 'index.html') {
+            if (width === 1280) {
+              const fr = await measureFocusRings(page);
+              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
         } finally { await page.close(); }

@@ -311,6 +311,7 @@ for f in "$idx" "$prev"; do
   form_of "$f" 'アイコンだけ' | grep -q 'class="seg seg-icon"' && form_of "$f" '縦積み' | grep -q 'class="seg seg-stack"' && ok "$n: 見本のクラス（.seg-icon / .seg-stack）" || ng "$n: 見本のクラスがない"
   ! has "$f" '<[a-z]+ [^>]*role="radiogroup"' && ok "$n: 要素に role=radiogroup を付けない（role=group + aria-pressed）" || ng "$n: role=radiogroup の要素がある"
   chk "$n: フォーカスの実線リング（3px・offset 2px）を維持" '\.seg button:focus-visible\{outline:3px solid var\(--focus\);outline-offset:2px\}' "$f"
+  chk "$n: #64 グローバルの :focus-visible（--focus の 2px・offset 2px。a・.sbtn・pre.tbox もブラウザ既定のリングにしない）" '^:focus-visible\{outline:2px solid var\(--focus\);outline-offset:2px\}' "$f"
   ! has "$f" 'border:1px solid var\(--ink\);border-radius:6px' && ok "$n: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "$n: P2-2 旧い吹き出しの指定が残っている"
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
 done
