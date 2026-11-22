@@ -52,13 +52,13 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .fld:disabled{opacity:.5;cursor:not-allowed}
 .ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
 .chk{display:flex;align-items:center;gap:10px;font-size:15px;margin:8px 0;cursor:pointer}
-.chk input{appearance:none;width:18px;height:18px;margin:0;padding:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
+.chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{appearance:none;width:18px;height:18px;margin:0;padding:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
 .chk input[type=radio]{border-radius:var(--r-full)}
-.chk input:checked{background:var(--accent);border-color:var(--accent)}
-.chk input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+.chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .chk input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--bone)}
-.chk input:focus-visible,.chk input.is-focus,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
-.chk input:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
+.chk input:focus-visible,.chk input.is-focus,#states .np-agree input:focus-visible,#states .np-chk input:focus-visible,#p2 .atable input[type=checkbox]:focus-visible,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
+.chk input:disabled,#states .np-agree input:disabled,#states .np-chk input:disabled,#p2 .atable input[type=checkbox]:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
 .sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:16px}.sw2 input{position:absolute;opacity:0}
 .sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
 .sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:left var(--motion-base) var(--ease-out),background-color var(--motion-base) var(--ease-out)}
@@ -603,10 +603,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 .sw2 span::after{background:CanvasText;box-shadow:none}
 .sw2 input:checked+span{background:Highlight;border-color:Highlight}
 .sw2 input:checked+span::after{background:HighlightText}
-.chk input{border-color:CanvasText}
-.chk input:checked{border-color:Highlight}
+.chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{border-color:CanvasText}
+.chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{border-color:Highlight}
 .chk input[type=radio]:checked::after{background:Highlight;forced-color-adjust:none}
-.chk input[type=checkbox]:checked::after{border-color:Highlight}
+.chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{border-color:Highlight}
 .spin{forced-color-adjust:none;border-color:transparent;border-top-color:CanvasText}
 .ui .btn.is-loading .spin{border-color:transparent;border-top-color:ButtonText}
 #states .zs .zst,#states .zs .pop,#states .zs .mdl{border:1px solid CanvasText}
@@ -624,7 +624,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .np-eye .e-closed{display:none}#states .np-eye[data-shown=true] .e-open{display:none}#states .np-eye[data-shown=true] .e-closed{display:block}
 #states .np-note{margin:0 0 var(--s-2);align-items:flex-start;line-height:1.6}#states .np-note p,#states .np-note label{margin:0}
 #states .np-note svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--c);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}#states .np-agree input,#states .np-chk input{width:auto;height:auto;padding:0;flex:none}
+#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}
 #states .np-form{display:flex;flex-direction:column;gap:var(--s-6)}
 #states .np-fs{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var(--gap-field)}
 #states .np-fs legend{margin:0 0 var(--gap-field);padding:0;font-size:14px;font-weight:600;line-height:1.4}
@@ -1646,7 +1646,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .atable th[aria-sort=ascending],#p2 .atable th[aria-sort=descending]{color:var(--ink)}
 #p2 .atable tbody tr:hover{background:var(--accent-soft)}
 #p2 .atable .num{font-family:"JetBrains Mono",monospace;text-align:right}
-#p2 .atable input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);padding:0;margin:0}
 #p2 .bulk{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;border-radius:var(--r-card);background:var(--surface-sel);margin-bottom:10px;font-size:13px}
 #p2 .bulk .acts{display:flex;gap:var(--gap-inline);margin-left:auto;flex-wrap:wrap}
 #p2 .tree{list-style:none;margin:0;padding:0;font-size:14px}
