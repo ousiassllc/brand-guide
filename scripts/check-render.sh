@@ -51,9 +51,22 @@ async function launch() {
   ], { stdio: 'ignore' });
   let exited = false;
   proc.once('exit', () => { exited = true; });
-  const stop = async () => {
-    if (!exited) { proc.kill(); await new Promise(r => proc.once('exit', r)); }
+  // 後始末（Chrome の kill と一時プロファイルの削除）は 1 回だけ走る同期関数。通常終了の stop() のほか、
+  // exit・SIGINT・SIGTERM（Ctrl-C や timeout）からも呼ぶ。finally だけでは中断時に走らない
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return; cleaned = true;
+    try { proc.kill('SIGKILL'); } catch { /* すでに終了している */ }
     try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }); } catch { /* 一時ディレクトリが残るだけ */ }
+  };
+  process.on('exit', cleanup);
+  for (const s of ['SIGINT', 'SIGTERM']) process.on(s, () => { cleanup(); process.exit(130); });
+  const stop = async () => {
+    if (!exited) {
+      proc.kill('SIGKILL');
+      await Promise.race([new Promise(r => proc.once('exit', r)), new Promise(r => setTimeout(r, 3000))]); // 終了待ちには上限を付ける
+    }
+    cleanup();
   };
   try {
     let port = '';
