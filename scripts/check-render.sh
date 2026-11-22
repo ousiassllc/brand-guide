@@ -3,6 +3,9 @@
 # grep では見えない「描画された結果」（スイッチ 36×20・チェック 18 の円・スライダーの枠・スピナー・
 # ピル・枠 0・スクロールバー 8px・12px 未満の文字・モバイルの入力欄・コントラスト・reduced-motion・
 # 横スクロール・リンク先と id の重複）を、Light / Dark × 1280px / 375px で測る。
+# あわせて、Tab 巡回のフォーカスリング（実際のキー操作で止まる要素の幅・色・offset）、#toast の a11y ツリーと本文の出し入れ、
+# index.html の可視テキストのウェイト・サイズの全走査、一部選択（indeterminate）の描画を測る。
+# 狭い幅（360px・320px）での文字付き .seg のカードからのはみ出しと、forced-colors での描画も測る。
 #
 # 依存: Node 22 以上（組み込みの WebSocket を使う。npm パッケージは不要）と Chrome / Chromium。
 #   Chrome の場所: 環境変数 CHROME、なければ google-chrome / google-chrome-stable / chromium / chromium-browser。
@@ -48,22 +51,24 @@ async function launch() {
   const proc = spawn(chrome, [
     '--headless=new', '--no-sandbox', '--disable-gpu', '--disable-extensions', '--no-first-run',
     '--remote-debugging-port=0', '--user-data-dir=' + dir, 'about:blank',
-  ], { stdio: 'ignore' });
+  ], { stdio: 'ignore', detached: true }); // detached: Chrome をプロセスグループのリーダーにし、子（zygote・renderer・GPU）ごと落とせるようにする
   let exited = false;
   proc.once('exit', () => { exited = true; });
   // 後始末（Chrome の kill と一時プロファイルの削除）は 1 回だけ走る同期関数。通常終了の stop() のほか、
   // exit・SIGINT・SIGTERM（Ctrl-C や timeout）からも呼ぶ。finally だけでは中断時に走らない
+  // 本体だけ落とすと子が一時プロファイルを書き戻して check-render-* が残る（#77）ので、グループ全体へ SIGKILL を送る
+  const killGroup = () => { try { process.kill(-proc.pid, 'SIGKILL'); } catch { /* すでに終了している */ } };
   let cleaned = false;
   const cleanup = () => {
     if (cleaned) return; cleaned = true;
-    try { proc.kill('SIGKILL'); } catch { /* すでに終了している */ }
+    killGroup();
     try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }); } catch { /* 一時ディレクトリが残るだけ */ }
   };
   process.on('exit', cleanup);
   for (const s of ['SIGINT', 'SIGTERM']) process.on(s, () => { cleanup(); process.exit(130); });
   const stop = async () => {
     if (!exited) {
-      proc.kill('SIGKILL');
+      killGroup();
       await Promise.race([new Promise(r => proc.once('exit', r)), new Promise(r => setTimeout(r, 3000))]); // 終了待ちには上限を付ける
     }
     cleanup();
@@ -307,7 +312,7 @@ async function measureSlider(page) {
   return out;
 }
 
-// Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線 2px か 3px であること。
+// Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線・offset 2px で、幅は要素の種類で決まること（離散コントロール＝button・checkbox・radio・range は 3px、リンク・pre など既定は 2px）。
 async function measureFocusRings(page) {
   const { s, ev } = page;
   const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
@@ -317,11 +322,11 @@ async function measureFocusRings(page) {
     await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
-      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
     if (!r) break;
     if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
     stops++;
-    if (!(r.st === 'solid' && (r.w === '2px' || r.w === '3px') && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + ' ' + r.c] = 1;
+    if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
   }
   return { stops, focus, bad: Object.keys(bad) };
 }
@@ -409,7 +414,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: #66 可視テキストの font-weight が 300・400・600 だけ（700 の既定の th・h3 を残さない）`, m.badWeight.length === 0, m.badWeight.slice(0, 4).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
-              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
           if (width === 1280 && theme === 'light') {

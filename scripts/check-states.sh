@@ -74,6 +74,13 @@ done
 chk 'tokens-preview: モバイルナビのドロワーは role=dialog・aria-modal' 'id="p0-mnav-panel" role="dialog" aria-modal="true"' "$prev"
 chk 'tokens-preview: モバイルナビのドロワー幅の上限は 320px' '#p0 \.mnav-panel\{[^}]*width:78%;max-width:320px' "$prev"
 chk 'tokens-preview: モバイルナビの出入りは opacity＋8px の移動' '#p0 \.mnav-panel\{[^}]*opacity:0;[^}]*transform:translateX\(-8px\)' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip は hover だけ 400ms 遅らせる（transition-delay は表示側の規則だけ）' '#p0 \.tip-wrap:hover \.tip\{opacity:1;transition-delay:400ms\}' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip は :focus-visible のときだけ即時（マウスクリックだけのフォーカスでは出さない）' '#p0 \.tip-wrap button:focus-visible\+\.tip\{opacity:1;transition-delay:0s\}' "$prev"
+notchk 'tokens-preview: #76 P0 の Tooltip を :focus-within で出さない' '#p0 \.tip-wrap:focus-within' "$prev"
+notchk 'tokens-preview: #76 P0 の .tip の基底規則に transition-delay を置かない（戻る向きに遅延が掛かる）' '#p0 \.tip\{[^}]*transition-delay' "$prev"
+chk 'tokens-preview: #76 reduced-motion の P0 .tip は 100ms linear のまま' '^#p0 \.tip\{transition:opacity 100ms linear\}' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip「Inverse」のボタンは aria-describedby で .tip を指す' 'aria-describedby="p0-tip1">Inverse</button><span class="tip" id="p0-tip1" role="tooltip">' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip「Surface」のボタンは aria-describedby で .tip を指す' 'aria-describedby="p0-tip2">Surface</button><span class="tip alt" id="p0-tip2" role="tooltip">' "$prev"
 chk 'tokens-preview: モバイルナビは Esc で閉じる' "e\.key==='Escape'\)\{e\.preventDefault\(\);closeM\(\)" "$prev"
 chk 'tokens-preview: モバイルナビを閉じたらトリガへフォーカスを戻す' "function closeM\(\)\{[^}]*mOpen&&mOpen\.focus\(\)" "$prev"
 instates 'tokens-preview #states: スピナー周期は .spin 既存（0.9s）を使う' 'class="spin"'
@@ -316,6 +323,8 @@ for f in "$idx" "$prev"; do
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
   chk "$n: #63 見本の並べ方（.sgrid .scr / .scr-note）は各ページの <style> にある（theme-control.css に置かない）" '\.sgrid \.scr\{overflow-x:auto;padding:6px;margin:-6px\}\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
 done
+chk "index.html: #73 ボタン（.sbtn・.hex button を含む）のフォーカスリングは離散コントロールの 3px（グローバルの 2px を button だけ 3px にする）" '^button:focus-visible\{outline-width:3px\}' "$idx"
+notchk "index.html: #73 .hex button に 2px のリングを個別に付けない" '\.hex button:focus-visible\{outline:2px' "$idx"
 # テーマ切替の CSS は共通の theme-control.css 1 か所（両ページが <head> の同期 <link> で読む）。1 回だけ調べる
 css="$root/theme-control.css"
 [ -f "$css" ] && ok "theme-control.css がある" || ng "theme-control.css がない"
