@@ -183,6 +183,33 @@ const MEASURE_MOTION = `(() => { ${PAGE_LIB}
   return { bad, n: document.querySelectorAll('*').length };
 })()`;
 
+// 文字付き .seg（約 298px 幅）がカードの外へはみ出さないか。.seg とカードの間に overflow-x の祖先（.scr）があれば、その箱の右端で測る。
+const MEASURE_SEG = `(() => { ${PAGE_LIB}
+  const bad = []; let n = 0;
+  for (const e of document.querySelectorAll('.seg')) {
+    const card = e.closest('.card'); if (!card || !rendered(e)) continue;
+    n++;
+    let clip = null;
+    for (let p = e.parentElement; p && p !== card; p = p.parentElement) if (getComputedStyle(p).overflowX !== 'visible') { clip = p; break; }
+    const right = (clip || e).getBoundingClientRect().right, cardRight = card.getBoundingClientRect().right;
+    if (right > cardRight + 1) bad.push(sel(e) + ' 右端 ' + Math.round(right) + ' > カード ' + Math.round(cardRight) + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  }
+  return { bad, n };
+})()`;
+
+// データテーブルの「すべて選択」（#p2-check-all）を、未選択・一部選択（行を 1 つ選ぶ）・全選択の 3 状態で測る。測ったあとは未選択に戻す。
+const MEASURE_INDET = `(() => { ${PAGE_LIB}
+  const all = document.getElementById('p2-check-all'), row = document.querySelector('#p2-atable .p2-row');
+  if (!all || !row) return null;
+  const snap = () => { const c = getComputedStyle(all), a = getComputedStyle(all, '::after');
+    return { ind: all.indeterminate, checked: all.checked, bg: c.backgroundColor, bd: c.borderTopColor, aw: a.width, ah: a.height, abg: a.backgroundColor }; };
+  const none = snap();
+  row.click(); const part = snap(); row.click();
+  all.click(); const full = snap(); all.click();
+  const css = v => 'rgb(' + colorOf('backgroundColor', v).join(', ') + ')';
+  return { none, part, all: full, accent: css('var(--accent)'), bone: css('var(--bone)') };
+})()`;
+
 // index.html の文字サイズ・ウェイト（#65・#66）。可視テキストの親要素の font-size / font-weight が、規定の集合だけであること。
 // サイズ: スケール 12 / 14 / 16 / 18 / 24 / 32 / 40 と、見本の 13・15、見出し h2 の 28、h1 の clamp（375px で 32・1280px で 56）。ウェイト: 300 / 400 / 600（700 は tokens-preview の .au-title だけ）。
 const MEASURE_INDEX = `(() => { ${PAGE_LIB}
@@ -222,6 +249,27 @@ const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   out.flat = flat.map(q => { const e = document.querySelector(q); if (!e) return { s: q, missing: true };
     return { s: q, bw: ['Top', 'Right', 'Bottom', 'Left'].map(k => cs(e)['border' + k + 'Width']).join(' '), r: cs(e).borderRadius }; });
   out.navBorder = (() => { const e = document.querySelector('#app-ui .au-nav a'); return e ? ['Top', 'Right', 'Bottom', 'Left'].map(k => cs(e)['border' + k + 'Width']).join(' ') : 'missing'; })();
+  // 見本のラベル・ナビ・表は規定の Regular(400)。body の Light(300) をそのまま受けると、見本を写した製品が Light になる（#61）。ドロワーの項目は閉じていても computed を測る
+  out.weights = ['.sw2', '.chk', '#p0 .mnav-panel a', '#p0 .bc a', '#states td', '#p2 .atable td'].map(q => { const es = [...document.querySelectorAll(q)];
+    return { q, n: es.length, bad: es.filter(e => cs(e).fontWeight !== '400').slice(0, 3).map(sel) }; });
+  // 可視テキストのウェイトは 300・400・600 のどれか。700 は .au-title / .au-t1（アプリのページタイトル 28px とその書体見本）だけ。900 や既定の bold(700) を残さない（#66）
+  out.wts = (() => { const bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n; (n = w.nextNode());) {
+      if (!n.nodeValue.trim()) continue;
+      const e = n.parentElement; if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e)) continue;
+      const fw = cs(e).fontWeight; if (['300', '400', '600'].includes(fw) || (fw === '700' && e.closest('.au-title, .au-t1'))) continue;
+      const k = sel(e) + ' ' + fw + ' (#' + (e.closest('section[id]')?.id || '') + ')'; bad[k] = 1;
+    }
+    return Object.keys(bad); })();
+  // 可視テキストの font-size は規定のサイズスケール（12 / 14 / 16 / 18 / 24 / 32 / 40）と、ガイドが使う 13・15・28・56（h1 の clamp）だけ。h3 などのブラウザ既定（18.72px）を残さない（#65）。.bcnt（通知バッジ数 11px）だけ例外
+  out.sizes = (() => { const OK = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40], bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n; (n = w.nextNode());) {
+      if (!n.nodeValue.trim()) continue;
+      const e = n.parentElement; if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e) || e.closest('.bcnt')) continue;
+      const fs = px(cs(e).fontSize); if (OK.includes(fs) || (e.tagName === 'H1' && fs >= 32 && fs <= 56)) continue;
+      const k = sel(e) + ' ' + fs + 'px (#' + (e.closest('section[id]')?.id || '') + ')'; bad[k] = 1;
+    }
+    return Object.keys(bad); })();
   // スクロールバーの見本（8px）。擬似要素の幅は offset と client の差で測る
   out.sb = ['sb-vertical', 'sb-horizontal', 'sb-both'].map(id => { const e = document.getElementById(id);
     return e ? { id, v: e.offsetWidth - e.clientWidth, h: e.offsetHeight - e.clientHeight, sw: e.scrollWidth > e.clientWidth, sh: e.scrollHeight > e.clientHeight } : { id, missing: true }; });
@@ -331,10 +379,15 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             const cb = m.checks.filter(x => x.type === 'checkbox'), rd = m.checks.filter(x => x.type === 'radio');
             t(`${tag}: チェックボックス 18×18（円ではない）`, all(cb, x => x.w === 18 && x.h === 18 && x.r < 9), list(cb, x => x.w === 18 && x.h === 18 && x.r < 9) || `${cb.length} 個`);
             t(`${tag}: ラジオ 18×18 の円`, all(rd, x => x.w === 18 && x.h === 18 && x.r >= 9), list(rd, x => x.w === 18 && x.h === 18 && x.r >= 9) || `${rd.length} 個`);
+            const ind = await page.ev(MEASURE_INDET), pt = ind && ind.part;
+            t(`${tag}: 一部選択の「すべて選択」が indeterminate で、accent 地・accent 枠・bone の横線 9×2（未選択と区別できる）`, !!pt && pt.ind && !pt.checked && pt.bg === ind.accent && pt.bd === ind.accent && pt.abg === ind.bone && pt.aw === '9px' && pt.ah === '2px' && pt.bg !== ind.none.bg, JSON.stringify(ind));
             const sp = x => x.w === 20 && x.h === 20 && x.bw === '2px' && x.dur === '0.9s' && x.tf === 'linear' && x.name !== 'none';
             t(`${tag}: スピナー 20px・線 2px・0.9s linear`, all(m.spins, sp), list(m.spins, sp) || `${m.spins.length} 個`);
             t(`${tag}: ボタン・チップ・選択ナビがピル`, all(m.pills, hasPill), list(m.pills, hasPill) || `${m.pills.length} 個`);
             t(`${tag}: カード・表・バナーの枠 0・角 16、選択ナビの枠 0`, m.flat.every(x => !x.missing && x.bw === '0px 0px 0px 0px' && x.r === '16px') && m.navBorder === '0px 0px 0px 0px', m.flat.map(x => x.missing ? x.s + ' なし' : x.bw + ' ' + x.r).join(' / ') + ' / nav ' + m.navBorder);
+            t(`${tag}: ラベル・ナビ・表のセルが規定の Regular(400)（Light の 300 を受けない）`, m.weights.every(x => x.n > 0 && x.bad.length === 0), m.weights.map(x => x.q + ' ' + x.n + ' 個' + (x.bad.length ? ' 400 でない: ' + x.bad.join(',') : '')).join(' | '));
+            t(`${tag}: 可視テキストのウェイトが 300・400・600 のどれか（700 はアプリのページタイトル .au-title / .au-t1 だけ）`, m.wts.length === 0, m.wts.slice(0, 4).join(' | '));
+            t(`${tag}: 可視テキストのサイズが許容値 12・13・14・15・16・18・24・28・32・40・56（h1 の clamp）だけ（ブラウザ既定の h3 18.72px を残さない。例外は .bcnt の 11px）`, m.sizes.length === 0, m.sizes.slice(0, 4).join(' | '));
             const slider = await measureSlider(page);
             const rg = m.rng;
             const sliderOk = !!(slider && slider.track && slider.thumb && rg
@@ -365,6 +418,29 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: #69 待機中の #toast が a11y ツリーにあり（role=status・ignored でない）、見えず・クリックを塞がず（#35）・読み上げる本文もない`, idleOk, JSON.stringify(tt.idle));
             t(`${tag}: #69 showToast で表示され本文が入り、hideToast の後は本文が空に戻っても a11y ツリーに残る`, tt.shown.op === '1' && tt.shown.text === 'テスト' && !tt.shown.ax.ignored && tt.hidden.text === '' && tt.hidden.op === '0' && tt.hidden.ax.role === 'status' && !tt.hidden.ax.ignored, JSON.stringify({ shown: tt.shown, hidden: tt.hidden }));
           }
+        } finally { await page.close(); }
+      }
+      // #67: 狭い幅（375 / Android の標準 360 / 最小 320）で、文字付き .seg がカードの外へ出ない。はみ出すなら .scr の内側で横スクロールにする
+      if (file === 'tokens-preview.html') for (const width of [375, 360, 320]) {
+        const tag = `${file} ${width}/light`;
+        const page = await open(browser, file, width, 'light', false);
+        try {
+          const g = await page.ev(MEASURE_SEG);
+          t(`${tag}: カード内の .seg の右端がカードの右端を越えない（.scr の内側で横スクロール）`, g.n > 0 && g.bad.length === 0, g.bad.slice(0, 3).join(' | ') || `${g.n} 個`);
+          if (width !== 375) { // 375 はこの上の本線で測っている
+            const c = await page.ev(MEASURE_COMMON);
+            const others = c.over.filter(e => !e.known6).map(e => e.s);
+            t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
+          }
+        } finally { await page.close(); }
+      }
+      // #68: forced-colors でも、一部選択（indeterminate）が未選択・全選択と見分けられる
+      if (file === 'tokens-preview.html') {
+        const page = await open(browser, file, 1280, 'light', false);
+        try {
+          await page.s('Emulation.setEmulatedMedia', { features: [{ name: 'forced-colors', value: 'active' }] });
+          const f = await page.ev(MEASURE_INDET);
+          t(`${file} 1280/forced-colors: 一部選択の「すべて選択」が枠 Highlight・横線 Highlight で、未選択（枠 CanvasText）と違い、全選択と枠が同じ`, !!f && f.part.ind && f.part.bd !== f.none.bd && f.part.bd === f.all.bd && f.part.abg === f.part.bd && f.part.aw === '9px' && f.part.ah === '2px', JSON.stringify(f));
         } finally { await page.close(); }
       }
       // reduced-motion（1280 の Light / Dark）
