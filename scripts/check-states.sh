@@ -34,6 +34,11 @@ insec 'z: 既存の段を並べ替えない'                 layers '並べ替�
 insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
 insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
 chk 'tokens-preview: .chk input は padding:0（グローバル input{} の padding で 18px が膨らまない）' '^\.chk input\{[^}]*width:18px;height:18px;[^}]*padding:0' "$prev"
+chk 'tokens-preview: スライダー .rng は枠・padding・角丸を残さない（グローバル input{} の漏れ止め）' '^#p1 \.rng\{[^}]*padding:0;border:0;border-radius:0' "$prev"
+chk 'tokens-preview: スライダーのつまみ（webkit）は 16px 円・1px border' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*width:16px;height:16px;[^}]*border-radius:50%;[^}]*border:1px solid var\(--border\)' "$prev"
+! has "$prev" '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-shadow' && ok 'tokens-preview: スライダーのつまみ（webkit）に box-shadow を付けない' || ng 'tokens-preview: スライダーのつまみ（webkit）に box-shadow が残っている'
+chk 'tokens-preview: スライダーのつまみ（webkit）は box-sizing:border-box（border 込みで 16px）' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-sizing:border-box' "$prev"
+chk 'tokens-preview: スライダーのつまみ（moz）も box-sizing:border-box・16px・box-shadow なし（webkit とそろえる）' '^#p1 \.rng::-moz-range-thumb\{box-sizing:border-box;width:16px;height:16px;[^}]*box-shadow:none' "$prev"
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
