@@ -1,11 +1,11 @@
-/* テーマ切替の 3 形（Issue #12・推奨案）: 文字付き横並び=.seg / アイコンだけ=.seg-icon / 縦積み=.seg-stack。タップ範囲は 44px 以上（アイコンだけは見える 38px + ::before の 3px） */
+/* テーマ切替の 3 形（Issue #12・推奨案）: 文字付き横並び=.seg / アイコンだけ=.seg-icon / 縦積み=.seg-stack。タップ範囲は 44px 以上（アイコンだけは見える 38px + ::before の 3px）。
+   前提: これは基底の .seg への差分。基底の .seg（枠・padding・選択中の塗り・フォーカスリング・svg の大きさ）は各ページの <style> にある（index.html と tokens-preview.html）。動作は theme.js */
 .seg button{position:relative}.seg button::before{content:"";position:absolute;inset:-8px 0}
 .seg-icon{padding:3px}.seg-icon button{justify-content:center;width:38px;height:38px;padding:0}.seg-icon button::before{inset:-3px}.seg-icon svg{width:20px;height:20px}
 .seg-icon .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .seg-icon button:is(:hover,:focus-visible) .lb{width:auto;height:auto;overflow:visible;clip:auto;top:calc(100% + 12px);left:50%;transform:translateX(-50%);z-index:100;padding:6px 10px;border-radius:4px;background:var(--ink);color:var(--bone);font:400 12px/1.4 Sora,"Noto Sans JP",sans-serif;animation:seg-tip 320ms cubic-bezier(.2,.8,.2,1)}@keyframes seg-tip{from{opacity:0}}
 .seg-stack{display:flex;flex-direction:column;gap:2px;width:100%;max-width:280px;padding:4px;border-radius:12px}.seg-stack button{width:100%;min-height:44px;padding:8px 12px;gap:10px;border-radius:8px}.seg-stack button::before{content:none}.seg-stack svg{width:20px;height:20px}.seg-stack .lb{flex:1;text-align:left}
 .seg-stack button::after{content:"";flex:none;width:18px;height:18px;border:1px solid currentColor;border-radius:50%}.seg-stack button[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}.seg-stack button[aria-pressed=true]::after{border-color:var(--accent);background:radial-gradient(circle,var(--bone) 0 3px,var(--accent) 3.5px)}
-.sgrid .scr{overflow-x:auto;padding:6px;margin:-6px}.sgrid .scr-note{width:0;min-width:100%}
 @media(max-width:480px){.top .seg{padding:3px}.top .seg button{justify-content:center;width:38px;height:38px;padding:0}.top .seg button::before{inset:-3px}.top .seg svg{width:20px;height:20px}.top .seg .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.top .seg button:is(:hover,:focus-visible) .lb{width:auto;height:auto;overflow:visible;clip:auto;top:calc(100% + 12px);left:50%;transform:translateX(-50%);z-index:100;padding:6px 10px;border-radius:4px;background:var(--ink);color:var(--bone);font:400 12px/1.4 Sora,"Noto Sans JP",sans-serif;animation:seg-tip 320ms cubic-bezier(.2,.8,.2,1)}}
 /* 吹き出しは hover だけ 400ms 遅らせ（遅延中は from の opacity:0）、focus-visible は即時（ツールチップの規定。表示の切替自体は遅らせない） */
 :is(.seg-icon,.top .seg) button:hover:not(:focus-visible) .lb{animation-delay:400ms;animation-fill-mode:backwards}

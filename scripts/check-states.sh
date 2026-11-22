@@ -314,6 +314,7 @@ for f in "$idx" "$prev"; do
   chk "$n: #64 グローバルの :focus-visible（--focus の 2px・offset 2px。a・.sbtn・pre.tbox もブラウザ既定のリングにしない）" '^:focus-visible\{outline:2px solid var\(--focus\);outline-offset:2px\}' "$f"
   ! has "$f" 'border:1px solid var\(--ink\);border-radius:6px' && ok "$n: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "$n: P2-2 旧い吹き出しの指定が残っている"
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
+  chk "$n: #63 見本の並べ方（.sgrid .scr / .scr-note）は各ページの <style> にある（theme-control.css に置かない）" '\.sgrid \.scr\{overflow-x:auto;padding:6px;margin:-6px\}\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
 done
 # テーマ切替の CSS は共通の theme-control.css 1 か所（両ページが <head> の同期 <link> で読む）。1 回だけ調べる
 css="$root/theme-control.css"
@@ -344,7 +345,9 @@ notchk "P2-2 focus-visible 側に animation-delay を付けない（フォーカ
 ! has "$css" 'border:1px solid var\(--ink\);border-radius:6px' && ok "P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "P2-2 旧い吹き出しの指定が残っている"
 chk "P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$css"
 chk "P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$css"
-chk "P3-1 文字付き見本の注記（右端が切れる）の置き場" '\.sgrid \.scr-note\{width:0;min-width:100%\}' "$css"
+chk "#63 theme-control.css の冒頭に「基底の .seg は各ページの <style> にある」前提を書く" '基底の \.seg.*は各ページの <style> にある' "$css"
+notchk "#63 theme-control.css に見本専用の .sgrid の規則を置かない" '\.sgrid' "$css"
+chk "#63 README に「基底の .seg は各ページ側にある」と書く" '基底の `\.seg` は各ページ側' "$root/README.md"
 chk "P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠" 'forced-colors:active\)\{.*\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText;background:Canvas;color:CanvasText\}' "$css"
 chk "P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠" '@media\(forced-colors:active\) and \(max-width:480px\)\{\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText' "$css"
 # 文言: 新節は推奨案、ただし「両方を定義して場所で使い分ける」は決定済み
