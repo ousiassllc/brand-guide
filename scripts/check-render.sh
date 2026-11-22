@@ -3,6 +3,9 @@
 # grep では見えない「描画された結果」（スイッチ 36×20・チェック 18 の円・スライダーの枠・スピナー・
 # ピル・枠 0・スクロールバー 8px・12px 未満の文字・モバイルの入力欄・コントラスト・reduced-motion・
 # 横スクロール・リンク先と id の重複）を、Light / Dark × 1280px / 375px で測る。
+# あわせて、Tab 巡回のフォーカスリング（実際のキー操作で止まる要素の幅・色・offset）、#toast の a11y ツリーと本文の出し入れ、
+# index.html の可視テキストのウェイト・サイズの全走査、一部選択（indeterminate）の描画を測る。
+# 狭い幅（360px・320px）での文字付き .seg のカードからのはみ出しと、forced-colors での描画も測る。
 #
 # 依存: Node 22 以上（組み込みの WebSocket を使う。npm パッケージは不要）と Chrome / Chromium。
 #   Chrome の場所: 環境変数 CHROME、なければ google-chrome / google-chrome-stable / chromium / chromium-browser。
