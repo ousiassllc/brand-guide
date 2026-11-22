@@ -339,6 +339,8 @@ chk "P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regu
 chk "P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$css"
 chk "P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし" '@keyframes seg-tip\{from\{opacity:0\}\}' "$css"
 chk "P2-2 reduced-motion では吹き出しのアニメを止める" '@media\(prefers-reduced-motion:reduce\)\{\.seg \.lb\{animation:none!important\}\}' "$css"
+chk "P2-2 吹き出しは hover だけ 400ms 遅らせ（遅延中は opacity:0 のまま）、focus-visible は即時（.seg-icon と ≤480px のヘッダーの両方）" ':is\(\.seg-icon,\.top \.seg\) button:hover:not\(:focus-visible\) \.lb\{animation-delay:400ms;animation-fill-mode:backwards\}' "$css"
+notchk "P2-2 focus-visible 側に animation-delay を付けない（フォーカスは即時）" ':is\(:hover,:focus-visible\) \.lb\{[^}]*animation-delay' "$css"
 ! has "$css" 'border:1px solid var\(--ink\);border-radius:6px' && ok "P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "P2-2 旧い吹き出しの指定が残っている"
 chk "P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$css"
 chk "P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$css"
