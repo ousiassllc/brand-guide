@@ -231,6 +231,15 @@ const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
       const k = sel(e) + ' ' + fw + ' (#' + (e.closest('section[id]')?.id || '') + ')'; bad[k] = 1;
     }
     return Object.keys(bad); })();
+  // 可視テキストの font-size は規定のサイズスケール（12 / 14 / 16 / 18 / 24 / 32 / 40）と、ガイドが使う 13・15・28・56（h1 の clamp）だけ。h3 などのブラウザ既定（18.72px）を残さない（#65）。.bcnt（通知バッジ数 11px）だけ例外
+  out.sizes = (() => { const OK = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40], bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n; (n = w.nextNode());) {
+      if (!n.nodeValue.trim()) continue;
+      const e = n.parentElement; if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e) || e.closest('.bcnt')) continue;
+      const fs = px(cs(e).fontSize); if (OK.includes(fs) || (e.tagName === 'H1' && fs >= 32 && fs <= 56)) continue;
+      const k = sel(e) + ' ' + fs + 'px (#' + (e.closest('section[id]')?.id || '') + ')'; bad[k] = 1;
+    }
+    return Object.keys(bad); })();
   // スクロールバーの見本（8px）。擬似要素の幅は offset と client の差で測る
   out.sb = ['sb-vertical', 'sb-horizontal', 'sb-both'].map(id => { const e = document.getElementById(id);
     return e ? { id, v: e.offsetWidth - e.clientWidth, h: e.offsetHeight - e.clientHeight, sw: e.scrollWidth > e.clientWidth, sh: e.scrollHeight > e.clientHeight } : { id, missing: true }; });
@@ -307,6 +316,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: カード・表・バナーの枠 0・角 16、選択ナビの枠 0`, m.flat.every(x => !x.missing && x.bw === '0px 0px 0px 0px' && x.r === '16px') && m.navBorder === '0px 0px 0px 0px', m.flat.map(x => x.missing ? x.s + ' なし' : x.bw + ' ' + x.r).join(' / ') + ' / nav ' + m.navBorder);
             t(`${tag}: ラベル・ナビ・表のセルが規定の Regular(400)（Light の 300 を受けない）`, m.weights.every(x => x.n > 0 && x.bad.length === 0), m.weights.map(x => x.q + ' ' + x.n + ' 個' + (x.bad.length ? ' 400 でない: ' + x.bad.join(',') : '')).join(' | '));
             t(`${tag}: 可視テキストのウェイトが 300・400・600 のどれか（700 はアプリのページタイトル .au-title / .au-t1 だけ）`, m.wts.length === 0, m.wts.slice(0, 4).join(' | '));
+            t(`${tag}: 可視テキストのサイズが許容値 12・13・14・15・16・18・24・28・32・40・56（h1 の clamp）だけ（ブラウザ既定の h3 18.72px を残さない。例外は .bcnt の 11px）`, m.sizes.length === 0, m.sizes.slice(0, 4).join(' | '));
             const slider = await measureSlider(page);
             const rg = m.rng;
             const sliderOk = !!(slider && slider.track && slider.thumb && rg
