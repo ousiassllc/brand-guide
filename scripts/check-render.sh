@@ -318,6 +318,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           if (file === 'index.html') {
             const m = await page.ev(MEASURE_INDEX);
             t(`${tag}: #65 可視テキストの font-size がスケールと規定の例外だけ（12〜16・18・24・28・32・40・56。18.72px の既定の h3 を残さない）`, m.badSize.length === 0, m.badSize.slice(0, 4).join(' | '));
+            t(`${tag}: #66 可視テキストの font-weight が 300・400・600 だけ（700 の既定の th・h3 を残さない）`, m.badWeight.length === 0, m.badWeight.slice(0, 4).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
               t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
