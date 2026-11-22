@@ -33,6 +33,7 @@ insec 'z: --z-popup 401'                          layers '--z-popup 401'
 insec 'z: 既存の段を並べ替えない'                 layers '並べ替えない'
 insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
 insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
+chk 'tokens-preview: .chk input は padding:0（グローバル input{} の padding で 18px が膨らまない）' '^\.chk input\{[^}]*width:18px;height:18px;[^}]*padding:0' "$prev"
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
