@@ -40,7 +40,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .fld:focus,.ui .fld.is-focus{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus,.ui .fld.bad.is-focus{border-color:var(--danger);outline-offset:1px}
 .ui .fld:disabled{opacity:.5;cursor:not-allowed}
 .ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
-.chk{display:flex;align-items:center;gap:10px;font-size:15px;margin:8px 0;cursor:pointer}
+.chk{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:400;margin:8px 0;cursor:pointer}
 .chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{appearance:none;width:18px;height:18px;margin:0;padding:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
 .chk input[type=radio]{border-radius:var(--r-full)}
 .chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
@@ -50,7 +50,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .chk input[type=checkbox]:indeterminate::after,#states .np-agree input:indeterminate::after,#states .np-chk input:indeterminate::after,#p2 .atable input[type=checkbox]:indeterminate::after{content:"";width:9px;height:2px;background:var(--bone)}
 .chk input:focus-visible,.chk input.is-focus,#states .np-agree input:focus-visible,#states .np-chk input:focus-visible,#p2 .atable input[type=checkbox]:focus-visible,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
 .chk input:disabled,#states .np-agree input:disabled,#states .np-chk input:disabled,#p2 .atable input[type=checkbox]:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
-.sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:16px}.sw2 input{position:absolute;opacity:0}
+.sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:16px;font-weight:400}.sw2 input{position:absolute;opacity:0}
 .sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
 .sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:left var(--motion-base) var(--ease-out),background-color var(--motion-base) var(--ease-out)}
 .sw2 input:checked+span{background:var(--accent);border-color:var(--accent)}.sw2 input:checked+span::after{left:18px;background:var(--bone);box-shadow:none}
@@ -482,7 +482,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .st-h{font-size:12px;color:var(--mute);margin:0 0 8px}
 #states .tag{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:var(--r-full);padding:0 10px;font:400 12px/1.7 Sora,"Noto Sans JP",sans-serif;margin-right:8px;vertical-align:middle}
 #states .tw{overflow-x:auto}#states .tw:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-#states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}
+#states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}#states td{font-weight:400}
 #states .mx td:first-child,#states .mx th:first-child{padding-right:16px}
 /* ボタン状態の固定表示（実機の :hover / :focus-visible と同じ見た目） */
 .ui .btn.is-hover.pri{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.ui .btn.is-hover.sec{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ui .btn.is-hover.ghost{background:var(--surface-sel)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
@@ -622,7 +622,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .np-eye .e-closed{display:none}#states .np-eye[data-shown=true] .e-open{display:none}#states .np-eye[data-shown=true] .e-closed{display:block}
 #states .np-note{margin:0 0 var(--s-2);align-items:flex-start;line-height:1.6}#states .np-note p,#states .np-note label{margin:0}
 #states .np-note svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--c);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}
+#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;font-weight:400;line-height:1.6;cursor:pointer}
 #states .np-form{display:flex;flex-direction:column;gap:var(--s-6)}
 #states .np-fs{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var(--gap-field)}
 #states .np-fs legend{margin:0 0 var(--gap-field);padding:0;font-size:14px;font-weight:600;line-height:1.4}
@@ -1027,7 +1027,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .mnav-panel nav{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
 #p0 .phone.open .mnav-panel{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px}
+#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
 #p0 .mnav-panel a[aria-current=page],#p0 .mnav-panel a:hover{background:var(--accent-soft);color:var(--ink)}
 #p0 .topnav .burger{display:none}
 @media (max-width:640px){
@@ -1035,7 +1035,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .topnav .burger{display:inline-grid}
 }
 #p0 .bc{display:flex;align-items:center;gap:var(--gap-inline);font-size:14px;flex-wrap:wrap}
-#p0 .bc a{color:var(--mute);text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+#p0 .bc a{color:var(--mute);font-weight:400;text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 #p0 .bc .sep{color:var(--mute)}#p0 .bc .cur{color:var(--ink)}
 #p0 .dd{position:relative;display:inline-block;z-index:var(--z-dropdown)}
 #p0 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option);z-index:var(--z-dropdown);display:none}
@@ -1655,7 +1655,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .fchip[aria-pressed=true]{background:var(--accent);color:var(--bone)}#p2 .fchip[aria-pressed=true] .x{color:inherit}
 #p2 .fchip .x{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;line-height:1;font-size:14px}
 #p2 .atable{width:100%;border-collapse:collapse;font-size:14px}
-#p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:middle}
+#p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:middle}#p2 .atable td{font-weight:400}
 #p2 .atable th{font:600 12px Sora,"Noto Sans JP";color:var(--mute);letter-spacing:.02em;white-space:nowrap}
 #p2 .atable th.sortable{cursor:pointer}
 #p2 .atable th.sortable .sort{display:inline-flex;align-items:center;gap:4px}

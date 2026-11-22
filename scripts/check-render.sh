@@ -219,6 +219,9 @@ const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   out.flat = flat.map(q => { const e = document.querySelector(q); if (!e) return { s: q, missing: true };
     return { s: q, bw: ['Top', 'Right', 'Bottom', 'Left'].map(k => cs(e)['border' + k + 'Width']).join(' '), r: cs(e).borderRadius }; });
   out.navBorder = (() => { const e = document.querySelector('#app-ui .au-nav a'); return e ? ['Top', 'Right', 'Bottom', 'Left'].map(k => cs(e)['border' + k + 'Width']).join(' ') : 'missing'; })();
+  // 見本のラベル・ナビ・表は規定の Regular(400)。body の Light(300) をそのまま受けると、見本を写した製品が Light になる（#61）。ドロワーの項目は閉じていても computed を測る
+  out.weights = ['.sw2', '.chk', '#p0 .mnav-panel a', '#p0 .bc a', '#states td', '#p2 .atable td'].map(q => { const es = [...document.querySelectorAll(q)];
+    return { q, n: es.length, bad: es.filter(e => cs(e).fontWeight !== '400').slice(0, 3).map(sel) }; });
   // スクロールバーの見本（8px）。擬似要素の幅は offset と client の差で測る
   out.sb = ['sb-vertical', 'sb-horizontal', 'sb-both'].map(id => { const e = document.getElementById(id);
     return e ? { id, v: e.offsetWidth - e.clientWidth, h: e.offsetHeight - e.clientHeight, sw: e.scrollWidth > e.clientWidth, sh: e.scrollHeight > e.clientHeight } : { id, missing: true }; });
@@ -293,6 +296,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: スピナー 20px・線 2px・0.9s linear`, all(m.spins, sp), list(m.spins, sp) || `${m.spins.length} 個`);
             t(`${tag}: ボタン・チップ・選択ナビがピル`, all(m.pills, hasPill), list(m.pills, hasPill) || `${m.pills.length} 個`);
             t(`${tag}: カード・表・バナーの枠 0・角 16、選択ナビの枠 0`, m.flat.every(x => !x.missing && x.bw === '0px 0px 0px 0px' && x.r === '16px') && m.navBorder === '0px 0px 0px 0px', m.flat.map(x => x.missing ? x.s + ' なし' : x.bw + ' ' + x.r).join(' / ') + ' / nav ' + m.navBorder);
+            t(`${tag}: ラベル・ナビ・表のセルが規定の Regular(400)（Light の 300 を受けない）`, m.weights.every(x => x.n > 0 && x.bad.length === 0), m.weights.map(x => x.q + ' ' + x.n + ' 個' + (x.bad.length ? ' 400 でない: ' + x.bad.join(',') : '')).join(' | '));
             const slider = await measureSlider(page);
             const rg = m.rng;
             const sliderOk = !!(slider && slider.track && slider.thumb && rg
