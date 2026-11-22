@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300;font-display:swap}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400;font-display:swap}
 :root,[data-theme=light]{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--surface-sel:#ebebea;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--surface-sel:#1e1e21;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
 :root,[data-theme]{--mute-on-soft:color-mix(in srgb,var(--mute) 85%,var(--ink));--line-soft:color-mix(in srgb,var(--accent) 6%,transparent);--font-mono:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace}
@@ -33,8 +33,8 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 .hx{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.hx button{font:12px "JetBrains Mono",monospace;border:0;background:var(--surface-sel);color:var(--ink);border-radius:var(--r-pill);padding:2px 10px;cursor:pointer}
 .prism{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--prism-violet),var(--prism-blue),var(--prism-cyan),var(--prism-green),var(--prism-yellow));margin-bottom:14px}
 .card{background:var(--surface);border-radius:var(--r-card);padding:var(--pad-card,22px)}.row{display:flex;gap:20px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}.lab{width:120px;color:var(--mute);font-size:12px}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}
-.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:not(.pri):hover{opacity:.85}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ghost:hover{background:var(--surface-sel)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--gap-grid)}
+.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ghost:hover{background:var(--surface-sel)}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;font-weight:400;padding:3px 12px;border-radius:var(--r-pill);color:var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:auto;font-size:14px;line-height:1.6}
@@ -190,7 +190,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 --table-pad-y:10px;--table-pad-x:var(--s-3);--table-pad-y-compact:6px;--table-pad-x-compact:var(--s-2);--table-head-size:13px;--table-body-size:15px;--table-row-hover:var(--surface-sel);--table-divider:var(--stroke) solid var(--line-soft);
 --list-gap:var(--s-2);--list-marker-gap:10px;--list-row-h:48px;--list-row-pad-x:var(--s-4);--list-divider:var(--stroke) solid var(--line-soft);--list-title-caption-gap:2px;--list-two-line-gap:var(--s-3)}
 .rule{border:1px dashed var(--mute);border-radius:var(--r-md);padding:8px 14px;font-size:14px;margin:12px 0}
-.rc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}.rc .card{padding:var(--pad-card)}.rc h4{margin:0 0 8px;font-size:15px;font-weight:600}
+.rc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--gap-grid)}.rc .card{padding:var(--pad-card)}.rc h4{margin:0 0 8px;font-size:15px;font-weight:600}
 .dg{background:var(--bone);border:1px dashed var(--border);border-radius:var(--r-md);padding:12px;margin:8px 0}.dg .b{background:var(--accent-soft);border-radius:var(--r-sm);font-size:12px;padding:0 12px;display:flex;align-items:center}
 .vals{font:12px "JetBrains Mono",monospace;color:var(--mute);margin:6px 0 0;padding-left:16px}
 .tbl2{width:100%;border-collapse:collapse;font-size:var(--table-body-size)}.tbl2 th{font-weight:400;font-size:var(--table-head-size);color:var(--mute);text-align:left;padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 td{font-weight:400;padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 tbody tr:hover{background:var(--table-row-hover)}.tbl2 .num{font-family:"JetBrains Mono",monospace;text-align:right}.tbl2.compact th,.tbl2.compact td{padding:var(--table-pad-y-compact) var(--table-pad-x-compact)}
@@ -201,7 +201,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .adm{background:var(--surface);border-radius:var(--r-card);padding:24px;margin-top:12px}
 .adm .pg-t,.adm .sec-t,.adm .cd-t{font-weight:600;letter-spacing:normal;margin:0}
 .adm .hrow{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}
-.adm .tg{font-size:12px;line-height:1.6;color:var(--mute);border:1px dashed var(--border);border-radius:4px;padding:0 6px;white-space:nowrap}
+.adm .tg{font-size:12px;line-height:1.6;color:var(--mute);border:1px dashed var(--border);border-radius:4px;padding:0 6px;white-space:nowrap}.adm .cd .tg{color:var(--mute-on-soft)}
 .adm .adm-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .adm .pg-t{font-size:24px;line-height:1.5}
 .adm .sec-row{margin-top:32px}.adm .sec-t{font-size:18px;line-height:1.7}
@@ -210,7 +210,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .adm .cd{background:var(--surface-sel);border-radius:var(--r-card);padding:16px}
 .adm .cd-t{font-size:16px;line-height:1.5}
 .adm .cd p:not(.cap){font-size:16px;line-height:1.8;font-weight:400;margin:8px 0 0}.adm .cd .cap{margin-top:8px}
-.adm .abtn{font:600 14px/1 Sora,"Noto Sans JP",sans-serif;height:32px;padding:0 12px;border-radius:var(--r-md,8px);border:1px solid var(--accent);background:var(--accent);color:var(--bone);cursor:pointer}
+.adm .abtn{font:600 14px/1 Sora,"Noto Sans JP",sans-serif;height:32px;padding:0 12px;border-radius:var(--r-pill);border:1px solid var(--accent);background:var(--accent);color:var(--bone);cursor:pointer}
 </style>
 <section class="ui" id="spacing-recipes">
 <h2>間隔の使い方 Spacing recipes</h2>
@@ -219,7 +219,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="card"><h4>メニュー / ナビ項目</h4><div class="dg" style="display:grid;gap:var(--gap-menu)"><div class="b" style="height:var(--menu-item-h)">ホーム</div><div class="b" style="height:var(--menu-item-h)">プロジェクト</div><div class="b" style="height:var(--menu-item-h)">設定</div></div><ul class="vals"><li>項目間 8px (--s-2)</li><li>項目の高さ 40px</li><li>左右 padding 12px (--s-3)、余裕があれば 16</li></ul></div>
 <div class="card"><h4>ドロップダウン / シートの選択肢</h4><div class="dg" style="display:grid;gap:var(--gap-option)"><div class="b" style="height:36px">Free</div><div class="b" style="height:36px">Pro</div><div class="b" style="height:36px">Team</div></div><ul class="vals"><li>項目間 4px (--s-1)</li><li>または隙間 0 ＋ 各行 上下 12px (--s-3)</li></ul></div>
 <div class="card"><h4>グリッド（カード）</h4><div class="dg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-grid)"><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div></div><ul class="vals"><li>標準 16px (--s-4)</li><li>広い画面・大きいカード 24px (--s-6)</li><li>密なツールグリッド 12px (--s-3)</li></ul></div>
-<div class="card"><h4>フォームの縦積み</h4><div class="dg"><div style="font-size:12px">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div><div style="font-size:11px;margin-top:var(--gap-help)" class="mute">補足</div><div style="font-size:12px;margin-top:var(--gap-field)">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div></div><ul class="vals"><li>ラベル→入力 6px（〜8）</li><li>入力→補足 4px (--s-1)</li><li>項目→項目 16px (--s-4)</li></ul></div>
+<div class="card"><h4>フォームの縦積み</h4><div class="dg"><div style="font-size:12px">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div><div style="font-size:12px;margin-top:var(--gap-help)" class="mute">補足</div><div style="font-size:12px;margin-top:var(--gap-field)">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div></div><ul class="vals"><li>ラベル→入力 6px（〜8）</li><li>入力→補足 4px (--s-1)</li><li>項目→項目 16px (--s-4)</li></ul></div>
 <div class="card"><h4>見出しの間隔（大・小見出し）</h4><div class="dg"><div style="font-weight:600;font-size:18px;line-height:1.3">大見出し（例: h2）</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文の段落。</div><div style="font-size:13px;margin-top:var(--gap-para)">次の段落。</div><div style="font-weight:600;font-size:15px;margin-top:var(--gap-h2)">小見出し（例: h3）</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文。</div></div><ul class="vals"><li>間隔は見出しタグ番号ではなく、見た目の階層（大・小）で決める。h 番号は例</li><li>大見出し（例: h1 / h2）の下 24px (--s-6)、上は 48〜72、標準セクション区切りは 72（--gap-section）</li><li>小見出し（例: h3）の下 12px (--s-3)、上は 24〜32</li><li>見出し→本文 8px (--s-2)〜12</li><li>段落→段落 16px (--s-4)</li></ul></div>
 <div class="card"><h4>カードの内側</h4><div class="dg"><div class="b" style="display:block;padding:var(--pad-card-sm)">padding 16<div style="height:var(--gap-card-section)"></div>セクション（24 空ける）</div></div><ul class="vals"><li>padding 24px (--s-6)、小さいカード 16px (--s-4)</li><li>カード内のまとまり同士 24px (--s-6)</li></ul></div>
 <div class="card"><h4>横並び（ボタン・チップ）</h4><div class="dg" style="display:flex;gap:var(--gap-inline)"><div class="b" style="height:32px">保存</div><div class="b" style="height:32px">キャンセル</div><div class="b" style="height:32px">タグ</div></div><ul class="vals"><li>間隔 8px (--s-2)</li></ul></div>
@@ -554,16 +554,16 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .dlg .ib:disabled{opacity:.4;cursor:not-allowed}
 #states .pn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:var(--s-4)}
 #states .pn>*{min-width:0;border-radius:var(--r-card);background:var(--surface-sel);padding:var(--s-4)}
-#states .pn .st-h{margin-top:var(--s-4)}#states .pn .st-h:first-child{margin-top:0}
+#states .pn .st-h{margin-top:var(--s-4)}#states .pn .st-h:first-child{margin-top:0}#states .pn .st-h,#states .pn small,#states .pn .help{color:var(--mute-on-soft)}
 #states .tbr{display:flex;align-items:center;gap:var(--s-1)}#states .tbr.tx{gap:var(--gap-inline)}
 #states .tbr .ib{width:32px;height:32px}
 #states .nv{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #states .nv a{display:flex;align-items:center;min-height:40px;padding:0 var(--menu-pad-x);border-radius:var(--r-pill);color:var(--ink);text-decoration:none;font-size:15px;font-weight:600}
 #states .nv a:hover{background:var(--surface-sel)}
 #states .nv a.acct{flex-direction:column;align-items:flex-start;justify-content:center;min-height:62px;border-left:6px solid var(--c,var(--info));border-radius:0 var(--r-sm) var(--r-sm) 0}
-#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute)}#states .nv a.acct.on{background:var(--surface-sel)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
+#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute-on-soft)}#states .nv a.acct.on{background:var(--surface-sel)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
 #states .rws{display:flex;flex-direction:column;gap:0}
-#states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute)}
+#states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute-on-soft)}
 #states .rw.on{background:var(--surface-sel)}#states .rw.on small{color:var(--mute-on-soft)}
 #states .dpn{display:flex;flex-direction:column;gap:0;padding:var(--s-1);border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface)}
 #states .dpn button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;text-align:left;cursor:pointer}
@@ -591,7 +591,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .tipw .tp{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;line-height:1.6;padding:var(--tip-pad-y) var(--tip-pad-x);border-radius:var(--r-sm);white-space:nowrap;z-index:var(--z-dropdown)}
 #states .tipw .tp[hidden]{display:none}
 #states .ld{display:grid;place-items:center;align-content:center;gap:8px;height:120px;border-radius:var(--r-card);background:var(--surface-sel)}
-#states .ld p{margin:0;font-size:12px;color:var(--mute)}
+#states .ld p{margin:0;font-size:12px;color:var(--mute-on-soft)}
 #states .dz{display:grid;place-items:center;height:96px;border-radius:var(--r-md);font-size:14px;color:var(--mute)}
 #states .dz.drag{background:var(--accent-soft);outline:1px dashed var(--accent);outline-offset:-4px;color:var(--ink)}
 #states .bn{overflow:hidden}#states .bn .in{padding:16px 22px;border-radius:var(--r-card);background:var(--surface-sel);font-size:15px;font-weight:600}
@@ -1014,7 +1014,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .topnav .links{display:flex;gap:16px;flex:1;font-size:14px}
 #p0 .topnav .links a{color:var(--mute);text-decoration:none;font-weight:400}
 #p0 .topnav .links a:hover,#p0 .topnav .links a[aria-current=page]{color:var(--ink)}
-#p0 .topnav .avatar{width:28px;height:28px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);display:grid;place-content:center;font-size:11px;color:var(--mute)}
+#p0 .topnav .avatar{width:28px;height:28px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);display:grid;place-content:center;font-size:12px;color:var(--mute-on-soft)}
 #p0 .sidenav{width:240px;background:var(--surface);border-right:1px solid var(--border);padding:12px 8px;display:grid;gap:var(--gap-menu)}
 #p0 .sidenav a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
 #p0 .sidenav a:hover{background:var(--accent-soft);color:var(--ink)}
@@ -1076,7 +1076,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 }
 #p0 .bp-table{width:100%;border-collapse:collapse;font-size:14px}#p0 .bp-table th,#p0 .bp-table td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line-soft)}#p0 .bp-table th{font-size:12px;color:var(--mute);font-weight:600}
 #p0 .grid-demo{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4);margin-top:8px}
-#p0 .grid-demo span{height:28px;background:var(--accent-soft);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;color:var(--mute);display:grid;place-content:center}
+#p0 .grid-demo span{height:28px;background:var(--accent-soft);border-radius:var(--r-sm);font:12px "JetBrains Mono",monospace;color:var(--mute-on-soft);display:grid;place-content:center}
 @media (min-width:768px){#p0 .grid-demo{gap:var(--s-6)}}
 #p0 .z-stack{display:flex;flex-direction:column;gap:6px;max-width:420px}
 #p0 .z-stack div{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);font-size:13px}
@@ -1161,7 +1161,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
   </div>
   <ul class="vals" style="margin-top:12px">
-    <li>panel: surface + border + r-md + shadow-modal 任意 / pad 4 / min-width 180</li>
+    <li>panel: surface + <code>--line-soft</code> の 1px 枠 + r-md + shadow-modal 任意 / pad 4 / min-width 180</li>
     <li>item: 36–40h / pad 10–12 / hover accent-soft</li>
     <li>danger: muted red（--danger）テキストのみ</li>
     <li>z-index: dropdown (--z-dropdown 100) は modal (--z-modal 400) の下</li>
@@ -1328,10 +1328,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <section class="ui" id="p1">
 <style>
-#p1 .cal{width:min(280px,100%);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
-#p1 .cal header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border);font-weight:600}
+#p1 .cal{width:min(280px,100%);border:1px solid var(--line-soft);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
+#p1 .cal header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--line-soft);font-weight:600}
 #p1 .cal .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px;text-align:center}
-#p1 .cal .dow{color:var(--mute);font-size:11px;padding:4px 0}
+#p1 .cal .dow{color:var(--mute);font-size:12px;padding:4px 0}
 #p1 .cal button.d{border:0;background:transparent;color:var(--ink);height:32px;border-radius:var(--r-md);cursor:pointer;font:400 13px Sora,"Noto Sans JP"}
 #p1 .cal button.d:hover{background:var(--accent-soft)}
 #p1 .cal button.d[aria-current=date]{background:var(--accent);color:var(--bone);font-weight:600}
@@ -1371,7 +1371,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .acc summary::-webkit-details-marker{display:none}
 #p1 .acc summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(45deg);transition:transform var(--motion-base) var(--ease-out);flex:none;margin-top:-4px}
 #p1 .acc details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
-#p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute)}
+#p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute-on-soft)}
 #p1 .bell{position:relative;display:inline-grid;place-content:center;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink)}
 #p1 .bell svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #p1 .bcnt{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:var(--r-full);background:var(--accent);color:var(--bone);display:inline-flex;align-items:center;justify-content:center;font:600 11px/1 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;text-align:center;border:2px solid var(--surface)}
@@ -1391,7 +1391,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:text}
 #p1 .tags:focus-within{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:-1px}
 #p1 .tags .chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px 0 12px;border-radius:var(--r-pill);background:var(--surface-sel);font-size:13px;color:var(--ink)}
-#p1 .tags .chip button{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
+#p1 .tags .chip button{border:0;background:transparent;color:var(--mute-on-soft);cursor:pointer;padding:0;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
 #p1 .tags .chip button:hover{color:var(--ink);background:var(--surface)}
 #p1 .tags input{border:0;outline:none;background:transparent;font:400 14px Sora,"Noto Sans JP";color:var(--ink);min-width:80px;flex:1;padding:4px}
 @media (max-width:640px){
@@ -1428,7 +1428,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
         <button type="button" class="d">9</button><button type="button" class="d">10</button><button type="button" class="d">11</button><button type="button" class="d">12</button><button type="button" class="d">13</button><button type="button" class="d">14</button><button type="button" class="d">15</button>
       </div>
     </div>
-    <p class="tk" style="margin-top:10px">surface + border + r-lg / 今日 = accent / セル 32</p>
+    <p class="tk" style="margin-top:10px">surface + <code>--line-soft</code> の 1px 枠 + r-lg / 今日 = accent / セル 32</p>
   </div>
 </div>
 
@@ -1633,9 +1633,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .cmdk-list{padding:var(--gap-option);display:flex;flex-direction:column;gap:var(--gap-option);max-height:220px;overflow:auto}
 #p2 .cmdk-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
 #p2 .cmdk-list button:hover,#p2 .cmdk-list button[aria-selected=true]{background:var(--accent-soft)}
-#p2 .cmdk-list .meta{color:var(--mute);font:12px "JetBrains Mono",monospace}
+#p2 .cmdk-list .meta{color:var(--mute-on-soft);font:12px "JetBrains Mono",monospace}
 #p2 .cmdk-ft{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--mute)}
-#p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
+#p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:12px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
 #p2 .chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 #p2 .fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:var(--r-pill);border:0;background:var(--surface-sel);font-size:13px;color:var(--ink);cursor:pointer}
 #p2 .fchip[aria-pressed=true]{background:var(--accent);color:var(--bone)}#p2 .fchip[aria-pressed=true] .x{color:inherit}
@@ -1671,7 +1671,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .mcal header button:hover{background:var(--accent-soft)}
 #p2 .mcal header button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
 #p2 .mcal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:10px;grid-template-columns:repeat(7,1fr)}
-#p2 .mcal .dow{text-align:center;color:var(--mute);font-size:11px;padding:4px 0}
+#p2 .mcal .dow{text-align:center;color:var(--mute);font-size:12px;padding:4px 0}
 #p2 .mcal .d{height:36px;border:0;background:transparent;border-radius:var(--r-md);color:var(--ink);font:400 13px Sora,"Noto Sans JP";cursor:default;position:relative}
 #p2 .mcal .d.mute{color:var(--mute)}
 #p2 .mcal .d.today{font-weight:600;background:var(--accent-soft)}
@@ -1957,7 +1957,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <ul class="ls">
       <li>画面<strong>下</strong>（端寄せ可）・コンテキストに残る／やや長め</li>
       <li>アクション付き（元に戻す・表示 など）向き</li>
-      <li>見た目: surface + border（ページに溶ける）</li>
+      <li>見た目: surface + <code>--line-soft</code> の 1px 枠（ページに溶ける）</li>
       <li>リスト操作の結果など「今の画面」に紐づく通知</li>
     </ul>
     <div class="snack-demo" style="margin-top:12px">

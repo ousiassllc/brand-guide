@@ -3,7 +3,7 @@
 <title>Ousiass UI カラーガイド</title><meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Sora:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300;font-display:swap}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400;font-display:swap}
 :root{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--surface-sel:#ebebea;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism:linear-gradient(90deg,#8b6ad4,#4a72d0,#3aaaba,#3d9a7a,#b8a24a)}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--surface-sel:#1e1e21;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism:linear-gradient(90deg,#a78bfa,#60a5fa,#22d3ee,#34d399,#fbbf24)}
 :root,[data-theme]{--mute-on-soft:color-mix(in srgb,var(--mute) 85%,var(--ink));--line-soft:color-mix(in srgb,var(--accent) 6%,transparent);--font-mono:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;--overlay-deep:#5a0000;--overlay-pale:#ff8c96}
@@ -390,7 +390,7 @@ pre.code{margin:12px 0 0;padding:16px;background:var(--surface);border-radius:16
 <section id="p3"><h2>UI部品 P3</h2><p class="sub">地図、リッチテキスト、動画プレイヤー、コードエディタ。独自ウィジェット（各プロダクト専用）は案件ガイドへ — 共通ガイドに発明しない。ガイドにない部品は使わない。<a href="tokens-preview.html#p3">ライブ見本を見る →</a></p></section>
 
 </main>
-<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora・Noto Sans JP（SIL OFL）。</footer></div><div id="toast" role="status"></div>
+<footer>色: 確定（2026-11-05）。文字: フォント確定（A）、サイズスケール確定。フォント: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</footer></div><div id="toast" role="status"></div>
 <script>
 let toastTimer;
 function showToast(msg){

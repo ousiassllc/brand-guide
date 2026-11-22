@@ -240,6 +240,16 @@ chk 'tokens-preview: 主ボタンの実 hover は accent 85% / bone の color-mi
 chk 'tokens-preview: 主ボタンの固定 hover 見本（.is-hover.pri）も同じ color-mix' '\.ui \.btn\.is-hover\.pri\{background:color-mix\(in srgb,var\(--accent\) 85%,var\(--bone\)\)\}' "$prev"
 ! has "$prev" '\.is-hover\.pri\{[^}]*opacity' && ok 'tokens-preview: .is-hover.pri に opacity を使わない' || ng 'tokens-preview: .is-hover.pri に opacity が残っている'
 ! has "$prev" '\.btn:hover\{opacity|\.pri:hover\{[^}]*opacity|\.btn\.pri[^{]*:hover\{[^}]*opacity:\.85' && ok 'tokens-preview: 主ボタンの hover に opacity .85 を掛けない' || ng 'tokens-preview: 主ボタンの hover に opacity が掛かっている'
+! has "$prev" '\.btn:not\(\.pri\):hover\{[^}]*opacity|\.(sec|ghost|dan):hover\{[^}]*opacity:\.[0-9]|\.btn[^{]*\.(sec|ghost|dan)[^{]*:hover\{[^}]*opacity:\.[0-9]' && ok 'tokens-preview: 非主ボタン（sec / ghost / dan）の hover に opacity を掛けない（色・背景のみ）' || ng 'tokens-preview: 非主ボタンの hover に opacity が掛かっている'
+# #50: surface-sel / accent-soft 地の補助文字は --mute-on-soft（--mute のまま置かない）
+chk 'tokens-preview: .acc .body は --mute-on-soft' '#p1 \.acc \.body\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .ld p は --mute-on-soft' '#states \.ld p\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .cmdk-list .meta は --mute-on-soft' '#p2 \.cmdk-list \.meta\{color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .grid-demo span は --mute-on-soft' '#p0 \.grid-demo span\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .topnav .avatar は --mute-on-soft' '#p0 \.topnav \.avatar\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: タグ入力の chip の × は --mute-on-soft' '#p1 \.tags \.chip button\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .adm .cd .tg は --mute-on-soft' '\.adm \.cd \.tg\{color:var\(--mute-on-soft\)\}' "$prev"
+chk 'tokens-preview: ペイン見本内の .st-h・small・.help は --mute-on-soft' '#states \.pn \.st-h,#states \.pn small,#states \.pn \.help\{color:var\(--mute-on-soft\)\}' "$prev"
 chk 'tokens-preview: loading 中の主ボタンは hover で色を変えない' '\.ui \.btn\.pri\.is-loading:hover\{background:var\(--accent\)\}' "$prev"
 ! has "$prev" 'mixh' && ok 'tokens-preview: 主ボタン hover の別枠 .mixh を残さない（現行見本と同じ値）' || ng 'tokens-preview: .mixh が残っている'
 # P3: ペイン型の例外の表は 12 行。本文の「13 項目」（thead を含めた数え間違い）を残さない

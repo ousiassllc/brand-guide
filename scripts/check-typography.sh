@@ -38,6 +38,12 @@ for css in '\.adm \.pg-t\{font-size:24px' '\.adm \.sec-t\{font-size:18px' '\.adm
   has "$prev" "$css" && ok "CSS 実体: ${css//\\/}" || ng "CSS 実体が無い/変わった: ${css//\\/}"
 done
 
+# (3c) 見本に 11px 以下の font-size を置かない（スケール最小は xs 12。通知バッジ数 .bcnt の 11px だけ意図した例外）
+small_fs=$(grep -nE 'font(-size)?:[^;}]*\b(9|10|11)px' "$prev" | grep -v '#p1 \.bcnt{' || true)
+[ -z "$small_fs" ] && ok 'tokens-preview: 11px 以下の font-size なし（.bcnt 除く）' || { ng "tokens-preview: スケール外の小さい font-size が残っている: $(printf '%s' "$small_fs" | cut -c1-60 | tr '\n' ' ')"; }
+# ボタンはピル（#app-ui §3）。管理画面見本の .abtn も 8px 角にしない
+has "$prev" '\.adm \.abtn\{[^}]*border-radius:var\(--r-pill\)' && ok '管理画面見本の .abtn は角がピル（--r-pill）' || ng '管理画面見本の .abtn がピルでない'
+
 # (4) 説明文は本文 16（14 を「本文」の新ルールにしない）
 has "$prev" '\.adm \.cd p:not\(\.cap\)\{font-size:16px' && ok '見本の説明文 CSS が 16px' || ng '見本の説明文 CSS が 16px でない'
 has "$prev" '<tr><td>説明文</td>.*base 16px' && ok '対応表の説明文が base 16px' || ng '対応表の説明文が base 16px でない'
