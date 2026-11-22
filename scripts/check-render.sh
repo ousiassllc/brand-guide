@@ -184,6 +184,19 @@ const MEASURE_SEG = `(() => { ${PAGE_LIB}
   return { bad, n };
 })()`;
 
+// データテーブルの「すべて選択」（#p2-check-all）を、未選択・一部選択（行を 1 つ選ぶ）・全選択の 3 状態で測る。測ったあとは未選択に戻す。
+const MEASURE_INDET = `(() => { ${PAGE_LIB}
+  const all = document.getElementById('p2-check-all'), row = document.querySelector('#p2-atable .p2-row');
+  if (!all || !row) return null;
+  const snap = () => { const c = getComputedStyle(all), a = getComputedStyle(all, '::after');
+    return { ind: all.indeterminate, checked: all.checked, bg: c.backgroundColor, bd: c.borderTopColor, aw: a.width, ah: a.height, abg: a.backgroundColor }; };
+  const none = snap();
+  row.click(); const part = snap(); row.click();
+  all.click(); const full = snap(); all.click();
+  const css = v => 'rgb(' + colorOf('backgroundColor', v).join(', ') + ')';
+  return { none, part, all: full, accent: css('var(--accent)'), bone: css('var(--bone)') };
+})()`;
+
 // tokens-preview.html の見本
 const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   const out = {}; const cs = (e, p) => getComputedStyle(e, p);
@@ -274,6 +287,8 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             const cb = m.checks.filter(x => x.type === 'checkbox'), rd = m.checks.filter(x => x.type === 'radio');
             t(`${tag}: チェックボックス 18×18（円ではない）`, all(cb, x => x.w === 18 && x.h === 18 && x.r < 9), list(cb, x => x.w === 18 && x.h === 18 && x.r < 9) || `${cb.length} 個`);
             t(`${tag}: ラジオ 18×18 の円`, all(rd, x => x.w === 18 && x.h === 18 && x.r >= 9), list(rd, x => x.w === 18 && x.h === 18 && x.r >= 9) || `${rd.length} 個`);
+            const ind = await page.ev(MEASURE_INDET), pt = ind && ind.part;
+            t(`${tag}: 一部選択の「すべて選択」が indeterminate で、accent 地・accent 枠・bone の横線 9×2（未選択と区別できる）`, !!pt && pt.ind && !pt.checked && pt.bg === ind.accent && pt.bd === ind.accent && pt.abg === ind.bone && pt.aw === '9px' && pt.ah === '2px' && pt.bg !== ind.none.bg, JSON.stringify(ind));
             const sp = x => x.w === 20 && x.h === 20 && x.bw === '2px' && x.dur === '0.9s' && x.tf === 'linear' && x.name !== 'none';
             t(`${tag}: スピナー 20px・線 2px・0.9s linear`, all(m.spins, sp), list(m.spins, sp) || `${m.spins.length} 個`);
             t(`${tag}: ボタン・チップ・選択ナビがピル`, all(m.pills, hasPill), list(m.pills, hasPill) || `${m.pills.length} 個`);
@@ -307,6 +322,15 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             const others = c.over.filter(e => !e.known6).map(e => e.s);
             t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
           }
+        } finally { await page.close(); }
+      }
+      // #68: forced-colors でも、一部選択（indeterminate）が未選択・全選択と見分けられる
+      if (file === 'tokens-preview.html') {
+        const page = await open(browser, file, 1280, 'light', false);
+        try {
+          await page.s('Emulation.setEmulatedMedia', { features: [{ name: 'forced-colors', value: 'active' }] });
+          const f = await page.ev(MEASURE_INDET);
+          t(`${file} 1280/forced-colors: 一部選択の「すべて選択」が枠 Highlight・横線 Highlight で、未選択（枠 CanvasText）と違い、全選択と枠が同じ`, !!f && f.part.ind && f.part.bd !== f.none.bd && f.part.bd === f.all.bd && f.part.abg === f.part.bd && f.part.aw === '9px' && f.part.ah === '2px', JSON.stringify(f));
         } finally { await page.close(); }
       }
       // reduced-motion（1280 の Light / Dark）

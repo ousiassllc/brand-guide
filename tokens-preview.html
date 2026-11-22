@@ -46,6 +46,8 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
 .chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .chk input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--bone)}
+.chk input[type=checkbox]:indeterminate,#states .np-agree input:indeterminate,#states .np-chk input:indeterminate,#p2 .atable input[type=checkbox]:indeterminate{background:var(--accent);border-color:var(--accent)}
+.chk input[type=checkbox]:indeterminate::after,#states .np-agree input:indeterminate::after,#states .np-chk input:indeterminate::after,#p2 .atable input[type=checkbox]:indeterminate::after{content:"";width:9px;height:2px;background:var(--bone)}
 .chk input:focus-visible,.chk input.is-focus,#states .np-agree input:focus-visible,#states .np-chk input:focus-visible,#p2 .atable input[type=checkbox]:focus-visible,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
 .chk input:disabled,#states .np-agree input:disabled,#states .np-chk input:disabled,#p2 .atable input[type=checkbox]:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
 .sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:16px}.sw2 input{position:absolute;opacity:0}
@@ -601,6 +603,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 .chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{border-color:Highlight}
 .chk input[type=radio]:checked::after{background:Highlight;forced-color-adjust:none}
 .chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{border-color:Highlight}
+.chk input[type=checkbox]:indeterminate,#states .np-agree input:indeterminate,#states .np-chk input:indeterminate,#p2 .atable input[type=checkbox]:indeterminate{border-color:Highlight}
+.chk input[type=checkbox]:indeterminate::after,#states .np-agree input:indeterminate::after,#states .np-chk input:indeterminate::after,#p2 .atable input[type=checkbox]:indeterminate::after{background:Highlight;forced-color-adjust:none}
 .spin{forced-color-adjust:none;border-color:transparent;border-top-color:CanvasText}
 .ui .btn.is-loading .spin{border-color:transparent;border-top-color:ButtonText}
 #states .zs .zst,#states .zs .pop,#states .zs .mdl{border:1px solid CanvasText}
