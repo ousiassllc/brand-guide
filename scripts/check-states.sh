@@ -416,6 +416,7 @@ for f in "$idx" "$prev"; do
   [ "$(grep -o '<main[ >]' "$f" | wc -l)" -eq 1 ] && ok "$n: <main> が 1 つ" || ng "$n: <main> が 1 つでない"
   chk "$n: main#main とスキップリンク" '<a class="skip" href="#main">本文へ移動</a>' "$f"
   chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
+  ! grep -Pq '<p[ >]((?!</p>).)*<nav' "$f" && ok "$n: nav を p の中に入れない（p が自動で閉じて、後ろの内容が箱の外に出る）" || ng "$n: nav が p の中にある"
   chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
   chk "$n: 非表示の #toast は pointer-events:none・visibility:hidden" '#toast\{[^}]*pointer-events:none[^}]*visibility:hidden' "$f"
   chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
