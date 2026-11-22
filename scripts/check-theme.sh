@@ -230,10 +230,10 @@ async function main() {
     await emulate('light'); await load(url, true);
     await ev('localStorage.clear();1');
     const keys = { ArrowRight: [39, 'ArrowRight'], ArrowLeft: [37, 'ArrowLeft'], ArrowDown: [40, 'ArrowDown'], ArrowUp: [38, 'ArrowUp'], Home: [36, 'Home'], End: [35, 'End'] };
-    const press = async (k) => {
+    const press = async (k, modifiers = 0) => {
       const [code, key] = keys[k];
-      await cdp('Input.dispatchKeyEvent', { type: 'rawKeyDown', key, code: key, windowsVirtualKeyCode: code });
-      await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: code });
+      await cdp('Input.dispatchKeyEvent', { type: 'rawKeyDown', key, code: key, windowsVirtualKeyCode: code, modifiers });
+      await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: code, modifiers });
     };
     const focusIndex = (g) => ev(`(function(){var c=document.querySelectorAll('[data-theme-control]')[${g}];return [].indexOf.call(c.querySelectorAll('[data-set-theme]'),document.activeElement);})()`);
     const n = await ev(`document.querySelectorAll('[data-theme-control]').length`);
@@ -251,6 +251,15 @@ async function main() {
         if (got !== want) bad.push(`${k}: ${want} のはずが ${got}`);
       }
       check(bad.length === 0, L(`コントロール ${g + 1}（${len} ボタン）: ←→↑↓・Home・End でフォーカスが動く（端は反対側へ回る）`), bad.join(' / '));
+      // 修飾キー付き（Alt=1・Ctrl=2・Meta=4・Shift=8）は、ブラウザや OS の操作（Alt+← の戻るなど）を奪わず、フォーカスも動かさない
+      await ev(`(function(){var b=document.querySelectorAll('[data-theme-control]')[${g}].querySelector('[data-set-theme]');b.focus();})()`);
+      const moved = [];
+      for (const [name, m] of [['Alt', 1], ['Ctrl', 2], ['Meta', 4], ['Shift', 8]]) {
+        await press('ArrowRight', m);
+        const got = await focusIndex(g);
+        if (got !== 0) moved.push(`${name}+→ でフォーカスが ${got} へ動いた`);
+      }
+      check(moved.length === 0, L(`コントロール ${g + 1}: 修飾キー（Alt・Ctrl・Meta・Shift）付きの矢印キーではフォーカスを動かさない`), moved.join(' / '));
     }
     const ks = await state();
     check(ks.mode === 'system' && ks.ls === null, L('矢印キー・Home・End ではモードを変えない（選択は Space / Enter / クリックだけ）'), `mode=${ks.mode} ls=${ks.ls}`);
