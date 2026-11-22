@@ -311,8 +311,10 @@ for f in "$idx" "$prev"; do
   form_of "$f" 'アイコンだけ' | grep -q 'class="seg seg-icon"' && form_of "$f" '縦積み' | grep -q 'class="seg seg-stack"' && ok "$n: 見本のクラス（.seg-icon / .seg-stack）" || ng "$n: 見本のクラスがない"
   ! has "$f" '<[a-z]+ [^>]*role="radiogroup"' && ok "$n: 要素に role=radiogroup を付けない（role=group + aria-pressed）" || ng "$n: role=radiogroup の要素がある"
   chk "$n: フォーカスの実線リング（3px・offset 2px）を維持" '\.seg button:focus-visible\{outline:3px solid var\(--focus\);outline-offset:2px\}' "$f"
+  chk "$n: #64 グローバルの :focus-visible（--focus の 2px・offset 2px。a・.sbtn・pre.tbox もブラウザ既定のリングにしない）" '^:focus-visible\{outline:2px solid var\(--focus\);outline-offset:2px\}' "$f"
   ! has "$f" 'border:1px solid var\(--ink\);border-radius:6px' && ok "$n: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "$n: P2-2 旧い吹き出しの指定が残っている"
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
+  chk "$n: #63 見本の並べ方（.sgrid .scr / .scr-note）は各ページの <style> にある（theme-control.css に置かない）" '\.sgrid \.scr\{overflow-x:auto;padding:6px;margin:-6px\}\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
 done
 # テーマ切替の CSS は共通の theme-control.css 1 か所（両ページが <head> の同期 <link> で読む）。1 回だけ調べる
 css="$root/theme-control.css"
@@ -338,10 +340,14 @@ chk "P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regu
 chk "P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$css"
 chk "P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし" '@keyframes seg-tip\{from\{opacity:0\}\}' "$css"
 chk "P2-2 reduced-motion では吹き出しのアニメを止める" '@media\(prefers-reduced-motion:reduce\)\{\.seg \.lb\{animation:none!important\}\}' "$css"
+chk "P2-2 吹き出しは hover だけ 400ms 遅らせ（遅延中は opacity:0 のまま）、focus-visible は即時（.seg-icon と ≤480px のヘッダーの両方）" ':is\(\.seg-icon,\.top \.seg\) button:hover:not\(:focus-visible\) \.lb\{animation-delay:400ms;animation-fill-mode:backwards\}' "$css"
+notchk "P2-2 focus-visible 側に animation-delay を付けない（フォーカスは即時）" ':is\(:hover,:focus-visible\) \.lb\{[^}]*animation-delay' "$css"
 ! has "$css" 'border:1px solid var\(--ink\);border-radius:6px' && ok "P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "P2-2 旧い吹き出しの指定が残っている"
 chk "P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$css"
 chk "P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$css"
-chk "P3-1 文字付き見本の注記（右端が切れる）の置き場" '\.sgrid \.scr-note\{width:0;min-width:100%\}' "$css"
+chk "#63 theme-control.css の冒頭に「基底の .seg は各ページの <style> にある」前提を書く" '基底の \.seg.*は各ページの <style> にある' "$css"
+notchk "#63 theme-control.css に見本専用の .sgrid の規則を置かない" '\.sgrid' "$css"
+chk "#63 README に「基底の .seg は各ページ側にある」と書く" '基底の `\.seg` は各ページ側' "$root/README.md"
 chk "P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠" 'forced-colors:active\)\{.*\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText;background:Canvas;color:CanvasText\}' "$css"
 chk "P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠" '@media\(forced-colors:active\) and \(max-width:480px\)\{\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText' "$css"
 # 文言: 新節は推奨案、ただし「両方を定義して場所で使い分ける」は決定済み
@@ -418,7 +424,8 @@ for f in "$idx" "$prev"; do
   chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
   ! grep -Pq '<p[ >]((?!</p>).)*<nav' "$f" && ok "$n: nav を p の中に入れない（p が自動で閉じて、後ろの内容が箱の外に出る）" || ng "$n: nav が p の中にある"
   chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
-  chk "$n: 非表示の #toast は pointer-events:none・visibility:hidden" '#toast\{[^}]*pointer-events:none[^}]*visibility:hidden' "$f"
+  chk "$n: #69 非表示の #toast は pointer-events:none（#35）で opacity:0。visibility:hidden にしない（a11y ツリーに残して role=status の本文の差し替えを通知させる）" '#toast\{[^}]*opacity:0;pointer-events:none' "$f"
+  notchk "$n: #69 #toast に visibility を使わない" '#toast(\.on)?\{[^}]*visibility' "$f"
   chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
 done
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）

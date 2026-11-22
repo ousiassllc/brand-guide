@@ -51,9 +51,22 @@ async function launch() {
   ], { stdio: 'ignore' });
   let exited = false;
   proc.once('exit', () => { exited = true; });
-  const stop = async () => {
-    if (!exited) { proc.kill(); await new Promise(r => proc.once('exit', r)); }
+  // 後始末（Chrome の kill と一時プロファイルの削除）は 1 回だけ走る同期関数。通常終了の stop() のほか、
+  // exit・SIGINT・SIGTERM（Ctrl-C や timeout）からも呼ぶ。finally だけでは中断時に走らない
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return; cleaned = true;
+    try { proc.kill('SIGKILL'); } catch { /* すでに終了している */ }
     try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }); } catch { /* 一時ディレクトリが残るだけ */ }
+  };
+  process.on('exit', cleanup);
+  for (const s of ['SIGINT', 'SIGTERM']) process.on(s, () => { cleanup(); process.exit(130); });
+  const stop = async () => {
+    if (!exited) {
+      proc.kill('SIGKILL');
+      await Promise.race([new Promise(r => proc.once('exit', r)), new Promise(r => setTimeout(r, 3000))]); // 終了待ちには上限を付ける
+    }
+    cleanup();
   };
   try {
     let port = '';
@@ -197,6 +210,23 @@ const MEASURE_INDET = `(() => { ${PAGE_LIB}
   return { none, part, all: full, accent: css('var(--accent)'), bone: css('var(--bone)') };
 })()`;
 
+// index.html の文字サイズ・ウェイト（#65・#66）。可視テキストの親要素の font-size / font-weight が、規定の集合だけであること。
+// サイズ: スケール 12 / 14 / 16 / 18 / 24 / 32 / 40 と、見本の 13・15、見出し h2 の 28、h1 の clamp（375px で 32・1280px で 56）。ウェイト: 300 / 400 / 600（700 は tokens-preview の .au-title だけ）。
+const MEASURE_INDEX = `(() => { ${PAGE_LIB}
+  const SIZES = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40, 56], WEIGHTS = [300, 400, 600];
+  const badSize = {}, badWeight = {};
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = w.nextNode());) {
+    if (!n.nodeValue.trim()) continue;
+    const e = n.parentElement;
+    if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e)) continue;
+    const c = getComputedStyle(e), fs = parseFloat(c.fontSize), fw = Number(c.fontWeight), at = ' (#' + (e.closest('section[id]')?.id || '') + ')';
+    if (!SIZES.includes(fs)) { const k = sel(e) + ' ' + fs + 'px' + at; badSize[k] = (badSize[k] || 0) + 1; }
+    if (!WEIGHTS.includes(fw)) { const k = sel(e) + ' ' + fw + at; badWeight[k] = (badWeight[k] || 0) + 1; }
+  }
+  return { badSize: Object.keys(badSize), badWeight: Object.keys(badWeight) };
+})()`;
+
 // tokens-preview.html の見本
 const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   const out = {}; const cs = (e, p) => getComputedStyle(e, p);
@@ -277,6 +307,47 @@ async function measureSlider(page) {
   return out;
 }
 
+// Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線 2px か 3px であること。
+async function measureFocusRings(page) {
+  const { s, ev } = page;
+  const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
+  await ev('document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); 1');
+  const bad = {}; let stops = 0, first = null;
+  for (let i = 0; i < 400; i++) {
+    await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
+      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+    if (!r) break;
+    if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
+    stops++;
+    if (!(r.st === 'solid' && (r.w === '2px' || r.w === '3px') && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + ' ' + r.c] = 1;
+  }
+  return { stops, focus, bad: Object.keys(bad) };
+}
+
+// #toast が待機中も a11y ツリーに残ること（#69）。ライブリージョンは「ツリーにある要素の本文が変わる」ことで通知される。
+// 待機中: role=status・ignored でない・opacity 0・pointer-events none（クリックを塞がない）・本文が空。showToast の後: 本文が入る。hideToast の後: 本文が空に戻る。
+async function measureToast(page) {
+  const { s, ev } = page;
+  await s('DOM.enable'); await s('Accessibility.enable');
+  const ax = async () => {
+    const { root } = await s('DOM.getDocument', { depth: 0 });
+    const { nodeId } = await s('DOM.querySelector', { nodeId: root.nodeId, selector: '#toast' });
+    const n = (await s('Accessibility.getPartialAXTree', { nodeId, fetchRelatives: false })).nodes[0];
+    return { role: n.role && n.role.value, ignored: !!n.ignored };
+  };
+  const state = () => ev(`(() => { const e = document.getElementById('toast'), c = getComputedStyle(e), r = e.getBoundingClientRect(), hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return { op: c.opacity, pe: c.pointerEvents, vis: c.visibility, text: e.textContent, hit: !!hit && (hit === e || e.contains(hit)), focusable: e.querySelectorAll('button,a[href],[tabindex]').length }; })()`);
+  const until = async (pred) => { let v; for (let i = 0; i < 60; i++) { v = await state(); if (pred(v)) return v; await new Promise(r => setTimeout(r, 50)); } return v; };
+  const idle = { ax: await ax(), ...(await state()) };
+  await ev(`showToast('テスト'); 1`);
+  const shown = { ax: await ax(), ...(await until(v => v.op === '1')) };
+  await ev(`hideToast(); 1`);
+  const hidden = { ax: await ax(), ...(await until(v => v.text === '' && v.op === '0')) };
+  return { idle, shown, hidden };
+}
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -331,6 +402,21 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
               const sbOk = sb.every(x => !x.missing) && sb[0].sh && sb[0].v === 8 && sb[1].sw && sb[1].h === 8 && sb[2].sh && sb[2].sw && sb[2].v === 8 && sb[2].h === 8;
               t(`${tag}: スクロールバー見本の幅 8px（縦・横・両方向）`, sbOk, sb.map(x => x.missing ? x.id + ' なし' : `${x.id} 縦${x.v} 横${x.h}${x.sh || x.sw ? '' : '（溢れていない）'}`).join(' / '));
             }
+          }
+          if (file === 'index.html') {
+            const m = await page.ev(MEASURE_INDEX);
+            t(`${tag}: #65 可視テキストの font-size がスケールと規定の例外だけ（12〜16・18・24・28・32・40・56。18.72px の既定の h3 を残さない）`, m.badSize.length === 0, m.badSize.slice(0, 4).join(' | '));
+            t(`${tag}: #66 可視テキストの font-weight が 300・400・600 だけ（700 の既定の th・h3 を残さない）`, m.badWeight.length === 0, m.badWeight.slice(0, 4).join(' | '));
+            if (width === 1280) {
+              const fr = await measureFocusRings(page);
+              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+            }
+          }
+          if (width === 1280 && theme === 'light') {
+            const tt = await measureToast(page);
+            const idleOk = tt.idle.ax.role === 'status' && !tt.idle.ax.ignored && tt.idle.op === '0' && tt.idle.pe === 'none' && tt.idle.vis !== 'hidden' && tt.idle.text === '' && !tt.idle.hit && tt.idle.focusable === 0;
+            t(`${tag}: #69 待機中の #toast が a11y ツリーにあり（role=status・ignored でない）、見えず・クリックを塞がず（#35）・読み上げる本文もない`, idleOk, JSON.stringify(tt.idle));
+            t(`${tag}: #69 showToast で表示され本文が入り、hideToast の後は本文が空に戻っても a11y ツリーに残る`, tt.shown.op === '1' && tt.shown.text === 'テスト' && !tt.shown.ax.ignored && tt.hidden.text === '' && tt.hidden.op === '0' && tt.hidden.ax.role === 'status' && !tt.hidden.ax.ignored, JSON.stringify({ shown: tt.shown, hidden: tt.hidden }));
           }
         } finally { await page.close(); }
       }
