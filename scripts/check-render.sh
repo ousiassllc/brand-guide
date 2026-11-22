@@ -170,6 +170,23 @@ const MEASURE_MOTION = `(() => { ${PAGE_LIB}
   return { bad, n: document.querySelectorAll('*').length };
 })()`;
 
+// index.html の文字サイズ・ウェイト（#65・#66）。可視テキストの親要素の font-size / font-weight が、規定の集合だけであること。
+// サイズ: スケール 12 / 14 / 16 / 18 / 24 / 32 / 40 と、見本の 13・15、見出し h2 の 28、h1 の clamp（375px で 32・1280px で 56）。ウェイト: 300 / 400 / 600（700 は tokens-preview の .au-title だけ）。
+const MEASURE_INDEX = `(() => { ${PAGE_LIB}
+  const SIZES = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40, 56], WEIGHTS = [300, 400, 600];
+  const badSize = {}, badWeight = {};
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = w.nextNode());) {
+    if (!n.nodeValue.trim()) continue;
+    const e = n.parentElement;
+    if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e)) continue;
+    const c = getComputedStyle(e), fs = parseFloat(c.fontSize), fw = Number(c.fontWeight), at = ' (#' + (e.closest('section[id]')?.id || '') + ')';
+    if (!SIZES.includes(fs)) { const k = sel(e) + ' ' + fs + 'px' + at; badSize[k] = (badSize[k] || 0) + 1; }
+    if (!WEIGHTS.includes(fw)) { const k = sel(e) + ' ' + fw + at; badWeight[k] = (badWeight[k] || 0) + 1; }
+  }
+  return { badSize: Object.keys(badSize), badWeight: Object.keys(badWeight) };
+})()`;
+
 // tokens-preview.html の見本
 const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   const out = {}; const cs = (e, p) => getComputedStyle(e, p);
@@ -299,10 +316,13 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             }
           }
           if (file === 'index.html') {
+            const m = await page.ev(MEASURE_INDEX);
+            t(`${tag}: #65 可視テキストの font-size がスケールと規定の例外だけ（12〜16・18・24・28・32・40・56。18.72px の既定の h3 を残さない）`, m.badSize.length === 0, m.badSize.slice(0, 4).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
               t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線 2px または 3px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
+          }
           }
         } finally { await page.close(); }
       }
