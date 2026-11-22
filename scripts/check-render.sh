@@ -48,22 +48,24 @@ async function launch() {
   const proc = spawn(chrome, [
     '--headless=new', '--no-sandbox', '--disable-gpu', '--disable-extensions', '--no-first-run',
     '--remote-debugging-port=0', '--user-data-dir=' + dir, 'about:blank',
-  ], { stdio: 'ignore' });
+  ], { stdio: 'ignore', detached: true }); // detached: Chrome をプロセスグループのリーダーにし、子（zygote・renderer・GPU）ごと落とせるようにする
   let exited = false;
   proc.once('exit', () => { exited = true; });
   // 後始末（Chrome の kill と一時プロファイルの削除）は 1 回だけ走る同期関数。通常終了の stop() のほか、
   // exit・SIGINT・SIGTERM（Ctrl-C や timeout）からも呼ぶ。finally だけでは中断時に走らない
+  // 本体だけ落とすと子が一時プロファイルを書き戻して check-render-* が残る（#77）ので、グループ全体へ SIGKILL を送る
+  const killGroup = () => { try { process.kill(-proc.pid, 'SIGKILL'); } catch { /* すでに終了している */ } };
   let cleaned = false;
   const cleanup = () => {
     if (cleaned) return; cleaned = true;
-    try { proc.kill('SIGKILL'); } catch { /* すでに終了している */ }
+    killGroup();
     try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }); } catch { /* 一時ディレクトリが残るだけ */ }
   };
   process.on('exit', cleanup);
   for (const s of ['SIGINT', 'SIGTERM']) process.on(s, () => { cleanup(); process.exit(130); });
   const stop = async () => {
     if (!exited) {
-      proc.kill('SIGKILL');
+      killGroup();
       await Promise.race([new Promise(r => proc.once('exit', r)), new Promise(r => setTimeout(r, 3000))]); // 終了待ちには上限を付ける
     }
     cleanup();

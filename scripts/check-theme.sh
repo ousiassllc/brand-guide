@@ -67,11 +67,12 @@ if (process.getuid && process.getuid() === 0) args.push('--no-sandbox');
 // DBUS_SESSION_BUS_ADDRESS が壊れている環境（セッションバスが無い）では、Chrome のネットワークが止まったままになるため外す
 const env = { ...process.env };
 delete env.DBUS_SESSION_BUS_ADDRESS;
-const chrome = spawn(chromePath, args, { stdio: 'ignore', env });
+// detached: Chrome をプロセスグループのリーダーにし、子（zygote・renderer・GPU）ごと落とせるようにする（#77）
+const chrome = spawn(chromePath, args, { stdio: 'ignore', env, detached: true });
 let cleaned = false;
 const cleanup = () => {
   if (cleaned) return; cleaned = true;
-  try { chrome.kill('SIGKILL'); } catch {}
+  try { process.kill(-chrome.pid, 'SIGKILL'); } catch {} // 本体だけ落とすと子が一時プロファイルを書き戻す
   try { server.close(); } catch {}
   try { fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5 }); } catch {}
 };
