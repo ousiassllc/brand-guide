@@ -316,6 +316,8 @@ for f in "$idx" "$prev"; do
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
   chk "$n: #63 見本の並べ方（.sgrid .scr / .scr-note）は各ページの <style> にある（theme-control.css に置かない）" '\.sgrid \.scr\{overflow-x:auto;padding:6px;margin:-6px\}\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
 done
+chk "index.html: #73 ボタン（.sbtn・.hex button を含む）のフォーカスリングは離散コントロールの 3px（グローバルの 2px を button だけ 3px にする）" '^button:focus-visible\{outline-width:3px\}' "$idx"
+notchk "index.html: #73 .hex button に 2px のリングを個別に付けない" '\.hex button:focus-visible\{outline:2px' "$idx"
 # テーマ切替の CSS は共通の theme-control.css 1 か所（両ページが <head> の同期 <link> で読む）。1 回だけ調べる
 css="$root/theme-control.css"
 [ -f "$css" ] && ok "theme-control.css がある" || ng "theme-control.css がない"
