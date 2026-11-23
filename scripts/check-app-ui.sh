@@ -112,4 +112,17 @@ chk '.np-form: まとまりのあいだ 24（--s-6）'                  '#states
 # 「面は濃さで分ける」の図: 点線の枠をなくし、濃さの差だけで見せる
 notchk '#app-ui の図 .au-fig に点線・破線の枠がない'           '\.au-fig\{[^}]*(outline|border)[^}]*(dashed|dotted)' "$prev"
 notchk '#app-ui の節に点線・破線がない'                       'dashed|dotted' <(printf '%s' "$pv")
+# フォローアップ（PR #78）: タブ・disabled の opacity・ドロワー・バッジ・ウェイトの決まり
+chk 'タブ .tb40: 下線 2px・角なし・非選択 --mute・左右 --s-3'   '#states \.tb40 button\{height:40px;padding:0 var\(--s-3\);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;color:var\(--mute\)' "$prev"
+chk 'タブ .tb40: 選択は --accent の下線（地は塗らない）'         '#states \.tb40 button\[aria-selected=true\]\{color:var\(--ink\);border-bottom-color:var\(--accent\)\}' "$prev"
+chk '入力欄 .fld:disabled も opacity .4'                       '^\.ui \.fld:disabled\{opacity:\.4;' "$prev"
+notchk 'disabled に opacity .5 を使わない'                      'disabled[^{]*\{[^}]*opacity:\.5[^0-9]' "$prev"
+chk 'モバイルドロワーの項目はピル（--r-pill）'                  '#p0 \.mnav-panel a\{[^}]*border-radius:var\(--r-pill\)' "$prev"
+chk '#toast の font に sans-serif の予備がある'                 '^#toast\{[^}]*font:400 14px Sora,"Noto Sans JP",sans-serif' "$prev"
+chk '#toast の font に sans-serif の予備がある（index）'        '^#toast\{[^}]*font:400 14px Sora,"Noto Sans JP",sans-serif' "$idx"
+chk '#states の決まりに「入力欄も .4」'                         '入力欄も <code>\.4</code>' "$idx"
+chk '決まりに「バッジの数字は 11px Mono・最小 18」'              'バッジの数字は 11px Mono・最小 18' "$idx"
+chk '見出しのウェイトは最大 600'                                '見出しのウェイトは最大 600' "$idx"
+nottext '「提案」が色の節に残っていない'                        "$(cat "$idx")" '（提案）|提案値'
+chk '--r-lg のラベルはポップオーバー・ドロップ領域'             '--r-lg</code><br><span class="tk">12px · ポップオーバー・ドロップ領域など' "$prev"
 finish
