@@ -40,7 +40,7 @@ inau '例外: 入力欄・:focus-visible・danger 40%'               '入力欄.
 inau '文字 3 段: 28 / 700'                                    '<td>28px / 700</td>'
 inau '文字 3 段: 15 / 600（節・項目名・ボタン・ナビ）'        '節・項目名・ボタン・ナビ</td><td>15px / 600</td>'
 inau '文字 3 段: 13 / 400 mute（説明・チップ・表の見出し）'   '説明・チップ・表の見出し</td><td>13px / 400</td>'
-inau '12px・14px などの中間サイズは使わない'                  '12px や 14px などの中間サイズは使わない'
+inau '12px などの中間サイズは使わない・14px は補足だけ'          '12px などの中間サイズは使わない。14px（sm）は画面の主な段ではなく、補足'
 inau '見出しタグと表示サイズの節と矛盾しない旨'               '「見出しタグと表示サイズ」とは矛盾しない'
 inau 'カード・バナーの余白 20〜24px（標準 22px）'             '20〜24px（標準 22px）'
 inau 'カード同士 16px'                                        'カード同士の間</td><td>16px'
@@ -55,7 +55,7 @@ chk '文字節: スケール xs12〜3xl40 を維持'        'xs 12 / sm 14 / bas
 chk 'カード: 枠線なし・角 --r-card・余白 22px'       '^\.card\{background:var\(--surface\);border-radius:var\(--r-card\);padding:var\(--pad-card,22px\)\}' "$prev"
 chk 'カード余白トークン --pad-card は 22px'          '--pad-card:22px' "$prev"
 chk '.ui .btn はピル（--r-pill）・15px / 600'          '^\.ui \.btn\{[^}]*border-radius:var\(--r-pill\);font:600 15px' "$prev"
-chk '.ui .btn.sm も 15px（中間の 14px を使わない）'     '\.ui \.btn\.sm\{height:32px;padding:0 14px;font-size:15px\}' "$prev"
+chk '.ui .btn.sm は 14px / 600 にそろえる（通常ボタンは 15）' '\.ui \.btn\.sm\{height:32px;padding:0 14px;font-size:14px\}' "$prev"
 chk 'それ以外のボタン .sec は surface-sel のピル'      '\.sec\{background:var\(--surface-sel\);color:var\(--ink\);border-color:transparent\}' "$prev"
 chk 'danger の枠 45% を維持'                           '\.ui \.dan\{[^}]*border-color:color-mix\(in srgb,var\(--danger\) 45%' "$prev"
 chk 'チップ .pill: 13px / 400・ピル・枠線なし'          '^\.pill\{[^}]*font-size:13px;font-weight:400;[^}]*border-radius:var\(--r-pill\)' "$prev"
@@ -75,7 +75,7 @@ chk '押下トグル .tgl: 未押下は透明・押下は accent-soft'     '#sta
 chk 'フィルタチップ .fchip の押下は --accent の塗り'          '#p2 \.fchip\[aria-pressed=true\]\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
 chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
-chk 'forced-colors: タブ・ナビの選択は Highlight'            'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.tb40 button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight' "$prev"
+chk 'forced-colors: サブナビ・ナビの選択は Highlight、タブは下線が Highlight' 'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight[^}]*\}#states \.tb40 button\[aria-selected=true\]\{border-bottom-color:Highlight' "$prev"
 chk 'ペイン .pn・.ld・.rowsel は枠なしの surface-sel'         '#states \.pn>\*\{min-width:0;border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
 # #app-ui の見本: 文字は 28 / 15 / 13 だけ・枠線なし
 inpv '#app-ui の見本: ページタイトル 28 / 700'            '\.au-t1\{font-size:28px;font-weight:700'

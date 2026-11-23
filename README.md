@@ -1,6 +1,6 @@
-# Ousiass UI カラーガイド（下書き / DRAFT）
+# Ousiass UI カラーガイド
 
-Ousiass 全プロダクト共通の UI カラー設計ガイドラインの**下書き**です。悠太さんの OK 前のため、値はすべて提案段階です。
+Ousiass 全プロダクト共通の UI カラー設計ガイドラインです。**確定（2026-11-05）**。スイッチ・ラジオの状態など一部は推奨案（未確定）です。
 
 - 公開ページ: https://ousiassllc.github.io/brand-guide/
 - フォント: Sora / Noto Sans JP / JetBrains Mono (OFL, Google Fonts)

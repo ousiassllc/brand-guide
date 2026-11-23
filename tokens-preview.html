@@ -26,7 +26,7 @@ a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;font-weight:400;padding:3px 12px;border-radius:var(--r-pill);color:var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}#toast.on{transition:opacity 100ms linear}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP",sans-serif;line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}#toast.on{transition:opacity 100ms linear}}
 :root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--r-card:16px;--r-pill:999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1);--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-popup:401;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
 [data-theme=light]{--shadow-modal:0 1px 2px rgba(0,0,0,.06)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
@@ -38,7 +38,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color var(--motion-base) var(--ease-out)}
 .ui textarea.fld{height:96px;padding:10px 12px;resize:vertical;line-height:1.6}.ui .fld::placeholder{color:var(--mute)}
 .ui .fld:focus,.ui .fld.is-focus{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus,.ui .fld.bad.is-focus{border-color:var(--danger);outline-offset:1px}
-.ui .fld:disabled{opacity:.5;cursor:not-allowed}
+.ui .fld:disabled{opacity:.4;cursor:not-allowed}
 .ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
 .chk{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:400;margin:8px 0;cursor:pointer}
 .chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{appearance:none;width:18px;height:18px;margin:0;padding:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
@@ -57,7 +57,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .btn{height:40px;padding:0 18px;border-radius:var(--r-pill);font:600 15px Sora,"Noto Sans JP";display:inline-flex;align-items:center;gap:8px}
 .ui .btn:focus-visible,.ui .btn.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui .dan{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}.ui .dan:hover{background:color-mix(in srgb,var(--danger) 10%,transparent)}
-.ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 14px;font-size:15px}
+.ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 14px;font-size:14px}
 .ib{width:40px;height:40px;display:inline-grid;place-content:center;border:0;font-size:16px;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--ink);cursor:pointer}.ib:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ib.gh{background:transparent}.ib.gh:hover{background:var(--surface-sel)}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui a.tl{color:var(--ink);text-decoration:underline;text-decoration-color:var(--mute);text-underline-offset:3px}.ui a.tl:hover{text-decoration-color:var(--ink)}
 .pg{height:6px;background:var(--accent-soft);border-radius:var(--r-full);overflow:hidden}.pg i{display:block;height:100%;background:var(--accent);border-radius:inherit}
@@ -69,7 +69,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .tst{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);padding:0 18px;height:40px;border-radius:var(--r-full);font:400 14px Sora,"Noto Sans JP";line-height:1}.tst button{background:none;border:0;color:inherit;opacity:.85;cursor:pointer;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;display:inline-flex;align-items:center;height:100%}
 .empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
 .panel{background:var(--surface-sel);border-radius:var(--r-card);padding:var(--pad-card-sm)}hr.dv{border:0;border-top:1px solid var(--line-soft);margin:var(--gap-card-section) 0}
-.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .tb40 button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}#states .tb40 button[aria-selected=true]{border-bottom-color:Highlight;forced-color-adjust:none}}
 .ui .seg2{display:inline-flex;background:var(--surface-sel);border-radius:var(--r-pill);padding:3px}.seg2 button{border:0;background:none;color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP";padding:6px 14px;border-radius:var(--r-pill);cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink)}@media(forced-colors:active){.seg2 button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:380px;padding:48px 16px 0;align-content:end;justify-items:center;overflow:visible}
 .modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-soft)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--line-soft)}
@@ -230,7 +230,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div><div class="swatch" style="border-radius:0"></div><code>--r-none</code><br><span class="tk">0</span></div>
 <div><div class="swatch" style="border-radius:4px"></div><code>--r-sm</code><br><span class="tk">4px · タグ・チェック</span></div>
 <div><div class="swatch" style="border-radius:8px"></div><code>--r-md</code><br><span class="tk">8px · 入力欄</span></div>
-<div><div class="swatch" style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · アラートなど小さな面</span></div>
+<div><div class="swatch" style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · ポップオーバー・ドロップ領域など</span></div>
 <div><div class="swatch" style="border-radius:16px"></div><code>--r-xl</code> / <code>--r-card</code><br><span class="tk">16px · カード・表・バナー・モーダル</span></div>
 <div><div class="swatch" style="border-radius:999px"></div><code>--r-pill</code> (<code>--r-full</code> 9999px)<br><span class="tk">999px · ボタン・チップ・選んでいるナビ・アバター</span></div>
 </div>
@@ -368,7 +368,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="f2">
 <div class="card"><div style="font-weight:600;margin-bottom:4px">カード（r-card 16 / 影なし）</div><p class="mute" style="font-size:14px;margin:0 0 16px">surface。枠線なし（ページ bone より一段明るい）。</p><div class="panel" style="font-size:14px">パネル（bone / r-card）— カード内の入れ子領域</div><hr class="dv" style="margin:16px 0"><table class="tbl"><tr><th>項目</th><th>値</th></tr><tr><td>プラン</td><td>Pro</td></tr><tr><td>更新日</td><td class="mono">2026-12-01</td></tr></table></div>
 <div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">概要</button><button role="tab" aria-selected="false">設定</button><button role="tab" aria-selected="false">請求</button></div>
-<p style="font-size:14px" class="mute">タブ（サブナビ）: 選んでいるものは surface-sel のピル。</p>
+<p style="font-size:14px" class="mute">サブナビ（タブとは別の部品）: 選んでいるものは surface-sel のピル。</p>
 <div class="seg2" role="group"><button aria-pressed="true">日</button><button aria-pressed="false">週</button><button aria-pressed="false">月</button></div><p class="help">セグメント: surface-sel のピルの中に surface の選択面</p></div>
 </div>
 <div class="f2" style="margin-top:16px">
@@ -575,8 +575,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .fld.f14{font-size:14px}@media (max-width:640px){#states .fld.f14{font-size:16px}}
 #states .sw2.offm span{border-color:var(--mute)}
 #states .tb40{display:flex;gap:4px}
-#states .tb40 button{height:40px;padding:0 var(--s-4);background:none;border:0;border-radius:var(--r-pill);color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP",sans-serif;cursor:pointer}
-#states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);background:var(--surface-sel)}
+#states .tb40 button{height:40px;padding:0 var(--s-3);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;color:var(--mute);font:600 15px Sora,"Noto Sans JP",sans-serif;cursor:pointer}
+#states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
 #states .tb40 button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 #states .btn.sec.tgl{background:transparent}#states .btn.sec.tgl:hover{background:var(--surface-sel)}#states .btn.sec.tgl[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
 #states .cnt-over{color:var(--danger)}
@@ -791,7 +791,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card"><p class="st-h">非対象（ホバーは色のみ・リップルなし）</p>
 <div class="rpitem"><a class="tl" href="#st-ripple">テキストリンク</a></div>
 <button type="button" class="rowsel" style="margin-top:8px">行型・カード型の選択</button>
-<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">タブ A</button><button type="button" aria-selected="false">タブ B</button></div>
+<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">サブナビ A</button><button type="button" aria-selected="false">サブナビ B</button></div>
 <button type="button" class="selbtn" style="margin-top:8px" aria-haspopup="listbox"><span>セレクトのトリガ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
 <div class="rpitem" style="margin-top:8px"><label class="sw2" style="margin:0"><input type="checkbox"><span></span>スイッチ</label><label class="chk" style="margin:0"><input type="radio" name="st-rp"> ラジオ</label></div></div>
 </div>
@@ -1027,7 +1027,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .mnav-panel nav{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
 #p0 .phone.open .mnav-panel{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
+#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-pill);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
 #p0 .mnav-panel a[aria-current=page],#p0 .mnav-panel a:hover{background:var(--accent-soft);color:var(--ink)}
 #p0 .topnav .burger{display:none}
 @media (max-width:640px){
@@ -1539,7 +1539,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <span class="bell" aria-label="未読あり"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt dot" aria-hidden="true"></span></span>
     <span class="pill" style="--c:var(--mute)">下書き · 2</span>
   </div>
-  <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / 11px Mono / min 18</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
+  <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / バッジの数字は 11px Mono・最小 18（通知バッジの数字だけの例外）</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
 </div>
 
 <h3 id="p1-slider">スライダー／レンジ</h3>
