@@ -2,15 +2,11 @@
 # check-typography.sh — Issue #2（見出しタグと表示サイズの分離）の回帰チェック。
 # 依存なし（grep と exit code のみ）。使い方: scripts/check-typography.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"
-fail=0
-ok()  { printf 'PASS  %s\n' "$1"; }
-ng()  { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 
 # #typography 節だけを取り出す（次の <section> まで）
-ty=$(awk '/<section id="typography"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
+ty=$(sec typography)
 tyhas() { printf '%s' "$ty" | grep -Eq -- "$1"; }
 
 # (1) サイズ表の用途は「例示」であり、h1・ヒーロー等がタグとの必須対応に読めない
@@ -38,6 +34,12 @@ for css in '\.adm \.pg-t\{font-size:24px' '\.adm \.sec-t\{font-size:18px' '\.adm
   has "$prev" "$css" && ok "CSS 実体: ${css//\\/}" || ng "CSS 実体が無い/変わった: ${css//\\/}"
 done
 
+# (3c) 見本に 11px 以下の font-size を置かない（スケール最小は xs 12。通知バッジ数 .bcnt の 11px だけ意図した例外）
+small_fs=$(grep -nE 'font(-size)?:[^;}]*\b(9|10|11)px' "$prev" | grep -v '#p1 \.bcnt{' || true)
+[ -z "$small_fs" ] && ok 'tokens-preview: 11px 以下の font-size なし（.bcnt 除く）' || { ng "tokens-preview: スケール外の小さい font-size が残っている: $(printf '%s' "$small_fs" | cut -c1-60 | tr '\n' ' ')"; }
+# ボタンはピル（#app-ui §3）。管理画面見本の .abtn も 8px 角にしない
+has "$prev" '\.adm \.abtn\{[^}]*border-radius:var\(--r-pill\)' && ok '管理画面見本の .abtn は角がピル（--r-pill）' || ng '管理画面見本の .abtn がピルでない'
+
 # (4) 説明文は本文 16（14 を「本文」の新ルールにしない）
 has "$prev" '\.adm \.cd p:not\(\.cap\)\{font-size:16px' && ok '見本の説明文 CSS が 16px' || ng '見本の説明文 CSS が 16px でない'
 has "$prev" '<tr><td>説明文</td>.*base 16px' && ok '対応表の説明文が base 16px' || ng '対応表の説明文が base 16px でない'
@@ -50,4 +52,4 @@ rs_ok=1; for d in 'font-weight:600' 'letter-spacing:normal' 'margin:0'; do print
 [ "$rs_ok" = 1 ] && ok 'ウェイト・字間・margin リセットが役割クラス側' || ng 'リセットが役割クラス側にない'
 has "$prev" '\.adm h[1-6]' && ng '.adm にタグ要素セレクタが残っている' || ok '.adm にタグ要素セレクタなし'
 
-exit "$fail"
+finish

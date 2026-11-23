@@ -2,20 +2,16 @@
 # check-scrollbar.sh — Issue #3（スクロールバーの共通仕様と見本）の回帰チェック。
 # 依存なし（grep と exit code のみ）。使い方: scripts/check-scrollbar.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 
-sec=$(awk '/<section id="scrollbar"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
-sechas() { printf '%s' "$sec" | grep -Eq -- "$1"; }
+sb=$(sec scrollbar)
+sechas() { printf '%s' "$sb" | grep -Eq -- "$1"; }
 cssblk=$(awk '/<style>/{b=""} {b=b $0 "\n"} /--sb-size/{f=1} f{print} f&&/<\/style>/{exit}' "$prev")
 csshas() { printf '%s' "$cssblk" | grep -Eq -- "$1"; }
 
 # (1) index.html: 規定
-[ -n "$sec" ] && ok 'index.html に #scrollbar 節がある' || ng 'index.html に #scrollbar 節がない'
+[ -n "$sb" ] && ok 'index.html に #scrollbar 節がある' || ng 'index.html に #scrollbar 節がない'
 sechas 'スライダー.*とは別物' && ok 'スライダーとの区別' || ng 'スライダーとの区別がない'
 sechas '矢印.*なし.*透明トラック' && ok '矢印なし・透明トラック' || ng '矢印なし・透明トラックの記述がない'
 sechas '8px' && sechas '厳密な 8px は保証しない' && ok '8px 基本・厳密保証しない' || ng '8px / 非保証の記述がない'
@@ -49,4 +45,4 @@ has "$prev" 'addEventListener\([^)]*(mousedown|pointerdown)[^)]*\)[^;]*sb' && ng
 # (4) スコープ: 既存スケール・#2 の規定は不変
 grep -Eq 'xs 12 / sm 14 / base 16 / lg 18 / xl 24 / 2xl 32 / 3xl 40' "$idx" && ok '既存サイズスケールを維持' || ng '既存サイズスケールが変わった'
 
-exit "$fail"
+finish

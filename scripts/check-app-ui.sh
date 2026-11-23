@@ -2,20 +2,14 @@
 # check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字 3 段・余白と丸み）の回帰チェック。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-app-ui.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
-chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
-notchk() { if has "$3" "$2"; then ng "$1"; else ok "$1"; fi; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 
 # 節だけを取り出す（他の節の同じ語で誤って通らないように）
-au=$(awk '/<section id="app-ui"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
-inau() { if printf '%s' "$au" | grep -Eq -- "$2"; then ok "$1"; else ng "$1"; fi; }
-pv=$(awk '/<section class="ui" id="app-ui">/{f=1} f{print} f&&/<\/section>/{exit}' "$prev")
-inpv() { if printf '%s' "$pv" | grep -Eq -- "$2"; then ok "$1"; else ng "$1"; fi; }
+au=$(sec app-ui)
+inau() { intext "$1" "$au" "$2"; }
+pv=$(secp app-ui)
+inpv() { intext "$1" "$pv" "$2"; }
 
 # (1) 節の有無・導線
 [ -n "$au" ] && ok 'index.html に #app-ui 節がある' || ng 'index.html に #app-ui 節がない'
@@ -46,7 +40,7 @@ inau '例外: 入力欄・:focus-visible・danger 40%'               '入力欄.
 inau '文字 3 段: 28 / 700'                                    '<td>28px / 700</td>'
 inau '文字 3 段: 15 / 600（節・項目名・ボタン・ナビ）'        '節・項目名・ボタン・ナビ</td><td>15px / 600</td>'
 inau '文字 3 段: 13 / 400 mute（説明・チップ・表の見出し）'   '説明・チップ・表の見出し</td><td>13px / 400</td>'
-inau '12px・14px などの中間サイズは使わない'                  '12px や 14px などの中間サイズは使わない'
+inau '12px などの中間サイズは使わない・14px は補足だけ'          '12px などの中間サイズは使わない。14px（sm）は画面の主な段ではなく、補足'
 inau '見出しタグと表示サイズの節と矛盾しない旨'               '「見出しタグと表示サイズ」とは矛盾しない'
 inau 'カード・バナーの余白 20〜24px（標準 22px）'             '20〜24px（標準 22px）'
 inau 'カード同士 16px'                                        'カード同士の間</td><td>16px'
@@ -61,7 +55,7 @@ chk '文字節: スケール xs12〜3xl40 を維持'        'xs 12 / sm 14 / bas
 chk 'カード: 枠線なし・角 --r-card・余白 22px'       '^\.card\{background:var\(--surface\);border-radius:var\(--r-card\);padding:var\(--pad-card,22px\)\}' "$prev"
 chk 'カード余白トークン --pad-card は 22px'          '--pad-card:22px' "$prev"
 chk '.ui .btn はピル（--r-pill）・15px / 600'          '^\.ui \.btn\{[^}]*border-radius:var\(--r-pill\);font:600 15px' "$prev"
-chk '.ui .btn.sm も 15px（中間の 14px を使わない）'     '\.ui \.btn\.sm\{height:32px;padding:0 14px;font-size:15px\}' "$prev"
+chk '.ui .btn.sm は 14px / 600 にそろえる（通常ボタンは 15）' '\.ui \.btn\.sm\{height:32px;padding:0 14px;font-size:14px\}' "$prev"
 chk 'それ以外のボタン .sec は surface-sel のピル'      '\.sec\{background:var\(--surface-sel\);color:var\(--ink\);border-color:transparent\}' "$prev"
 chk 'danger の枠 45% を維持'                           '\.ui \.dan\{[^}]*border-color:color-mix\(in srgb,var\(--danger\) 45%' "$prev"
 chk 'チップ .pill: 13px / 400・ピル・枠線なし'          '^\.pill\{[^}]*font-size:13px;font-weight:400;[^}]*border-radius:var\(--r-pill\)' "$prev"
@@ -81,7 +75,7 @@ chk '押下トグル .tgl: 未押下は透明・押下は accent-soft'     '#sta
 chk 'フィルタチップ .fchip の押下は --accent の塗り'          '#p2 \.fchip\[aria-pressed=true\]\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
 chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
-chk 'forced-colors: タブ・ナビの選択は Highlight'            'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.tb40 button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight' "$prev"
+chk 'forced-colors: サブナビ・ナビの選択は Highlight、タブは下線が Highlight' 'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight[^}]*\}#states \.tb40 button\[aria-selected=true\]\{border-bottom-color:Highlight' "$prev"
 chk 'ペイン .pn・.ld・.rowsel は枠なしの surface-sel'         '#states \.pn>\*\{min-width:0;border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
 # #app-ui の見本: 文字は 28 / 15 / 13 だけ・枠線なし
 inpv '#app-ui の見本: ページタイトル 28 / 700'            '\.au-t1\{font-size:28px;font-weight:700'
@@ -118,4 +112,17 @@ chk '.np-form: まとまりのあいだ 24（--s-6）'                  '#states
 # 「面は濃さで分ける」の図: 点線の枠をなくし、濃さの差だけで見せる
 notchk '#app-ui の図 .au-fig に点線・破線の枠がない'           '\.au-fig\{[^}]*(outline|border)[^}]*(dashed|dotted)' "$prev"
 notchk '#app-ui の節に点線・破線がない'                       'dashed|dotted' <(printf '%s' "$pv")
-exit "$fail"
+# フォローアップ（PR #78）: タブ・disabled の opacity・ドロワー・バッジ・ウェイトの決まり
+chk 'タブ .tb40: 下線 2px・角なし・非選択 --mute・左右 --s-3'   '#states \.tb40 button\{height:40px;padding:0 var\(--s-3\);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;color:var\(--mute\)' "$prev"
+chk 'タブ .tb40: 選択は --accent の下線（地は塗らない）'         '#states \.tb40 button\[aria-selected=true\]\{color:var\(--ink\);border-bottom-color:var\(--accent\)\}' "$prev"
+chk '入力欄 .fld:disabled も opacity .4'                       '^\.ui \.fld:disabled\{opacity:\.4;' "$prev"
+notchk 'disabled に opacity .5 を使わない'                      'disabled[^{]*\{[^}]*opacity:\.5[^0-9]' "$prev"
+chk 'モバイルドロワーの項目はピル（--r-pill）'                  '#p0 \.mnav-panel a\{[^}]*border-radius:var\(--r-pill\)' "$prev"
+chk '#toast の font に sans-serif の予備がある'                 '^#toast\{[^}]*font:400 14px Sora,"Noto Sans JP",sans-serif' "$prev"
+chk '#toast の font に sans-serif の予備がある（index）'        '^#toast\{[^}]*font:400 14px Sora,"Noto Sans JP",sans-serif' "$idx"
+chk '#states の決まりに「入力欄も .4」'                         '入力欄も <code>\.4</code>' "$idx"
+chk '決まりに「バッジの数字は 11px Mono・最小 18」'              'バッジの数字は 11px Mono・最小 18' "$idx"
+chk '見出しのウェイトは最大 600'                                '見出しのウェイトは最大 600' "$idx"
+nottext '「提案」が色の節に残っていない'                        "$(cat "$idx")" '（提案）|提案値'
+chk '--r-lg のラベルはポップオーバー・ドロップ領域'             '--r-lg</code><br><span class="tk">12px · ポップオーバー・ドロップ領域など' "$prev"
+finish

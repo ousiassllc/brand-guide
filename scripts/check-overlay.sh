@@ -2,18 +2,13 @@
 # check-overlay.sh — Issue #18（重ね塗り（写真の上）の専用色）の回帰チェック。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-overlay.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
-chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
+. "$(dirname "$0")/lib.sh"
+need "$idx"
 
 # #overlay 節だけを取り出す（他の節の同じ語で誤って通らないように）
-ov=$(awk '/<section id="overlay"/{f=1} f{print} f&&/<\/section>/{exit}' "$idx")
-inov() { if printf '%s' "$ov" | grep -Eq -- "$2"; then ok "$1"; else ng "$1"; fi; }
-notov() { if printf '%s' "$ov" | grep -Eq -- "$2"; then ng "$1"; else ok "$1"; fi; }
+ov=$(sec overlay)
+inov() { intext "$1" "$ov" "$2"; }
+notov() { nottext "$1" "$ov" "$2"; }
 
 # (1) 節の有無と位置: 状態色の次、Do / Don't の前
 [ -n "$ov" ] && ok 'index.html に #overlay 節がある' || ng 'index.html に #overlay 節がない'
@@ -68,4 +63,4 @@ inov 'トークン表の列（名前・HEX・用途・テーマで変えるか�
 inov '表: --overlay-deep #5a0000 の行'  '<code>--overlay-deep</code>.*data-hex="#5a0000".*変えない'
 inov '表: --overlay-pale #ff8c96 の行'  '<code>--overlay-pale</code>.*data-hex="#ff8c96".*変えない'
 
-exit $fail
+finish

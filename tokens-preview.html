@@ -3,41 +3,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/Sora-Light.ttf);font-weight:300;font-display:swap}@font-face{font-family:Sora;src:url(fonts/Sora-Regular.ttf);font-weight:400;font-display:swap}
 :root,[data-theme=light]{--ink:#050505;--bone:#f5f5f4;--mute:#6b6b6e;--surface:#ffffff;--surface-sel:#ebebea;--border:#e7e7e5;--accent:#050505;--accent-soft:#e7e7e5;--focus:#4a72d0;--success:#3d5c4a;--warning:#7a6a3a;--danger:#7a4545;--info:#4a5a6a;--prism-violet:#8b6ad4;--prism-blue:#4a72d0;--prism-cyan:#3aaaba;--prism-green:#3d9a7a;--prism-yellow:#b8a24a;color-scheme:light}
 [data-theme=dark]{--ink:#ffffff;--bone:#050505;--mute:#8b8b8e;--surface:#141414;--surface-sel:#1e1e21;--border:#2a2a2a;--accent:#f5f5f4;--accent-soft:#2a2a2a;--focus:#60a5fa;--success:#8fafa0;--warning:#c4b87a;--danger:#c49a9a;--info:#9aabbc;--prism-violet:#a78bfa;--prism-blue:#60a5fa;--prism-cyan:#22d3ee;--prism-green:#34d399;--prism-yellow:#fbbf24;color-scheme:dark}
 :root,[data-theme]{--mute-on-soft:color-mix(in srgb,var(--mute) 85%,var(--ink));--line-soft:color-mix(in srgb,var(--accent) 6%,transparent);--font-mono:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bone);color:var(--ink);font:300 16px/1.9 Sora,"Noto Sans JP",sans-serif}
-.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}.hero{padding:96px 0 64px}.w>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b,#p3 .card h3,#p3 .card h4,#p3 .rte-tb,#p3 .vid-bar,#p3 .code-hd{font-weight:600}
+.w{max-width:960px;margin:0 auto;padding:0 28px 80px}h1,h2,h3{font-weight:300;line-height:1.3}h1{font-size:clamp(32px,6vw,56px);margin:0 0 16px;letter-spacing:.02em}h2{font-size:28px;margin:0 0 8px}h3{font-size:18px}.hero{padding:96px 0 64px}.w>main>h2{padding-top:var(--gap-section,72px);margin:var(--gap-section,72px) 0 16px;border-top:1px solid var(--border);margin-top:0}section.ui{padding:var(--gap-section,72px) 0;border-top:1px solid var(--border)}section.ui>h2{margin-top:0}section.ui>h2,section.ui>h3{font-weight:300}.card h2,.card h3,.card h4,#p0 .drawer-panel header,#p0 .pop h4,#p1 .card h3,#p1 .card h4,#p2 .card h3,#p2 .card h4,#p2 .cmdk-hd,#p2 .bulk,#p2 .coach-tip b,#p3 .card h3,#p3 .card h4,#p3 .rte-tb,#p3 .vid-bar,#p3 .code-hd,#p2 .bulk strong,#p3 .vals strong,#p3 .rte-tb b{font-weight:600}
 a{color:var(--ink);text-underline-offset:3px}.mute{color:var(--mute)}code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border)}.logo{font-weight:400;letter-spacing:.3em;font-size:14px}
 .note{background:var(--surface);border-radius:var(--r-card);padding:16px 20px;font-size:14px}
+.skip{position:absolute;left:8px;top:-100px;z-index:var(--z-toast,500);background:var(--ink);color:var(--bone);padding:8px 16px;border-radius:var(--r-pill);font:400 14px/1.4 Sora,"Noto Sans JP";text-decoration:none}.skip:focus-visible{top:8px}
 .seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}.seg button{border:0;background:none;color:var(--mute);font:600 14px Sora,"Noto Sans JP";padding:6px 14px;border-radius:999px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accent);color:var(--bone)}.seg button{display:inline-flex;align-items:center;gap:6px;line-height:1.2;white-space:nowrap}.seg svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.seg button:hover:not([aria-pressed=true]){background:var(--accent-soft);color:var(--ink)}.seg button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-/* テーマ切替の 3 形（Issue #12・推奨案）: 文字付き横並び=.seg / アイコンだけ=.seg-icon / 縦積み=.seg-stack。タップ範囲は 44px 以上（アイコンだけは見える 38px + ::before の 3px） */
-.seg button{position:relative}.seg button::before{content:"";position:absolute;inset:-8px 0}
-.seg-icon{padding:3px}.seg-icon button{justify-content:center;width:38px;height:38px;padding:0}.seg-icon button::before{inset:-3px}.seg-icon svg{width:20px;height:20px}
-.seg-icon .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.seg-icon button:is(:hover,:focus-visible) .lb{width:auto;height:auto;overflow:visible;clip:auto;top:calc(100% + 12px);left:50%;transform:translateX(-50%);z-index:100;padding:6px 10px;border-radius:4px;background:var(--ink);color:var(--bone);font:400 12px/1.4 Sora,"Noto Sans JP",sans-serif;animation:seg-tip 320ms cubic-bezier(.2,.8,.2,1)}@keyframes seg-tip{from{opacity:0}}
-.seg-stack{display:flex;flex-direction:column;gap:2px;width:100%;max-width:280px;padding:4px;border-radius:12px}.seg-stack button{width:100%;min-height:44px;padding:8px 12px;gap:10px;border-radius:8px}.seg-stack button::before{content:none}.seg-stack svg{width:20px;height:20px}.seg-stack .lb{flex:1;text-align:left}
-.seg-stack button::after{content:"";flex:none;width:18px;height:18px;border:1px solid currentColor;border-radius:50%}.seg-stack button[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}.seg-stack button[aria-pressed=true]::after{border-color:var(--accent);background:radial-gradient(circle,var(--bone) 0 3px,var(--accent) 3.5px)}
-.sgrid{display:flex;flex-wrap:wrap;align-items:flex-start;gap:24px 40px;margin-top:16px}.sgrid>*{min-width:0;max-width:100%}.sgrid>:last-child{width:280px}.sfc{margin:0 0 8px;font-size:14px;font-weight:600}.sgrid .help{margin-top:8px}
-.sgrid .scr{overflow-x:auto;padding:6px;margin:-6px}.sgrid .scr-note{width:0;min-width:100%}
+.sgrid{display:flex;flex-wrap:wrap;align-items:flex-start;gap:24px 40px;margin-top:16px}.sgrid>*{min-width:0;max-width:100%}.sgrid>:last-child{width:280px}.sfc{margin:0 0 8px;font-size:14px;font-weight:600}.sgrid .help{margin-top:8px}.sgrid .scr{overflow-x:auto;padding:6px;margin:-6px}.sgrid .scr-note{width:0;min-width:100%}
 .ut{width:100%;border-collapse:collapse;font-size:14px;margin-top:12px}.ut th,.ut td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}.ut th{font-weight:600;color:var(--mute)}
-@media(max-width:480px){.top .seg{padding:3px}.top .seg button{justify-content:center;width:38px;height:38px;padding:0}.top .seg button::before{inset:-3px}.top .seg svg{width:20px;height:20px}.top .seg .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.top .seg button:is(:hover,:focus-visible) .lb{width:auto;height:auto;overflow:visible;clip:auto;top:calc(100% + 12px);left:50%;transform:translateX(-50%);z-index:100;padding:6px 10px;border-radius:4px;background:var(--ink);color:var(--bone);font:400 12px/1.4 Sora,"Noto Sans JP",sans-serif;animation:seg-tip 320ms cubic-bezier(.2,.8,.2,1)}}
-@media(forced-colors:active){.seg button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}.seg-stack button[aria-pressed=true]::after{border-color:HighlightText;background:radial-gradient(circle,HighlightText 0 3px,transparent 3.5px)}.seg-icon button:is(:hover,:focus-visible) .lb{border:1px solid CanvasText;background:Canvas;color:CanvasText}}
-@media(forced-colors:active) and (max-width:480px){.top .seg button:is(:hover,:focus-visible) .lb{border:1px solid CanvasText;background:Canvas;color:CanvasText}}
-@media(prefers-reduced-motion:reduce){.seg .lb{animation:none!important}}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap-grid-lg)}.sw{background:var(--surface);border-radius:var(--r-card);padding:20px;font-size:13px}
 .chips{display:flex;height:56px;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px}.chips span{flex:1}
 .hx{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.hx button{font:12px "JetBrains Mono",monospace;border:0;background:var(--surface-sel);color:var(--ink);border-radius:var(--r-pill);padding:2px 10px;cursor:pointer}
 .prism{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--prism-violet),var(--prism-blue),var(--prism-cyan),var(--prism-green),var(--prism-yellow));margin-bottom:14px}
 .card{background:var(--surface);border-radius:var(--r-card);padding:var(--pad-card,22px)}.row{display:flex;gap:20px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}.lab{width:120px;color:var(--mute);font-size:12px}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}
-.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.btn:not(.pri):hover{opacity:.85}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ghost:hover{background:var(--surface-sel)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--gap-grid)}
+.btn{font:600 15px Sora,"Noto Sans JP";padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--accent)}.pri{background:var(--accent);color:var(--bone)}.sec{background:var(--surface-sel);color:var(--ink);border-color:transparent}.ghost{background:transparent;border-color:transparent;color:var(--ink)}.pri:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.sec:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ghost:hover{background:var(--surface-sel)}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}input{font:400 16px Sora,"Noto Sans JP";width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bone);color:var(--ink)}input:focus{outline:2px solid var(--focus);border-color:var(--focus)}
 .pill{display:inline-block;font-size:13px;font-weight:400;padding:3px 12px;border-radius:var(--r-pill);color:var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);margin:0 6px 6px 0}
 pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:auto;font-size:14px;line-height:1.6}
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP";line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);visibility:hidden;max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bone);padding:0 18px;height:40px;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:999px;font:400 14px Sora,"Noto Sans JP",sans-serif;line-height:1;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-out,240ms) var(--ease-in,ease-in),transform var(--motion-fade-out,240ms) var(--ease-in,ease-in);white-space:nowrap;z-index:var(--z-toast,500);max-width:min(92vw,420px)}#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;transition:opacity var(--motion-fade-in,320ms) var(--ease-out,ease-out),transform var(--motion-fade-in,320ms) var(--ease-out,ease-out)}#toast .act{background:none;border:0;color:inherit;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;cursor:pointer;opacity:.9}#toast.stack{bottom:72px}@media (prefers-reduced-motion:reduce){#toast{transform:translate(-50%,0);transition:opacity 100ms linear}#toast.on{transition:opacity 100ms linear}}
 :root{--r-none:0;--r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;--r-card:16px;--r-pill:999px;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;--s-8:32px;--s-12:48px;--s-16:64px;--stroke:1px;--shadow-modal:0 1px 2px rgba(0,0,0,.06);--ring:color-mix(in srgb,var(--focus) 40%,transparent);--motion-fast:120ms;--motion-base:180ms;--motion-slow:280ms;--motion-fade-in:320ms;--motion-fade-out:240ms;--ease-out:cubic-bezier(0.2,0.8,0.2,1);--ease-in:cubic-bezier(0.4,0,1,1);--ease-in-out:cubic-bezier(0.4,0,0.2,1);--bp-sm:640px;--bp-md:768px;--bp-lg:1024px;--bp-xl:1280px;--z-base:0;--z-dropdown:100;--z-sticky:200;--z-drawer:300;--z-modal:400;--z-popup:401;--z-toast:500;--icon-sm:16px;--icon-md:20px;--icon-lg:24px;--icon-xl:32px}
 [data-theme=light]{--shadow-modal:0 1px 2px rgba(0,0,0,.06)}
 [data-theme=dark]{--shadow-modal:0 1px 2px rgba(0,0,0,.4)}
@@ -49,28 +38,30 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .ui .fld{width:100%;height:40px;font:400 16px Sora,"Noto Sans JP";padding:0 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink);outline:none;transition:border-color var(--motion-base) var(--ease-out)}
 .ui textarea.fld{height:96px;padding:10px 12px;resize:vertical;line-height:1.6}.ui .fld::placeholder{color:var(--mute)}
 .ui .fld:focus,.ui .fld.is-focus{outline:2px solid var(--focus);outline-offset:-1px;border-color:var(--focus)}.ui .fld.bad{border-color:var(--danger)}.ui .fld.bad:focus,.ui .fld.bad.is-focus{border-color:var(--danger);outline-offset:1px}
-.ui .fld:disabled{opacity:.5;cursor:not-allowed}
+.ui .fld:disabled{opacity:.4;cursor:not-allowed}
 .ui select.fld{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
-.chk{display:flex;align-items:center;gap:10px;font-size:15px;margin:8px 0;cursor:pointer}
-.chk input{appearance:none;width:18px;height:18px;margin:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
+.chk{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:400;margin:8px 0;cursor:pointer}
+.chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{appearance:none;width:18px;height:18px;margin:0;padding:0;border:1px solid var(--mute);border-radius:var(--r-sm);background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
 .chk input[type=radio]{border-radius:var(--r-full)}
-.chk input:checked{background:var(--accent);border-color:var(--accent)}
-.chk input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+.chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--bone);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .chk input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--bone)}
-.chk input:focus-visible,.chk input.is-focus,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
-.chk input:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
-.sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-size:16px}.sw2 input{position:absolute;opacity:0}
+.chk input[type=checkbox]:indeterminate,#states .np-agree input:indeterminate,#states .np-chk input:indeterminate,#p2 .atable input[type=checkbox]:indeterminate{background:var(--accent);border-color:var(--accent)}
+.chk input[type=checkbox]:indeterminate::after,#states .np-agree input:indeterminate::after,#states .np-chk input:indeterminate::after,#p2 .atable input[type=checkbox]:indeterminate::after{content:"";width:9px;height:2px;background:var(--bone)}
+.chk input:focus-visible,.chk input.is-focus,#states .np-agree input:focus-visible,#states .np-chk input:focus-visible,#p2 .atable input[type=checkbox]:focus-visible,.sw2 input:focus-visible+span,.sw2 input.is-focus+span{outline:3px solid var(--focus);outline-offset:2px}
+.chk input:disabled,#states .np-agree input:disabled,#states .np-chk input:disabled,#p2 .atable input[type=checkbox]:disabled{opacity:.4}.chk:has(input:disabled){color:var(--mute);cursor:not-allowed}
+.sw2{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:6px 16px 6px 0;font-weight:400;font-size:16px}.sw2 input{position:absolute;opacity:0}
 .sw2 span{width:36px;height:20px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);position:relative;transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out)}
 .sw2 span::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--border);transition:left var(--motion-base) var(--ease-out),background-color var(--motion-base) var(--ease-out)}
 .sw2 input:checked+span{background:var(--accent);border-color:var(--accent)}.sw2 input:checked+span::after{left:18px;background:var(--bone);box-shadow:none}
 .ui .btn{height:40px;padding:0 18px;border-radius:var(--r-pill);font:600 15px Sora,"Noto Sans JP";display:inline-flex;align-items:center;gap:8px}
 .ui .btn:focus-visible,.ui .btn.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui .dan{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}.ui .dan:hover{background:color-mix(in srgb,var(--danger) 10%,transparent)}
-.ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 14px;font-size:15px}
-.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:0;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--ink);cursor:pointer}.ib:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ib.gh{background:transparent}.ib.gh:hover{background:var(--surface-sel)}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
+.ui .btn{transition:background-color var(--motion-base) var(--ease-out),border-color var(--motion-base) var(--ease-out),opacity var(--motion-base) var(--ease-out)}.ui .btn:disabled{opacity:.4;cursor:not-allowed}.ui .btn.sm{height:32px;padding:0 14px;font-size:14px}
+.ib{width:40px;height:40px;display:inline-grid;place-content:center;border:0;font-size:16px;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--ink);cursor:pointer}.ib:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ib.gh{background:transparent}.ib.gh:hover{background:var(--surface-sel)}.ib:focus-visible,.ib.is-focus{outline:3px solid var(--focus);outline-offset:2px}
 .ui a.tl{color:var(--ink);text-decoration:underline;text-decoration-color:var(--mute);text-underline-offset:3px}.ui a.tl:hover{text-decoration-color:var(--ink)}
 .pg{height:6px;background:var(--accent-soft);border-radius:var(--r-full);overflow:hidden}.pg i{display:block;height:100%;background:var(--accent);border-radius:inherit}
-.spin{width:20px;height:20px;border:2px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}
+.spin{width:20px;height:20px;border:2px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block;flex:none}@keyframes sp{to{transform:rotate(360deg)}}
 .sk{background:linear-gradient(90deg,var(--accent-soft) 0%,color-mix(in srgb,var(--accent-soft) 50%,var(--surface)) 50%,var(--accent-soft) 100%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite;border-radius:var(--r-sm);height:12px;margin:8px 0}@keyframes sk{from{background-position:100% 0}to{background-position:-100% 0}}
 @media (prefers-reduced-motion:reduce){.spin,.sk{animation:none}}
 .pill.neu{background:var(--surface-sel);color:var(--mute-on-soft)}
@@ -78,17 +69,21 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 .tst{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);padding:0 18px;height:40px;border-radius:var(--r-full);font:400 14px Sora,"Noto Sans JP";line-height:1}.tst button{background:none;border:0;color:inherit;opacity:.85;cursor:pointer;font:600 14px Sora,"Noto Sans JP";line-height:1;padding:0;display:inline-flex;align-items:center;height:100%}
 .empty{text-align:center;padding:48px 24px;border:1px dashed var(--border);border-radius:var(--r-lg)}.empty .ic{width:48px;height:48px;margin:0 auto 12px;border-radius:var(--r-full);background:var(--accent-soft);display:grid;place-content:center;color:var(--mute)}
 .panel{background:var(--surface-sel);border-radius:var(--r-card);padding:var(--pad-card-sm)}hr.dv{border:0;border-top:1px solid var(--line-soft);margin:var(--gap-card-section) 0}
-.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .tb40 button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}.tabs button{background:none;border:0;padding:8px 16px;font:600 15px Sora,"Noto Sans JP";color:var(--ink);border-radius:var(--r-pill);cursor:pointer}.tabs button:hover,.tabs button[aria-selected=true]{background:var(--surface-sel)}@media(forced-colors:active){.tabs button[aria-selected=true],#states .nv a.acct.on{background:Highlight;color:HighlightText;forced-color-adjust:none}#states .tb40 button[aria-selected=true]{border-bottom-color:Highlight;forced-color-adjust:none}}
 .ui .seg2{display:inline-flex;background:var(--surface-sel);border-radius:var(--r-pill);padding:3px}.seg2 button{border:0;background:none;color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP";padding:6px 14px;border-radius:var(--r-pill);cursor:pointer}.seg2 button[aria-pressed=true]{background:var(--surface);color:var(--ink)}@media(forced-colors:active){.seg2 button[aria-pressed=true]{background:Highlight;color:HighlightText;forced-color-adjust:none}}
 .scrim{background:color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--r-lg);padding:40px 16px;display:grid;place-items:center;overflow:visible}.scrim.sheet-frame{min-height:380px;padding:48px 16px 0;align-content:end;justify-items:center;overflow:visible}
 .modal{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);box-shadow:var(--shadow-modal)}.modal header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-soft)}.modal .bd{padding:20px;font-size:15px}.modal footer{display:flex;justify-content:flex-end;gap:var(--gap-inline);padding:12px 20px;border-top:1px solid var(--line-soft)}
 .sheet{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line-soft);border-top:0;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:8px 20px 28px;align-self:end;justify-self:center}.sheet .hd{width:36px;height:4px;border-radius:var(--r-full);background:var(--border);margin:0 auto 16px}
 .tbl{width:100%;border-collapse:collapse;font-size:var(--table-body-size,15px)}.tbl td,.tbl th{text-align:left;padding:var(--table-pad-y,10px) var(--table-pad-x,12px);border-bottom:var(--table-divider,1px solid var(--line-soft))}.tbl th{font-weight:400;color:var(--mute);font-size:var(--table-head-size,13px)}
 .f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap-field)}
-</style></head><body><div class="w">
-<div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div></div>
-<div class="hero"><h1>トークン可視化</h1>
-<p class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色・サイズスケール・UIは確定。<a href="#ui-draft">UI部品 →</a> · <a href="#states">状態・フォーカス・重なり・切替 →</a> · <a href="#p0">骨格コンポーネント P0 →</a> · <a href="#p1">P1 UI部品 →</a> · <a href="#p2">P2 上級UI →</a> · <a href="#p3">P3 メディア／エディタ →</a><br><a href="./">← メインのカラー＆タイポガイドへ</a></p></div>
+</style><link rel="stylesheet" href="theme-control.css"></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="th-i-light" viewBox="0 0 24 24"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></symbol><symbol id="th-i-dark" viewBox="0 0 24 24"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></symbol><symbol id="th-i-system" viewBox="0 0 24 24"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></symbol></svg>
+<div class="w">
+<a class="skip" href="#main">本文へ移動</a>
+<div class="top"><span class="logo">OUSIASS</span><div class="seg" role="group" aria-label="テーマ" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-light"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-dark"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-system"/></svg><span class="lb">システム</span></button></div></div>
+<header class="hero"><h1>トークン可視化</h1>
+<div class="note">フォントは <strong>A 確定</strong>（Sora＋Noto Sans JP / コード JetBrains Mono）。色・サイズスケール・UIは確定。<nav aria-label="ページ内の目次" style="display:inline"><a href="#ui-draft">UI部品 →</a> · <a href="#states">状態・フォーカス・重なり・切替 →</a> · <a href="#p0">骨格コンポーネント P0 →</a> · <a href="#p1">P1 UI部品 →</a> · <a href="#p2">P2 上級UI →</a> · <a href="#p3">P3 メディア／エディタ →</a></nav><br><a href="./">← メインのカラー＆タイポガイドへ</a></div></header>
+<main id="main">
 <h2>色 Color</h2><p class="mute" style="font-size:14px">左＝Light / 右＝Dark。HEX はクリックでコピー。</p>
 <h3>コア / UI</h3><p class="help" style="margin:0 0 12px">ダークのページ背景は <code>--bone</code> = <code>#050505</code>（ほぼ黒）。パネルは <code>--surface</code> = <code>#141414</code>。真っ黒 <code>#000</code> 直置きは禁止。選択・ホバーは <code>--surface-sel</code>（<a href="#app-ui">アプリ UI</a>）。</p><div class="grid"><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#ffffff"></span></div><code>--ink</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#ffffff">D #ffffff</button></div></div><div class="sw"><div class="chips"><span style="background:#f5f5f4"></span><span style="background:#050505"></span></div><code>--bone</code><div class="hx"><button data-hex="#f5f5f4">L #f5f5f4</button><button data-hex="#050505">D #050505</button></div></div><div class="sw"><div class="chips"><span style="background:#6b6b6e"></span><span style="background:#8b8b8e"></span></div><code>--mute</code><div class="hx"><button data-hex="#6b6b6e">L #6b6b6e</button><button data-hex="#8b8b8e">D #8b8b8e</button></div></div><div class="sw"><div class="chips"><span style="background:#ffffff"></span><span style="background:#141414"></span></div><code>--surface</code><div class="hx"><button data-hex="#ffffff">L #ffffff</button><button data-hex="#141414">D #141414</button></div></div><div class="sw"><div class="chips"><span style="background:#ebebea"></span><span style="background:#1e1e21"></span></div><code>--surface-sel</code><div class="hx"><button data-hex="#ebebea">L #ebebea</button><button data-hex="#1e1e21">D #1e1e21</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--border</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#050505"></span><span style="background:#f5f5f4"></span></div><code>--accent</code><div class="hx"><button data-hex="#050505">L #050505</button><button data-hex="#f5f5f4">D #f5f5f4</button></div></div><div class="sw"><div class="chips"><span style="background:#e7e7e5"></span><span style="background:#2a2a2a"></span></div><code>--accent-soft</code><div class="hx"><button data-hex="#e7e7e5">L #e7e7e5</button><button data-hex="#2a2a2a">D #2a2a2a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a72d0"></span><span style="background:#60a5fa"></span></div><code>--focus</code><div class="hx"><button data-hex="#4a72d0">L #4a72d0</button><button data-hex="#60a5fa">D #60a5fa</button></div></div></div>
 <h3>状態色</h3><div class="grid"><div class="sw"><div class="chips"><span style="background:#3d5c4a"></span><span style="background:#8fafa0"></span></div><code>--success</code><div class="hx"><button data-hex="#3d5c4a">L #3d5c4a</button><button data-hex="#8fafa0">D #8fafa0</button></div></div><div class="sw"><div class="chips"><span style="background:#7a6a3a"></span><span style="background:#c4b87a"></span></div><code>--warning</code><div class="hx"><button data-hex="#7a6a3a">L #7a6a3a</button><button data-hex="#c4b87a">D #c4b87a</button></div></div><div class="sw"><div class="chips"><span style="background:#7a4545"></span><span style="background:#c49a9a"></span></div><code>--danger</code><div class="hx"><button data-hex="#7a4545">L #7a4545</button><button data-hex="#c49a9a">D #c49a9a</button></div></div><div class="sw"><div class="chips"><span style="background:#4a5a6a"></span><span style="background:#9aabbc"></span></div><code>--info</code><div class="hx"><button data-hex="#4a5a6a">L #4a5a6a</button><button data-hex="#9aabbc">D #9aabbc</button></div></div></div>
@@ -187,18 +182,18 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 --table-pad-y:10px;--table-pad-x:var(--s-3);--table-pad-y-compact:6px;--table-pad-x-compact:var(--s-2);--table-head-size:13px;--table-body-size:15px;--table-row-hover:var(--surface-sel);--table-divider:var(--stroke) solid var(--line-soft);
 --list-gap:var(--s-2);--list-marker-gap:10px;--list-row-h:48px;--list-row-pad-x:var(--s-4);--list-divider:var(--stroke) solid var(--line-soft);--list-title-caption-gap:2px;--list-two-line-gap:var(--s-3)}
 .rule{border:1px dashed var(--mute);border-radius:var(--r-md);padding:8px 14px;font-size:14px;margin:12px 0}
-.rc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap-grid)}.rc .card{padding:var(--pad-card)}.rc h4{margin:0 0 8px;font-size:15px;font-weight:600}
+.rc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--gap-grid)}.rc .card{padding:var(--pad-card)}.rc h4{margin:0 0 8px;font-size:15px;font-weight:600}
 .dg{background:var(--bone);border:1px dashed var(--border);border-radius:var(--r-md);padding:12px;margin:8px 0}.dg .b{background:var(--accent-soft);border-radius:var(--r-sm);font-size:12px;padding:0 12px;display:flex;align-items:center}
 .vals{font:12px "JetBrains Mono",monospace;color:var(--mute);margin:6px 0 0;padding-left:16px}
 .tbl2{width:100%;border-collapse:collapse;font-size:var(--table-body-size)}.tbl2 th{font-weight:400;font-size:var(--table-head-size);color:var(--mute);text-align:left;padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 td{font-weight:400;padding:var(--table-pad-y) var(--table-pad-x);border-bottom:var(--table-divider)}.tbl2 tbody tr:hover{background:var(--table-row-hover)}.tbl2 .num{font-family:"JetBrains Mono",monospace;text-align:right}.tbl2.compact th,.tbl2.compact td{padding:var(--table-pad-y-compact) var(--table-pad-x-compact)}
-.ls{list-style:none;padding:0;margin:0;font-size:14px;display:grid;gap:var(--list-gap)}.ls li{display:flex;gap:var(--list-marker-gap);align-items:baseline}.ls li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--mute);flex:none;transform:translateY(-2px)}
+.ls{list-style:none;padding:0;margin:0;font-size:14px;display:grid;gap:var(--list-gap)}.ls li{padding-left:calc(5px + var(--list-marker-gap));text-indent:calc(-5px - var(--list-marker-gap))}.ls li::before{content:"";display:inline-block;width:5px;height:5px;margin-right:var(--list-marker-gap);border-radius:50%;background:var(--mute);text-indent:0;transform:translateY(-2px)}
 .ol{margin:0;padding-left:1.4em;font-size:14px;display:grid;gap:var(--list-gap)}.ol li::marker{font-family:"JetBrains Mono",monospace;color:var(--mute)}
 .lr{list-style:none;padding:0;margin:0;font-size:14px}.lr li{min-height:var(--list-row-h);padding:0 var(--list-row-pad-x);display:flex;justify-content:space-between;align-items:center;border-bottom:var(--list-divider)}.lr li:last-child{border-bottom:0}
 .l2{list-style:none;padding:0;margin:0;display:grid;gap:var(--list-two-line-gap)}.l2 .t{font-size:14px}.l2 .c{font-size:12px;color:var(--mute);margin-top:var(--list-title-caption-gap)}
 .adm{background:var(--surface);border-radius:var(--r-card);padding:24px;margin-top:12px}
 .adm .pg-t,.adm .sec-t,.adm .cd-t{font-weight:600;letter-spacing:normal;margin:0}
 .adm .hrow{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}
-.adm .tg{font-size:12px;line-height:1.6;color:var(--mute);border:1px dashed var(--border);border-radius:4px;padding:0 6px;white-space:nowrap}
+.adm .tg{font-size:12px;line-height:1.6;color:var(--mute);border:1px dashed var(--border);border-radius:4px;padding:0 6px;white-space:nowrap}.adm .cd .tg{color:var(--mute-on-soft)}
 .adm .adm-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .adm .pg-t{font-size:24px;line-height:1.5}
 .adm .sec-row{margin-top:32px}.adm .sec-t{font-size:18px;line-height:1.7}
@@ -207,7 +202,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .adm .cd{background:var(--surface-sel);border-radius:var(--r-card);padding:16px}
 .adm .cd-t{font-size:16px;line-height:1.5}
 .adm .cd p:not(.cap){font-size:16px;line-height:1.8;font-weight:400;margin:8px 0 0}.adm .cd .cap{margin-top:8px}
-.adm .abtn{font:600 14px/1 Sora,"Noto Sans JP",sans-serif;height:32px;padding:0 12px;border-radius:var(--r-md,8px);border:1px solid var(--accent);background:var(--accent);color:var(--bone);cursor:pointer}
+.adm .abtn{font:600 14px/1 Sora,"Noto Sans JP",sans-serif;height:32px;padding:0 12px;border-radius:var(--r-pill);border:1px solid var(--accent);background:var(--accent);color:var(--bone);cursor:pointer}
 </style>
 <section class="ui" id="spacing-recipes">
 <h2>間隔の使い方 Spacing recipes</h2>
@@ -216,7 +211,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="card"><h4>メニュー / ナビ項目</h4><div class="dg" style="display:grid;gap:var(--gap-menu)"><div class="b" style="height:var(--menu-item-h)">ホーム</div><div class="b" style="height:var(--menu-item-h)">プロジェクト</div><div class="b" style="height:var(--menu-item-h)">設定</div></div><ul class="vals"><li>項目間 8px (--s-2)</li><li>項目の高さ 40px</li><li>左右 padding 12px (--s-3)、余裕があれば 16</li></ul></div>
 <div class="card"><h4>ドロップダウン / シートの選択肢</h4><div class="dg" style="display:grid;gap:var(--gap-option)"><div class="b" style="height:36px">Free</div><div class="b" style="height:36px">Pro</div><div class="b" style="height:36px">Team</div></div><ul class="vals"><li>項目間 4px (--s-1)</li><li>または隙間 0 ＋ 各行 上下 12px (--s-3)</li></ul></div>
 <div class="card"><h4>グリッド（カード）</h4><div class="dg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-grid)"><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div><div class="b" style="height:48px"></div></div><ul class="vals"><li>標準 16px (--s-4)</li><li>広い画面・大きいカード 24px (--s-6)</li><li>密なツールグリッド 12px (--s-3)</li></ul></div>
-<div class="card"><h4>フォームの縦積み</h4><div class="dg"><div style="font-size:12px">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div><div style="font-size:11px;margin-top:var(--gap-help)" class="mute">補足</div><div style="font-size:12px;margin-top:var(--gap-field)">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div></div><ul class="vals"><li>ラベル→入力 6px（〜8）</li><li>入力→補足 4px (--s-1)</li><li>項目→項目 16px (--s-4)</li></ul></div>
+<div class="card"><h4>フォームの縦積み</h4><div class="dg"><div style="font-size:12px">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div><div style="font-size:12px;margin-top:var(--gap-help)" class="mute">補足</div><div style="font-size:12px;margin-top:var(--gap-field)">ラベル</div><div class="b" style="height:32px;margin-top:var(--gap-label)">入力欄</div></div><ul class="vals"><li>ラベル→入力 6px（〜8）</li><li>入力→補足 4px (--s-1)</li><li>項目→項目 16px (--s-4)</li></ul></div>
 <div class="card"><h4>見出しの間隔（大・小見出し）</h4><div class="dg"><div style="font-weight:600;font-size:18px;line-height:1.3">大見出し（例: h2）</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文の段落。</div><div style="font-size:13px;margin-top:var(--gap-para)">次の段落。</div><div style="font-weight:600;font-size:15px;margin-top:var(--gap-h2)">小見出し（例: h3）</div><div style="font-size:13px;margin-top:var(--gap-heading-body)">本文。</div></div><ul class="vals"><li>間隔は見出しタグ番号ではなく、見た目の階層（大・小）で決める。h 番号は例</li><li>大見出し（例: h1 / h2）の下 24px (--s-6)、上は 48〜72、標準セクション区切りは 72（--gap-section）</li><li>小見出し（例: h3）の下 12px (--s-3)、上は 24〜32</li><li>見出し→本文 8px (--s-2)〜12</li><li>段落→段落 16px (--s-4)</li></ul></div>
 <div class="card"><h4>カードの内側</h4><div class="dg"><div class="b" style="display:block;padding:var(--pad-card-sm)">padding 16<div style="height:var(--gap-card-section)"></div>セクション（24 空ける）</div></div><ul class="vals"><li>padding 24px (--s-6)、小さいカード 16px (--s-4)</li><li>カード内のまとまり同士 24px (--s-6)</li></ul></div>
 <div class="card"><h4>横並び（ボタン・チップ）</h4><div class="dg" style="display:flex;gap:var(--gap-inline)"><div class="b" style="height:32px">保存</div><div class="b" style="height:32px">キャンセル</div><div class="b" style="height:32px">タグ</div></div><ul class="vals"><li>間隔 8px (--s-2)</li></ul></div>
@@ -235,7 +230,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div><div class="swatch" style="border-radius:0"></div><code>--r-none</code><br><span class="tk">0</span></div>
 <div><div class="swatch" style="border-radius:4px"></div><code>--r-sm</code><br><span class="tk">4px · タグ・チェック</span></div>
 <div><div class="swatch" style="border-radius:8px"></div><code>--r-md</code><br><span class="tk">8px · 入力欄</span></div>
-<div><div class="swatch" style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · アラートなど小さな面</span></div>
+<div><div class="swatch" style="border-radius:12px"></div><code>--r-lg</code><br><span class="tk">12px · ポップオーバー・ドロップ領域など</span></div>
 <div><div class="swatch" style="border-radius:16px"></div><code>--r-xl</code> / <code>--r-card</code><br><span class="tk">16px · カード・表・バナー・モーダル</span></div>
 <div><div class="swatch" style="border-radius:999px"></div><code>--r-pill</code> (<code>--r-full</code> 9999px)<br><span class="tk">999px · ボタン・チップ・選んでいるナビ・アバター</span></div>
 </div>
@@ -373,7 +368,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="f2">
 <div class="card"><div style="font-weight:600;margin-bottom:4px">カード（r-card 16 / 影なし）</div><p class="mute" style="font-size:14px;margin:0 0 16px">surface。枠線なし（ページ bone より一段明るい）。</p><div class="panel" style="font-size:14px">パネル（bone / r-card）— カード内の入れ子領域</div><hr class="dv" style="margin:16px 0"><table class="tbl"><tr><th>項目</th><th>値</th></tr><tr><td>プラン</td><td>Pro</td></tr><tr><td>更新日</td><td class="mono">2026-12-01</td></tr></table></div>
 <div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">概要</button><button role="tab" aria-selected="false">設定</button><button role="tab" aria-selected="false">請求</button></div>
-<p style="font-size:14px" class="mute">タブ（サブナビ）: 選んでいるものは surface-sel のピル。</p>
+<p style="font-size:14px" class="mute">サブナビ（タブとは別の部品）: 選んでいるものは surface-sel のピル。</p>
 <div class="seg2" role="group"><button aria-pressed="true">日</button><button aria-pressed="false">週</button><button aria-pressed="false">月</button></div><p class="help">セグメント: surface-sel のピルの中に surface の選択面</p></div>
 </div>
 <div class="f2" style="margin-top:16px">
@@ -423,7 +418,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 .mscrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out)}
 .msheet{position:absolute;left:8px;right:8px;bottom:0;height:110px;background:var(--surface);border-radius:16px 16px 0 0;padding:16px;font-size:14px;transform:translateY(100%);transition:transform var(--motion-slow) var(--ease-out)}
 #mt-sh:checked~.mstage .mscrim{opacity:1}#mt-sh:checked~.mstage .msheet{transform:none}
-@media (prefers-reduced-motion:reduce){#motion .mfade,#motion .mfade.on{transform:none;transition:opacity 100ms linear}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}
+@media (prefers-reduced-motion:reduce){.mfade,.mfade.on{transform:none;transition:opacity 100ms linear}.mbtn{transition:none}#motion .msheet{transition:none}#motion .mscrim{transition:opacity 100ms linear}
 .ripple-host .ripple{display:none!important}}
 .ripple-host{position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .ripple{position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;background:color-mix(in srgb,var(--ink) 22%,transparent);animation:ripple-fan var(--motion-slow) var(--ease-out) forwards}
@@ -483,10 +478,11 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <section class="ui" id="states">
 <style>
 #states .st-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--gap-grid)}#states .st-grid>*,#states .f2>*{min-width:0}#states .f2{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+#states .f2 .scr{overflow-x:auto;padding:6px;margin:-6px}
 #states .st-h{font-size:12px;color:var(--mute);margin:0 0 8px}
 #states .tag{display:inline-block;border:1px solid var(--mute);color:var(--mute);border-radius:var(--r-full);padding:0 10px;font:400 12px/1.7 Sora,"Noto Sans JP",sans-serif;margin-right:8px;vertical-align:middle}
 #states .tw{overflow-x:auto}#states .tw:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-#states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}
+#states table{width:100%;border-collapse:collapse;font-size:14px}#states th,#states td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}#states .tw th,#states .tw td{white-space:nowrap}#states #cr-focus th,#states #cr-focus td{white-space:normal}#states th{font-size:12px;font-weight:600;color:var(--mute)}#states td{font-weight:400}
 #states .mx td:first-child,#states .mx th:first-child{padding-right:16px}
 /* ボタン状態の固定表示（実機の :hover / :focus-visible と同じ見た目） */
 .ui .btn.is-hover.pri{background:color-mix(in srgb,var(--accent) 85%,var(--bone))}.ui .btn.is-hover.sec{background:color-mix(in srgb,var(--ink) 8%,var(--surface-sel))}.ui .btn.is-hover.ghost{background:var(--surface-sel)}.ui .btn.is-hover.dan{background:color-mix(in srgb,var(--danger) 10%,transparent)}
@@ -551,16 +547,16 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .dlg .ib:disabled{opacity:.4;cursor:not-allowed}
 #states .pn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:var(--s-4)}
 #states .pn>*{min-width:0;border-radius:var(--r-card);background:var(--surface-sel);padding:var(--s-4)}
-#states .pn .st-h{margin-top:var(--s-4)}#states .pn .st-h:first-child{margin-top:0}
+#states .pn .st-h{margin-top:var(--s-4)}#states .pn .st-h:first-child{margin-top:0}#states .pn .st-h,#states .pn small,#states .pn .help{color:var(--mute-on-soft)}
 #states .tbr{display:flex;align-items:center;gap:var(--s-1)}#states .tbr.tx{gap:var(--gap-inline)}
 #states .tbr .ib{width:32px;height:32px}
 #states .nv{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #states .nv a{display:flex;align-items:center;min-height:40px;padding:0 var(--menu-pad-x);border-radius:var(--r-pill);color:var(--ink);text-decoration:none;font-size:15px;font-weight:600}
 #states .nv a:hover{background:var(--surface-sel)}
 #states .nv a.acct{flex-direction:column;align-items:flex-start;justify-content:center;min-height:62px;border-left:6px solid var(--c,var(--info));border-radius:0 var(--r-sm) var(--r-sm) 0}
-#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute)}#states .nv a.acct.on{background:var(--surface-sel)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
+#states .nv a.acct small{font-size:12px;line-height:1.6;color:var(--mute-on-soft)}#states .nv a.acct.on{background:var(--surface-sel)}#states .nv a.acct.on small{color:var(--mute-on-soft)}
 #states .rws{display:flex;flex-direction:column;gap:0}
-#states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute)}
+#states .rw{display:flex;flex-direction:column;padding:8px 12px;border-left:6px solid var(--c,var(--info));font-size:14px}#states .rw small{font-size:12px;color:var(--mute-on-soft)}
 #states .rw.on{background:var(--surface-sel)}#states .rw.on small{color:var(--mute-on-soft)}
 #states .dpn{display:flex;flex-direction:column;gap:0;padding:var(--s-1);border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface)}
 #states .dpn button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP",sans-serif;text-align:left;cursor:pointer}
@@ -579,8 +575,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .fld.f14{font-size:14px}@media (max-width:640px){#states .fld.f14{font-size:16px}}
 #states .sw2.offm span{border-color:var(--mute)}
 #states .tb40{display:flex;gap:4px}
-#states .tb40 button{height:40px;padding:0 var(--s-4);background:none;border:0;border-radius:var(--r-pill);color:var(--mute-on-soft);font:600 15px Sora,"Noto Sans JP",sans-serif;cursor:pointer}
-#states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);background:var(--surface-sel)}
+#states .tb40 button{height:40px;padding:0 var(--s-3);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;color:var(--mute);font:600 15px Sora,"Noto Sans JP",sans-serif;cursor:pointer}
+#states .tb40 button:hover{color:var(--ink)}#states .tb40 button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
 #states .tb40 button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 #states .btn.sec.tgl{background:transparent}#states .btn.sec.tgl:hover{background:var(--surface-sel)}#states .btn.sec.tgl[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
 #states .cnt-over{color:var(--danger)}
@@ -588,7 +584,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .tipw .tp{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;line-height:1.6;padding:var(--tip-pad-y) var(--tip-pad-x);border-radius:var(--r-sm);white-space:nowrap;z-index:var(--z-dropdown)}
 #states .tipw .tp[hidden]{display:none}
 #states .ld{display:grid;place-items:center;align-content:center;gap:8px;height:120px;border-radius:var(--r-card);background:var(--surface-sel)}
-#states .ld p{margin:0;font-size:12px;color:var(--mute)}
+#states .ld p{margin:0;font-size:12px;color:var(--mute-on-soft)}
 #states .dz{display:grid;place-items:center;height:96px;border-radius:var(--r-md);font-size:14px;color:var(--mute)}
 #states .dz.drag{background:var(--accent-soft);outline:1px dashed var(--accent);outline-offset:-4px;color:var(--ink)}
 #states .bn{overflow:hidden}#states .bn .in{padding:16px 22px;border-radius:var(--r-card);background:var(--surface-sel);font-size:15px;font-weight:600}
@@ -603,10 +599,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 .sw2 span::after{background:CanvasText;box-shadow:none}
 .sw2 input:checked+span{background:Highlight;border-color:Highlight}
 .sw2 input:checked+span::after{background:HighlightText}
-.chk input{border-color:CanvasText}
-.chk input:checked{border-color:Highlight}
+.chk input,#states .np-agree input,#states .np-chk input,#p2 .atable input[type=checkbox]{border-color:CanvasText}
+.chk input:checked,#states .np-agree input:checked,#states .np-chk input:checked,#p2 .atable input[type=checkbox]:checked{border-color:Highlight}
 .chk input[type=radio]:checked::after{background:Highlight;forced-color-adjust:none}
-.chk input[type=checkbox]:checked::after{border-color:Highlight}
+.chk input[type=checkbox]:checked::after,#states .np-agree input:checked::after,#states .np-chk input:checked::after,#p2 .atable input[type=checkbox]:checked::after{border-color:Highlight}
+.chk input[type=checkbox]:indeterminate,#states .np-agree input:indeterminate,#states .np-chk input:indeterminate,#p2 .atable input[type=checkbox]:indeterminate{border-color:Highlight}
+.chk input[type=checkbox]:indeterminate::after,#states .np-agree input:indeterminate::after,#states .np-chk input:indeterminate::after,#p2 .atable input[type=checkbox]:indeterminate::after{background:Highlight;forced-color-adjust:none}
 .spin{forced-color-adjust:none;border-color:transparent;border-top-color:CanvasText}
 .ui .btn.is-loading .spin{border-color:transparent;border-top-color:ButtonText}
 #states .zs .zst,#states .zs .pop,#states .zs .mdl{border:1px solid CanvasText}
@@ -624,7 +622,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #states .np-eye .e-closed{display:none}#states .np-eye[data-shown=true] .e-open{display:none}#states .np-eye[data-shown=true] .e-closed{display:block}
 #states .np-note{margin:0 0 var(--s-2);align-items:flex-start;line-height:1.6}#states .np-note p,#states .np-note label{margin:0}
 #states .np-note svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--c);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;line-height:1.6;cursor:pointer}#states .np-agree input,#states .np-chk input{width:auto;height:auto;padding:0;flex:none}
+#states .np-agree,#states .np-chk{display:flex;align-items:center;gap:var(--s-2);font-size:14px;font-weight:400;line-height:1.6;cursor:pointer}
 #states .np-form{display:flex;flex-direction:column;gap:var(--s-6)}
 #states .np-fs{margin:0;min-width:0;padding:0;border:0;display:flex;flex-direction:column;gap:var(--gap-field)}
 #states .np-fs legend{margin:0 0 var(--gap-field);padding:0;font-size:14px;font-weight:600;line-height:1.4}
@@ -640,7 +638,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card">
 <div class="f2">
 <div><span class="lbl" id="st-theme-lbl">切替コントロール（Light / Dark / System）</span>
-<div class="seg" role="group" data-theme-control aria-labelledby="st-theme-lbl"><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></svg><span class="lb">システム</span></button></div>
+<div class="scr">
+<div class="seg" role="group" data-theme-control aria-labelledby="st-theme-lbl"><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-light"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-dark"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-system"/></svg><span class="lb">システム</span></button></div>
+</div>
 <p class="help">Tab でコントロールへ → ←→ で移動 → Space / Enter で選択。選んだものは <code>aria-pressed="true"</code>。</p></div>
 <div><span class="lbl">いまの状態（ライブ）</span>
 <table class="mx" aria-label="テーマの状態"><tbody>
@@ -659,7 +659,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <tr><td>サイドバー・ドロワー・設定ページ・モバイルメニューなど、縦に余裕がある</td><td>縦積み</td><td>ラベルが常に見え、選択中が一覧で分かる</td></tr>
 <tr><td>幅が十分（横にラベルが 1 行で収まる）</td><td>文字付き横並び（<code>.seg</code>）</td><td>現行どおり。ラベルとアイコンの両方で伝わる</td></tr></tbody></table>
 <p class="help" style="font-size:14px;color:var(--ink)"><strong>切り替えの基準（推奨案）:</strong> ビューポートではなく<strong>コンテナ幅（または置く場所そのもの）</strong>で決める。閾値の目安は、文字付き横並びが 1 行で収まる幅（実測で約 300px）。置き場がそれより狭ければアイコンだけ。数値は確定ではなく、44px のタップ領域を満たしたあとで測り直す。<strong>代替:</strong> ビューポートの <code>@media (max-width: 480px)</code> でラベルを隠す（この画面のヘッダーはこの方式。プロダクトの部品としては推奨しない）。</p>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="th-i-light" viewBox="0 0 24 24"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12"/></symbol><symbol id="th-i-dark" viewBox="0 0 24 24"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"/></symbol><symbol id="th-i-system" viewBox="0 0 24 24"><path d="M2 21L17 21M21 21L22 21"/><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z"/></symbol></svg>
 <div class="sgrid" id="theme-forms-demo">
 <div class="scr"><p class="sfc">文字付き横並び <code>.seg</code>（約 300px 必要）</p><div class="seg" role="group" aria-label="テーマ（文字付き横並び）" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-light"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-dark"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-system"/></svg><span class="lb">システム</span></button></div><p class="help scr-note">約 300px より狭い置き場では右端（「システム」）が切れて、この見本は横スクロールになる。その幅ではアイコンだけを使う。</p></div>
 <div><p class="sfc">アイコンだけ <code>.seg-icon</code></p><div class="seg seg-icon" role="group" aria-label="テーマ（アイコンだけ）" data-theme-control><button type="button" data-set-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-light"/></svg><span class="lb">ライト</span></button><button type="button" data-set-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-dark"/></svg><span class="lb">ダーク</span></button><button type="button" data-set-theme="system" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#th-i-system"/></svg><span class="lb">システム</span></button></div></div>
@@ -792,7 +791,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card"><p class="st-h">非対象（ホバーは色のみ・リップルなし）</p>
 <div class="rpitem"><a class="tl" href="#st-ripple">テキストリンク</a></div>
 <button type="button" class="rowsel" style="margin-top:8px">行型・カード型の選択</button>
-<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">タブ A</button><button type="button" aria-selected="false">タブ B</button></div>
+<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">サブナビ A</button><button type="button" aria-selected="false">サブナビ B</button></div>
 <button type="button" class="selbtn" style="margin-top:8px" aria-haspopup="listbox"><span>セレクトのトリガ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
 <div class="rpitem" style="margin-top:8px"><label class="sw2" style="margin:0"><input type="checkbox"><span></span>スイッチ</label><label class="chk" style="margin:0"><input type="radio" name="st-rp"> ラジオ</label></div></div>
 </div>
@@ -852,7 +851,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div><p class="st-h">トグル（pressed）／主ボタンのホバー</p><div class="tbr tx"><button type="button" class="btn sec sm tgl" id="tgl" aria-pressed="false">固定表示</button><button type="button" class="btn pri sm">主ボタン</button></div><p class="help">主ボタンのホバーは <code>--accent</code> を <code>--bone</code> へ 15%（opacity は使わない）。上の「ボタンの状態」の見本も同じ</p></div>
 <div><p class="st-h">スイッチ OFF（つまみ surface＋1px border／枠 mute 案）</p><label class="sw2"><input type="checkbox"><span></span>現行の枠（border）</label><br><label class="sw2 offm"><input type="checkbox"><span></span>枠を mute にする案</label><p class="help">OFF の枠 対 bone: border <span data-sw="border">-</span> / mute <span data-sw="mute">-</span>（非テキスト 3:1）</p></div>
 <div><p class="st-h">ツールチップ（遅延 400ms・フォーカスは即時。<code>title</code> は使わない）</p><span class="tipw"><button type="button" class="ib" id="tipb" aria-label="設定" aria-describedby="tipt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/></svg></button><span class="tp" id="tipt" role="tooltip" hidden>設定</span></span><p class="help">padding <code>--tip-pad-y</code> 6 / <code>--tip-pad-x</code> 10。トースト <code>--toast-duration</code> 3s / <code>--toast-duration-action</code> 5s</p></div>
-<div><p class="st-h">入力下の文字数カウンタ</p><input class="fld" id="cnt-in" value="" placeholder="20 字まで" aria-describedby="cnt-st"><p class="help" id="cnt-st" role="status"><span class="mono14" style="font-size:12px" id="cnt-n">0</span> / 20</p></div>
+<div><p class="st-h">入力下の文字数カウンタ</p><input class="fld" id="cnt-in" value="" placeholder="20 字まで" aria-label="本文の文字数カウンタの見本" aria-describedby="cnt-st"><p class="help" id="cnt-st" role="status"><span class="mono14" style="font-size:12px" id="cnt-n">0</span> / 20</p></div>
 <div><p class="st-h">読み込み（中央にスピナー単体 → 2 秒以上は「読み込み中…」）</p><div class="ld"><span class="spin" role="status" aria-label="読み込み中"></span></div><div class="ld" style="margin-top:8px"><span class="spin" aria-hidden="true"></span><p>読み込み中…</p></div></div>
 <div><p class="st-h">ペイン全体のドロップ先（ドラッグ中だけ）</p><div class="dz" id="dz">ドラッグ中だけ accent-soft 地＋破線</div><button type="button" class="btn sec sm" id="dz-t" style="margin-top:8px" aria-pressed="false">ドラッグ中を切り替える</button></div>
 </div></div>
@@ -1011,7 +1010,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .topnav .links{display:flex;gap:16px;flex:1;font-size:14px}
 #p0 .topnav .links a{color:var(--mute);text-decoration:none;font-weight:400}
 #p0 .topnav .links a:hover,#p0 .topnav .links a[aria-current=page]{color:var(--ink)}
-#p0 .topnav .avatar{width:28px;height:28px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);display:grid;place-content:center;font-size:11px;color:var(--mute)}
+#p0 .topnav .avatar{width:28px;height:28px;border-radius:var(--r-full);background:var(--accent-soft);border:1px solid var(--border);display:grid;place-content:center;font-size:12px;color:var(--mute-on-soft)}
 #p0 .sidenav{width:240px;background:var(--surface);border-right:1px solid var(--border);padding:12px 8px;display:grid;gap:var(--gap-menu)}
 #p0 .sidenav a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
 #p0 .sidenav a:hover{background:var(--accent-soft);color:var(--ink)}
@@ -1024,10 +1023,11 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .phone .mbar .brand{font-weight:600;letter-spacing:.1em;font-size:12px}
 #p0 .phone .mbody{padding:16px;font-size:13px;color:var(--mute)}
 #p0 .mnav-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 22%,transparent);opacity:0;pointer-events:none;transition:opacity var(--motion-slow) var(--ease-out);z-index:4}
-#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:220px;background:var(--surface);border-right:1px solid var(--line-soft);box-shadow:var(--shadow-modal);transform:translateX(-105%);transition:transform var(--motion-slow) var(--ease-out);z-index:5;display:flex;flex-direction:column;gap:var(--gap-menu);padding:12px 8px}
+#p0 .mnav-panel{position:absolute;top:0;left:0;bottom:0;width:78%;max-width:320px;background:var(--surface);border-right:1px solid var(--line-soft);box-shadow:var(--shadow-modal);opacity:0;visibility:hidden;transform:translateX(-8px);transition:opacity var(--motion-slow) var(--ease-out),transform var(--motion-slow) var(--ease-out),visibility 0s linear var(--motion-slow);z-index:5;padding:12px 8px}
+#p0 .mnav-panel nav{display:flex;flex-direction:column;gap:var(--gap-menu)}
 #p0 .phone.open .mnav-scrim{opacity:1;pointer-events:auto}
-#p0 .phone.open .mnav-panel{transform:translateX(0)}
-#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-md);color:var(--mute);text-decoration:none;font-size:14px}
+#p0 .phone.open .mnav-panel{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+#p0 .mnav-panel a{display:flex;align-items:center;height:var(--menu-item-h);padding:0 var(--menu-pad-x);border-radius:var(--r-pill);color:var(--mute);text-decoration:none;font-size:14px;font-weight:400}
 #p0 .mnav-panel a[aria-current=page],#p0 .mnav-panel a:hover{background:var(--accent-soft);color:var(--ink)}
 #p0 .topnav .burger{display:none}
 @media (max-width:640px){
@@ -1035,7 +1035,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .topnav .burger{display:inline-grid}
 }
 #p0 .bc{display:flex;align-items:center;gap:var(--gap-inline);font-size:14px;flex-wrap:wrap}
-#p0 .bc a{color:var(--mute);text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+#p0 .bc a{color:var(--mute);font-weight:400;text-decoration:none}#p0 .bc a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 #p0 .bc .sep{color:var(--mute)}#p0 .bc .cur{color:var(--ink)}
 #p0 .dd{position:relative;display:inline-block;z-index:var(--z-dropdown)}
 #p0 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-md);box-shadow:var(--shadow-modal);padding:var(--gap-option);z-index:var(--z-dropdown);display:none}
@@ -1046,7 +1046,8 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .dd-panel hr{border:0;border-top:1px solid var(--line-soft);margin:4px 0}
 #p0 .tip-wrap{position:relative;display:inline-flex}
 #p0 .tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:var(--ink);color:var(--bone);font-size:12px;padding:6px 10px;border-radius:var(--r-sm);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-fade-in) var(--ease-out);z-index:var(--z-dropdown)}
-#p0 .tip-wrap:hover .tip,#p0 .tip-wrap:focus-within .tip{opacity:1}
+#p0 .tip-wrap:hover .tip{opacity:1;transition-delay:400ms}
+#p0 .tip-wrap button:focus-visible+.tip{opacity:1;transition-delay:0s}
 #p0 .tip.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line-soft)}
 #p0 .pop-host{position:relative;display:inline-block}
 #p0 .pop{position:absolute;top:calc(100% + 8px);left:0;width:260px;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);padding:14px;z-index:var(--z-dropdown);display:none}
@@ -1069,11 +1070,12 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p0 .drawer-stage.open .drawer-panel{opacity:1}
 #p0 .drawer-scrim{transition:opacity 100ms linear}
 #p0 .tip{transition:opacity 100ms linear}
-#p0 .mnav-panel{transition:opacity 100ms linear!important;transform:none!important}
+#p0 .mnav-scrim{transition:opacity 100ms linear}
+#p0 .mnav-panel{transition:opacity 100ms linear,visibility 0s linear 100ms;transform:none}
 }
 #p0 .bp-table{width:100%;border-collapse:collapse;font-size:14px}#p0 .bp-table th,#p0 .bp-table td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line-soft)}#p0 .bp-table th{font-size:12px;color:var(--mute);font-weight:600}
 #p0 .grid-demo{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4);margin-top:8px}
-#p0 .grid-demo span{height:28px;background:var(--accent-soft);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;color:var(--mute);display:grid;place-content:center}
+#p0 .grid-demo span{height:28px;background:var(--accent-soft);border-radius:var(--r-sm);font:12px "JetBrains Mono",monospace;color:var(--mute-on-soft);display:grid;place-content:center}
 @media (min-width:768px){#p0 .grid-demo{gap:var(--s-6)}}
 #p0 .z-stack{display:flex;flex-direction:column;gap:6px;max-width:420px}
 #p0 .z-stack div{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);font-size:13px}
@@ -1118,18 +1120,21 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
     <div class="mbody">コンテンツ領域。ハンバーガーで左ドロワー（ナビ）が開きます。</div>
     <div class="mnav-scrim" id="p0-mnav-scrim"></div>
-    <nav class="mnav-panel" id="p0-mnav-panel" aria-label="モバイルナビ">
-      <a href="#" aria-current="page">概要</a>
-      <a href="#">プロジェクト</a>
-      <a href="#">請求</a>
-      <a href="#">設定</a>
-    </nav>
+    <div class="mnav-panel" id="p0-mnav-panel" role="dialog" aria-modal="true" aria-label="モバイルナビ">
+      <nav aria-label="メインメニュー">
+        <a href="#" aria-current="page">概要</a>
+        <a href="#">プロジェクト</a>
+        <a href="#">請求</a>
+        <a href="#">設定</a>
+      </nav>
+    </div>
   </div>
   <div style="flex:1;min-width:200px">
-    <p class="help" style="margin:0 0 8px">モバイル見本（操作可）：リンクは畳んでハンバーガー → <strong>左ドロワー</strong>。スクラム／外側タップで閉じる。</p>
+    <p class="help" style="margin:0 0 8px">モバイル見本（操作可）：リンクは畳んでハンバーガー → <strong>左ドロワー</strong>（<code>role="dialog"</code>・<code>aria-modal="true"</code>）。開くと先頭の項目へフォーカス、スクラム／項目クリック／Esc で閉じてトリガへ戻る。開いている間は Tab がパネルの外へ出ない。</p>
     <ul class="vals">
       <li>トップバー高さ ~52–56</li>
-      <li>ドロワー幅 ~78%（上限 220 in 見本）</li>
+      <li>ドロワー幅は規定どおり 78vw・上限 320px。見本は電話枠（280px）の中なので、枠幅の 78%（約 218px）で近似し、上限だけ 320px</li>
+      <li>出入りは fade＋8px の移動（<code>--motion-slow</code>。reduced-motion はフェードのみ 100ms）</li>
       <li>ナビリンクは Regular（SemiBold にしない）</li>
       <li>短い選択肢だけなら Bottom sheet でも可</li>
     </ul>
@@ -1158,7 +1163,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
   </div>
   <ul class="vals" style="margin-top:12px">
-    <li>panel: surface + border + r-md + shadow-modal 任意 / pad 4 / min-width 180</li>
+    <li>panel: surface + <code>--line-soft</code> の 1px 枠 + r-md + shadow-modal 任意 / pad 4 / min-width 180</li>
     <li>item: 36–40h / pad 10–12 / hover accent-soft</li>
     <li>danger: muted red（--danger）テキストのみ</li>
     <li>z-index: dropdown (--z-dropdown 100) は modal (--z-modal 400) の下</li>
@@ -1170,10 +1175,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <div class="card">
     <span class="lbl">Tooltip（ホバー／フォーカス・非対話）</span>
     <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:24px">
-      <span class="tip-wrap"><button type="button" class="btn sec sm">Inverse</button><span class="tip" role="tooltip">保存済みです</span></span>
-      <span class="tip-wrap"><button type="button" class="btn ghost sm">Surface</button><span class="tip alt" role="tooltip">補足テキスト</span></span>
+      <span class="tip-wrap"><button type="button" class="btn sec sm" aria-describedby="p0-tip1">Inverse</button><span class="tip" id="p0-tip1" role="tooltip">保存済みです</span></span>
+      <span class="tip-wrap"><button type="button" class="btn ghost sm" aria-describedby="p0-tip2">Surface</button><span class="tip alt" id="p0-tip2" role="tooltip">補足テキスト</span></span>
     </div>
-    <p class="help">12px / pad 6×10 / r-sm / fade-in 320ms。対話UIは置かない（ボタン・リンク禁止）。</p>
+    <p class="help">12px / pad 6×10 / r-sm / fade-in 320ms。hover は 400ms 遅らせ、キー操作の focus-visible は即時。対話UIは置かない（ボタン・リンク禁止）。</p>
   </div>
   <div class="card">
     <span class="lbl">Popover（タイトル＋アクション）</span>
@@ -1263,10 +1268,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </figure>
   </div>
   <div class="icon-row" aria-label="Iconoir サンプル">
-    <span class="ico" title="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
-    <span class="ico" title="search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
-    <span class="ico" title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
-    <span class="ico" title="xmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg>xmark / close</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
+    <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg>xmark / close</span>
   </div>
   <p class="help" style="margin-top:12px">実装時は Iconoir の SVG／パッケージから取得（このページはインライン見本のみ・依存なし）。ストローク 1.5・currentColor。</p>
 </div>
@@ -1291,12 +1296,22 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   openB&&openB.addEventListener('click',openDr);
   closeB&&closeB.addEventListener('click',closeDr);
   scrim&&scrim.addEventListener('click',closeDr);
-  const phone=document.getElementById('p0-phone'), mOpen=document.getElementById('p0-mnav-open'), mScrim=document.getElementById('p0-mnav-scrim');
-  function openM(){if(!phone)return;phone.classList.add('open');mOpen&&mOpen.setAttribute('aria-expanded','true')}
-  function closeM(){if(!phone)return;phone.classList.remove('open');mOpen&&mOpen.setAttribute('aria-expanded','false')}
+  const phone=document.getElementById('p0-phone'), mOpen=document.getElementById('p0-mnav-open'), mScrim=document.getElementById('p0-mnav-scrim'), mPanel=document.getElementById('p0-mnav-panel');
+  const mLinks=()=>mPanel?Array.from(mPanel.querySelectorAll('a')):[];
+  function openM(){if(!phone)return;phone.classList.add('open');mOpen&&mOpen.setAttribute('aria-expanded','true');const l=mLinks();l.length&&l[0].focus()}
+  function closeM(){if(!phone||!phone.classList.contains('open'))return;phone.classList.remove('open');mOpen&&mOpen.setAttribute('aria-expanded','false');mOpen&&mOpen.focus()}
   mOpen&&mOpen.addEventListener('click',e=>{e.stopPropagation();phone.classList.contains('open')?closeM():openM()});
   mScrim&&mScrim.addEventListener('click',closeM);
-  phone&&phone.querySelectorAll('.mnav-panel a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeM()}));
+  mLinks().forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeM()}));
+  document.addEventListener('keydown',e=>{
+    if(!phone||!phone.classList.contains('open'))return;
+    if(e.key==='Escape'){e.preventDefault();closeM();return}
+    if(e.key!=='Tab')return;
+    const l=mLinks(), first=l[0], last=l[l.length-1], cur=document.activeElement;
+    if(!l.includes(cur)){e.preventDefault();(e.shiftKey?last:first).focus()}
+    else if(e.shiftKey&&cur===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&cur===last){e.preventDefault();first.focus()}
+  });
   // attach ripples for new buttons
   const sel='#p0 .btn, #p0 .ib';
   document.querySelectorAll(sel).forEach(el=>{
@@ -1325,10 +1340,10 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <section class="ui" id="p1">
 <style>
-#p1 .cal{width:min(280px,100%);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
-#p1 .cal header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border);font-weight:600}
+#p1 .cal{width:min(280px,100%);border:1px solid var(--line-soft);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;font-size:13px}
+#p1 .cal header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--line-soft);font-weight:600}
 #p1 .cal .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px;text-align:center}
-#p1 .cal .dow{color:var(--mute);font-size:11px;padding:4px 0}
+#p1 .cal .dow{color:var(--mute);font-size:12px;padding:4px 0}
 #p1 .cal button.d{border:0;background:transparent;color:var(--ink);height:32px;border-radius:var(--r-md);cursor:pointer;font:400 13px Sora,"Noto Sans JP"}
 #p1 .cal button.d:hover{background:var(--accent-soft)}
 #p1 .cal button.d[aria-current=date]{background:var(--accent);color:var(--bone);font-weight:600}
@@ -1338,6 +1353,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .drop{border:1px dashed var(--border);border-radius:var(--r-lg);padding:28px 16px;text-align:center;background:var(--bone);color:var(--mute);font-size:14px;transition:border-color var(--motion-base) var(--ease-out),background var(--motion-base) var(--ease-out)}
 #p1 .drop.over{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
 #p1 .drop svg{margin:0 auto 8px;display:block;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);opacity:.7}
+@media (prefers-reduced-motion:reduce){#p1 .drop{transition:none}}
 #p1 .search{position:relative;max-width:420px}
 #p1 .search .fld{padding-left:40px;padding-right:36px}
 #p1 .search .si,#p1 .search .clr{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-content:center;border:0;background:transparent;color:var(--mute);padding:0;cursor:pointer}
@@ -1368,19 +1384,20 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .acc summary::-webkit-details-marker{display:none}
 #p1 .acc summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(45deg);transition:transform var(--motion-base) var(--ease-out);flex:none;margin-top:-4px}
 #p1 .acc details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
-#p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute)}
+@media (prefers-reduced-motion:reduce){#p1 .acc summary::after{transition:none}}
+#p1 .acc .body{padding:0 16px 14px;font-size:14px;color:var(--mute-on-soft)}
 #p1 .bell{position:relative;display:inline-grid;place-content:center;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--ink)}
 #p1 .bell svg{width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #p1 .bcnt{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:var(--r-full);background:var(--accent);color:var(--bone);display:inline-flex;align-items:center;justify-content:center;font:600 11px/1 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;text-align:center;border:2px solid var(--surface)}
 #p1 .bcnt.dot{min-width:10px;width:10px;height:10px;padding:0;top:6px;right:6px;border-width:0}
-#p1 .rng{width:100%;max-width:360px;height:16px;margin:8px 0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
+#p1 .rng{width:100%;max-width:360px;height:16px;margin:8px 0;padding:0;border:0;border-radius:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
 #p1 .rng:focus{outline:none}
 #p1 .rng:focus-visible{outline:none}
 #p1 .rng::-webkit-slider-runnable-track{height:4px;border-radius:var(--r-full);background:linear-gradient(to right,var(--accent) var(--_v,40%),var(--accent-soft) var(--_v,40%))}
 #p1 .rng::-moz-range-track{height:4px;border-radius:var(--r-full);background:var(--accent-soft)}
 #p1 .rng::-moz-range-progress{height:4px;border-radius:var(--r-full);background:var(--accent)}
-#p1 .rng::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;margin-top:-6px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 0 0 1px var(--border);transition:border-color var(--motion-base,180ms) var(--ease-out,ease-out)}
-#p1 .rng::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:none}
+#p1 .rng::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:16px;height:16px;margin-top:-6px;border-radius:50%;background:var(--surface);border:1px solid var(--border);transition:border-color var(--motion-base,180ms) var(--ease-out,ease-out)}
+#p1 .rng::-moz-range-thumb{box-sizing:border-box;width:16px;height:16px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:none}
 #p1 .rng:focus-visible::-webkit-slider-thumb{outline:3px solid var(--focus);outline-offset:2px}
 #p1 .rng:focus-visible::-moz-range-thumb{outline:3px solid var(--focus);outline-offset:2px}
 #p1 .rng:disabled{opacity:.4;cursor:not-allowed}
@@ -1388,12 +1405,13 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p1 .tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:text}
 #p1 .tags:focus-within{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:-1px}
 #p1 .tags .chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px 0 12px;border-radius:var(--r-pill);background:var(--surface-sel);font-size:13px;color:var(--ink)}
-#p1 .tags .chip button{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
+#p1 .tags .chip button{border:0;background:transparent;color:var(--mute-on-soft);cursor:pointer;padding:0;font-size:14px;width:18px;height:18px;display:grid;place-content:center;border-radius:var(--r-full)}
 #p1 .tags .chip button:hover{color:var(--ink);background:var(--surface)}
 #p1 .tags input{border:0;outline:none;background:transparent;font:400 14px Sora,"Noto Sans JP";color:var(--ink);min-width:80px;flex:1;padding:4px}
 @media (max-width:640px){
   #p1 .steps .st{min-width:72px}
   #p1 .steps .st:not(:last-child)::after{display:none}
+  #p1 .tags input{font-size:16px}
 }
 </style>
 <h2 id="p1-draft">UI部品 P1</h2>
@@ -1425,7 +1443,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
         <button type="button" class="d">9</button><button type="button" class="d">10</button><button type="button" class="d">11</button><button type="button" class="d">12</button><button type="button" class="d">13</button><button type="button" class="d">14</button><button type="button" class="d">15</button>
       </div>
     </div>
-    <p class="tk" style="margin-top:10px">surface + border + r-lg / 今日 = accent / セル 32</p>
+    <p class="tk" style="margin-top:10px">surface + <code>--line-soft</code> の 1px 枠 + r-lg / 今日 = accent / セル 32</p>
   </div>
 </div>
 
@@ -1441,11 +1459,11 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <ul class="vals"><li>破線 border / r-lg / pad 24–28</li><li>ドラッグ中: accent-soft + accent 破線</li><li>アイコン --icon-xl 任意</li></ul>
 </div>
 
-<h3 id="p1-search">検索フィールド（クリア・候補）</h3>
+<h3 id="p1-search-h">検索フィールド（クリア・候補）</h3>
 <div class="card">
   <div class="search" id="p1-search">
     <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg></span>
-    <input class="fld" id="p1-search-input" type="search" placeholder="検索…" autocomplete="off" aria-autocomplete="list" aria-controls="p1-sugg" aria-expanded="false">
+    <input class="fld" id="p1-search-input" type="search" role="combobox" placeholder="検索…" autocomplete="off" aria-label="検索" aria-autocomplete="list" aria-controls="p1-sugg" aria-expanded="false">
     <button type="button" class="clr" id="p1-search-clear" aria-label="クリア" hidden><svg viewBox="0 0 24 24" width="16" height="16"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"/></svg></button>
     <div class="sugg" id="p1-sugg" role="listbox" aria-label="候補">
       <button type="button" role="option">ブランドガイド</button>
@@ -1521,7 +1539,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <span class="bell" aria-label="未読あり"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt dot" aria-hidden="true"></span></span>
     <span class="pill" style="--c:var(--mute)">下書き · 2</span>
   </div>
-  <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / 11px Mono / min 18</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
+  <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / バッジの数字は 11px Mono・最小 18（通知バッジの数字だけの例外）</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
 </div>
 
 <h3 id="p1-slider">スライダー／レンジ</h3>
@@ -1532,7 +1550,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <p class="help">OS標準見た目は使わない。トラック 4px（充填 accent／未充填 accent-soft）・つまみ 16 円（surface＋border）。フォーカスは 3px の --focus 実線リング（<a href="#st-focus">フォーカス幅</a>）。キーボード操作可。</p>
 </div>
 
-<h3 id="p1-tags">タグ入力（chips input）</h3>
+<h3 id="p1-tags-h">タグ入力（chips input）</h3>
 <div class="card">
   <span class="lbl">タグ</span>
   <div class="tags" id="p1-tags" role="group" aria-label="タグ入力見本">
@@ -1625,20 +1643,20 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .cmdk{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-modal);overflow:hidden}
 #p2 .cmdk-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
 #p2 .cmdk-hd svg{flex:none;width:var(--icon-md);height:var(--icon-md);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--mute)}
-#p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 15px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
+#p2 .cmdk-hd input{border:0;outline:none;background:transparent;padding:0;font:400 16px Sora,"Noto Sans JP";color:var(--ink);box-shadow:none}
 #p2 .cmdk-hd input:focus{outline:none;box-shadow:none;border:0}
 #p2 .cmdk-list{padding:var(--gap-option);display:flex;flex-direction:column;gap:var(--gap-option);max-height:220px;overflow:auto}
 #p2 .cmdk-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:36px;padding:0 var(--menu-pad-x);border:0;background:transparent;color:var(--ink);font:400 14px Sora,"Noto Sans JP";border-radius:var(--r-sm);cursor:pointer;text-align:left}
 #p2 .cmdk-list button:hover,#p2 .cmdk-list button[aria-selected=true]{background:var(--accent-soft)}
-#p2 .cmdk-list .meta{color:var(--mute);font:12px "JetBrains Mono",monospace}
+#p2 .cmdk-list .meta{color:var(--mute-on-soft);font:12px "JetBrains Mono",monospace}
 #p2 .cmdk-ft{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--mute)}
-#p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:11px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
+#p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:12px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
 #p2 .chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 #p2 .fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:var(--r-pill);border:0;background:var(--surface-sel);font-size:13px;color:var(--ink);cursor:pointer}
 #p2 .fchip[aria-pressed=true]{background:var(--accent);color:var(--bone)}#p2 .fchip[aria-pressed=true] .x{color:inherit}
 #p2 .fchip .x{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;line-height:1;font-size:14px}
 #p2 .atable{width:100%;border-collapse:collapse;font-size:14px}
-#p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:middle}
+#p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:middle}#p2 .atable td{font-weight:400}
 #p2 .atable th{font:600 12px Sora,"Noto Sans JP";color:var(--mute);letter-spacing:.02em;white-space:nowrap}
 #p2 .atable th.sortable{cursor:pointer}
 #p2 .atable th.sortable .sort{display:inline-flex;align-items:center;gap:4px}
@@ -1646,7 +1664,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .atable th[aria-sort=ascending],#p2 .atable th[aria-sort=descending]{color:var(--ink)}
 #p2 .atable tbody tr:hover{background:var(--accent-soft)}
 #p2 .atable .num{font-family:"JetBrains Mono",monospace;text-align:right}
-#p2 .atable input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);padding:0;margin:0}
 #p2 .bulk{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;border-radius:var(--r-card);background:var(--surface-sel);margin-bottom:10px;font-size:13px}
 #p2 .bulk .acts{display:flex;gap:var(--gap-inline);margin-left:auto;flex-wrap:wrap}
 #p2 .tree{list-style:none;margin:0;padding:0;font-size:14px}
@@ -1668,7 +1685,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .mcal header button:hover{background:var(--accent-soft)}
 #p2 .mcal header button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
 #p2 .mcal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:10px;grid-template-columns:repeat(7,1fr)}
-#p2 .mcal .dow{text-align:center;color:var(--mute);font-size:11px;padding:4px 0}
+#p2 .mcal .dow{text-align:center;color:var(--mute);font-size:12px;padding:4px 0}
 #p2 .mcal .d{height:36px;border:0;background:transparent;border-radius:var(--r-md);color:var(--ink);font:400 13px Sora,"Noto Sans JP";cursor:default;position:relative}
 #p2 .mcal .d.mute{color:var(--mute)}
 #p2 .mcal .d.today{font-weight:600;background:var(--accent-soft)}
@@ -1954,7 +1971,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <ul class="ls">
       <li>画面<strong>下</strong>（端寄せ可）・コンテキストに残る／やや長め</li>
       <li>アクション付き（元に戻す・表示 など）向き</li>
-      <li>見た目: surface + border（ページに溶ける）</li>
+      <li>見た目: surface + <code>--line-soft</code> の 1px 枠（ページに溶ける）</li>
       <li>リスト操作の結果など「今の画面」に紐づく通知</li>
     </ul>
     <div class="snack-demo" style="margin-top:12px">
@@ -2086,7 +2103,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     <div class="land" aria-hidden="true"></div>
     <div class="road" aria-hidden="true"></div>
     <div class="road2" aria-hidden="true"></div>
-    <div class="pin" aria-hidden="true" title="静かなピン"></div>
+    <div class="pin" aria-hidden="true"></div>
     <div class="chrome" aria-hidden="true">
       <button type="button" tabindex="-1">+</button>
       <button type="button" tabindex="-1">−</button>
@@ -2184,10 +2201,14 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <div class="note" style="margin-top:20px"><b>P3 まとめ</b> — 地図／リッチテキスト／動画プレイヤー／コードエディタ／独自ウィジェット方針。ガイドにない部品は使わない。プロダクト専用は案件ガイドへ。</div>
 </section>
-
-<p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p>
-</div><div id="toast"></div><script>
-document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.hex);showToast(b.dataset.hex+' をコピーしました')});
+</main>
+<footer><p class="mute" style="font-size:12px;margin-top:40px">Fonts: Sora / Noto Sans JP / JetBrains Mono（SIL OFL, Google Fonts）。</p></footer>
+</div><div id="toast" role="status"></div><script>
+document.querySelectorAll('[data-hex]').forEach(b=>b.onclick=async()=>{
+  let copied=true;
+  try{await navigator.clipboard.writeText(b.dataset.hex)}catch(e){copied=false}
+  showToast(copied?b.dataset.hex+' をコピーしました':'コピーできませんでした');
+});
 document.querySelectorAll('.tabs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x==b))}));document.querySelectorAll('.seg2').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x==b))}));
 let _toastTimer,_toastHideTimer;
 function hideToast(){
@@ -2212,8 +2233,10 @@ function showToast(msg,opts={}){
   el.classList.remove('on');
   void el.offsetWidth;
   el.classList.add('on');
+  // 表示時間は入場の遷移が終わってから数える（reduced-motion では 100ms の opacity のみ）
+  const enter=Math.max(...getComputedStyle(el).transitionDuration.split(',').map(parseFloat))*1000;
   const ms=opts.duration!=null?opts.duration:(opts.action?5000:3000);
-  _toastTimer=setTimeout(hideToast,ms);
+  _toastTimer=setTimeout(hideToast,enter+ms);
 }
 function toast(msg){showToast(msg)}
 document.getElementById('toast-demo-simple')?.addEventListener('click',()=>showToast('保存しました'));

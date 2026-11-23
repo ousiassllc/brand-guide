@@ -1,25 +1,20 @@
 #!/usr/bin/env bash
-# check-states.sh — Issue #10（切替・状態・フォーカス・スピナー・z・影）と Issue #12（テーマ切替の 3 形）の回帰チェック。
-# 依存なし（grep と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
+# check-states.sh — index.html・tokens-preview.html・theme-control.css の状態・切替・フォーカス・スピナー・z・影などの規定を、
+# grep・awk で見る回帰チェック。対象の Issue: #10（切替・状態・フォーカス・スピナー・z・影）、#12（テーマ切替の 3 形）、
+# #14（Hitomado 提案の反映）、#16（puppet-remo 由来の部品）、ほか #26・#34・#41・#52 など。
+# theme.js の動作（初期値・保存・OS 追従など）は check-theme.sh が実際に動かして確かめる（#53）。
+# 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
 set -u
-root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
-idx="$root/index.html"; prev="$root/tokens-preview.html"; thm="$root/theme.js"
-fail=0
-ok() { printf 'PASS  %s\n' "$1"; }
-ng() { printf 'FAIL  %s\n' "$1"; fail=1; }
-has() { grep -Eq -- "$2" "$1"; }
-chk() { if has "$3" "$2"; then ok "$1"; else ng "$1"; fi; }
-sec() { awk -v id="$1" '$0 ~ "<section id=\"" id "\""{f=1} f{print} f&&/<\/section>/{exit}' "$idx"; }
-# 節の中だけを grep する（他の節の同じ語で誤って通らないように）
-insec() { sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
+. "$(dirname "$0")/lib.sh"
+need "$idx" "$prev"
 # tokens-preview の新節 #states の中だけ（main に既にある行で通らないように）
-instates() { awk '/<section class="ui" id="states">/{f=1} f{print} f&&/<\/section>/{exit}' "$prev" | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
+instates() { secp states | grep -Eq -- "$2" && ok "$1" || ng "$1"; }
 
 # (1) index.html: 節と推奨案／代替の区別
 for id in theme states focus spinner layers soft-ripple a11y-modes; do
   [ -n "$(sec "$id")" ] && ok "index.html に #$id 節がある" || ng "index.html に #$id 節がない"
 done
-# #states はボタン（採用）とスイッチ・ラジオ（推奨案・代替つき）が同居する。#spinner / #soft-ripple は全面「採用」（下の (8) で確認）
+# #states はボタン（採用）とスイッチ・ラジオ（推奨案・代替つき）が同居する。#spinner / #soft-ripple は全面「採用」（下の (7-1) で確認）
 s=$(sec states)
 printf '%s' "$s" | grep -q '推奨案' && printf '%s' "$s" | grep -q '代替' && ok '#states: スイッチ・ラジオは推奨案と代替を区別' || ng '#states: スイッチ・ラジオの推奨案／代替の区別がない'
 insec '切替: 3 モードと system 初期値'            theme  'system.*prefers-color-scheme'
@@ -33,11 +28,20 @@ insec 'z: --z-popup 401'                          layers '--z-popup 401'
 insec 'z: 既存の段を並べ替えない'                 layers '並べ替えない'
 insec '影: Light 6% / Dark 40%'                   layers '6%.*40%'
 insec 'ラジオ: 18px・6px の点'                    states '18px.*6px'
+chk 'tokens-preview: .chk input は padding:0（グローバル input{} の padding で 18px が膨らまない）' '^\.chk input[^{]*\{[^}]*width:18px;height:18px;[^}]*padding:0' "$prev"
+chk 'tokens-preview: スライダー .rng は枠・padding・角丸を残さない（グローバル input{} の漏れ止め）' '^#p1 \.rng\{[^}]*padding:0;border:0;border-radius:0' "$prev"
+chk 'tokens-preview: スライダーのつまみ（webkit）は 16px 円・1px border' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*width:16px;height:16px;[^}]*border-radius:50%;[^}]*border:1px solid var\(--border\)' "$prev"
+! has "$prev" '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-shadow' && ok 'tokens-preview: スライダーのつまみ（webkit）に box-shadow を付けない' || ng 'tokens-preview: スライダーのつまみ（webkit）に box-shadow が残っている'
+chk 'tokens-preview: スライダーのつまみ（webkit）は box-sizing:border-box（border 込みで 16px）' '^#p1 \.rng::-webkit-slider-thumb\{[^}]*box-sizing:border-box' "$prev"
+chk 'tokens-preview: スライダーのつまみ（moz）も box-sizing:border-box・16px・box-shadow なし（webkit とそろえる）' '^#p1 \.rng::-moz-range-thumb\{box-sizing:border-box;width:16px;height:16px;[^}]*box-shadow:none' "$prev"
+chk 'tokens-preview: 同意チェック（.np-agree / .np-chk）は .chk と同じ見た目（OS 標準にしない）' '^\.chk input,#states \.np-agree input,#states \.np-chk input[^{]*\{appearance:none;width:18px' "$prev"
+chk 'tokens-preview: データテーブルのチェックボックスは .chk と同じ見た目（OS 標準にしない）' '^\.chk input,[^{]*#p2 \.atable input\[type=checkbox\]\{appearance:none;width:18px' "$prev"
+! has "$prev" 'accent-color:' && ok 'tokens-preview: accent-color だけに頼る標準コントロールがない' || ng 'tokens-preview: accent-color による標準コントロールが残っている'
 
 # (2) 共通テーマ実装
 [ -f "$thm" ] && ok 'theme.js がある' || ng 'theme.js がない'
-chk 'theme.js: system 追従 (matchMedia change)'  "addEventListener\('change'"            "$thm"
-chk 'theme.js: light/dark だけ保存'              "light.*dark"                          "$thm"
+# theme.js の動作（OS 追従・light/dark だけ保存・保存キー ousiass-theme）は scripts/check-theme.sh が実際に動かして確かめる（Issue #53）。
+# ここでは文字列の存在しか見えない grep は置かず、ファイルの有無と、両ページが head で同期読み込みすることだけを見る。
 for f in "$idx" "$prev"; do
   chk "$(basename "$f"): head で theme.js を同期読み込み" '<script src="theme.js"></script>' "$f"
   chk "$(basename "$f"): 切替コントロール 3 ボタン"       'data-set-theme="system"'        "$f"
@@ -57,6 +61,28 @@ chk 'tokens-preview: ボタンは outline 3px'         '\.ui \.btn:focus-visible
 ! has "$prev" 'box-shadow:0 0 0 3px var\(--ring\)' && ok 'tokens-preview: 旧 --ring の box-shadow を使わない' || ng 'tokens-preview: 旧 --ring の box-shadow が残っている'
 instates 'tokens-preview #states: forced-colors 対応'       'forced-colors:active'
 instates 'tokens-preview #states: reduced-motion の遷移停止' 'prefers-reduced-motion:reduce\)\{\.ui \.btn'
+# Issue #52: reduced-motion の停止漏れ（見本ごとに、停止する規則が reduced-motion ブロックの中にあること）
+rmblk() { awk '/prefers-reduced-motion:reduce\)\{/{f=1} f{print} f&&/^\}$|\}\}$/{f=0}' "$prev"; }
+for sel in '\.mbtn\{transition:none\}' '#p1 \.drop\{transition:none\}' '#p1 \.acc summary::after\{transition:none\}' '#p0 \.mnav-scrim\{transition:opacity 100ms linear\}' '\.mfade,\.mfade\.on\{transform:none;transition:opacity 100ms linear\}'; do
+  rmblk | grep -Eq -- "$sel" && ok "tokens-preview: reduced-motion で停止: $sel" || ng "tokens-preview: reduced-motion の停止漏れ: $sel"
+done
+# Issue #41: title 属性（<title> 要素を除く）を使わない（ツールチップ部品に統一）
+! grep -Eq '[ ]title="' "$prev" "$idx" && ok 'title 属性を使っていない（tokens-preview / index）' || ng 'title 属性が残っている（tokens-preview / index）'
+# Issue #34: id の重複がない（getElementById が別の要素を返して見本の JS が壊れるため）
+[ -z "$(grep -o ' id="[^"]*"' "$prev" | sort | uniq -d)" ] && ok 'tokens-preview: id の重複がない' || ng "tokens-preview: id が重複している: $(grep -o ' id="[^"]*"' "$prev" | sort | uniq -d | tr '\n' ' ')"
+# Issue #26: モバイルナビのドロワー見本は dialog・aria-modal・Esc・フォーカス戻し・幅上限 320px・fade＋8px
+chk 'tokens-preview: モバイルナビのドロワーは role=dialog・aria-modal' 'id="p0-mnav-panel" role="dialog" aria-modal="true"' "$prev"
+chk 'tokens-preview: モバイルナビのドロワー幅の上限は 320px' '#p0 \.mnav-panel\{[^}]*width:78%;max-width:320px' "$prev"
+chk 'tokens-preview: モバイルナビの出入りは opacity＋8px の移動' '#p0 \.mnav-panel\{[^}]*opacity:0;[^}]*transform:translateX\(-8px\)' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip は hover だけ 400ms 遅らせる（transition-delay は表示側の規則だけ）' '#p0 \.tip-wrap:hover \.tip\{opacity:1;transition-delay:400ms\}' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip は :focus-visible のときだけ即時（マウスクリックだけのフォーカスでは出さない）' '#p0 \.tip-wrap button:focus-visible\+\.tip\{opacity:1;transition-delay:0s\}' "$prev"
+notchk 'tokens-preview: #76 P0 の Tooltip を :focus-within で出さない' '#p0 \.tip-wrap:focus-within' "$prev"
+notchk 'tokens-preview: #76 P0 の .tip の基底規則に transition-delay を置かない（戻る向きに遅延が掛かる）' '#p0 \.tip\{[^}]*transition-delay' "$prev"
+chk 'tokens-preview: #76 reduced-motion の P0 .tip は 100ms linear のまま' '^#p0 \.tip\{transition:opacity 100ms linear\}' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip「Inverse」のボタンは aria-describedby で .tip を指す' 'aria-describedby="p0-tip1">Inverse</button><span class="tip" id="p0-tip1" role="tooltip">' "$prev"
+chk 'tokens-preview: #76 P0 の Tooltip「Surface」のボタンは aria-describedby で .tip を指す' 'aria-describedby="p0-tip2">Surface</button><span class="tip alt" id="p0-tip2" role="tooltip">' "$prev"
+chk 'tokens-preview: モバイルナビは Esc で閉じる' "e\.key==='Escape'\)\{e\.preventDefault\(\);closeM\(\)" "$prev"
+chk 'tokens-preview: モバイルナビを閉じたらトリガへフォーカスを戻す' "function closeM\(\)\{[^}]*mOpen&&mOpen\.focus\(\)" "$prev"
 instates 'tokens-preview #states: スピナー周期は .spin 既存（0.9s）を使う' 'class="spin"'
 
 # (4) 既存の正本を壊していない
@@ -73,13 +99,12 @@ for t in '--z-base:0' '--z-dropdown:100' '--z-sticky:200' '--z-drawer:300' '--z-
 done
 ! has "$idx" '--bone:#000000|--bone:#000;' && ! has "$prev" '--bone:#000000|--bone:#000;' && ok '真っ黒 #000 を背景に使っていない' || ng '真っ黒背景がある'
 
-# (5) index.html: ヘッダーと確定／推奨案の表記（PR #11 レビュー反映）
-chk 'ヘッダー: 480px 以下は .top のアイコンだけ形（見える 38×38・padding 3px）で、ラベルは視覚的に隠す' '@media\(max-width:480px\)\{\.top \.seg\{padding:3px\}\.top \.seg button\{[^}]*width:38px;height:38px' "$idx"
-chk 'ヘッダー: 480px 以下でラベルを視覚的に隠す（読み上げ用に残す）' '\.top \.seg \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$idx"
+# (5) index.html: ヘッダーと確定／推奨案の表記（PR #11 レビュー反映）。ヘッダーの 480px 以下の規則は共通 CSS（theme-control.css）にある
+chk 'ヘッダー: 480px 以下は .top のアイコンだけ形（見える 38×38・padding 3px）で、ラベルは視覚的に隠す' '@media\(max-width:480px\)\{\.top \.seg\{padding:3px\}\.top \.seg button\{[^}]*width:38px;height:38px' "$root/theme-control.css"
+chk 'ヘッダー: 480px 以下でラベルを視覚的に隠す（読み上げ用に残す）' '\.top \.seg \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$root/theme-control.css"
 insec 'accent-soft 上の文字（ink）は推奨案ではなく採用' soft-ripple '地の補助文字 <span class="tag">採用</span>'
 
 # (6) 決定①〜⑤は採用: タグが「採用」で、採用と食い違う代替が残っていない（PR #11 レビュー反映）
-notinsec() { sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
 insec    '#theme: 採用タグ'                                theme  '<div class="rec"><span class="tag">採用</span><strong>3 モード'
 # 新節 #theme-forms（Issue #12・推奨案）を除いた部分に 推奨案 が残っていない
 sec theme | awk '/id="theme-forms"/{f=1} /<h3>最小の実装/{f=0} !f' | grep -Eq -- '推奨案' && ng '#theme: 採用済みの部分に推奨案タグが残っていない' || ok '#theme: 採用済みの部分に推奨案タグが残っていない'
@@ -104,12 +129,12 @@ grep -Eq '<h3 id="st-decided">[^<]*<span class="tag">採用</span></h3>' "$prev"
 grep -A1 'id="states-draft"' "$prev" | grep -Eq '推奨案.*ボタンの loading・スピナー・リップルの対象・テーマ切替.*実線リング.*--z-popup.*401.*40%.*--mute-on-soft.*ダイアログ本文 base 16.*ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ.*狭い設定ペインだけ 14 可、モバイルは 16.*使えないメニュー項目の opacity <code>\.4</code>.*全幅バナーの即時の出入りは <span class="tag">採用</span>' && ok '冒頭（tokens-preview）: 採用済みの明記（決定 4 件を含む）' || ng '冒頭（tokens-preview）: 採用済みの明記がない'
 awk '/<section class="ui" id="states">|id="states-draft"/{f=1} f{print}' "$prev" | grep -q '確定と断定しない\|確定値としては断定しない' && ng 'tokens-preview: 「断定しない」が残っている' || ok 'tokens-preview: 「断定しない」を消した'
 
-# (6b) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
+# (7) Issue #14: 採用（loading・リップルの対象・スピナー）、--mute-on-soft、ダイアログ、ペイン型の例外、Hitomado #283〜#287 の反映。
 #      #theme 節とテーマ切替コントロール（PR #13 の範囲）の項目はここに入れない。
 h3sec() { awk -v id="$1" '$0 ~ "^<h3 id=\"" id "\""{f=1;print;next} f&&(/^<h3 id=/||/^<\/section>/){exit} f{print}' "$prev"; }
 inh3()  { h3sec "$2" | grep -Eq -- "$3" && ok "$1" || ng "$1"; }
 inh3no(){ h3sec "$2" | grep -Eq -- "$3" && ng "$1" || ok "$1"; }
-# (8-1) 採用: 推奨案・代替の残骸がない
+# (7-1) 採用: 推奨案・代替の残骸がない
 insec    '#states: ボタンは採用タグ'                        states '<h3>ボタン <span class="tag">採用</span>'
 insec    '#states: loading は薄くしない（opacity を掛けない）' states 'loading</strong>: 寸法を維持し、薄くしない（opacity を掛けない）'
 insec    '#states: loading は aria-busy・クリック無効'      states 'aria-busy="true"</code>、クリックは無効'
@@ -126,7 +151,7 @@ insec    '#soft-ripple: 対象は通常ボタンとアイコンボタンだけ' 
 insec    '#soft-ripple: 非対象（行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー）' soft-ripple '行型・カード型・テキストリンク・タブ・セレクトのトリガ・スイッチ／ラジオ／スライダー'
 insec    '#soft-ripple: 押下は背景色・文字色の変化で示す'   soft-ripple '押下は背景色・文字色の変化'
 insec    '#soft-ripple: loading 中と reduced-motion では出さない' soft-ripple 'loading 中と reduced-motion では出さない'
-# (8-2) --mute-on-soft
+# (7-2) --mute-on-soft
 insec    '#soft-ripple: --mute-on-soft の定義（新しい HEX を作らない）' soft-ripple 'color-mix\(in srgb, var\(--mute\) 85%, var\(--ink\)\)'
 insec    '#soft-ripple: Light ≈ #5c5c5e・約 5.4:1'          soft-ripple 'Light ≈ <code>#5c5c5e</code>.*5\.4:1'
 insec    '#soft-ripple: Dark ≈ #9c9c9f・約 5.2:1（--mute のままは 4.29 / 4.22）' soft-ripple 'Dark ≈ <code>#9c9c9f</code>.*5\.2:1.*4\.29 / 4\.22:1'
@@ -139,13 +164,13 @@ inh3 'tokens-preview #st-soft: --mute-on-soft の見本とライブ計算'   st-
 inh3 'tokens-preview #st-soft: Light / Dark を並べた見本'          st-soft 'id="mos-pair"'
 inh3 'tokens-preview #st-soft: Light ペインと Dark ペイン'          st-soft 'data-theme="light"'
 inh3 'tokens-preview #st-soft: Dark ペイン'                         st-soft 'data-theme="dark"'
-# (8-3) ダイアログの本文
+# (7-3) ダイアログの本文
 insec    '#dialog: 節がある'                                dialog '<h2>ダイアログの本文と閉じ方'
 insec    '#dialog: 本文は base 16・行間 1.8'                 dialog '本文は base 16.*base</code>（16px・行間 1\.8）'
 insec    '#dialog: 補足・説明文は sm 14、14px 未満を本文にしない' dialog 'sm 14 のままでよい。14px 未満を本文にしない'
 grep -Eq '#states \.dlg \.dlg-body\{margin:0;font-size:16px;line-height:1\.8\}' "$prev" && ok 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8' || ng 'tokens-preview: ダイアログ本文の CSS が 16px / 1.8 でない'
 grep -Eq '#states \.dlg \.dlg-note\{[^}]*font-size:14px' "$prev" && ok 'tokens-preview: ダイアログの補足は 14px' || ng 'tokens-preview: ダイアログの補足が 14px でない'
-# (8-4) モーダルの閉じ方
+# (7-4) モーダルの閉じ方
 insec    '#dialog: Esc と外側クリックで閉じる・× も出す'     dialog 'Esc と外側クリック（スクラム）で閉じられる</strong>。× も出す'
 insec    '#dialog: 閉じることは確認（acknowledge）扱いにしない' dialog '「確認した（acknowledge）」扱いにしない'
 insec    '#dialog: 確認済みにするのは明示のボタンだけ'       dialog '確認済みにするのは明示のボタンだけ'
@@ -155,7 +180,7 @@ grep -Eq 'dlg\.addEventListener\(.cancel.,e=>\{if\(busy\)\{e\.preventDefault\(\)
 grep -Eq "if\(e\.target===dlg&&!busy\)finish\('外側クリック'\)" "$prev" && ok 'tokens-preview: 外側クリックで閉じる（処理中は除く）' || ng 'tokens-preview: 外側クリックの処理がない'
 grep -Eq "xB\.disabled=true" "$prev" && grep -Eq "xB\.disabled=false" "$prev" && ok 'tokens-preview: 処理中は × を無効にし、終わったら戻す' || ng 'tokens-preview: × の無効化と復帰がない'
 grep -Eq "okB\.addEventListener\('click',\(\)=>\{if\(busy\)return;\\$\('dlg-ack'\)\.textContent='確認済み'" "$prev" && ok 'tokens-preview: 確認済みになるのは「確認しました」ボタンだけ' || ng 'tokens-preview: 確認ボタンの処理がない'
-# (8-5) ペイン型デスクトップアプリの例外
+# (7-5) ペイン型デスクトップアプリの例外
 insec    '#pane-app: 節がある（ページ型には当てはめない）'  pane-app 'ペイン型デスクトップアプリの例外.*ページ型の画面には当てはめない'
 insec    '#pane-app: ツールバー gap 4（--s-1）・文字ボタン混在は --gap-inline 8' pane-app 'アイコンボタンだけのツールバーは gap 4（<code>--s-1</code>）。文字ボタン混在は <code>--gap-inline</code> 8'
 insec    '#pane-app: 複合行の選択リスト 8・素のラジオ行 --gap-option 4' pane-app '項目間 8。素のラジオ行は <code>--gap-option</code> 4'
@@ -174,7 +199,7 @@ grep -Eq '#states \.tbr\{display:flex;align-items:center;gap:var\(--s-1\)\}#stat
 grep -Eq '#states \.nv a\.acct\{[^}]*min-height:62px[^}]*border-left:6px' "$prev" && ok 'tokens-preview: 2 行項目 62px・帯 6px' || ng 'tokens-preview: 2 行項目 62px・帯 6px の CSS がない'
 grep -Eq '#states \.dpn\{[^}]*gap:0;padding:var\(--s-1\)' "$prev" && ok 'tokens-preview: ドロップダウン gap 0・padding --s-1' || ng 'tokens-preview: ドロップダウン gap 0・padding の CSS がない'
 grep -Eq '#states \.sws button\[aria-pressed=true\]\{border-color:var\(--ink\)\}' "$prev" && ok 'tokens-preview: スウォッチ選択は --ink の 2px' || ng 'tokens-preview: スウォッチ選択の CSS がない'
-# (8-6) Hitomado #283〜#287 の残り。未確定だった 4 件は決定済み（採用）。「未確定」「判断待ち」「案」を残さない
+# (7-6) Hitomado #283〜#287 の残り。未確定だった 4 件は決定済み（採用）。「未確定」「判断待ち」「案」を残さない
 decided=$(sec proposals | awk '/id="decided"/{f=1} f{print} f&&/<\/table>/{exit}')
 n=$(printf '%s\n' "$decided" | grep -o '<td><span class="tag">採用</span></td>' | wc -l)
 [ "$n" -eq 4 ] && ok "#proposals: 決定の行が採用 4 件（$n）" || ng "#proposals: 決定の行が採用 4 件でない（$n）"
@@ -225,7 +250,7 @@ for k in 'class="mono14"' 'class="tb40"' 'id="tgl"' 'class="tipw"' 'id="cnt-in"'
   inh3 "tokens-preview #proposals-draft: 見本 $k" proposals-draft "$k"
 done
 
-# (7) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
+# (8) ヘッダー: 切替ラベルを折らない／バッジは ≤720px で隠す（PR #11 再チェック）
 chk 'ヘッダー（index）: 720px 以下でバッジを非表示（481〜720px で切替が縦に折れない）' '@media\(max-width:720px\)\{\.badge\{display:none\}\}' "$idx"
 ! has "$idx" '@media\(max-width:480px\)\{\.badge' && ok 'ヘッダー（index）: 旧 480px のバッジ規則を残さない' || ng 'ヘッダー（index）: 旧 480px のバッジ規則が残っている'
 chk 'ヘッダー（index）: .seg button は white-space:nowrap' '\.seg button\{[^}]*white-space:nowrap' "$idx"
@@ -240,6 +265,16 @@ chk 'tokens-preview: 主ボタンの実 hover は accent 85% / bone の color-mi
 chk 'tokens-preview: 主ボタンの固定 hover 見本（.is-hover.pri）も同じ color-mix' '\.ui \.btn\.is-hover\.pri\{background:color-mix\(in srgb,var\(--accent\) 85%,var\(--bone\)\)\}' "$prev"
 ! has "$prev" '\.is-hover\.pri\{[^}]*opacity' && ok 'tokens-preview: .is-hover.pri に opacity を使わない' || ng 'tokens-preview: .is-hover.pri に opacity が残っている'
 ! has "$prev" '\.btn:hover\{opacity|\.pri:hover\{[^}]*opacity|\.btn\.pri[^{]*:hover\{[^}]*opacity:\.85' && ok 'tokens-preview: 主ボタンの hover に opacity .85 を掛けない' || ng 'tokens-preview: 主ボタンの hover に opacity が掛かっている'
+! has "$prev" '\.btn:not\(\.pri\):hover\{[^}]*opacity|\.(sec|ghost|dan):hover\{[^}]*opacity:\.[0-9]|\.btn[^{]*\.(sec|ghost|dan)[^{]*:hover\{[^}]*opacity:\.[0-9]' && ok 'tokens-preview: 非主ボタン（sec / ghost / dan）の hover に opacity を掛けない（色・背景のみ）' || ng 'tokens-preview: 非主ボタンの hover に opacity が掛かっている'
+# #50: surface-sel / accent-soft 地の補助文字は --mute-on-soft（--mute のまま置かない）
+chk 'tokens-preview: .acc .body は --mute-on-soft' '#p1 \.acc \.body\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .ld p は --mute-on-soft' '#states \.ld p\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .cmdk-list .meta は --mute-on-soft' '#p2 \.cmdk-list \.meta\{color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .grid-demo span は --mute-on-soft' '#p0 \.grid-demo span\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .topnav .avatar は --mute-on-soft' '#p0 \.topnav \.avatar\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: タグ入力の chip の × は --mute-on-soft' '#p1 \.tags \.chip button\{[^}]*color:var\(--mute-on-soft\)' "$prev"
+chk 'tokens-preview: .adm .cd .tg は --mute-on-soft' '\.adm \.cd \.tg\{color:var\(--mute-on-soft\)\}' "$prev"
+chk 'tokens-preview: ペイン見本内の .st-h・small・.help は --mute-on-soft' '#states \.pn \.st-h,#states \.pn small,#states \.pn \.help\{color:var\(--mute-on-soft\)\}' "$prev"
 chk 'tokens-preview: loading 中の主ボタンは hover で色を変えない' '\.ui \.btn\.pri\.is-loading:hover\{background:var\(--accent\)\}' "$prev"
 ! has "$prev" 'mixh' && ok 'tokens-preview: 主ボタン hover の別枠 .mixh を残さない（現行見本と同じ値）' || ng 'tokens-preview: .mixh が残っている'
 # P3: ペイン型の例外の表は 12 行。本文の「13 項目」（thead を含めた数え間違い）を残さない
@@ -255,6 +290,10 @@ chk 'tokens-preview: .sw2 のラベルは 16px' '\.sw2\{[^}]*font-size:16px\}' "
 chk 'tokens-preview: .fld の基本は 16px' '\.ui \.fld\{[^}]*font:400 16px' "$prev"
 chk 'tokens-preview: 狭い場所だけ使う .fld.f14 は 14px' '#states \.fld\.f14\{font-size:14px\}' "$prev"
 chk 'tokens-preview: 640px 以下は .fld.f14 も 16px（iOS の自動拡大を防ぐ）' '@media \(max-width:640px\)\{#states \.fld\.f14\{font-size:16px\}\}' "$prev"
+chk 'tokens-preview: P1 のタグ入力は 640px 以下で 16px（iOS の自動拡大を防ぐ）' '^  #p1 \.tags input\{font-size:16px\}$' "$prev"
+chk 'tokens-preview: P2 のコマンドパレット検索は 16px（15px はスケール外）' '^#p2 \.cmdk-hd input\{[^}]*font:400 16px' "$prev"
+chk 'tokens-preview: 文字数カウンタの入力欄（#cnt-in）に名前（aria-label）がある' '<input[^>]*id="cnt-in"[^>]*aria-label="[^"]+"' "$prev"
+chk 'tokens-preview: 検索欄（#p1-search-input）は role=combobox で名前（aria-label）がある（aria-expanded は combobox の属性）' '<input[^>]*id="p1-search-input"[^>]*role="combobox"[^>]*aria-label="[^"]+"[^>]*aria-expanded="' "$prev"
 # 3. 使えないメニュー項目は opacity .4（ボタンの disabled と同じ）。.5 は使わない。ホバーに反応しない
 chk 'tokens-preview: 使えないメニュー項目は opacity .4' '#states \.dpn button:disabled\{opacity:\.4;cursor:not-allowed\}' "$prev"
 chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付かない' '#states \.dpn button:disabled:hover\{background:transparent\}' "$prev"
@@ -263,7 +302,7 @@ chk 'tokens-preview: 使えないメニュー項目はホバーで背景が付�
 chk 'tokens-preview: バナーは .off で display:none（即時）' '#states \.bn\.off\{display:none\}' "$prev"
 ! has "$prev" '#states \.bn[^{]*\{[^}]*transition' && ! has "$prev" 'fadeh' && ok 'tokens-preview: バナーに transition・フェード（fadeh）を使わない' || ng 'tokens-preview: バナーに transition かフェードが残っている'
 
-# (8) Issue #12: テーマ切替の 3 形（アイコンだけ／縦積み／文字付き横並び）
+# (11) Issue #12: テーマ切替の 3 形（アイコンだけ／縦積み／文字付き横並び）
 # 見本は 3 形 × 3 ボタン。形ごとの role=group の行（aria-label で特定。ヘッダーの .seg と取り違えない）を調べる
 form_of() { grep -F -- "aria-label=\"テーマ（$2）\"" "$1" | head -1; }
 thm_prev() { awk '/<h3 id="st-theme">/{f=1} /<h3 id="st-env">/{f=0} f' "$prev"; }
@@ -278,32 +317,48 @@ for f in "$idx" "$prev"; do
   done
   form_of "$f" 'アイコンだけ' | grep -q 'class="seg seg-icon"' && form_of "$f" '縦積み' | grep -q 'class="seg seg-stack"' && ok "$n: 見本のクラス（.seg-icon / .seg-stack）" || ng "$n: 見本のクラスがない"
   ! has "$f" '<[a-z]+ [^>]*role="radiogroup"' && ok "$n: 要素に role=radiogroup を付けない（role=group + aria-pressed）" || ng "$n: role=radiogroup の要素がある"
-  # CSS（44px・ツールチップ・ラジオ印・forced-colors・タップ領域）
-  chk "$n: アイコンだけは見える部分 38×38 のボタン（外枠 padding 3px）" '\.seg-icon\{padding:3px\}\.seg-icon button\{[^}]*width:38px;height:38px' "$f"
-  chk "$n: アイコンだけのラベルは視覚的に隠し、hover / focus-visible で吹き出しに出す" '\.seg-icon \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$f"
-  chk "$n: アイコンだけのツールチップは hover と focus-visible の両方" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{' "$f"
-  chk "$n: 縦積みは 1 行 44px 以上" '\.seg-stack button\{[^}]*min-height:44px' "$f"
-  chk "$n: 縦積みはラジオ印（18px の円・6px の点）" '\.seg-stack button::after\{[^}]*width:18px;height:18px.*radial-gradient\(circle,var\(--bone\) 0 3px' "$f"
-  chk "$n: 文字付きは見た目を変えずタップ領域だけ 44px 以上（::before で縦に広げる）" '\.seg button::before\{content:"";position:absolute;inset:-8px 0\}' "$f"
-  chk "$n: forced-colors で縦積みのラジオ印も HighlightText" 'forced-colors:active\)\{.*\.seg-stack button\[aria-pressed=true\]::after\{border-color:HighlightText;background:radial-gradient\(circle,HighlightText' "$f"
-  chk "$n: 選択中は Highlight / HighlightText（全形共通）" '\.seg button\[aria-pressed=true\]\{background:Highlight;color:HighlightText;forced-color-adjust:none\}' "$f"
-  chk "$n: ヘッダーのアイコンだけ形のツールチップ（≤480px）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{' "$f"
   chk "$n: フォーカスの実線リング（3px・offset 2px）を維持" '\.seg button:focus-visible\{outline:3px solid var\(--focus\);outline-offset:2px\}' "$f"
-  # --- 直し 1 回目（PR #13 レビュー P2-1〜P3-3）。aa4129d では FAIL する ---
-  chk "$n: P2-1 アイコンだけのタップ範囲は ::before の inset:-3px で 44px を保つ" '\.seg-icon button::before\{inset:-3px\}' "$f"
-  chk "$n: P2-1 ヘッダー（≤480px）も ::before の inset:-3px でタップ範囲 44px" '\.top \.seg button::before\{inset:-3px\}' "$f"
-  chk "$n: P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regular 400・320ms フェードイン" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$f"
-  chk "$n: P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$f"
-  chk "$n: P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし" '@keyframes seg-tip\{from\{opacity:0\}\}' "$f"
-  chk "$n: P2-2 reduced-motion では吹き出しのアニメを止める" '@media\(prefers-reduced-motion:reduce\)\{\.seg \.lb\{animation:none!important\}\}' "$f"
+  chk "$n: #64 グローバルの :focus-visible（--focus の 2px・offset 2px。a・.sbtn・pre.tbox もブラウザ既定のリングにしない）" '^:focus-visible\{outline:2px solid var\(--focus\);outline-offset:2px\}' "$f"
   ! has "$f" 'border:1px solid var\(--ink\);border-radius:6px' && ok "$n: P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "$n: P2-2 旧い吹き出しの指定が残っている"
-  chk "$n: P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$f"
-  chk "$n: P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$f"
-  chk "$n: P3-1 文字付き見本の注記（右端が切れる）の置き場" '\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
   grep -E 'class="(sub|help) scr-note"[^>]*>[^<]*右端（「システム」）が切れて' "$f" | grep -q . && ok "$n: P3-1 320px の見本に「システムが切れる」注記がある" || ng "$n: P3-1 見本に注記がない"
-  chk "$n: P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠" 'forced-colors:active\)\{.*\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText;background:Canvas;color:CanvasText\}' "$f"
-  chk "$n: P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠" '@media\(forced-colors:active\) and \(max-width:480px\)\{\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText' "$f"
+  chk "$n: #63 見本の並べ方（.sgrid .scr / .scr-note）は各ページの <style> にある（theme-control.css に置かない）" '\.sgrid \.scr\{overflow-x:auto;padding:6px;margin:-6px\}\.sgrid \.scr-note\{width:0;min-width:100%\}' "$f"
 done
+chk "index.html: #73 ボタン（.sbtn・.hex button を含む）のフォーカスリングは離散コントロールの 3px（グローバルの 2px を button だけ 3px にする）" '^button:focus-visible\{outline-width:3px\}' "$idx"
+notchk "index.html: #73 .hex button に 2px のリングを個別に付けない" '\.hex button:focus-visible\{outline:2px' "$idx"
+# テーマ切替の CSS は共通の theme-control.css 1 か所（両ページが <head> の同期 <link> で読む）。1 回だけ調べる
+css="$root/theme-control.css"
+[ -f "$css" ] && ok "theme-control.css がある" || ng "theme-control.css がない"
+for f in "$idx" "$prev"; do
+  chk "$(basename "$f"): head で theme-control.css を同期読み込み（相対パス）" '</style><link rel="stylesheet" href="theme-control.css"></head>' "$f"
+  ! has "$f" '^\.seg-(icon|stack)\{|@keyframes seg-tip' && ok "$(basename "$f"): テーマ切替の CSS を重複して持たない" || ng "$(basename "$f"): テーマ切替の CSS が theme-control.css と重複している"
+done
+# CSS（44px・ツールチップ・ラジオ印・forced-colors・タップ領域）
+chk "アイコンだけは見える部分 38×38 のボタン（外枠 padding 3px）" '\.seg-icon\{padding:3px\}\.seg-icon button\{[^}]*width:38px;height:38px' "$css"
+chk "アイコンだけのラベルは視覚的に隠し、hover / focus-visible で吹き出しに出す" '\.seg-icon \.lb\{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect\(0 0 0 0\)' "$css"
+chk "アイコンだけのツールチップは hover と focus-visible の両方" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{' "$css"
+chk "縦積みは 1 行 44px 以上" '\.seg-stack button\{[^}]*min-height:44px' "$css"
+chk "縦積みはラジオ印（18px の円・6px の点）" '\.seg-stack button::after\{[^}]*width:18px;height:18px.*radial-gradient\(circle,var\(--bone\) 0 3px' "$css"
+chk "文字付きは見た目を変えずタップ領域だけ 44px 以上（::before で縦に広げる）" '\.seg button::before\{content:"";position:absolute;inset:-8px 0\}' "$css"
+chk "forced-colors で縦積みのラジオ印も HighlightText" 'forced-colors:active\)\{.*\.seg-stack button\[aria-pressed=true\]::after\{border-color:HighlightText;background:radial-gradient\(circle,HighlightText' "$css"
+chk "選択中は Highlight / HighlightText（全形共通）" '\.seg button\[aria-pressed=true\]\{background:Highlight;color:HighlightText;forced-color-adjust:none\}' "$css"
+chk "ヘッダーのアイコンだけ形のツールチップ（≤480px）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{' "$css"
+# --- 直し 1 回目（PR #13 レビュー P2-1〜P3-3）。aa4129d では FAIL する ---
+chk "P2-1 アイコンだけのタップ範囲は ::before の inset:-3px で 44px を保つ" '\.seg-icon button::before\{inset:-3px\}' "$css"
+chk "P2-1 ヘッダー（≤480px）も ::before の inset:-3px でタップ範囲 44px" '\.top \.seg button::before\{inset:-3px\}' "$css"
+chk "P2-2 アイコンだけの吹き出しは padding 6×10・角丸 4px・Regular 400・320ms フェードイン" '\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$css"
+chk "P2-2 ヘッダー（≤480px）の吹き出しも同じ（6×10・4px・400・320ms）" '\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{[^}]*padding:6px 10px;border-radius:4px;[^}]*font:400 12px[^}]*animation:seg-tip 320ms' "$css"
+chk "P2-2 フェードイン（@keyframes seg-tip）と reduced-motion でアニメなし" '@keyframes seg-tip\{from\{opacity:0\}\}' "$css"
+chk "P2-2 reduced-motion では吹き出しのアニメを止める" '@media\(prefers-reduced-motion:reduce\)\{\.seg \.lb\{animation:none!important\}\}' "$css"
+chk "P2-2 吹き出しは hover だけ 400ms 遅らせ（遅延中は opacity:0 のまま）、focus-visible は即時（.seg-icon と ≤480px のヘッダーの両方）" ':is\(\.seg-icon,\.top \.seg\) button:hover:not\(:focus-visible\) \.lb\{animation-delay:400ms;animation-fill-mode:backwards\}' "$css"
+notchk "P2-2 focus-visible 側に animation-delay を付けない（フォーカスは即時）" ':is\(:hover,:focus-visible\) \.lb\{[^}]*animation-delay' "$css"
+! has "$css" 'border:1px solid var\(--ink\);border-radius:6px' && ok "P2-2 旧い吹き出し（枠 1px・角丸 6px・600）を残さない" || ng "P2-2 旧い吹き出しの指定が残っている"
+chk "P2-3 縦積みの選択中の行は --accent-soft の地＋--ink の文字" '\.seg-stack button\[aria-pressed=true\]\{background:var\(--accent-soft\);color:var\(--ink\)\}' "$css"
+chk "P2-3 縦積みはラジオ印の円だけ --accent で塗る（点は --bone）" '\.seg-stack button\[aria-pressed=true\]::after\{border-color:var\(--accent\);background:radial-gradient\(circle,var\(--bone\) 0 3px,var\(--accent\) 3\.5px\)' "$css"
+chk "#63 theme-control.css の冒頭に「基底の .seg は各ページの <style> にある」前提を書く" '基底の \.seg.*は各ページの <style> にある' "$css"
+notchk "#63 theme-control.css に見本専用の .sgrid の規則を置かない" '\.sgrid' "$css"
+chk "#63 README に「基底の .seg は各ページ側にある」と書く" '基底の `\.seg` は各ページ側' "$root/README.md"
+chk "P3-3 forced-colors でアイコンだけの吹き出しに 1px solid CanvasText の枠" 'forced-colors:active\)\{.*\.seg-icon button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText;background:Canvas;color:CanvasText\}' "$css"
+chk "P3-3 forced-colors でヘッダー（≤480px）の吹き出しにも枠" '@media\(forced-colors:active\) and \(max-width:480px\)\{\.top \.seg button:is\(:hover,:focus-visible\) \.lb\{border:1px solid CanvasText' "$css"
 # 文言: 新節は推奨案、ただし「両方を定義して場所で使い分ける」は決定済み
 insec '#theme-forms: 推奨案タグ' theme '<div class="rec" id="theme-forms"><span class="tag">推奨案</span>'
 insec '#theme-forms: 両方を定義して場所で使い分けるのは決定済み' theme '決定済み:</strong> 「アイコンだけ」と「縦積み」の<strong>両方を定義し、置く場所で使い分ける</strong>'
@@ -326,9 +381,8 @@ thm_prev | grep -Eq '決定済み:</strong> 「アイコンだけ」と「縦積
 thm_prev | grep -Eq '<th>置く場所</th><th>形</th>' && ok 'tokens-preview #st-theme: 使い分け表' || ng 'tokens-preview #st-theme: 使い分け表がない'
 thm_prev | grep -q 'id="theme-forms-demo"' && ok 'tokens-preview #st-theme: 3 形の見本が #st-theme の中にある' || ng 'tokens-preview #st-theme: 見本が #st-theme の外にある'
 chk '#st-theme は採用のまま（新ブロックだけ推奨案）' '<h3 id="st-theme">[^<]*<span class="tag">採用</span></h3>' "$prev"
-chk 'theme.js: 保存キーは ousiass-theme のまま' "KEY = 'ousiass-theme'" "$thm"
 
-# (11) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
+# (12) Issue #16: puppet-remo 由来の部品 5 種（見出し付きカード・秘密の入力欄・題なしアラート・fieldset 見出し・前へ/次へのページ送り）
 insec    '#settings-parts: 節がある（puppet-remo#148〜#152 を参照）・題は「設定画面のパーツ」'  settings-parts '<h2>設定画面のパーツ Settings parts</h2>.*puppet-remo#148〜#152'
 grep -B1 '^<section id="settings-parts"' "$idx" | head -1 | grep -q '流用してよい</li></ul></section>$' && ok 'index: #settings-parts は #proposals のすぐ後ろ' || ng 'index: #settings-parts が #proposals のすぐ後ろにない'
 ! has "$idx" 'puppet-parts' && ! has "$prev" 'puppet-parts|id="st-parts"' && ok '旧 #puppet-parts / #st-parts を残していない' || ng '旧 #puppet-parts か #st-parts が残っている'
@@ -358,6 +412,31 @@ insec    '#settings-parts: 中央に「N ページ目」を sm 14・--mute'     
 insec    '#settings-parts: 押したボタンが端で使えなくなったらフォーカスを反対側へ移す' settings-parts '押したボタンが端で使えなくなったら、<strong>フォーカスを反対側のボタンへ移す</strong>'
 insec    '#settings-parts: 端ではその側のボタンを disabled（opacity .4）' settings-parts '端ではその側のボタンを disabled にする（opacity <code>\.4</code>'
 chk      'index: ジャンプ行に #settings-parts のリンク'               '<a href="#settings-parts">設定画面のパーツ</a>' "$idx"
+# <section id> はすべてページ先頭のジャンプ導線（nav.jump）にリンクがある（Issue #58）
+jump=$(grep -o '<nav class="jump"[^>]*>.*</nav>' "$idx")
+missing=''
+for id in $(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//'); do
+  printf '%s' "$jump" | grep -q "href=\"#$id\"" || missing="$missing #$id"
+done
+[ -n "$jump" ] && [ -z "$missing" ] && ok 'index: すべての <section id> がジャンプ導線にある' || ng "index: ジャンプ導線にない節:$missing"
+# index.html の tokens-preview.html#… 参照がすべて tokens-preview.html の id に解決する（Issue #25）
+badref=''
+for r in $(grep -o 'tokens-preview\.html#[A-Za-z0-9_-]*' "$idx" | sed 's/.*#//' | sort -u); do
+  grep -q "id=\"$r\"" "$prev" || badref="$badref #$r"
+done
+[ -z "$badref" ] && ok 'index: tokens-preview.html#… の参照がすべて実在する id' || ng "index: tokens-preview.html に無い id への参照:$badref"
+# ランドマーク・スキップリンク・トーストの live region と当たり判定（Issue #40・#35・#36）
+for f in "$idx" "$prev"; do
+  n=$(basename "$f")
+  [ "$(grep -o '<main[ >]' "$f" | wc -l)" -eq 1 ] && ok "$n: <main> が 1 つ" || ng "$n: <main> が 1 つでない"
+  chk "$n: main#main とスキップリンク" '<a class="skip" href="#main">本文へ移動</a>' "$f"
+  chk "$n: ページ内の目次は nav" '<nav[^>]*aria-label="ページ内の目次"' "$f"
+  ! grep -Pq '<p[ >]((?!</p>).)*<nav' "$f" && ok "$n: nav を p の中に入れない（p が自動で閉じて、後ろの内容が箱の外に出る）" || ng "$n: nav が p の中にある"
+  chk "$n: #toast は role=status" '<div id="toast" role="status"></div>' "$f"
+  chk "$n: #69 非表示の #toast は pointer-events:none（#35）で opacity:0。visibility:hidden にしない（a11y ツリーに残して role=status の本文の差し替えを通知させる）" '#toast\{[^}]*opacity:0;pointer-events:none' "$f"
+  notchk "$n: #69 #toast に visibility を使わない" '#toast(\.on)?\{[^}]*visibility' "$f"
+  chk "$n: コピー失敗時の表示" 'コピーできませんでした' "$f"
+done
 # tokens-preview の見本（Light / Dark は共通トークンで切り替わる。値は CSS で担保）
 grep -Eq '<h3 id="st-settings-parts">[^<]*<span class="tag">採用</span></h3>' "$prev" && ok 'tokens-preview: #st-settings-parts が採用' || ng 'tokens-preview: #st-settings-parts が採用になっていない'
 for k in 'class="np-card"' '<h3 class="np-card-t"' '<h2 class="np-card-t"' 'id="np-sec-change"' 'id="np-eye"' 'class="e-open"' 'class="e-closed"' 'class="al np-note"' '<fieldset class="np-fs">' '<legend>' 'id="np-pg-prev"' 'id="np-pg-next"' 'id="np-pg-n"'; do
@@ -383,4 +462,4 @@ inh3     'tokens-preview #st-settings-parts: 題なしアラートは warning �
 inh3     'tokens-preview #st-settings-parts: info のアラート' st-settings-parts 'class="al np-note" style="--c:var\(--info\)"'
 chk      'tokens-preview: ページ送りの「N ページ目」は sm 14・--mute'  '#states \.np-pg-n\{font-size:14px;color:var\(--mute\)\}' "$prev"
 
-exit $fail
+finish
