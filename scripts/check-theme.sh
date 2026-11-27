@@ -191,6 +191,8 @@ async function main() {
       const switching = await click(pick);
       const s = await state();
       check(s.theme === pick && s.mode === pick, L(`${pick} をクリック: data-theme=${pick}・data-theme-mode=${pick}`), `theme=${s.theme} mode=${s.mode}`);
+      const colorScheme = await ev('getComputedStyle(document.documentElement).colorScheme');
+      check(colorScheme === pick, L(`${pick} をクリック: computed color-scheme が ${pick}（標準スクロールバー・フォーム部品の配色をテーマに合わせる）`), `color-scheme=${colorScheme}`);
       check(s.ls === pick, L(`${pick} をクリック: localStorage ${KEY}=${pick} を保存`), `ls=${s.ls}`);
       check(pressedOk(s, pick), L(`${pick} をクリック: aria-pressed がコントロールごとにちょうど 1 つ true（${pick}）`), JSON.stringify(s.groups));
       check(switching, L(`${pick} をクリック: 切替の瞬間は data-theme-switching で transition を止める`));
