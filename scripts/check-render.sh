@@ -353,6 +353,50 @@ async function measureToast(page) {
   return { idle, shown, hidden };
 }
 
+// #79〜#82 ARIA・キーボード到達の測定（ここから 1 つの塊）。
+// A11Y_STATIC: aria-hidden の中のフォーカス可能要素・名前の欠け・属性と role の組み合わせ・tabindex のない pre / overflow-x:auto。
+// A11Y_SCROLL: 溢れて実際にスクロールする要素が、自身か子でキーボードに届く（axe scrollable-region-focusable）。
+const A11Y_LIB = String.raw`
+const FOCUSABLE = 'a[href],button,input:not([type=hidden]),select,textarea,summary,[tabindex]';
+const isFocusable = e => e.tabIndex >= 0 && !e.disabled && !e.closest('[inert]') && e.getClientRects().length > 0;
+`;
+const A11Y_STATIC = `(() => { ${PAGE_LIB} ${A11Y_LIB}
+  const out = {};
+  out.hiddenFocus = [...document.querySelectorAll(FOCUSABLE)].filter(e => e.closest('[aria-hidden=true]') && isFocusable(e)).map(e => sel(e) + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  out.noRoleLabel = [...document.querySelectorAll('div[aria-label],span[aria-label],div[aria-labelledby],span[aria-labelledby]')].filter(e => !e.hasAttribute('role')).map(sel);
+  const named = e => { const l = e.getAttribute('aria-labelledby'); return !!(e.getAttribute('aria-label') || '').trim() || (!!l && l.split(/\s+/).some(id => (document.getElementById(id)?.textContent || '').trim())); };
+  out.unnamed = [...document.querySelectorAll('[role=progressbar],[role=listbox]')].filter(e => !named(e)).map(sel);
+  const SEL_ROLES = ['tab', 'option', 'row', 'gridcell', 'columnheader', 'rowheader', 'treeitem'];
+  out.badSelected = [...document.querySelectorAll('[aria-selected]')].filter(e => !SEL_ROLES.includes(e.getAttribute('role') || (e.tagName === 'OPTION' ? 'option' : ''))).map(sel);
+  out.badPressed = [...document.querySelectorAll('[aria-pressed]')].filter(e => !(e.tagName === 'BUTTON' || e.getAttribute('role') === 'button')).map(sel);
+  out.asideRole = [...document.querySelectorAll('aside[role]')].map(sel);
+  out.noTabindex = [...document.querySelectorAll('pre,[style*="overflow-x:auto"]')].filter(e => !e.hasAttribute('tabindex') && !e.querySelector(FOCUSABLE)).map(sel);
+  return out;
+})()`;
+const A11Y_SCROLL = `(() => { ${PAGE_LIB} ${A11Y_LIB}
+  const bad = [];
+  for (const e of document.body.querySelectorAll('*')) {
+    const c = getComputedStyle(e);
+    const sx = /auto|scroll/.test(c.overflowX) && e.scrollWidth > e.clientWidth + 1, sy = /auto|scroll/.test(c.overflowY) && e.scrollHeight > e.clientHeight + 1;
+    if (!(sx || sy) || !rendered(e)) continue;
+    if (isFocusable(e) || [...e.querySelectorAll(FOCUSABLE)].some(isFocusable)) continue;
+    bad.push(sel(e) + ' ' + e.scrollWidth + 'x' + e.scrollHeight + ' > ' + e.clientWidth + 'x' + e.clientHeight + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  }
+  return { bad };
+})()`;
+// #p2 .tree の閉じた details の開閉シェブロンを、実際のマウスで押して開くか
+async function measureTreeClick(page) {
+  const { s, ev } = page;
+  const pos = await ev(`(() => { const d = document.querySelector('#p2 .tree details:not([open])'); if (!d) return null;
+    d.dataset.probe = '1'; const tw = d.querySelector(':scope > summary .tw'); tw.scrollIntoView({ block: 'center' }); const r = tw.getBoundingClientRect();
+    const x = r.x + r.width / 2, y = r.y + r.height / 2, hit = document.elementFromPoint(x, y); return { x, y, hit: !!hit && (hit === tw || tw.contains(hit)) }; })()`);
+  if (!pos) return null;
+  await s('Input.dispatchMouseEvent', { type: 'mousePressed', x: pos.x, y: pos.y, button: 'left', clickCount: 1 });
+  await s('Input.dispatchMouseEvent', { type: 'mouseReleased', x: pos.x, y: pos.y, button: 'left', clickCount: 1 });
+  return { ...pos, open: await ev(`document.querySelector('#p2 .tree details[data-probe]').open`) };
+}
+// ここまで
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -439,6 +483,28 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           }
         } finally { await page.close(); }
       }
+      // #79〜#82 ARIA・キーボード到達（ここから 1 つの塊）
+      for (const width of [1280, 375, 320]) {
+        const tag = `${file} ${width}/light`;
+        const page = await open(browser, file, width, 'light', false);
+        try {
+          const sc = await page.ev(A11Y_SCROLL);
+          t(`${tag}: #81 溢れてスクロールする要素は、自身か中のフォーカス可能要素でキーボードに届く`, sc.bad.length === 0, sc.bad.slice(0, 4).join(' | '));
+          if (width !== 1280) continue;
+          const a = await page.ev(A11Y_STATIC);
+          t(`${tag}: #79 aria-hidden=true の祖先の中にフォーカス可能要素（tabindex 0 以上のボタン・リンクなど）がない`, a.hiddenFocus.length === 0, a.hiddenFocus.slice(0, 4).join(' | '));
+          t(`${tag}: #82 role のない div / span に aria-label・aria-labelledby がない（role=group / img などを付ける）`, a.noRoleLabel.length === 0, a.noRoleLabel.slice(0, 4).join(' | '));
+          t(`${tag}: #82 progressbar・listbox に名前（aria-label / aria-labelledby）がある`, a.unnamed.length === 0, a.unnamed.slice(0, 4).join(' | '));
+          t(`${tag}: #82 aria-selected は tab・option などの role だけ、aria-pressed は button だけに付く`, a.badSelected.length === 0 && a.badPressed.length === 0, a.badSelected.concat(a.badPressed).slice(0, 4).join(' | '));
+          t(`${tag}: #82 aside に role を上書きしない（dialog は div に付ける）`, a.asideRole.length === 0, a.asideRole.slice(0, 4).join(' | '));
+          t(`${tag}: #81 <pre> と overflow-x:auto の要素が tabindex を持つ（または中にフォーカス可能要素がある）`, a.noTabindex.length === 0, a.noTabindex.slice(0, 4).join(' | '));
+          if (file === 'tokens-preview.html') {
+            const tr = await measureTreeClick(page);
+            t(`${tag}: #80 #p2 .tree の閉じた details のシェブロンを実マウスでクリックすると details.open が true になる（button を summary に入れない）`, !!tr && tr.hit && tr.open, JSON.stringify(tr));
+          }
+        } finally { await page.close(); }
+      }
+      // ここまで
       // #68: forced-colors でも、一部選択（indeterminate）が未選択・全選択と見分けられる
       if (file === 'tokens-preview.html') {
         const page = await open(browser, file, 1280, 'light', false);
