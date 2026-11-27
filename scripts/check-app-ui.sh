@@ -72,7 +72,7 @@ chk ':focus-visible の --focus の輪は残す'              '^:focus-visible\{
 # 状態の見分け（背景色だけで示す部品が --surface-sel と同色にならない）
 chk '.sec のホバーは surface-sel に ink 8% を重ねる'        '\.sec:hover\{background:color-mix\(in srgb,var\(--ink\) 8%,var\(--surface-sel\)\)\}' "$prev"
 chk '押下トグル .tgl: 未押下は透明・押下は accent-soft'     '#states \.btn\.sec\.tgl\{background:transparent\}.*#states \.btn\.sec\.tgl\[aria-pressed=true\]\{background:var\(--accent-soft\)' "$prev"
-chk 'フィルタチップ .fchip の押下は --accent の塗り'          '#p2 \.fchip\[aria-pressed=true\]\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
+chk 'フィルタチップ .fchip の選択は .on で --accent の塗り（aria-pressed は付けない）' '#p2 \.fchip\.on\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
 chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk 'forced-colors: サブナビ・ナビの選択は Highlight、タブは下線が Highlight' 'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight[^}]*\}#states \.tb40 button\[aria-selected=true\]\{border-bottom-color:Highlight' "$prev"

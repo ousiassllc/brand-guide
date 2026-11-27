@@ -93,7 +93,7 @@ pre{background:var(--bone);border-radius:var(--r-card);padding:16px;overflow:aut
 <div class="card"><div class="mute" style="font-size:12px">Noto Sans JP 300 / 400 / 600</div><p style="font-size:24px;font-weight:300;margin:8px 0">ガイド見出し — 静けさを設計する。</p><p style="font-size:24px;margin:8px 0">本文 — 静けさを設計する。</p><p style="font-size:24px;font-weight:600;margin:0">プロダクト見出し — 静けさを設計する。</p></div></div>
 <h3>サイズスケール</h3><div class="card"><div class="row"><code class="lab">xs · 12px</code><span style="font-size:12px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">sm · 14px</code><span style="font-size:14px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">base · 16px</code><span style="font-size:16px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">lg · 18px</code><span style="font-size:18px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">xl · 24px</code><span style="font-size:24px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">2xl · 32px</code><span style="font-size:32px">Quiet structure 静かな構造</span></div><div class="row"><code class="lab">3xl · 40px</code><span style="font-size:40px">Quiet structure 静かな構造</span></div></div>
 <h3>実際の面で</h3><div class="card"><h2 style="margin-top:0">余白のある、静かなプロダクト</h2><p>Ousiass は、日々の道具をシンプルに保つためのプロダクトを作っています。We build quiet tools that stay out of your way.</p><p class="mute" style="font-size:14px">キャプション（mute）— 2026-11-05 更新 · Updated Nov 5</p>
-<pre><code>// JetBrains Mono 400
+<pre tabindex="0" role="region" aria-label="コードの例（JetBrains Mono）"><code>// JetBrains Mono 400
 const theme = { ink: "#050505", bone: "#f5f5f4" };
 export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h3 id="heading-compact">コンパクトな管理画面の見本 Compact admin</h3>
@@ -103,7 +103,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="hrow sec-row"><h4 class="sec-t">最近のプロジェクト</h4><code class="tg" aria-hidden="true">h4 · lg 18</code></div>
 <div class="adm-grid"><div class="cd"><div class="hrow"><h5 class="cd-t">サンプル A</h5><code class="tg" aria-hidden="true">h5 · base 16</code></div><p>日程と進行の管理。メンバー 8 人。</p><p class="cap">更新 2 日前</p></div><div class="cd"><div class="hrow"><h5 class="cd-t">サンプル B</h5><code class="tg" aria-hidden="true">h5 · base 16</code></div><p>在庫と注文の管理。メンバー 5 人。</p><p class="cap">更新 5 日前</p></div></div>
 </div>
-<div style="overflow-x:auto;margin-top:12px"><table class="tbl2" style="min-width:520px;white-space:nowrap"><thead><tr><th>役割</th><th>この見本のタグ（H1 なし）</th><th>H1 ありの画面</th><th>サイズ</th><th>ウェイト</th></tr></thead><tbody>
+<div tabindex="0" role="region" aria-label="見出しタグとサイズの対応表" style="overflow-x:auto;margin-top:12px"><table class="tbl2" style="min-width:520px;white-space:nowrap"><thead><tr><th>役割</th><th>この見本のタグ（H1 なし）</th><th>H1 ありの画面</th><th>サイズ</th><th>ウェイト</th></tr></thead><tbody>
 <tr><td>ページ</td><td><code>h3</code></td><td><code>h1</code></td><td>xl 24px</td><td>600</td></tr>
 <tr><td>セクション</td><td><code>h4</code></td><td><code>h2</code></td><td>lg 18px</td><td>600</td></tr>
 <tr><td>カード</td><td><code>h5</code></td><td><code>h3</code></td><td>base 16px</td><td>600</td></tr>
@@ -234,7 +234,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div><div class="swatch" style="border-radius:16px"></div><code>--r-xl</code> / <code>--r-card</code><br><span class="tk">16px · カード・表・バナー・モーダル</span></div>
 <div><div class="swatch" style="border-radius:999px"></div><code>--r-pill</code> (<code>--r-full</code> 9999px)<br><span class="tk">999px · ボタン・チップ・選んでいるナビ・アバター</span></div>
 </div>
-<pre style="margin-top:20px;overflow-x:auto"><code>--r-none: 0;
+<pre tabindex="0" role="region" aria-label="角丸トークンの値" style="margin-top:20px;overflow-x:auto"><code>--r-none: 0;
 --r-sm: 4px;
 --r-md: 8px;
 --r-lg: 12px;
@@ -258,7 +258,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 
 <h3 id="stroke">線と影 Stroke / Shadow</h3>
 <div class="f2">
-<div class="card"><code style="white-space:nowrap;display:inline-block;max-width:100%;overflow-x:auto">--stroke: 1px solid var(--border)</code><p class="help">入力欄・浮かぶ面（モーダルなど）・ページ区切り。カード・表・サブナビ・バナーには使わない（<a href="#app-ui-surface">面は濃さで分ける</a>）</p></div>
+<div class="card"><code tabindex="0" role="region" aria-label="線のトークンの値" style="white-space:nowrap;display:inline-block;max-width:100%;overflow-x:auto">--stroke: 1px solid var(--border)</code><p class="help">入力欄・浮かぶ面（モーダルなど）・ページ区切り。カード・表・サブナビ・バナーには使わない（<a href="#app-ui-surface">面は濃さで分ける</a>）</p></div>
 <div class="card" style="border:1px solid var(--mute)"><code>1px var(--mute)</code><p class="help">強調（チェックボックス外枠など）。以下の枠の見本は、線そのものを見せるための例外</p></div>
 <div class="card" style="border:1px dashed var(--border)"><code>1px dashed</code><p class="help">空状態・ドロップ領域</p></div>
 <div class="card" style="box-shadow:var(--shadow-modal)"><code>--shadow-modal</code><p class="help">Light 0 1px 2px rgb(0 0 0 / 6%) ／ Dark 0 1px 2px rgb(0 0 0 / 40%) — モーダルのみ。カードは影なし（<a href="#st-shadow">Light / Dark 比較</a>）</p></div>
@@ -297,8 +297,8 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 
 <h3 id="feedback">フィードバック・表示 Feedback</h3>
 <div class="card"><div class="f2">
-<div><span class="lbl">進捗 40%</span><div class="pg" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><i style="width:40%"></i></div>
-<span class="lbl" style="margin-top:16px">完了 100%</span><div class="pg" role="progressbar" aria-valuenow="100"><i style="width:100%"></i></div><p class="help">track accent-soft / fill accent / 6px / r-full</p></div>
+<div><span class="lbl" id="pg-40-lbl">進捗 40%</span><div class="pg" role="progressbar" aria-labelledby="pg-40-lbl" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><i style="width:40%"></i></div>
+<span class="lbl" id="pg-100-lbl" style="margin-top:16px">完了 100%</span><div class="pg" role="progressbar" aria-labelledby="pg-100-lbl" aria-valuenow="100"><i style="width:100%"></i></div><p class="help">track accent-soft / fill accent / 6px / r-full</p></div>
 <div><span class="lbl">読み込み中</span><div style="display:flex;align-items:center;gap:10px"><span class="spin" role="status" aria-label="読み込み中"></span><span class="mute" style="font-size:14px">読み込んでいます…</span></div>
 <div style="margin-top:12px"><div class="sk" style="width:60%;height:16px"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div></div>
 </div><hr class="dv">
@@ -429,7 +429,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <h2 id="motion-draft">モーション Motion</h2>
 <p class="mute" style="font-size:14px">基本的に静かだけど動きがある。静か・短く・目的があるときだけ。フェードイン 320 / フェードアウト 240。派手な動き、バウンス、UI 上のプリズム（虹色）モーションは使わない。</p>
 <h3 id="motion-tokens">トークン Tokens</h3>
-<div class="card" style="padding:0;overflow:auto"><table class="mt"><thead><tr><th>トークン</th><th>値（ライブ）</th><th>用途</th></tr></thead><tbody>
+<div class="card" tabindex="0" role="region" aria-label="モーショントークンの一覧" style="padding:0;overflow:auto"><table class="mt"><thead><tr><th>トークン</th><th>値（ライブ）</th><th>用途</th></tr></thead><tbody>
 <tr><td class="mono">--motion-fast</td><td class="mono" data-v="--motion-fast"></td><td>フォーカスリング・小さな状態変化</td></tr>
 <tr><td class="mono">--motion-base</td><td class="mono" data-v="--motion-base"></td><td>ホバー（色・背景）・小さな状態変化</td></tr>
 <tr><td class="mono">--motion-slow</td><td class="mono" data-v="--motion-slow"></td><td>シート出現・モーダル出現（大きめ）・スクラム・リップル</td></tr>
@@ -757,7 +757,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <label class="chk"><input type="checkbox" data-z="toast" checked> toast（500）</label></div>
 <div class="zs" id="zs">
 <div class="bar"><span>sticky</span><span class="zt">z 200</span></div>
-<div class="dd1" aria-label="dropdown 見本"><div>dropdown</div><div class="zt">z 100</div><div>項目 B</div></div>
+<div class="dd1" role="group" aria-label="dropdown 見本"><div>dropdown</div><div class="zt">z 100</div><div>項目 B</div></div>
 <div class="scr" data-zl="modal"><div class="mdl" role="dialog" aria-label="モーダル見本"><header><span>設定を保存</span><span class="zt">z 400</span></header><div class="bd">モーダル。dropdown（100）と sticky（200）の上に乗る。</div><footer><button type="button" class="btn sec sm" id="z-more" aria-haspopup="menu" aria-expanded="true">その他 ▾</button><button type="button" class="btn pri sm">保存</button></footer></div></div>
 <div class="pop" role="menu" aria-label="その他メニュー" data-zl="pop"><button type="button" role="menuitem">複製</button><button type="button" role="menuitem">共有</button><button type="button" role="menuitem">削除… <span class="zt">z 401</span></button></div>
 <div class="tst zst" role="status" data-zl="toast"><span>保存しました</span><span class="zt" style="color:inherit;opacity:.7">z 500</span></div>
@@ -791,7 +791,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <div class="card"><p class="st-h">非対象（ホバーは色のみ・リップルなし）</p>
 <div class="rpitem"><a class="tl" href="#st-ripple">テキストリンク</a></div>
 <button type="button" class="rowsel" style="margin-top:8px">行型・カード型の選択</button>
-<div class="tabs" style="margin:8px 0 0"><button type="button" aria-selected="true">サブナビ A</button><button type="button" aria-selected="false">サブナビ B</button></div>
+<div class="tabs" role="tablist" aria-label="サブナビ見本" style="margin:8px 0 0"><button type="button" role="tab" aria-selected="true">サブナビ A</button><button type="button" role="tab" aria-selected="false">サブナビ B</button></div>
 <button type="button" class="selbtn" style="margin-top:8px" aria-haspopup="listbox"><span>セレクトのトリガ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
 <div class="rpitem" style="margin-top:8px"><label class="sw2" style="margin:0"><input type="checkbox"><span></span>スイッチ</label><label class="chk" style="margin:0"><input type="radio" name="st-rp"> ラジオ</label></div></div>
 </div>
@@ -1201,7 +1201,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <div class="drawer-stage" id="p0-drawer-stage">
     <div class="drawer-bg">メイン画面のコンテンツ。右からドロワーが被さります。</div>
     <div class="drawer-scrim" id="p0-drawer-scrim"></div>
-    <aside class="drawer-panel" role="dialog" aria-label="ドロワー見本" aria-modal="true">
+    <div class="drawer-panel" role="dialog" aria-label="ドロワー見本" aria-modal="true">
       <header><span>詳細</span>
         <button type="button" class="ib gh ripple-host" id="p0-drawer-close" aria-label="閉じる" style="width:32px;height:32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </header>
@@ -1209,7 +1209,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
         <p style="margin:0 0 8px">右ドロワー（幅 min 320 / 85%）。スクラム付き・外側クリックで閉じる。</p>
         <p class="mute" style="margin:0;font-size:13px">reduced-motion 時はスライドなし・フェードのみ。</p>
       </div>
-    </aside>
+    </div>
   </div>
   <p class="help" style="margin-top:10px"><strong>Drawer</strong>＝持続するサイド文脈（詳細・フィルタ）。<strong>Bottom sheet</strong>＝短い選択肢（共有など）。混同しない。</p>
 </div>
@@ -1233,7 +1233,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p0-z">z-index scale</h3>
 <div class="card">
-  <div class="z-stack" aria-label="z-index スタック">
+  <div class="z-stack" role="group" aria-label="z-index スタック">
     <div><span>base</span><span class="mono">--z-base 0</span></div>
     <div style="margin-left:8px"><span>dropdown / tooltip / popover</span><span class="mono">--z-dropdown 100</span></div>
     <div style="margin-left:16px"><span>sticky（ヘッダー等）</span><span class="mono">--z-sticky 200</span></div>
@@ -1267,7 +1267,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
       <figcaption>--icon-xl 32（empty任意）</figcaption>
     </figure>
   </div>
-  <div class="icon-row" aria-label="Iconoir サンプル">
+  <div class="icon-row" role="group" aria-label="Iconoir サンプル">
     <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"/><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"/></svg>home</span>
     <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L21 21"/><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z"/></svg>search</span>
     <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"/></svg>settings</span>
@@ -1437,7 +1437,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
         <span>2026年11月</span>
         <button type="button" class="ib gh" aria-label="次月" style="width:28px;height:28px">›</button>
       </header>
-      <div class="days" aria-hidden="true">
+      <div class="days">
         <span class="dow">月</span><span class="dow">火</span><span class="dow">水</span><span class="dow">木</span><span class="dow">金</span><span class="dow">土</span><span class="dow">日</span>
         <button type="button" class="d mute">26</button><button type="button" class="d mute">27</button><button type="button" class="d mute">28</button><button type="button" class="d mute">29</button><button type="button" class="d mute">30</button><button type="button" class="d mute">31</button><button type="button" class="d">1</button>
         <button type="button" class="d">2</button><button type="button" class="d">3</button><button type="button" class="d">4</button><button type="button" class="d" aria-current="date">5</button><button type="button" class="d">6</button><button type="button" class="d">7</button><button type="button" class="d">8</button>
@@ -1500,7 +1500,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p1-steps">ステップ／ウィザード</h3>
 <div class="card">
-  <div class="steps" aria-label="ウィザード見本">
+  <div class="steps" role="group" aria-label="ウィザード見本">
     <div class="st done">基本情報</div>
     <div class="st cur">詳細</div>
     <div class="st">確認</div>
@@ -1535,9 +1535,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 <h3 id="p1-badge">バッジ数（通知カウント）</h3>
 <div class="card">
   <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
-    <span class="bell" aria-label="通知 3 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.1336 11C18.7155 16.3755 21 18 21 18H3C3 18 6 15.8667 6 8.4C6 6.70261 6.63214 5.07475 7.75736 3.87452C8.88258 2.67428 10.4087 2 12 2C12.3373 2 12.6717 2.0303 13 2.08949"/><path d="M19 8C20.6569 8 22 6.65685 22 5C22 3.34315 20.6569 2 19 2C17.3431 2 16 3.34315 16 5C16 6.65685 17.3431 8 19 8Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">3</span></span>
-    <span class="bell" aria-label="通知 12 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">12</span></span>
-    <span class="bell" aria-label="未読あり"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt dot" aria-hidden="true"></span></span>
+    <span class="bell" role="img" aria-label="通知 3 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.1336 11C18.7155 16.3755 21 18 21 18H3C3 18 6 15.8667 6 8.4C6 6.70261 6.63214 5.07475 7.75736 3.87452C8.88258 2.67428 10.4087 2 12 2C12.3373 2 12.6717 2.0303 13 2.08949"/><path d="M19 8C20.6569 8 22 6.65685 22 5C22 3.34315 20.6569 2 19 2C17.3431 2 16 3.34315 16 5C16 6.65685 17.3431 8 19 8Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">3</span></span>
+    <span class="bell" role="img" aria-label="通知 12 件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt">12</span></span>
+    <span class="bell" role="img" aria-label="未読あり"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"/><path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"/></svg><span class="bcnt dot" aria-hidden="true"></span></span>
     <span class="pill" style="--c:var(--mute)">下書き · 2</span>
   </div>
   <ul class="vals" style="margin-top:12px"><li>カウント: accent 地 + bone 字 / バッジの数字は 11px Mono・最小 18（通知バッジの数字だけの例外）</li><li>99+ で上限表示可 / ドットだけの未読も可</li></ul>
@@ -1654,7 +1654,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 #p2 .cmdk-ft kbd{display:inline-block;padding:1px 6px;border:1px solid var(--border);border-radius:var(--r-sm);font:12px "JetBrains Mono",monospace;background:var(--bone);color:var(--ink)}
 #p2 .chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 #p2 .fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:var(--r-pill);border:0;background:var(--surface-sel);font-size:13px;color:var(--ink);cursor:pointer}
-#p2 .fchip[aria-pressed=true]{background:var(--accent);color:var(--bone)}#p2 .fchip[aria-pressed=true] .x{color:inherit}
+#p2 .fchip.on{background:var(--accent);color:var(--bone)}#p2 .fchip.on .x{color:inherit}
 #p2 .fchip .x{border:0;background:transparent;color:var(--mute);cursor:pointer;padding:0;line-height:1;font-size:14px}
 #p2 .atable{width:100%;border-collapse:collapse;font-size:14px}
 #p2 .atable th,#p2 .atable td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:middle}#p2 .atable td{font-weight:400}
@@ -1738,14 +1738,14 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-cmdk">コマンドパレット／スポットライト検索</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="stage cmdk-stage" aria-label="コマンドパレット見本">
+  <div class="stage cmdk-stage" role="group" aria-label="コマンドパレット見本">
     <div class="cmdk-scrim" aria-hidden="true"></div>
     <div class="cmdk" role="dialog" aria-modal="true" aria-label="コマンドパレット">
       <div class="cmdk-hd">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 15.5L19 19M5 11C5 14.3137 7.68629 17 11 17C12.6597 17 14.1621 16.3261 15.2483 15.237C16.3329 14.1494 17 12.6546 17 11C17 7.68629 14.3137 5 11 5C7.68629 5 5 7.68629 5 11Z"/></svg>
         <input type="search" value="プロジェクト" aria-label="コマンド検索" readonly>
       </div>
-      <div class="cmdk-list" role="listbox">
+      <div class="cmdk-list" role="listbox" aria-label="コマンド候補">
         <button type="button" role="option" aria-selected="true"><span>ブランドガイドを開く</span><span class="meta">↵</span></button>
         <button type="button" role="option"><span>新しい請求を作成</span><span class="meta">N</span></button>
         <button type="button" role="option"><span>テーマを切り替える</span><span class="meta">T</span></button>
@@ -1761,9 +1761,9 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-table">データテーブル上級</h3>
 <div class="card">
-  <div class="chips-row" aria-label="フィルタ">
-    <span class="fchip" aria-pressed="true">担当: いろは <button type="button" class="x" aria-label="削除">×</button></span>
-    <span class="fchip" aria-pressed="true">状態: 進行中 <button type="button" class="x" aria-label="削除">×</button></span>
+  <div class="chips-row" role="group" aria-label="フィルタ">
+    <span class="fchip on">担当: いろは <button type="button" class="x" aria-label="削除">×</button></span>
+    <span class="fchip on">状態: 進行中 <button type="button" class="x" aria-label="削除">×</button></span>
     <button type="button" class="fchip">+ フィルタ</button>
   </div>
   <div class="bulk" id="p2-bulk" hidden>
@@ -1799,11 +1799,11 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   <ul class="tree" aria-label="フォルダツリー見本">
     <li>
       <details open>
-        <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>プロダクト</summary>
+        <summary class="row"><span class="tw" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>プロダクト</summary>
         <ul>
           <li>
             <details open>
-              <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>ブランドガイド</summary>
+              <summary class="row"><span class="tw" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>ブランドガイド</summary>
               <ul>
                 <li><div class="row"><span class="leaf"></span>tokens-preview.html</div></li>
                 <li><div class="row"><span class="leaf"></span>index.html</div></li>
@@ -1812,7 +1812,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
           </li>
           <li>
             <details>
-              <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>請求</summary>
+              <summary class="row"><span class="tw" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>請求</summary>
               <ul>
                 <li><div class="row"><span class="leaf"></span>下書き一覧</div></li>
                 <li><div class="row"><span class="leaf"></span>送付履歴</div></li>
@@ -1824,7 +1824,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </li>
     <li>
       <details>
-        <summary class="row"><button type="button" class="tw" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>設定</summary>
+        <summary class="row"><span class="tw" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>設定</summary>
         <ul>
           <li><div class="row"><span class="leaf"></span>メンバー</div></li>
           <li><div class="row"><span class="leaf"></span>請求先</div></li>
@@ -1928,7 +1928,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p2-coach">オンボーディング／コーチマーク</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="stage coach-stage" aria-label="コーチマーク見本">
+  <div class="stage coach-stage" role="group" aria-label="コーチマーク見本">
     <div class="coach-ui">
       <div class="lbl" style="margin:0 0 8px">ワークスペース</div>
       <p class="mute" style="font-size:13px;margin:0 0 12px">最初のプロジェクトを追加します。</p>
@@ -2012,12 +2012,6 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
   }
   all&&all.addEventListener('change',()=>{rows.forEach(r=>r.checked=all.checked);syncBulk()});
   rows.forEach(r=>r.addEventListener('change',syncBulk));
-
-  document.querySelectorAll('#p2 .tree summary').forEach(s=>{
-    s.addEventListener('click',e=>{
-      if(e.target.closest('.tw')){/* allow default on summary */}
-    });
-  });
 
   document.querySelectorAll('#p2 .btn, #p2 .ib').forEach(el=>{
     if(el.dataset.rippleBound) return;
@@ -2120,7 +2114,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-rte">リッチテキスト</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="rte" aria-label="リッチテキスト見本">
+  <div class="rte" role="group" aria-label="リッチテキスト見本">
     <div class="rte-tb" role="toolbar" aria-label="書式（スケッチ）">
       <button type="button" aria-pressed="true" aria-label="太字"><b>B</b></button>
       <button type="button" aria-label="斜体"><i style="font-style:italic;font-weight:400">I</i></button>
@@ -2143,7 +2137,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-video">動画プレイヤー</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="vid" aria-label="動画プレイヤー見本">
+  <div class="vid" role="group" aria-label="動画プレイヤー見本">
     <div class="vid-stage">
       <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
@@ -2166,7 +2160,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
 
 <h3 id="p3-code">コードエディタ</h3>
 <div class="card" style="padding:0;overflow:hidden">
-  <div class="code" aria-label="コードエディタ見本">
+  <div class="code" role="group" aria-label="コードエディタ見本">
     <div class="code-hd">
       <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
       <span>tokens.ts</span>
@@ -2174,7 +2168,7 @@ document.getElementById('mt-fadeout').onclick=()=>c.classList.remove('on');
     </div>
     <div class="code-body">
       <div class="code-gutter" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
-      <pre class="code-src"><span class="c">// Quiet UI tokens — draft</span>
+      <pre class="code-src" tabindex="0" role="region" aria-label="コードの内容"><span class="c">// Quiet UI tokens — draft</span>
 <span class="k">export</span> <span class="k">const</span> color = {
   ink: <span class="c">'#050505'</span>,
   bone: <span class="c">'#f5f5f4'</span>,
