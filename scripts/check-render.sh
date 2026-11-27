@@ -162,7 +162,7 @@ const MEASURE_COMMON = `(() => { ${PAGE_LIB}
     const r = e.getBoundingClientRect(); if (!r.width && !r.height) continue;
     let p = e.parentElement, clipped = false;
     while (p && p !== document.body) { const pc = getComputedStyle(p); if (pc.overflowX !== 'visible' || pc.position === 'fixed') { clipped = true; break; } p = p.parentElement; }
-    if (!clipped && r.right > vw + 1) out.over.push({ s: sel(e) + ' ' + Math.round(r.left) + '-' + Math.round(r.right) + ' (#' + (e.closest('section[id]')?.id || '') + ')', known6: e.tagName === 'INPUT' && !!e.closest('.sw2') });
+    if (!clipped && r.right > vw + 1) out.over.push({ s: sel(e) + ' ' + Math.round(r.left) + '-' + Math.round(r.right) + ' (#' + (e.closest('section[id]')?.id || '') + ')' });
   }
   // リンク先と id
   const ids = {}; document.querySelectorAll('[id]').forEach(e => { ids[e.id] = (ids[e.id] || 0) + 1; });
@@ -313,19 +313,20 @@ async function measureSlider(page) {
 }
 
 // Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線・offset 2px で、幅は要素の種類で決まること（離散コントロール＝button・checkbox・radio・range は 3px、リンク・pre など既定は 2px）。
-async function measureFocusRings(page) {
+async function measureFocusRings(page, allow = '', max = 400, only = '') {
   const { s, ev } = page;
   const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
   await ev('document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); 1');
   const bad = {}; let stops = 0, first = null;
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < max; i++) {
     await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
-      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, skip: (${JSON.stringify(only)} !== '' && !e.matches(${JSON.stringify(only)})) || (${JSON.stringify(allow)} !== '' && e.matches(${JSON.stringify(allow)})), want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
     if (!r) break;
     if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
     stops++;
+    if (r.skip) continue; // only 以外の種類と許容リスト（規定が別の幅・offset を持つ要素）
     if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
   }
   return { stops, focus, bad: Object.keys(bad) };
@@ -353,6 +354,32 @@ async function measureToast(page) {
   return { idle, shown, hidden };
 }
 
+// #85 / #90: tokens-preview.html のコントラスト。.z-stack の文字が実効 opacity 1 で 4.5:1 以上、ホバー中の行の文字が accent-soft 地で 4.5:1 以上。
+// ホバーは CDP の mouseMoved で実際に当てる（:hover が付いたことと、地が accent-soft になったことも確かめる）。
+const MEASURE_ZSTACK = `(() => { ${PAGE_LIB}
+  const solid = e => { for (let p = e; p; p = p.parentElement) { const b = getComputedStyle(p).backgroundColor; if (!/rgba\\(.*, 0\\)$|transparent/.test(b)) return rgb(b); } return rgb(getComputedStyle(document.body).backgroundColor); };
+  const opacity = e => { let o = 1; for (let p = e; p; p = p.parentElement) o *= parseFloat(getComputedStyle(p).opacity); return o; };
+  const rows = [...document.querySelectorAll('.z-stack span')].filter(e => e.textContent.trim() && rendered(e));
+  return rows.map(e => ({ s: e.textContent.trim(), op: Math.round(opacity(e) * 100) / 100, cr: Math.round(ratio(rgb(getComputedStyle(e).color), solid(e)) * 100) / 100 }));
+})()`;
+async function measureHoverContrast(page, targets) {
+  const { s, ev } = page;
+  const out = [];
+  for (const { name, sel: q, text } of targets) {
+    const pos = await ev(`(() => { const e = document.querySelector(${JSON.stringify(q)}); if (!e) return null; e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+    if (!pos) { out.push({ name, missing: true }); continue; }
+    await s('Input.dispatchMouseEvent', { type: 'mouseMoved', x: pos.x, y: pos.y });
+    await new Promise(r => setTimeout(r, 400)); // transition の終わりを待つ
+    out.push({ name, ...(await ev(`(() => { ${PAGE_LIB}
+      const e = document.querySelector(${JSON.stringify(q)}), t = ${JSON.stringify(text)} ? e.querySelector(${JSON.stringify(text)}) : e;
+      const bg = rgb(getComputedStyle(e).backgroundColor), soft = colorOf('backgroundColor', 'var(--accent-soft)');
+      return { hover: e.matches(':hover'), onSoft: bg.every((v, i) => Math.abs(v - soft[i]) < 1), cr: Math.round(ratio(rgb(getComputedStyle(t).color), bg) * 100) / 100 };
+    })()`)) });
+  }
+  await s('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
+  return out;
+}
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -373,10 +400,8 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           if (width === 375) {
             t(`${tag}: 文字入力欄が 16px 以上`, all(c.inputs, x => x.fs >= 16) || c.inputs.length === 0, c.inputs.filter(x => x.fs < 16).slice(0, 4).map(x => x.s + ' ' + x.fs + 'px').join(' | ') || `${c.inputs.length} 個`);
           }
-          // #6: スイッチ見本の隠し input が絶対配置で幅 100% のため、ページが横に伸びる（別件・未修正）。
-          // 他の原因でのはみ出しを見逃さないよう、この 1 要素だけを除いて測る。#6 が直ったらこの除外を消す。
-          const others = c.over.filter(e => !e.known6).map(e => e.s);
-          t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
+          // #6: スイッチ見本の隠し input（絶対配置・幅 100%）も除外せず、scrollWidth が viewport と一致することを測る
+          t(`${tag}: ページ全体に横スクロールがない（scrollWidth == viewport。除外なし）`, c.over.length === 0 && c.scrollW === c.clientW, c.over.slice(0, 3).map(e => e.s).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}`);
           if (width === 1280 && theme === 'light') { idsByPage[file] = new Set(c.ids); hrefsByPage[file] = c.hrefs; t(`${tag}: id が重複していない`, c.dups.length === 0, c.dups.slice(0, 5).join(' ')); }
           if (file === 'tokens-preview.html') {
             const m = await page.ev(MEASURE_TOKENS);
@@ -417,6 +442,22 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
               t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
+          if (file === 'tokens-preview.html') {
+            // #85: z-index 見本（.z-stack）の文字が opacity で薄くならず 4.5:1 以上
+            const zs = await page.ev(MEASURE_ZSTACK);
+            t(`${tag}: #85 .z-stack の文字がすべて実効 opacity 1・コントラスト 4.5:1 以上（base の行を薄くしない）`, zs.length >= 14 && zs.every(x => x.op === 1 && x.cr >= 4.5), zs.filter(x => !(x.op === 1 && x.cr >= 4.5)).slice(0, 4).map(x => x.s + ' opacity ' + x.op + ' ' + x.cr + ':1').join(' | ') || `${zs.length} 件、最小 ${Math.min(...zs.map(x => x.cr))}:1`);
+            if (width === 1280) {
+              // #90: accent-soft 地にホバーした行の文字（--mute を載せない）
+              const hv = await measureHoverContrast(page, [
+                { name: 'カレンダーの前後月の日 .cal button.d.mute', sel: '#p1 .cal button.d.mute', text: '' },
+                { name: 'ドロップダウン項目の kbd', sel: '#states .dpn button:not(.hl):not(:disabled)', text: 'kbd' },
+              ]);
+              t(`${tag}: #90 ホバー中の行（accent-soft 地）の文字が 4.5:1 以上`, hv.every(x => !x.missing && x.hover && x.onSoft && x.cr >= 4.5), hv.map(x => x.missing ? x.name + ' なし' : `${x.name} hover ${x.hover} 地が accent-soft ${x.onSoft} ${x.cr}:1`).join(' | '));
+              // #89: Tab 巡回のフォーカスリング。button は 3px。許容リスト: ドロップダウン項目（2px 規定）・tb40 のタブ（offset が別）
+              const fr = await measureFocusRings(page, '#states .dpn button, .tb40 button', 1500, 'button');
+              t(`${tag}: #89 Tab で止まるすべての button のフォーカスリングが --focus の実線・offset 2px・幅 3px（許容: #states .dpn button・.tb40 button。入力欄・range は対象外）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+            }
+          }
           if (width === 1280 && theme === 'light') {
             const tt = await measureToast(page);
             const idleOk = tt.idle.ax.role === 'status' && !tt.idle.ax.ignored && tt.idle.op === '0' && tt.idle.pe === 'none' && tt.idle.vis !== 'hidden' && tt.idle.text === '' && !tt.idle.hit && tt.idle.focusable === 0;
@@ -434,8 +475,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           t(`${tag}: カード内の .seg の右端がカードの右端を越えない（.scr の内側で横スクロール）`, g.n > 0 && g.bad.length === 0, g.bad.slice(0, 3).join(' | ') || `${g.n} 個`);
           if (width !== 375) { // 375 はこの上の本線で測っている
             const c = await page.ev(MEASURE_COMMON);
-            const others = c.over.filter(e => !e.known6).map(e => e.s);
-            t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
+            t(`${tag}: ページ全体に横スクロールがない（scrollWidth == viewport。除外なし）`, c.over.length === 0 && c.scrollW === c.clientW, c.over.slice(0, 3).map(e => e.s).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}`);
           }
         } finally { await page.close(); }
       }
