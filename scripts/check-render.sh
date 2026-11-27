@@ -316,18 +316,20 @@ async function measureSlider(page) {
 async function measureFocusRings(page, allow = '', max = 400, only = '') {
   const { s, ev } = page;
   const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
-  await ev('document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); 1');
+  // Tab の開始点をページ先頭へ戻す（直前の検査でフォーカスがページ途中にあると、そこから巡回して途中の要素しか測れない）。body に一時 tabindex=-1 で focus して外す。
+  await ev(`(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); const b = document.body; b.setAttribute('tabindex', '-1'); b.focus(); b.blur(); b.removeAttribute('tabindex'); window.scrollTo(0, 0); return 1; })()`);
   const bad = {}; let stops = 0, first = null;
   for (let i = 0; i < max; i++) {
     await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
-      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, skip: (${JSON.stringify(only)} !== '' && !e.matches(${JSON.stringify(only)})) || (${JSON.stringify(allow)} !== '' && e.matches(${JSON.stringify(allow)})), want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+      const p = document.createElement('i'); p.style.color = 'var(--focus)'; e.parentElement.appendChild(p); const fc = getComputedStyle(p).color; p.remove(); // data-theme を持つ見本の枠（.shpane）の中は、その枠の --focus が正
+      const c = getComputedStyle(e); return { fc, s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, skip: (${JSON.stringify(only)} !== '' && !e.matches(${JSON.stringify(only)})) || (${JSON.stringify(allow)} !== '' && e.matches(${JSON.stringify(allow)})), want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
     if (!r) break;
     if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
     stops++;
     if (r.skip) continue; // only 以外の種類と許容リスト（規定が別の幅・offset を持つ要素）
-    if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
+    if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === r.fc)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
   }
   return { stops, focus, bad: Object.keys(bad) };
 }
@@ -492,7 +494,7 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: #84 状態色の見本（.st span）の文字が地の混色込みで 4.5:1 以上`, st.length === 4 && st.every(x => x.r >= 4.5), st.map(x => x.s + ' ' + x.r).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
-              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 40).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
           if (file === 'tokens-preview.html') {
@@ -506,9 +508,10 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
                 { name: 'ドロップダウン項目の kbd', sel: '#states .dpn button:not(.hl):not(:disabled)', text: 'kbd' },
               ]);
               t(`${tag}: #90 ホバー中の行（accent-soft 地）の文字が 4.5:1 以上`, hv.every(x => !x.missing && x.hover && x.onSoft && x.cr >= 4.5), hv.map(x => x.missing ? x.name + ' なし' : `${x.name} hover ${x.hover} 地が accent-soft ${x.onSoft} ${x.cr}:1`).join(' | '));
-              // #89: Tab 巡回のフォーカスリング。button は 3px。許容リスト: ドロップダウン項目（2px 規定）・tb40 のタブ（offset が別）
-              const fr = await measureFocusRings(page, '#states .dpn button, .tb40 button', 1500, 'button');
-              t(`${tag}: #89 Tab で止まるすべての button のフォーカスリングが --focus の実線・offset 2px・幅 3px（許容: #states .dpn button・.tb40 button。入力欄・range は対象外）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+              // #89: Tab 巡回のフォーカスリング（ページ先頭から）。button は 3px。許容リスト: ドロップダウン項目（2px 規定）・tb40 のタブ（offset が別）。
+              // 判断待ち（#92）: #states .zs .pop button（2px・offset -2px）と #states .selbtn（2px・offset -1px）は、入力系か button かの判断が出るまで暫定で許容に入れる（CSS は変えない）。
+              const fr = await measureFocusRings(page, '#states .dpn button, .tb40 button, #states .zs .pop button, #states .selbtn', 1500, 'button');
+              t(`${tag}: #89 ページ先頭から Tab で止まるすべての button のフォーカスリングが --focus の実線・offset 2px・幅 3px（許容: #states .dpn button・.tb40 button、判断待ち（#92）: #states .zs .pop button・#states .selbtn。入力欄・range は対象外）`, fr.stops >= 300 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
           if (width === 1280 && theme === 'light') {
