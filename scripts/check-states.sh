@@ -126,8 +126,8 @@ notchk   'tokens-preview: #85 .z-stack の行に opacity を掛けない（文�
 chk      'tokens-preview: #89 button:focus-visible は outline-width 3px（離散コントロール）' '^:focus-visible\{[^}]*\}button:focus-visible\{outline-width:3px\}' "$prev"
 chk      'tokens-preview: #90 カレンダーの前後月の日はホバーで --mute-on-soft' '#p1 \.cal button\.d\.mute:hover\{color:var\(--mute-on-soft\)\}' "$prev"
 chk      'tokens-preview: #90 ドロップダウン項目のホバーで kbd は --mute-on-soft' '#states \.dpn button:hover kbd\{color:var\(--mute-on-soft\)\}' "$prev"
-zbad=$(grep -o 'z-index:[^ ;}"<][^;}"<]*' "$prev" | grep -Ev '^z-index:(var\(--z-[a-z]+(,[0-9]+)?\)|calc\(var\(--z-[a-z]+\) - [0-9]+\)|[0-2])$' | sort -u | tr '\n' ' ')
-[ -z "$zbad" ] && ok 'tokens-preview: #91 z-index は var(--z-*) / calc か 0〜2 の局所用途だけ' || ng "tokens-preview: #91 z-index にリテラルがある: $zbad"
+zbad=$(grep -oh 'z-index:[^ ;}"<][^;}"<]*' "$prev" "$root/theme-control.css" | grep -Ev '^z-index:(var\(--z-[a-z]+(,[0-9]+)?\)|calc\(var\(--z-[a-z]+\) - [0-9]+\)|[0-2])$' | sort -u | tr '\n' ' ')
+[ -z "$zbad" ] && ok 'tokens-preview・theme-control.css: #91・#93 z-index は var(--z-*) / calc か 0〜2 の局所用途だけ' || ng "tokens-preview・theme-control.css: #91・#93 z-index にリテラルがある: $zbad"
 chk '冒頭（index）: 採用済み（決定 4 件を含む）を明記' 'スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>\.4</code>・全幅バナーの即時の出入りは採用済み' "$idx"
 ! has "$idx" '新しい節は推奨案（未確定）' && ok '冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した' || ng '冒頭（index）: 旧文言が残っている'
 for id in st-theme st-focus st-z st-shadow st-soft st-buttons st-spinner st-ripple st-dialog st-pane proposals-draft; do
