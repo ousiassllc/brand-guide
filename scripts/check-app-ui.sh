@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字 3 段・余白と丸み）の回帰チェック。
+# あわせて、#86（tokens-preview の使い分け表 .ut の行の区切りは --line-soft・th は 400 / 13px / --mute）とフィルタチップ .fchip.on の選択を見る。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-app-ui.sh [リポジトリルート]
 set -u
 . "$(dirname "$0")/lib.sh"

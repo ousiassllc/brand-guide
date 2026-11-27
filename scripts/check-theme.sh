@@ -10,7 +10,7 @@
 #   初期値 system・OS の配色に従う / light・dark だけ保存し system で消す / 保存済みの間は OS の変化で動かない・
 #   system のときだけ追従 / リロードなし・スクロール維持・切替の瞬間は transition を止める /
 #   描画前（<body> が現れる時点）に data-theme が決まっている / aria-pressed がちょうど 1 つ true /
-#   ←→↑↓・Home・End でフォーカス移動
+#   ←→↑↓・Home・End でフォーカス移動 / 切替後の computed color-scheme が選んだテーマと一致（#83）
 set -u
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 

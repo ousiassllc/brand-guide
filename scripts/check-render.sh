@@ -6,6 +6,9 @@
 # あわせて、Tab 巡回のフォーカスリング（実際のキー操作で止まる要素の幅・色・offset）、#toast の a11y ツリーと本文の出し入れ、
 # index.html の可視テキストのウェイト・サイズの全走査、一部選択（indeterminate）の描画を測る。
 # 狭い幅（360px・320px）での文字付き .seg のカードからのはみ出しと、forced-colors での描画も測る。
+# index.html は、状態色の見本 .st span の文字が地の混色込みで 4.5:1 以上（#84）も測る。tokens-preview.html は、除外なしの横スクロール（#6）、
+# .z-stack の文字のコントラスト（#85）、ホバー中の行のコントラスト（#90）、ページ先頭から Tab で回した button のフォーカスリング幅（#89・#92。停止数 300 以上。
+# 判断待ち（#92）の #states .zs .pop button と #states .selbtn は暫定で許容）、ARIA・キーボード到達（#79〜#82）も測る。
 #
 # 依存: Node 22 以上（組み込みの WebSocket を使う。npm パッケージは不要）と Chrome / Chromium。
 #   Chrome の場所: 環境変数 CHROME、なければ google-chrome / google-chrome-stable / chromium / chromium-browser。

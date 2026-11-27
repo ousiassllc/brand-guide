@@ -2,6 +2,9 @@
 # check-states.sh — index.html・tokens-preview.html・theme-control.css の状態・切替・フォーカス・スピナー・z・影などの規定を、
 # grep・awk で見る回帰チェック。対象の Issue: #10（切替・状態・フォーカス・スピナー・z・影）、#12（テーマ切替の 3 形）、
 # #14（Hitomado 提案の反映）、#16（puppet-remo 由来の部品）、ほか #26・#34・#41・#52 など。
+# 静的な規則として、#6（.sw2 は position:relative）・#85（.z-stack の行に opacity を掛けない）・#87（JetBrains Mono は 400;600）・
+# #89（button:focus-visible は 3px）・#90（ホバー時の文字は --mute-on-soft）・#91 と #93（tokens-preview と theme-control.css の z-index はトークンか局所の 0〜2）、
+# #88（index のジャンプ導線の並びが <section id> の出現順と一致）も見る。
 # theme.js の動作（初期値・保存・OS 追従など）は check-theme.sh が実際に動かして確かめる（#53）。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
 set -u
