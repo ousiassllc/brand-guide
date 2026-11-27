@@ -481,6 +481,15 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             const m = await page.ev(MEASURE_INDEX);
             t(`${tag}: #65 可視テキストの font-size がスケールと規定の例外だけ（12〜16・18・24・28・32・40・56。18.72px の既定の h3 を残さない）`, m.badSize.length === 0, m.badSize.slice(0, 4).join(' | '));
             t(`${tag}: #66 可視テキストの font-weight が 300・400・600 だけ（700 の既定の th・h3 を残さない）`, m.badWeight.length === 0, m.badWeight.slice(0, 4).join(' | '));
+            // #84: 状態色の見本（.st span）は、文字色（状態色）を、地の混色（currentColor の薄い地）の上に置いた実際の見た目で AA 4.5:1 以上
+            const st = await page.ev(`(() => { ${PAGE_LIB}
+              const rgba = s => { const n = s.match(/-?\\d*\\.?\\d+(?:e-?\\d+)?/g).map(Number), k = s.startsWith('color(') ? 255 : 1; return { c: n.slice(0, 3).map(v => v * k), a: n.length > 3 ? n[3] : 1 }; };
+              const under = e => { for (let p = e.parentElement; p; p = p.parentElement) { const b = rgba(getComputedStyle(p).backgroundColor); if (b.a > 0) return b.c; } return rgb(getComputedStyle(document.body).backgroundColor); };
+              return [...document.querySelectorAll('.st span')].filter(rendered).map(e => { const cs = getComputedStyle(e), b = rgba(cs.backgroundColor), u = under(e);
+                const bg = b.c.map((v, i) => v * b.a + u[i] * (1 - b.a));
+                return { s: e.textContent, r: Math.round(ratio(rgb(cs.color), bg) * 100) / 100, fs: parseFloat(cs.fontSize) }; });
+            })()`);
+            t(`${tag}: #84 状態色の見本（.st span）の文字が地の混色込みで 4.5:1 以上`, st.length === 4 && st.every(x => x.r >= 4.5), st.map(x => x.s + ' ' + x.r).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
               t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);

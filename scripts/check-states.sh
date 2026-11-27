@@ -428,6 +428,10 @@ for id in $(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//'
   printf '%s' "$jump" | grep -q "href=\"#$id\"" || missing="$missing #$id"
 done
 [ -n "$jump" ] && [ -z "$missing" ] && ok 'index: すべての <section id> がジャンプ導線にある' || ng "index: ジャンプ導線にない節:$missing"
+# ジャンプ導線の #… の並びは <section id> の出現順と一致する（Issue #58 の「本文の順に合わせる」・#88）
+navorder=$(printf '%s' "$jump" | grep -o 'href="#[^"]*"' | sed 's/href="#//;s/"$//' | tr '\n' ' ')
+secorder=$(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//' | tr '\n' ' ')
+[ -n "$navorder" ] && [ "$navorder" = "$secorder" ] && ok 'index: ジャンプ導線の並びが <section id> の出現順と一致する' || ng "index: ジャンプ導線の並び「${navorder}」が節の順「${secorder}」と違う"
 # index.html の tokens-preview.html#… 参照がすべて tokens-preview.html の id に解決する（Issue #25）
 badref=''
 for r in $(grep -o 'tokens-preview\.html#[A-Za-z0-9_-]*' "$idx" | sed 's/.*#//' | sort -u); do
