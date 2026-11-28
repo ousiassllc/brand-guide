@@ -113,7 +113,7 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <p class="mute" style="font-size:14px">タグを h1 / h2 / h3 に差し替えても見た目は変わらない（サイズは CSS で指定）。h1 の見た目が 40 である必要も、小さくするためにタグを変える必要もない。ページ・セクション・カードは 24 → 18 → 16 と 1 段ずつ下がり、競合しない。</p>
 <section class="ui" id="app-ui">
 <h2 id="app-ui-draft">アプリ UI の面・文字・余白と丸み App surfaces</h2>
-<p class="mute" style="font-size:14px">管理画面・ダッシュボードなどのアプリ画面の規定（Issue #20。悠太さんの OK 済みの方向）。<strong>線ではなく濃さで面を分ける</strong>。文字は 3 段、余白と丸みは数値を固定する。規定の本文は<a href="index.html#app-ui">メインのガイドの「アプリ UI」</a>。この節の見本は Light / Dark のトグルで切り替わる。</p>
+<p class="mute" style="font-size:14px">管理画面・ダッシュボードなどのアプリ画面の規定（Issue #20。悠太さんの OK 済みの方向）。<strong>線ではなく濃さで面を分ける</strong>。文字は 5 段、余白と丸みは数値を固定する。規定の本文は<a href="index.html#app-ui">メインのガイドの「アプリ UI」</a>。この節の見本は Light / Dark のトグルで切り替わる。</p>
 
 <h3 id="app-ui-surface">面は濃さで分ける Surfaces</h3>
 <p class="rule"><strong>ルール：</strong>カード・表・サブナビ・バナーに 1px の枠線を使わない。置かれた地より一段明るい面で区切る（ページ <code>--bone</code> → カード <code>--surface</code> → 選択・ホバー <code>--surface-sel</code>）。</p>
@@ -126,13 +126,15 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 </tbody></table></div>
 <ul class="vals" style="font-family:inherit;font-size:14px;margin-top:12px"><li>地より一段上げる。ページ上のカードは <code>--surface</code>、カードの中の入れ子・選択・ホバーは <code>--surface-sel</code></li><li>表の行の区切りは <code>--line-soft</code> のごく薄い線、または余白だけ。カードの題の下・グループの上にも線を引かず、余白で区切る（項目のあいだ 16px・まとまりのあいだ 24px）</li><li>例外（枠を残す）: 入力欄（input / textarea / select）の枠、<code>:focus-visible</code> の <code>--focus</code> の輪、危険（danger）の枠 40%</li><li>浮かぶ面（モーダル・ドロップダウン・ポップオーバー）は 1px の枠を残す。色は <code>--line-soft</code>、影は今のまま（<a href="#st-shadow">影</a>）</li><li>インラインアラートは地 <code>--surface-sel</code>・角 16px。左の状態色の帯は使わず、状態色は先頭のアイコンか丸だけ。danger だけ枠 40%（<a href="#st-decided">状態色</a>）</li><li><code>--mute</code> の 13px を選択色の面に置くときは <code>--mute-on-soft</code>（Light の <code>--mute</code> は <code>--surface-sel</code> 上で 4.45:1 のため）</li></ul>
 
-<h3 id="app-ui-type">文字は 3 段だけ Type steps</h3>
+<h3 id="app-ui-type">文字は 5 段だけ Type steps</h3>
 <div class="card"><div class="au-ty">
-<div class="au-ty-r"><code class="lab">ページタイトル<br>28px / 700</code><span class="au-t1">プロジェクト</span></div>
-<div class="au-ty-r"><code class="lab">節・項目名・ボタン・ナビ<br>15px / 600</code><span class="au-t2">最近のプロジェクト</span></div>
-<div class="au-ty-r"><code class="lab">説明・チップ・表の見出し<br>13px / 400 mute</code><span class="au-t3">12 件 · 最終更新 2026-11-08</span></div>
+<div class="au-ty-r"><code class="lab">ページタイトル<br>22px / 600<br>行高 1.35 · 字間 .01em<br>--app-title</code><span class="au-t1">プロジェクト</span></div>
+<div class="au-ty-r"><code class="lab">節・カードの題<br>16px / 600<br>行高 1.5 · 字間 .01em<br>--app-section</code><span class="au-t2">最近のプロジェクト</span></div>
+<div class="au-ty-r"><code class="lab">項目名・ナビ・ボタン<br>15px / 600<br>行高 1.5 · 字間 .01em（ナビ・ボタンは 0）<br>--app-item</code><span class="au-t3">ブランドガイド</span></div>
+<div class="au-ty-r"><code class="lab">本文<br>14px / 400<br>行高 1.7 · 字間 .02em<br>--app-body</code><span class="au-t4">いろはが整えた色と文字の規定を、アプリ画面にそのまま使います。</span></div>
+<div class="au-ty-r"><code class="lab">説明・チップ・表の見出し<br>13px / 400 mute<br>行高 1.6 · 字間 .02em<br>--app-desc</code><span class="au-t5">12 件 · 最終更新 2026-11-08</span></div>
 </div>
-<p class="help" style="margin-top:12px">アプリ画面はこの 3 段に寄せる。12px や 14px などの中間サイズは使わない。見出しタグ（h1〜h6）は文書の意味構造で、見た目の大きさは CSS で独立に指定する（<a href="index.html#typography">文字 Typography</a> の「見出しタグと表示サイズ」と同じ考え方。矛盾しない）。上の<a href="#heading-compact">コンパクトな管理画面の見本</a>は「タグとサイズが独立」を示す一般例で、アプリ画面の規定はこの節。</p></div>
+<p class="help" style="margin-top:12px">アプリ画面はこの 5 段に寄せる。12px などの中間サイズは使わない。ウェイトは最大 600 で、700 は使わない。見出しタグ（h1〜h6）は文書の意味構造で、見た目の大きさは CSS で独立に指定する（<a href="index.html#typography">文字 Typography</a> の「見出しタグと表示サイズ」と同じ考え方。矛盾しない）。上の<a href="#heading-compact">コンパクトな管理画面の見本</a>は「タグとサイズが独立」を示す一般例で、アプリ画面の規定はこの節。</p></div>
 
 <h3 id="app-ui-space">余白と丸み Space &amp; radius</h3>
 <div class="two">
@@ -147,30 +149,31 @@ export function accent(t) { return t.ink; } // 0O 1lI</code></pre></div>
 <div class="au-hd"><div><h3 class="au-title">プロジェクト</h3><p class="au-desc">12 件 · 最終更新 2026-11-08</p></div><button type="button" class="btn pri">新規作成</button></div>
 <div class="au-banner" role="status"><b>メンテナンスのお知らせ</b><span>11 月 20 日 02:00〜03:00 は読み取りだけになります。</span></div>
 <div class="au-cards">
-<div class="card"><h4 class="au-item">サンプル A</h4><p class="au-desc">日程と進行の管理。メンバー 8 人。</p><div class="au-chips"><span class="pill" style="--c:var(--success)">完了</span><span class="au-chip">更新 2 日前</span></div><div class="au-acts"><button type="button" class="btn pri sm">開く</button><button type="button" class="btn sec sm">共有</button></div></div>
-<div class="card"><h4 class="au-item">サンプル B</h4><p class="au-desc">在庫と注文の管理。メンバー 5 人。</p><div class="au-chips"><span class="pill" style="--c:var(--warning)">保留</span><span class="au-chip">更新 5 日前</span></div><div class="au-acts"><button type="button" class="btn pri sm">開く</button><button type="button" class="btn sec sm">共有</button></div></div>
+<div class="card"><h4 class="au-sec">サンプル A</h4><p class="au-desc">日程と進行の管理。メンバー 8 人。</p><div class="au-chips"><span class="pill" style="--c:var(--success)">完了</span><span class="au-chip">更新 2 日前</span></div><div class="au-acts"><button type="button" class="btn pri sm">開く</button><button type="button" class="btn sec sm">共有</button></div></div>
+<div class="card"><h4 class="au-sec">サンプル B</h4><p class="au-desc">在庫と注文の管理。メンバー 5 人。</p><div class="au-chips"><span class="pill" style="--c:var(--warning)">保留</span><span class="au-chip">更新 5 日前</span></div><div class="au-acts"><button type="button" class="btn pri sm">開く</button><button type="button" class="btn sec sm">共有</button></div></div>
 </div>
 <div class="card au-tcard"><table class="tbl2 au-tbl" aria-label="表の見本"><thead><tr><th scope="col">プロジェクト</th><th scope="col">担当</th><th scope="col" style="text-align:right">件数</th><th scope="col">状態</th></tr></thead><tbody><tr><td class="au-it">ブランドガイド</td><td>いろは</td><td class="num">12</td><td><span class="pill" style="--c:var(--success)">完了</span></td></tr><tr><td class="au-it">サイト改修</td><td>悠太</td><td class="num">8</td><td><span class="pill" style="--c:var(--warning)">保留</span></td></tr><tr><td class="au-it">請求処理</td><td>—</td><td class="num">3</td><td><span class="au-chip">下書き</span></td></tr></tbody></table></div>
 </div>
 </div>
 <p class="help" style="margin-top:12px">表の行は <code>--surface-sel</code> でホバー（枠線なし）。表の見出しは 13px / 400 mute、本文は 15px / 400、行の区切りは <code>--line-soft</code>。</p>
 <style>
+#app-ui{--app-title:22px;--app-section:16px;--app-item:15px;--app-body:14px;--app-desc:13px}
 #app-ui .au-fig{background:var(--bone);border-radius:var(--r-card);padding:16px;font-size:13px;color:var(--mute)}
 #app-ui .au-fig-card{background:var(--surface);border-radius:var(--r-card);padding:16px;margin-top:12px}
 #app-ui .au-fig-sel{background:var(--surface-sel);border-radius:var(--r-pill);padding:8px 16px;margin-top:12px;color:var(--mute-on-soft)}
 #app-ui .au-tbl th,#app-ui .au-tbl td{padding:14px 22px}#app-ui .au-tbl tbody tr:last-child td{border-bottom:0}#app-ui .au-tbl .it,#app-ui .au-tbl .au-it{font-weight:600}
 #app-ui .au-ty-r{display:flex;gap:20px;align-items:baseline;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line-soft)}#app-ui .au-ty-r:last-child{border-bottom:0}#app-ui .au-ty-r .lab{width:200px;line-height:1.5}
-#app-ui .au-t1{font-size:28px;font-weight:700;line-height:1.3}#app-ui .au-t2{font-size:15px;font-weight:600}#app-ui .au-t3{font-size:13px;font-weight:400;color:var(--mute)}
+#app-ui .au-t1{font-size:var(--app-title);font-weight:600;line-height:1.35;letter-spacing:.01em}#app-ui .au-t2{font-size:var(--app-section);font-weight:600;line-height:1.5;letter-spacing:.01em}#app-ui .au-t3{font-size:var(--app-item);font-weight:600;line-height:1.5;letter-spacing:.01em}#app-ui .au-t4{font-size:var(--app-body);font-weight:400;line-height:1.7;letter-spacing:.02em}#app-ui .au-t5{font-size:var(--app-desc);font-weight:400;line-height:1.6;letter-spacing:.02em;color:var(--mute)}
 #app-ui .au-sp{display:grid;gap:16px}#app-ui .au-sp-c{background:var(--surface-sel);border-radius:var(--r-card);padding:22px;font-size:13px;color:var(--mute-on-soft)}#app-ui .au-sp-c small{font-size:13px}
 #app-ui .au-app{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:start;font-weight:400}
-#app-ui .au-nav{display:flex;flex-direction:column;gap:4px}#app-ui .au-nav a{display:flex;align-items:center;min-height:40px;padding:0 16px;border-radius:var(--r-pill);color:var(--ink);font-size:15px;font-weight:600;text-decoration:none}#app-ui .au-nav a:hover,#app-ui .au-nav a[aria-current=page]{background:var(--surface-sel)}
+#app-ui .au-nav{display:flex;flex-direction:column;gap:4px}#app-ui .au-nav a{display:flex;align-items:center;min-height:40px;padding:0 16px;border-radius:var(--r-pill);color:var(--ink);font-size:var(--app-item);font-weight:600;letter-spacing:0;text-decoration:none}#app-ui .au-nav a:hover,#app-ui .au-nav a[aria-current=page]{background:var(--surface-sel)}
 #app-ui .au-main{display:grid;gap:16px;min-width:0}
 #app-ui .au-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-#app-ui .au-title{margin:0;font-size:28px;font-weight:700;line-height:1.3}#app-ui .au-item{margin:0;font-size:15px;font-weight:600;line-height:1.5}#app-ui .au-desc{margin:4px 0 0;font-size:13px;font-weight:400;line-height:1.6;color:var(--mute)}
-#app-ui .au-banner{display:flex;flex-direction:column;gap:2px;background:var(--surface);border-radius:var(--r-card);padding:22px 24px;font-size:13px;color:var(--mute)}#app-ui .au-banner b{font-size:15px;font-weight:600;color:var(--ink)}
+#app-ui .au-title{margin:0;font-size:var(--app-title);font-weight:600;line-height:1.35;letter-spacing:.01em}#app-ui .au-sec{margin:0;font-size:var(--app-section);font-weight:600;line-height:1.5;letter-spacing:.01em}#app-ui .au-desc{margin:4px 0 0;font-size:var(--app-desc);font-weight:400;line-height:1.6;letter-spacing:.02em;color:var(--mute)}#app-ui .btn{letter-spacing:0}
+#app-ui .au-banner{display:flex;flex-direction:column;gap:2px;background:var(--surface);border-radius:var(--r-card);padding:22px 24px;font-size:var(--app-body);line-height:1.7;letter-spacing:.02em;color:var(--ink)}#app-ui .au-banner b{font-size:var(--app-item);font-weight:600;line-height:1.5;letter-spacing:.01em}
 #app-ui .au-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
 #app-ui .au-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}#app-ui .au-chips .pill{margin:0}
-#app-ui .au-chip{display:inline-block;font-size:13px;font-weight:400;padding:3px 12px;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--mute-on-soft)}
+#app-ui .au-chip{display:inline-block;font-size:var(--app-desc);font-weight:400;letter-spacing:.02em;padding:3px 12px;border-radius:var(--r-pill);background:var(--surface-sel);color:var(--mute-on-soft)}
 #app-ui .au-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 #app-ui .au-tcard{padding:0;overflow:hidden}#app-ui .au-tcard .au-chip{margin:0}
 @media(max-width:720px){#app-ui .au-app{grid-template-columns:1fr}#app-ui .au-nav{flex-direction:row;flex-wrap:wrap}}

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字 3 段・余白と丸み）の回帰チェック。
+# check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字の段・余白と丸み）と #96（文字 5 段・ウェイトは最大 600）の回帰チェック。
 # あわせて、#86（tokens-preview の使い分け表 .ut の行の区切りは --line-soft・th は 400 / 13px / --mute）とフィルタチップ .fchip.on の選択を見る。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-app-ui.sh [リポジトリルート]
 set -u
@@ -38,10 +38,16 @@ inau 'Light の面: #f5f5f4 → #ffffff → #ebebea'               '#f5f5f4.*#ff
 inau 'Dark の面: #050505・#141414 のまま・選択は #1e1e21'    '#050505.*#141414.*#1e1e21'
 inau '表の行の区切りは ink / bone 6%（--accent の 6%）'          '<code>--line-soft</code>（<code>--accent</code> の 6%。Light は ink、Dark は bone'
 inau '例外: 入力欄・:focus-visible・danger 40%'               '入力欄.*focus-visible.*危険（danger）の枠 40%'
-inau '文字 3 段: 28 / 700'                                    '<td>28px / 700</td>'
-inau '文字 3 段: 15 / 600（節・項目名・ボタン・ナビ）'        '節・項目名・ボタン・ナビ</td><td>15px / 600</td>'
-inau '文字 3 段: 13 / 400 mute（説明・チップ・表の見出し）'   '説明・チップ・表の見出し</td><td>13px / 400</td>'
-inau '12px などの中間サイズは使わない・14px は補足だけ'          '12px などの中間サイズは使わない。14px（sm）は画面の主な段ではなく、補足'
+inau '文字 5 段: ページタイトル 22 / 600 / 行高 1.35 / 字間 .01em / --app-title' '<td>ページタイトル</td><td>22px / 600</td><td>1\.35</td><td>\.01em</td><td><code>--app-title</code>'
+inau '文字 5 段: 節・カードの題 16 / 600 / 1.5 / .01em / --app-section'         '<td>節・カードの題</td><td>16px / 600</td><td>1\.5</td><td>\.01em</td><td><code>--app-section</code>'
+inau '文字 5 段: 項目名・ナビ・ボタン 15 / 600 / 1.5 / .01em（ナビ・ボタンは 0）/ --app-item' '<td>項目名・ナビ・ボタン</td><td>15px / 600</td><td>1\.5</td><td>\.01em（ナビ・ボタンは 0）</td><td><code>--app-item</code>'
+inau '文字 5 段: 本文 14 / 400 / 1.7 / .02em / --app-body'                       '<td>本文</td><td>14px / 400</td><td>1\.7</td><td>\.02em</td><td><code>--app-body</code>'
+inau '文字 5 段: 説明・チップ・表の見出し 13 / 400 mute / 1.6 / .02em / --app-desc' '<td>説明・チップ・表の見出し</td><td>13px / 400</td><td>1\.6</td><td>\.02em</td><td><code>--app-desc</code></td><td><code>--mute</code>'
+nottext '#app-ui の表に 700 の段がない'                        "$au" '<td>[0-9]+px / 700</td>'
+inau 'アプリ画面のウェイトは最大 600・700 は使わない'          'アプリ画面のウェイトは最大 600。700 は使わない'
+insec 'ウェイト: Bold (700) は「アプリ画面は最大 600、700 は使わない」' typography 'Bold \(700\)</strong>: <a href="#app-ui">アプリ画面</a>は最大 600、700 は使わない'
+notinsec 'ウェイト: 「700 はアプリのページタイトルだけ」が残っていない' typography '700 はアプリのページタイトルだけ|ページタイトル（28px）だけ'
+inau '12px などの中間サイズは使わない・14px は本文の段'          '12px などの中間サイズは使わない。14px（sm）は本文の段'
 inau '見出しタグと表示サイズの節と矛盾しない旨'               '「見出しタグと表示サイズ」とは矛盾しない'
 inau 'カード・バナーの余白 20〜24px（標準 22px）'             '20〜24px（標準 22px）'
 inau 'カード同士 16px'                                        'カード同士の間</td><td>16px'
@@ -52,7 +58,7 @@ inau '主なボタンは塗りピル・それ以外は静かなピル'          
 chk '文字節: 見出しタグと表示サイズの独立を維持' '<h3 class="h">見出しタグと表示サイズ</h3>' "$idx"
 chk '文字節: スケール xs12〜3xl40 を維持'        'xs 12 / sm 14 / base 16 / lg 18 / xl 24 / 2xl 32 / 3xl 40' "$idx"
 
-# (4) 見本の CSS（枠線を使わない・ピル・16px・文字 3 段）
+# (4) 見本の CSS（枠線を使わない・ピル・16px・文字 5 段）
 chk 'カード: 枠線なし・角 --r-card・余白 22px'       '^\.card\{background:var\(--surface\);border-radius:var\(--r-card\);padding:var\(--pad-card,22px\)\}' "$prev"
 chk 'カード余白トークン --pad-card は 22px'          '--pad-card:22px' "$prev"
 chk '.ui .btn はピル（--r-pill）・15px / 600'          '^\.ui \.btn\{[^}]*border-radius:var\(--r-pill\);font:600 15px' "$prev"
@@ -78,12 +84,23 @@ chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\
 chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk 'forced-colors: サブナビ・ナビの選択は Highlight、タブは下線が Highlight' 'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight[^}]*\}#states \.tb40 button\[aria-selected=true\]\{border-bottom-color:Highlight' "$prev"
 chk 'ペイン .pn・.ld・.rowsel は枠なしの surface-sel'         '#states \.pn>\*\{min-width:0;border-radius:var\(--r-card\);background:var\(--surface-sel\)' "$prev"
-# #app-ui の見本: 文字は 28 / 15 / 13 だけ・枠線なし
-inpv '#app-ui の見本: ページタイトル 28 / 700'            '\.au-t1\{font-size:28px;font-weight:700'
-inpv '#app-ui の見本: 項目名 15 / 600・説明 13 / 400'     '\.au-item\{margin:0;font-size:15px;font-weight:600.*\.au-desc\{[^}]*font-size:13px;font-weight:400'
+# #app-ui の見本: 文字は 22 / 16 / 15 / 14 / 13 の 5 段だけ・ウェイトは最大 600・枠線なし
+inpv '#app-ui の見本: 段のトークン --app-title 22 / --app-section 16 / --app-item 15 / --app-body 14 / --app-desc 13' '#app-ui\{--app-title:22px;--app-section:16px;--app-item:15px;--app-body:14px;--app-desc:13px\}'
+inpv '#app-ui の見本: .au-t1 は 22 / 600 / 1.35 / .01em'            '\.au-t1\{font-size:var\(--app-title\);font-weight:600;line-height:1\.35;letter-spacing:\.01em\}'
+inpv '#app-ui の見本: .au-title は 22 / 600 / 1.35 / .01em'         '\.au-title\{margin:0;font-size:var\(--app-title\);font-weight:600;line-height:1\.35;letter-spacing:\.01em\}'
+inpv '#app-ui の見本: 節 16 / 600 / 1.5 / .01em（.au-t2）'          '\.au-t2\{font-size:var\(--app-section\);font-weight:600;line-height:1\.5;letter-spacing:\.01em\}'
+inpv '#app-ui の見本: 節・カードの題 .au-sec は 16 / 600 / 1.5 / .01em' '\.au-sec\{margin:0;font-size:var\(--app-section\);font-weight:600;line-height:1\.5;letter-spacing:\.01em\}'
+inpv '#app-ui の見本: 項目名 15 / 600 / 1.5 / .01em（.au-t3）'      '\.au-t3\{font-size:var\(--app-item\);font-weight:600;line-height:1\.5;letter-spacing:\.01em\}'
+inpv '#app-ui の見本: ナビは 15 / 600・字間 0'                       '\.au-nav a\{[^}]*font-size:var\(--app-item\);font-weight:600;letter-spacing:0'
+inpv '#app-ui の見本: 本文 14 / 400 / 1.7 / .02em（.au-t4）'        '\.au-t4\{font-size:var\(--app-body\);font-weight:400;line-height:1\.7;letter-spacing:\.02em\}'
+inpv '#app-ui の見本: 本文の段をバナーに使う（14 / 1.7 / .02em）'    '\.au-banner\{[^}]*font-size:var\(--app-body\);line-height:1\.7;letter-spacing:\.02em'
+inpv '#app-ui の見本: 説明 13 / 400 / 1.6 / .02em（.au-t5）'        '\.au-t5\{font-size:var\(--app-desc\);font-weight:400;line-height:1\.6;letter-spacing:\.02em;color:var\(--mute\)\}'
+inpv '#app-ui の見本: .au-desc は 13 / 400 / 1.6 / .02em'           '\.au-desc\{[^}]*font-size:var\(--app-desc\);font-weight:400;line-height:1\.6;letter-spacing:\.02em'
+inpv '#app-ui の見本: ボタンの字間は 0'                          '#app-ui \.btn\{letter-spacing:0\}'
+nottext '#app-ui の見本の CSS に font-weight:700 がない' "$pv" 'font-weight:700'
 if printf '%s' "$pv" | awk '/<style>/{f=1} f{print}' | grep -Eq 'border:1px solid|border-bottom:1px solid var\(--border\)'; then ng '#app-ui の見本の CSS に 1px solid の枠線がある（区切りの --line-soft は可）'; else ok '#app-ui の見本の CSS に 1px solid の枠線がない'; fi
 sizes=$(printf '%s' "$pv" | awk '/<style>/{f=1} f&&/<\/style>/{exit} f{print}' | grep -o 'font-size:[0-9.]*px' | sort -u | tr '\n' ' ')
-case "$sizes" in *"font-size:12px"*|*"font-size:14px"*) ng "#app-ui の見本に中間サイズがある: $sizes";; *) ok "#app-ui の見本の font-size は 28 / 15 / 13 のみ: $sizes";; esac
+case "$sizes" in *"font-size:12px"*|*"font-size:28px"*) ng "#app-ui の見本に旧サイズ（12 / 28）がある: $sizes";; *) ok "#app-ui の見本の px 直指定に 12 / 28 がない（段は --app-* で 22 / 16 / 15 / 14 / 13）: $sizes";; esac
 # 使い分け表 .ut は index.html と同じ: 行の区切りは --line-soft（--border は表に使わない）・th は 400 / 13px / --mute（#86）
 ut=$(grep -E '^\.ut\{' "$prev")
 [ -n "$ut" ] && ok 'tokens-preview: .ut の定義がある' || ng 'tokens-preview: .ut の定義がない'
