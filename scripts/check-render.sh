@@ -219,7 +219,7 @@ const MEASURE_INDET = `(() => { ${PAGE_LIB}
 })()`;
 
 // index.html の文字サイズ・ウェイト（#65・#66）。可視テキストの親要素の font-size / font-weight が、規定の集合だけであること。
-// サイズ: スケール 12 / 14 / 16 / 18 / 24 / 32 / 40 と、見本の 13・15、見出し h2 の 28、h1 の clamp（375px で 32・1280px で 56）。ウェイト: 300 / 400 / 600（700 は tokens-preview の .au-title だけ）。
+// サイズ: スケール 12 / 14 / 16 / 18 / 24 / 32 / 40 と、見本の 13・15、見出し h2 の 28、h1 の clamp（375px で 32・1280px で 56）。ウェイト: 300 / 400 / 600（700 は使わない）。
 const MEASURE_INDEX = `(() => { ${PAGE_LIB}
   const SIZES = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40, 56], WEIGHTS = [300, 400, 600];
   const badSize = {}, badWeight = {};
@@ -260,17 +260,20 @@ const MEASURE_TOKENS = `(() => { ${PAGE_LIB}
   // 見本のラベル・ナビ・表は規定の Regular(400)。body の Light(300) をそのまま受けると、見本を写した製品が Light になる（#61）。ドロワーの項目は閉じていても computed を測る
   out.weights = ['.sw2', '.chk', '#p0 .mnav-panel a', '#p0 .bc a', '#states td', '#p2 .atable td'].map(q => { const es = [...document.querySelectorAll(q)];
     return { q, n: es.length, bad: es.filter(e => cs(e).fontWeight !== '400').slice(0, 3).map(sel) }; });
-  // 可視テキストのウェイトは 300・400・600 のどれか。700 は .au-title / .au-t1（アプリのページタイトル 28px とその書体見本）だけ。900 や既定の bold(700) を残さない（#66）
+  // 可視テキストのウェイトは 300・400・600 のどれか。700 は使わない（アプリ画面は最大 600）。900 や既定の bold(700) を残さない（#66）
   out.wts = (() => { const bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     for (let n; (n = w.nextNode());) {
       if (!n.nodeValue.trim()) continue;
       const e = n.parentElement; if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e)) continue;
-      const fw = cs(e).fontWeight; if (['300', '400', '600'].includes(fw) || (fw === '700' && e.closest('.au-title, .au-t1'))) continue;
+      const fw = cs(e).fontWeight; if (['300', '400', '600'].includes(fw)) continue;
       const k = sel(e) + ' ' + fw + ' (#' + (e.closest('section[id]')?.id || '') + ')'; bad[k] = 1;
     }
     return Object.keys(bad); })();
-  // 可視テキストの font-size は規定のサイズスケール（12 / 14 / 16 / 18 / 24 / 32 / 40）と、ガイドが使う 13・15・28・56（h1 の clamp）だけ。h3 などのブラウザ既定（18.72px）を残さない（#65）。.bcnt（通知バッジ数 11px）だけ例外
-  out.sizes = (() => { const OK = [12, 13, 14, 15, 16, 18, 24, 28, 32, 40], bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  // #app-ui の文字 5 段（見本 .au-t1〜.au-t5）: サイズ・ウェイト・行高の倍率・字間の倍率（em）
+  out.appTypes = ['.au-t1', '.au-t2', '.au-t3', '.au-t4', '.au-t5'].map(q => { const e = document.querySelector('#app-ui ' + q); if (!e) return { q, missing: true };
+    const c = cs(e), fs = px(c.fontSize); return { q, fs, fw: c.fontWeight, lh: Math.round(px(c.lineHeight) / fs * 1000) / 1000, ls: Math.round(px(c.letterSpacing) / fs * 1000) / 1000 }; });
+  // 可視テキストの font-size は規定のサイズスケール（12 / 14 / 16 / 18 / 24 / 32 / 40）と、ガイドが使う 13・15・22（アプリのページタイトル）・28・56（h1 の clamp）だけ。h3 などのブラウザ既定（18.72px）を残さない（#65）。.bcnt（通知バッジ数 11px）だけ例外
+  out.sizes = (() => { const OK = [12, 13, 14, 15, 16, 18, 22, 24, 28, 32, 40], bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     for (let n; (n = w.nextNode());) {
       if (!n.nodeValue.trim()) continue;
       const e = n.parentElement; if (!e || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(e.tagName) || !rendered(e) || e.closest('.bcnt')) continue;
@@ -465,8 +468,10 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             t(`${tag}: ボタン・チップ・選択ナビがピル`, all(m.pills, hasPill), list(m.pills, hasPill) || `${m.pills.length} 個`);
             t(`${tag}: カード・表・バナーの枠 0・角 16、選択ナビの枠 0`, m.flat.every(x => !x.missing && x.bw === '0px 0px 0px 0px' && x.r === '16px') && m.navBorder === '0px 0px 0px 0px', m.flat.map(x => x.missing ? x.s + ' なし' : x.bw + ' ' + x.r).join(' / ') + ' / nav ' + m.navBorder);
             t(`${tag}: ラベル・ナビ・表のセルが規定の Regular(400)（Light の 300 を受けない）`, m.weights.every(x => x.n > 0 && x.bad.length === 0), m.weights.map(x => x.q + ' ' + x.n + ' 個' + (x.bad.length ? ' 400 でない: ' + x.bad.join(',') : '')).join(' | '));
-            t(`${tag}: 可視テキストのウェイトが 300・400・600 のどれか（700 はアプリのページタイトル .au-title / .au-t1 だけ）`, m.wts.length === 0, m.wts.slice(0, 4).join(' | '));
-            t(`${tag}: 可視テキストのサイズが許容値 12・13・14・15・16・18・24・28・32・40・56（h1 の clamp）だけ（ブラウザ既定の h3 18.72px を残さない。例外は .bcnt の 11px）`, m.sizes.length === 0, m.sizes.slice(0, 4).join(' | '));
+            t(`${tag}: 可視テキストのウェイトが 300・400・600 のどれか（700 は使わない）`, m.wts.length === 0, m.wts.slice(0, 4).join(' | '));
+            const AT = [[22, '600', 1.35, 0.01], [16, '600', 1.5, 0.01], [15, '600', 1.5, 0.01], [14, '400', 1.7, 0.02], [13, '400', 1.6, 0.02]];
+            t(`${tag}: #app-ui の文字 5 段（22/600/1.35/.01em・16/600/1.5/.01em・15/600/1.5/.01em・14/400/1.7/.02em・13/400/1.6/.02em）`, m.appTypes.length === 5 && m.appTypes.every((x, i) => !x.missing && x.fs === AT[i][0] && x.fw === AT[i][1] && Math.abs(x.lh - AT[i][2]) < 0.005 && Math.abs(x.ls - AT[i][3]) < 0.005), JSON.stringify(m.appTypes));
+            t(`${tag}: 可視テキストのサイズが許容値 12・13・14・15・16・18・22・24・28・32・40・56（h1 の clamp）だけ（ブラウザ既定の h3 18.72px を残さない。例外は .bcnt の 11px）`, m.sizes.length === 0, m.sizes.slice(0, 4).join(' | '));
             const slider = await measureSlider(page);
             const rg = m.rng;
             const sliderOk = !!(slider && slider.track && slider.thumb && rg
