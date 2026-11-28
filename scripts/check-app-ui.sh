@@ -24,6 +24,10 @@ chk '--surface-sel Light #ebebea' '^:root\{[^}]*--surface-sel:#ebebea' "$idx"
 chk '--surface-sel Dark #1e1e21'  '^\[data-theme=dark\]\{[^}]*--surface-sel:#1e1e21' "$idx"
 chk '--surface-sel Light #ebebea（tokens-preview）' '^:root,\[data-theme=light\]\{[^}]*--surface-sel:#ebebea' "$prev"
 chk '--surface-sel Dark #1e1e21（tokens-preview）'  '^\[data-theme=dark\]\{[^}]*--surface-sel:#1e1e21' "$prev"
+chk '--row-hover Light #f5f5f4 / Dark #1e1e21（index）' '^:root\{[^}]*--row-hover:#f5f5f4' "$idx"
+chk '--row-hover Dark #1e1e21（index）'                '^\[data-theme=dark\]\{[^}]*--row-hover:#1e1e21' "$idx"
+chk '--row-hover Light #f5f5f4（tokens-preview）'      '^:root,\[data-theme=light\]\{[^}]*--row-hover:#f5f5f4' "$prev"
+chk '--row-hover Dark #1e1e21（tokens-preview）'       '^\[data-theme=dark\]\{[^}]*--row-hover:#1e1e21' "$prev"
 for f in "$idx" "$prev"; do
   n=$(basename "$f")
   chk "$n: --line-soft は accent 6%" '--line-soft:color-mix\(in srgb,var\(--accent\) 6%,transparent\)' "$f"
@@ -70,8 +74,19 @@ chk 'danger の枠 45% を維持'                           '\.ui \.dan\{[^}]*bo
 chk 'チップ .pill: 13px / 400・ピル・枠線なし'          '^\.pill\{[^}]*font-size:13px;font-weight:400;[^}]*border-radius:var\(--r-pill\)' "$prev"
 notchk 'チップ .pill に border がない'                  '^\.pill\{[^}]*border:' "$prev"
 chk '表の区切りは --line-soft'                          '--table-divider:var\(--stroke\) solid var\(--line-soft\)' "$prev"
-chk '表の見出しは 13px・本文は 15px'                    '--table-head-size:13px;--table-body-size:15px' "$prev"
-chk '表の行ホバーは surface-sel'                        '--table-row-hover:var\(--surface-sel\)' "$prev"
+chk '表の見出しは 13px・本文は 14px'                    '--table-head-size:13px;--table-body-size:14px' "$prev"
+chk '表の行ホバーは --row-hover'                        '--table-row-hover:var\(--row-hover\)' "$prev"
+chk '#app-ui の見本ブロックの内側の余白は --pad-card'  '#app-ui \.au-fig\{[^}]*padding:var\(--pad-card\)' "$prev"
+chk '#app-ui の表は 640px 以下で横に流さない（担当を省く・2 段）' '@media\(max-width:640px\)\{#app-ui \.au-tbl th,#app-ui \.au-tbl td\{[^}]*\}.*\.au-opt\{display:none\}.*\.au-stack tr\{display:grid' "$prev"
+chk '#app-ui の表: 担当の列（.au-opt）を th・td に付けた'  'au-opt">担当</th>.*class="au-opt">いろは</td>' "$prev"
+chk '#app-ui の「面のトークン」表は .au-stack'            'class="tbl2 au-tbl au-stack" aria-label="面のトークン"' "$prev"
+chk '#app-ui の「面のトークン」表の Light / Dark セルに data-label' 'td data-label="Light"><div class="hx" style="margin:0"><button type="button" data-hex="#f5f5f4">' "$prev"
+chk '#app-ui の行ホバー中のチップは accent-soft 地（--mute-on-soft は 5.6 / 5.1:1。Light / Dark 実測）' '#app-ui \.au-tbl tbody tr:hover \.au-chip\{background:var\(--accent-soft\)\}' "$prev"
+for tg in table tbody; do
+  o=$(grep -o "<$tg[ >]" "$prev" | wc -l); c=$(grep -o "</$tg>" "$prev" | wc -l)
+  [ "$o" = "$c" ] && ok "tokens-preview: <$tg> と </$tg> の数が合う（$o）" || ng "tokens-preview: <$tg> が $o 個・</$tg> が $c 個で閉じ忘れ"
+done
+chk 'index: アプリ UI の本文で表・一覧の行のホバーは --row-hover' '表・一覧の行のホバーは <code>--row-hover</code> <code>#f5f5f4</code>' "$idx"
 chk 'サブナビ .tabs は選択が surface-sel のピル'        '\.tabs button:hover,\.tabs button\[aria-selected=true\]\{background:var\(--surface-sel\)\}' "$prev"
 chk 'サブナビ .tabs はピル・15px / 600'                 '\.tabs button\{[^}]*font:600 15px[^}]*border-radius:var\(--r-pill\)' "$prev"
 chk '縦のナビ .nv a はピル・15px / 600'                 '#states \.nv a\{[^}]*border-radius:var\(--r-pill\)[^}]*font-size:15px;font-weight:600' "$prev"
