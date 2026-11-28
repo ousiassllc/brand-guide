@@ -2,6 +2,9 @@
 # check-states.sh — index.html・tokens-preview.html・theme-control.css の状態・切替・フォーカス・スピナー・z・影などの規定を、
 # grep・awk で見る回帰チェック。対象の Issue: #10（切替・状態・フォーカス・スピナー・z・影）、#12（テーマ切替の 3 形）、
 # #14（Hitomado 提案の反映）、#16（puppet-remo 由来の部品）、ほか #26・#34・#41・#52 など。
+# 静的な規則として、#6（.sw2 は position:relative）・#85（.z-stack の行に opacity を掛けない）・#87（JetBrains Mono は 400;600）・
+# #89（button:focus-visible は 3px）・#90（ホバー時の文字は --mute-on-soft）・#91 と #93（tokens-preview と theme-control.css の z-index はトークンか局所の 0〜2）、
+# #88（index のジャンプ導線の並びが <section id> の出現順と一致）も見る。
 # theme.js の動作（初期値・保存・OS 追従など）は check-theme.sh が実際に動かして確かめる（#53）。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-states.sh [リポジトリルート]
 set -u
@@ -119,6 +122,15 @@ notinsec '#layers: 推奨案タグが残っていない'               layers '�
 notinsec '#layers: 「401 を足さず文章だけ」案を消した'     layers '401 を足さず'
 notinsec '#layers: 影の 24% / 32% 案を消した'              layers '24%|32%'
 notinsec '#layers: 「確定値としては断定しない」を消した'   layers '断定しない'
+# tokens-preview の静的な規則（#6・#85・#87・#89・#90・#91。描画の測定は check-render.sh）
+chk      'tokens-preview: #6 スイッチ見本 .sw2 は position:relative（隠し input の絶対配置を .sw2 の中に収める）' '^\.sw2\{position:relative;' "$prev"
+notchk   'tokens-preview: #85 .z-stack の行に opacity を掛けない（文字を薄くしない）' '<div style="opacity:[^"]*"><span>base' "$prev"
+[ "$(grep -c 'JetBrains+Mono:wght@400;600' "$prev")" -eq 1 ] && ok 'tokens-preview: #87 Google Fonts の JetBrains Mono は 400;600' || ng 'tokens-preview: #87 Google Fonts の JetBrains Mono が 400;600 でない'
+chk      'tokens-preview: #89 button:focus-visible は outline-width 3px（離散コントロール）' '^:focus-visible\{[^}]*\}button:focus-visible\{outline-width:3px\}' "$prev"
+chk      'tokens-preview: #90 カレンダーの前後月の日はホバーで --mute-on-soft' '#p1 \.cal button\.d\.mute:hover\{color:var\(--mute-on-soft\)\}' "$prev"
+chk      'tokens-preview: #90 ドロップダウン項目のホバーで kbd は --mute-on-soft' '#states \.dpn button:hover kbd\{color:var\(--mute-on-soft\)\}' "$prev"
+zbad=$(grep -oh 'z-index:[^ ;}"<][^;}"<]*' "$prev" "$root/theme-control.css" | grep -Ev '^z-index:(var\(--z-[a-z]+(,[0-9]+)?\)|calc\(var\(--z-[a-z]+\) - [0-9]+\)|[0-2])$' | sort -u | tr '\n' ' ')
+[ -z "$zbad" ] && ok 'tokens-preview・theme-control.css: #91・#93 z-index は var(--z-*) / calc か 0〜2 の局所用途だけ' || ng "tokens-preview・theme-control.css: #91・#93 z-index にリテラルがある: $zbad"
 chk '冒頭（index）: 採用済み（決定 4 件を含む）を明記' 'スイッチ・ラジオの状態は推奨案（未確定）。ボタンの loading・スピナー・リップルの対象・テーマ切替（3 モード）・フォーカスの実線リング・<code>--z-popup</code> 401・Dark のモーダル影 40%・accent-soft 上の文字（<code>--ink</code> / <code>--mute-on-soft</code>）・ダイアログ本文 base 16・モーダルの閉じ方・ペイン型デスクトップアプリの例外・スイッチのラベル base 16・入力の文字サイズ（base 16 が基本、狭い設定ペインだけ sm 14 可、モバイルは必ず 16）・使えないメニュー項目の opacity <code>\.4</code>・全幅バナーの即時の出入りは採用済み' "$idx"
 ! has "$idx" '新しい節は推奨案（未確定）' && ok '冒頭（index）: 旧「新しい節は推奨案（未確定）」を消した' || ng '冒頭（index）: 旧文言が残っている'
 for id in st-theme st-focus st-z st-shadow st-soft st-buttons st-spinner st-ripple st-dialog st-pane proposals-draft; do
@@ -419,6 +431,10 @@ for id in $(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//'
   printf '%s' "$jump" | grep -q "href=\"#$id\"" || missing="$missing #$id"
 done
 [ -n "$jump" ] && [ -z "$missing" ] && ok 'index: すべての <section id> がジャンプ導線にある' || ng "index: ジャンプ導線にない節:$missing"
+# ジャンプ導線の #… の並びは <section id> の出現順と一致する（Issue #58 の「本文の順に合わせる」・#88）
+navorder=$(printf '%s' "$jump" | grep -o 'href="#[^"]*"' | sed 's/href="#//;s/"$//' | tr '\n' ' ')
+secorder=$(grep -o '<section[^>]* id="[^"]*"' "$idx" | sed 's/.* id="//;s/"$//' | tr '\n' ' ')
+[ -n "$navorder" ] && [ "$navorder" = "$secorder" ] && ok 'index: ジャンプ導線の並びが <section id> の出現順と一致する' || ng "index: ジャンプ導線の並び「${navorder}」が節の順「${secorder}」と違う"
 # index.html の tokens-preview.html#… 参照がすべて tokens-preview.html の id に解決する（Issue #25）
 badref=''
 for r in $(grep -o 'tokens-preview\.html#[A-Za-z0-9_-]*' "$idx" | sed 's/.*#//' | sort -u); do

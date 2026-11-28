@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # check-app-ui.sh — Issue #20（線ではなく濃さで面を分ける・文字 3 段・余白と丸み）の回帰チェック。
+# あわせて、#86（tokens-preview の使い分け表 .ut の行の区切りは --line-soft・th は 400 / 13px / --mute）とフィルタチップ .fchip.on の選択を見る。
 # 依存なし（grep・awk と exit code のみ）。使い方: scripts/check-app-ui.sh [リポジトリルート]
 set -u
 . "$(dirname "$0")/lib.sh"
@@ -72,7 +73,7 @@ chk ':focus-visible の --focus の輪は残す'              '^:focus-visible\{
 # 状態の見分け（背景色だけで示す部品が --surface-sel と同色にならない）
 chk '.sec のホバーは surface-sel に ink 8% を重ねる'        '\.sec:hover\{background:color-mix\(in srgb,var\(--ink\) 8%,var\(--surface-sel\)\)\}' "$prev"
 chk '押下トグル .tgl: 未押下は透明・押下は accent-soft'     '#states \.btn\.sec\.tgl\{background:transparent\}.*#states \.btn\.sec\.tgl\[aria-pressed=true\]\{background:var\(--accent-soft\)' "$prev"
-chk 'フィルタチップ .fchip の押下は --accent の塗り'          '#p2 \.fchip\[aria-pressed=true\]\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
+chk 'フィルタチップ .fchip の選択は .on で --accent の塗り（aria-pressed は付けない）' '#p2 \.fchip\.on\{background:var\(--accent\);color:var\(--bone\)\}' "$prev"
 chk '選択中の縦ナビ .acct.on は surface-sel'  '#states \.nv a\.acct\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk '選択中の行 .rw.on は surface-sel'  '#states \.rw\.on\{background:var\(--surface-sel\)\}' "$prev"
 chk 'forced-colors: サブナビ・ナビの選択は Highlight、タブは下線が Highlight' 'forced-colors:active\)\{\.tabs button\[aria-selected=true\],#states \.nv a\.acct\.on\{background:Highlight[^}]*\}#states \.tb40 button\[aria-selected=true\]\{border-bottom-color:Highlight' "$prev"
@@ -83,6 +84,12 @@ inpv '#app-ui の見本: 項目名 15 / 600・説明 13 / 400'     '\.au-item\{m
 if printf '%s' "$pv" | awk '/<style>/{f=1} f{print}' | grep -Eq 'border:1px solid|border-bottom:1px solid var\(--border\)'; then ng '#app-ui の見本の CSS に 1px solid の枠線がある（区切りの --line-soft は可）'; else ok '#app-ui の見本の CSS に 1px solid の枠線がない'; fi
 sizes=$(printf '%s' "$pv" | awk '/<style>/{f=1} f&&/<\/style>/{exit} f{print}' | grep -o 'font-size:[0-9.]*px' | sort -u | tr '\n' ' ')
 case "$sizes" in *"font-size:12px"*|*"font-size:14px"*) ng "#app-ui の見本に中間サイズがある: $sizes";; *) ok "#app-ui の見本の font-size は 28 / 15 / 13 のみ: $sizes";; esac
+# 使い分け表 .ut は index.html と同じ: 行の区切りは --line-soft（--border は表に使わない）・th は 400 / 13px / --mute（#86）
+ut=$(grep -E '^\.ut\{' "$prev")
+[ -n "$ut" ] && ok 'tokens-preview: .ut の定義がある' || ng 'tokens-preview: .ut の定義がない'
+nottext 'tokens-preview: .ut に var(--border) を使わない（表の区切りは --line-soft）' "$ut" 'var\(--border\)'
+intext  'tokens-preview: .ut の行の区切りは 1px の --line-soft'  "$ut" '\.ut th,\.ut td\{[^}]*border-bottom:1px solid var\(--line-soft\)'
+intext  'tokens-preview: .ut の th は 400 / 13px / --mute'        "$ut" '\.ut th\{font-weight:400;font-size:13px;color:var\(--mute\)\}'
 
 # (5) いろはの決定（#21 の直し）: 浮かぶ面は --line-soft の枠・アラートは帯なし・線でなく余白・図の点線なし
 inau '浮かぶ面は 1px の枠を残す・色は --line-soft・影は今のまま'  '浮かぶ面は、<strong>1px の枠を残す</strong>。色は <code>--line-soft</code>（ink 6%、Dark は bone 6%）、影は今のまま'

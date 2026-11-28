@@ -6,6 +6,9 @@
 # あわせて、Tab 巡回のフォーカスリング（実際のキー操作で止まる要素の幅・色・offset）、#toast の a11y ツリーと本文の出し入れ、
 # index.html の可視テキストのウェイト・サイズの全走査、一部選択（indeterminate）の描画を測る。
 # 狭い幅（360px・320px）での文字付き .seg のカードからのはみ出しと、forced-colors での描画も測る。
+# index.html は、状態色の見本 .st span の文字が地の混色込みで 4.5:1 以上（#84）も測る。tokens-preview.html は、除外なしの横スクロール（#6）、
+# .z-stack の文字のコントラスト（#85）、ホバー中の行のコントラスト（#90）、ページ先頭から Tab で回した button のフォーカスリング幅（#89・#92。停止数 300 以上。
+# 判断待ち（#92）の #states .zs .pop button と #states .selbtn は暫定で許容）、ARIA・キーボード到達（#79〜#82）も測る。
 #
 # 依存: Node 22 以上（組み込みの WebSocket を使う。npm パッケージは不要）と Chrome / Chromium。
 #   Chrome の場所: 環境変数 CHROME、なければ google-chrome / google-chrome-stable / chromium / chromium-browser。
@@ -162,7 +165,7 @@ const MEASURE_COMMON = `(() => { ${PAGE_LIB}
     const r = e.getBoundingClientRect(); if (!r.width && !r.height) continue;
     let p = e.parentElement, clipped = false;
     while (p && p !== document.body) { const pc = getComputedStyle(p); if (pc.overflowX !== 'visible' || pc.position === 'fixed') { clipped = true; break; } p = p.parentElement; }
-    if (!clipped && r.right > vw + 1) out.over.push({ s: sel(e) + ' ' + Math.round(r.left) + '-' + Math.round(r.right) + ' (#' + (e.closest('section[id]')?.id || '') + ')', known6: e.tagName === 'INPUT' && !!e.closest('.sw2') });
+    if (!clipped && r.right > vw + 1) out.over.push({ s: sel(e) + ' ' + Math.round(r.left) + '-' + Math.round(r.right) + ' (#' + (e.closest('section[id]')?.id || '') + ')' });
   }
   // リンク先と id
   const ids = {}; document.querySelectorAll('[id]').forEach(e => { ids[e.id] = (ids[e.id] || 0) + 1; });
@@ -313,20 +316,23 @@ async function measureSlider(page) {
 }
 
 // Tab で巡回して止まる要素のフォーカスリング（#64）。実際のキー操作（:focus-visible が付く）で最大 400 回進め、outline が --focus の実線・offset 2px で、幅は要素の種類で決まること（離散コントロール＝button・checkbox・radio・range は 3px、リンク・pre など既定は 2px）。
-async function measureFocusRings(page) {
+async function measureFocusRings(page, allow = '', max = 400, only = '') {
   const { s, ev } = page;
   const focus = await ev(`(() => { const e = document.createElement('i'); e.style.color = 'var(--focus)'; document.body.appendChild(e); const v = getComputedStyle(e).color; e.remove(); return v; })()`);
-  await ev('document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); 1');
+  // Tab の開始点をページ先頭へ戻す（直前の検査でフォーカスがページ途中にあると、そこから巡回して途中の要素しか測れない）。body に一時 tabindex=-1 で focus して外す。
+  await ev(`(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); const b = document.body; b.setAttribute('tabindex', '-1'); b.focus(); b.blur(); b.removeAttribute('tabindex'); window.scrollTo(0, 0); return 1; })()`);
   const bad = {}; let stops = 0, first = null;
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < max; i++) {
     await s('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     await s('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     const r = await ev(`(() => { const e = document.activeElement; if (!e || e === document.body || e === document.documentElement) return null;
-      const c = getComputedStyle(e); return { s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
+      const p = document.createElement('i'); p.style.color = 'var(--focus)'; e.parentElement.appendChild(p); const fc = getComputedStyle(p).color; p.remove(); // data-theme を持つ見本の枠（.shpane）の中は、その枠の --focus が正
+      const c = getComputedStyle(e); return { fc, s: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className.trim() ? '.' + e.className.trim().split(/\\s+/).join('.') : ''), st: c.outlineStyle, w: c.outlineWidth, c: c.outlineColor, off: c.outlineOffset, skip: (${JSON.stringify(only)} !== '' && !e.matches(${JSON.stringify(only)})) || (${JSON.stringify(allow)} !== '' && e.matches(${JSON.stringify(allow)})), want: (e.tagName === 'BUTTON' || (e.tagName === 'INPUT' && ['checkbox', 'radio', 'range'].includes(e.type))) ? '3px' : '2px', key: e.tagName + '|' + e.id + '|' + e.className + '|' + (e.textContent || '').slice(0, 20) }; })()`);
     if (!r) break;
     if (first === null) first = r.key; else if (r.key === first) break; // 1 周した
     stops++;
-    if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === focus)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
+    if (r.skip) continue; // only 以外の種類と許容リスト（規定が別の幅・offset を持つ要素）
+    if (!(r.st === 'solid' && r.w === r.want && r.off === '2px' && r.c === r.fc)) bad[r.s + ' ' + r.st + ' ' + r.w + '（期待 ' + r.want + '）offset ' + r.off + ' ' + r.c] = 1;
   }
   return { stops, focus, bad: Object.keys(bad) };
 }
@@ -353,6 +359,76 @@ async function measureToast(page) {
   return { idle, shown, hidden };
 }
 
+// #79〜#82 ARIA・キーボード到達の測定（ここから 1 つの塊）。
+// A11Y_STATIC: aria-hidden の中のフォーカス可能要素・名前の欠け・属性と role の組み合わせ・tabindex のない pre / overflow-x:auto。
+// A11Y_SCROLL: 溢れて実際にスクロールする要素が、自身か子でキーボードに届く（axe scrollable-region-focusable）。
+const A11Y_LIB = String.raw`
+const FOCUSABLE = 'a[href],button,input:not([type=hidden]),select,textarea,summary,[tabindex]';
+const isFocusable = e => e.tabIndex >= 0 && !e.disabled && !e.closest('[inert]') && e.getClientRects().length > 0;
+`;
+const A11Y_STATIC = `(() => { ${PAGE_LIB} ${A11Y_LIB}
+  const out = {};
+  out.hiddenFocus = [...document.querySelectorAll(FOCUSABLE)].filter(e => e.closest('[aria-hidden=true]') && isFocusable(e)).map(e => sel(e) + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  out.noRoleLabel = [...document.querySelectorAll('div[aria-label],span[aria-label],div[aria-labelledby],span[aria-labelledby]')].filter(e => !e.hasAttribute('role')).map(sel);
+  const named = e => { const l = e.getAttribute('aria-labelledby'); return !!(e.getAttribute('aria-label') || '').trim() || (!!l && l.split(/\s+/).some(id => (document.getElementById(id)?.textContent || '').trim())); };
+  out.unnamed = [...document.querySelectorAll('[role=progressbar],[role=listbox]')].filter(e => !named(e)).map(sel);
+  const SEL_ROLES = ['tab', 'option', 'row', 'gridcell', 'columnheader', 'rowheader', 'treeitem'];
+  out.badSelected = [...document.querySelectorAll('[aria-selected]')].filter(e => !SEL_ROLES.includes(e.getAttribute('role') || (e.tagName === 'OPTION' ? 'option' : ''))).map(sel);
+  out.badPressed = [...document.querySelectorAll('[aria-pressed]')].filter(e => !(e.tagName === 'BUTTON' || e.getAttribute('role') === 'button')).map(sel);
+  out.asideRole = [...document.querySelectorAll('aside[role]')].map(sel);
+  out.noTabindex = [...document.querySelectorAll('pre,[style*="overflow-x:auto"]')].filter(e => !e.hasAttribute('tabindex') && !e.querySelector(FOCUSABLE)).map(sel);
+  return out;
+})()`;
+const A11Y_SCROLL = `(() => { ${PAGE_LIB} ${A11Y_LIB}
+  const bad = [];
+  for (const e of document.body.querySelectorAll('*')) {
+    const c = getComputedStyle(e);
+    const sx = /auto|scroll/.test(c.overflowX) && e.scrollWidth > e.clientWidth + 1, sy = /auto|scroll/.test(c.overflowY) && e.scrollHeight > e.clientHeight + 1;
+    if (!(sx || sy) || !rendered(e)) continue;
+    if (isFocusable(e) || [...e.querySelectorAll(FOCUSABLE)].some(isFocusable)) continue;
+    bad.push(sel(e) + ' ' + e.scrollWidth + 'x' + e.scrollHeight + ' > ' + e.clientWidth + 'x' + e.clientHeight + ' (#' + (e.closest('section[id]')?.id || '') + ')');
+  }
+  return { bad };
+})()`;
+// #p2 .tree の閉じた details の開閉シェブロンを、実際のマウスで押して開くか
+async function measureTreeClick(page) {
+  const { s, ev } = page;
+  const pos = await ev(`(() => { const d = document.querySelector('#p2 .tree details:not([open])'); if (!d) return null;
+    d.dataset.probe = '1'; const tw = d.querySelector(':scope > summary .tw'); tw.scrollIntoView({ block: 'center' }); const r = tw.getBoundingClientRect();
+    const x = r.x + r.width / 2, y = r.y + r.height / 2, hit = document.elementFromPoint(x, y); return { x, y, hit: !!hit && (hit === tw || tw.contains(hit)) }; })()`);
+  if (!pos) return null;
+  await s('Input.dispatchMouseEvent', { type: 'mousePressed', x: pos.x, y: pos.y, button: 'left', clickCount: 1 });
+  await s('Input.dispatchMouseEvent', { type: 'mouseReleased', x: pos.x, y: pos.y, button: 'left', clickCount: 1 });
+  return { ...pos, open: await ev(`document.querySelector('#p2 .tree details[data-probe]').open`) };
+}
+// ここまで
+
+// #85 / #90: tokens-preview.html のコントラスト。.z-stack の文字が実効 opacity 1 で 4.5:1 以上、ホバー中の行の文字が accent-soft 地で 4.5:1 以上。
+// ホバーは CDP の mouseMoved で実際に当てる（:hover が付いたことと、地が accent-soft になったことも確かめる）。
+const MEASURE_ZSTACK = `(() => { ${PAGE_LIB}
+  const solid = e => { for (let p = e; p; p = p.parentElement) { const b = getComputedStyle(p).backgroundColor; if (!/rgba\\(.*, 0\\)$|transparent/.test(b)) return rgb(b); } return rgb(getComputedStyle(document.body).backgroundColor); };
+  const opacity = e => { let o = 1; for (let p = e; p; p = p.parentElement) o *= parseFloat(getComputedStyle(p).opacity); return o; };
+  const rows = [...document.querySelectorAll('.z-stack span')].filter(e => e.textContent.trim() && rendered(e));
+  return rows.map(e => ({ s: e.textContent.trim(), op: Math.round(opacity(e) * 100) / 100, cr: Math.round(ratio(rgb(getComputedStyle(e).color), solid(e)) * 100) / 100 }));
+})()`;
+async function measureHoverContrast(page, targets) {
+  const { s, ev } = page;
+  const out = [];
+  for (const { name, sel: q, text } of targets) {
+    const pos = await ev(`(() => { const e = document.querySelector(${JSON.stringify(q)}); if (!e) return null; e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+    if (!pos) { out.push({ name, missing: true }); continue; }
+    await s('Input.dispatchMouseEvent', { type: 'mouseMoved', x: pos.x, y: pos.y });
+    await new Promise(r => setTimeout(r, 400)); // transition の終わりを待つ
+    out.push({ name, ...(await ev(`(() => { ${PAGE_LIB}
+      const e = document.querySelector(${JSON.stringify(q)}), t = ${JSON.stringify(text)} ? e.querySelector(${JSON.stringify(text)}) : e;
+      const bg = rgb(getComputedStyle(e).backgroundColor), soft = colorOf('backgroundColor', 'var(--accent-soft)');
+      return { hover: e.matches(':hover'), onSoft: bg.every((v, i) => Math.abs(v - soft[i]) < 1), cr: Math.round(ratio(rgb(getComputedStyle(t).color), bg) * 100) / 100 };
+    })()`)) });
+  }
+  await s('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
+  return out;
+}
+
 const hasPill = x => x.r >= x.h / 2 - 0.5;
 const all = (arr, f) => arr.length > 0 && arr.every(f);
 const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...rest }) => s + ' ' + JSON.stringify(rest)).join(' | ');
@@ -373,10 +449,8 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           if (width === 375) {
             t(`${tag}: 文字入力欄が 16px 以上`, all(c.inputs, x => x.fs >= 16) || c.inputs.length === 0, c.inputs.filter(x => x.fs < 16).slice(0, 4).map(x => x.s + ' ' + x.fs + 'px').join(' | ') || `${c.inputs.length} 個`);
           }
-          // #6: スイッチ見本の隠し input が絶対配置で幅 100% のため、ページが横に伸びる（別件・未修正）。
-          // 他の原因でのはみ出しを見逃さないよう、この 1 要素だけを除いて測る。#6 が直ったらこの除外を消す。
-          const others = c.over.filter(e => !e.known6).map(e => e.s);
-          t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
+          // #6: スイッチ見本の隠し input（絶対配置・幅 100%）も除外せず、scrollWidth が viewport と一致することを測る
+          t(`${tag}: ページ全体に横スクロールがない（scrollWidth == viewport。除外なし）`, c.over.length === 0 && c.scrollW === c.clientW, c.over.slice(0, 3).map(e => e.s).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}`);
           if (width === 1280 && theme === 'light') { idsByPage[file] = new Set(c.ids); hrefsByPage[file] = c.hrefs; t(`${tag}: id が重複していない`, c.dups.length === 0, c.dups.slice(0, 5).join(' ')); }
           if (file === 'tokens-preview.html') {
             const m = await page.ev(MEASURE_TOKENS);
@@ -412,9 +486,35 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
             const m = await page.ev(MEASURE_INDEX);
             t(`${tag}: #65 可視テキストの font-size がスケールと規定の例外だけ（12〜16・18・24・28・32・40・56。18.72px の既定の h3 を残さない）`, m.badSize.length === 0, m.badSize.slice(0, 4).join(' | '));
             t(`${tag}: #66 可視テキストの font-weight が 300・400・600 だけ（700 の既定の th・h3 を残さない）`, m.badWeight.length === 0, m.badWeight.slice(0, 4).join(' | '));
+            // #84: 状態色の見本（.st span）は、文字色（状態色）を、地の混色（currentColor の薄い地）の上に置いた実際の見た目で AA 4.5:1 以上
+            const st = await page.ev(`(() => { ${PAGE_LIB}
+              const rgba = s => { const n = s.match(/-?\\d*\\.?\\d+(?:e-?\\d+)?/g).map(Number), k = s.startsWith('color(') ? 255 : 1; return { c: n.slice(0, 3).map(v => v * k), a: n.length > 3 ? n[3] : 1 }; };
+              const under = e => { for (let p = e.parentElement; p; p = p.parentElement) { const b = rgba(getComputedStyle(p).backgroundColor); if (b.a > 0) return b.c; } return rgb(getComputedStyle(document.body).backgroundColor); };
+              return [...document.querySelectorAll('.st span')].filter(rendered).map(e => { const cs = getComputedStyle(e), b = rgba(cs.backgroundColor), u = under(e);
+                const bg = b.c.map((v, i) => v * b.a + u[i] * (1 - b.a));
+                return { s: e.textContent, r: Math.round(ratio(rgb(cs.color), bg) * 100) / 100, fs: parseFloat(cs.fontSize) }; });
+            })()`);
+            t(`${tag}: #84 状態色の見本（.st span）の文字が地の混色込みで 4.5:1 以上`, st.length === 4 && st.every(x => x.r >= 4.5), st.map(x => x.s + ' ' + x.r).join(' | '));
             if (width === 1280) {
               const fr = await measureFocusRings(page);
-              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+              t(`${tag}: #64 Tab で止まるすべての要素のフォーカスリングが --focus の実線・offset 2px で、離散コントロール（button・checkbox・radio・range）は 3px、リンク・pre などは 2px（ブラウザ既定のリングにしない）`, fr.stops >= 100 && fr.bad.length === 0, fr.bad.slice(0, 40).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
+            }
+          }
+          if (file === 'tokens-preview.html') {
+            // #85: z-index 見本（.z-stack）の文字が opacity で薄くならず 4.5:1 以上
+            const zs = await page.ev(MEASURE_ZSTACK);
+            t(`${tag}: #85 .z-stack の文字がすべて実効 opacity 1・コントラスト 4.5:1 以上（base の行を薄くしない）`, zs.length >= 14 && zs.every(x => x.op === 1 && x.cr >= 4.5), zs.filter(x => !(x.op === 1 && x.cr >= 4.5)).slice(0, 4).map(x => x.s + ' opacity ' + x.op + ' ' + x.cr + ':1').join(' | ') || `${zs.length} 件、最小 ${Math.min(...zs.map(x => x.cr))}:1`);
+            if (width === 1280) {
+              // #90: accent-soft 地にホバーした行の文字（--mute を載せない）
+              const hv = await measureHoverContrast(page, [
+                { name: 'カレンダーの前後月の日 .cal button.d.mute', sel: '#p1 .cal button.d.mute', text: '' },
+                { name: 'ドロップダウン項目の kbd', sel: '#states .dpn button:not(.hl):not(:disabled)', text: 'kbd' },
+              ]);
+              t(`${tag}: #90 ホバー中の行（accent-soft 地）の文字が 4.5:1 以上`, hv.every(x => !x.missing && x.hover && x.onSoft && x.cr >= 4.5), hv.map(x => x.missing ? x.name + ' なし' : `${x.name} hover ${x.hover} 地が accent-soft ${x.onSoft} ${x.cr}:1`).join(' | '));
+              // #89: Tab 巡回のフォーカスリング（ページ先頭から）。button は 3px。許容リスト: ドロップダウン項目（2px 規定）・tb40 のタブ（offset が別）。
+              // 判断待ち（#92）: #states .zs .pop button（2px・offset -2px）と #states .selbtn（2px・offset -1px）は、入力系か button かの判断が出るまで暫定で許容に入れる（CSS は変えない）。
+              const fr = await measureFocusRings(page, '#states .dpn button, .tb40 button, #states .zs .pop button, #states .selbtn', 1500, 'button');
+              t(`${tag}: #89 ページ先頭から Tab で止まるすべての button のフォーカスリングが --focus の実線・offset 2px・幅 3px（許容: #states .dpn button・.tb40 button、判断待ち（#92）: #states .zs .pop button・#states .selbtn。入力欄・range は対象外）`, fr.stops >= 300 && fr.bad.length === 0, fr.bad.slice(0, 4).join(' | ') || `${fr.stops} 要素（${fr.focus}）`);
             }
           }
           if (width === 1280 && theme === 'light') {
@@ -434,11 +534,32 @@ const list = (arr, f, n = 4) => arr.filter(x => !f(x)).slice(0, n).map(({ s, ...
           t(`${tag}: カード内の .seg の右端がカードの右端を越えない（.scr の内側で横スクロール）`, g.n > 0 && g.bad.length === 0, g.bad.slice(0, 3).join(' | ') || `${g.n} 個`);
           if (width !== 375) { // 375 はこの上の本線で測っている
             const c = await page.ev(MEASURE_COMMON);
-            const others = c.over.filter(e => !e.known6).map(e => e.s);
-            t(`${tag}: ページ全体に横スクロールがない（#6 のスイッチ見本の隠し input を除く）`, others.length === 0, others.slice(0, 3).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}、#6 分 ${c.over.length - others.length} 件を除外`);
+            t(`${tag}: ページ全体に横スクロールがない（scrollWidth == viewport。除外なし）`, c.over.length === 0 && c.scrollW === c.clientW, c.over.slice(0, 3).map(e => e.s).join(' | ') || `scrollWidth ${c.scrollW} / clientWidth ${c.clientW}`);
           }
         } finally { await page.close(); }
       }
+      // #79〜#82 ARIA・キーボード到達（ここから 1 つの塊）
+      for (const width of [1280, 375, 320]) {
+        const tag = `${file} ${width}/light`;
+        const page = await open(browser, file, width, 'light', false);
+        try {
+          const sc = await page.ev(A11Y_SCROLL);
+          t(`${tag}: #81 溢れてスクロールする要素は、自身か中のフォーカス可能要素でキーボードに届く`, sc.bad.length === 0, sc.bad.slice(0, 4).join(' | '));
+          if (width !== 1280) continue;
+          const a = await page.ev(A11Y_STATIC);
+          t(`${tag}: #79 aria-hidden=true の祖先の中にフォーカス可能要素（tabindex 0 以上のボタン・リンクなど）がない`, a.hiddenFocus.length === 0, a.hiddenFocus.slice(0, 4).join(' | '));
+          t(`${tag}: #82 role のない div / span に aria-label・aria-labelledby がない（role=group / img などを付ける）`, a.noRoleLabel.length === 0, a.noRoleLabel.slice(0, 4).join(' | '));
+          t(`${tag}: #82 progressbar・listbox に名前（aria-label / aria-labelledby）がある`, a.unnamed.length === 0, a.unnamed.slice(0, 4).join(' | '));
+          t(`${tag}: #82 aria-selected は tab・option などの role だけ、aria-pressed は button だけに付く`, a.badSelected.length === 0 && a.badPressed.length === 0, a.badSelected.concat(a.badPressed).slice(0, 4).join(' | '));
+          t(`${tag}: #82 aside に role を上書きしない（dialog は div に付ける）`, a.asideRole.length === 0, a.asideRole.slice(0, 4).join(' | '));
+          t(`${tag}: #81 <pre> と overflow-x:auto の要素が tabindex を持つ（または中にフォーカス可能要素がある）`, a.noTabindex.length === 0, a.noTabindex.slice(0, 4).join(' | '));
+          if (file === 'tokens-preview.html') {
+            const tr = await measureTreeClick(page);
+            t(`${tag}: #80 #p2 .tree の閉じた details のシェブロンを実マウスでクリックすると details.open が true になる（button を summary に入れない）`, !!tr && tr.hit && tr.open, JSON.stringify(tr));
+          }
+        } finally { await page.close(); }
+      }
+      // ここまで
       // #68: forced-colors でも、一部選択（indeterminate）が未選択・全選択と見分けられる
       if (file === 'tokens-preview.html') {
         const page = await open(browser, file, 1280, 'light', false);

@@ -10,7 +10,7 @@
 #   初期値 system・OS の配色に従う / light・dark だけ保存し system で消す / 保存済みの間は OS の変化で動かない・
 #   system のときだけ追従 / リロードなし・スクロール維持・切替の瞬間は transition を止める /
 #   描画前（<body> が現れる時点）に data-theme が決まっている / aria-pressed がちょうど 1 つ true /
-#   ←→↑↓・Home・End でフォーカス移動
+#   ←→↑↓・Home・End でフォーカス移動 / 切替後の computed color-scheme が選んだテーマと一致（#83）
 set -u
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 
@@ -191,6 +191,8 @@ async function main() {
       const switching = await click(pick);
       const s = await state();
       check(s.theme === pick && s.mode === pick, L(`${pick} をクリック: data-theme=${pick}・data-theme-mode=${pick}`), `theme=${s.theme} mode=${s.mode}`);
+      const colorScheme = await ev('getComputedStyle(document.documentElement).colorScheme');
+      check(colorScheme === pick, L(`${pick} をクリック: computed color-scheme が ${pick}（標準スクロールバー・フォーム部品の配色をテーマに合わせる）`), `color-scheme=${colorScheme}`);
       check(s.ls === pick, L(`${pick} をクリック: localStorage ${KEY}=${pick} を保存`), `ls=${s.ls}`);
       check(pressedOk(s, pick), L(`${pick} をクリック: aria-pressed がコントロールごとにちょうど 1 つ true（${pick}）`), JSON.stringify(s.groups));
       check(switching, L(`${pick} をクリック: 切替の瞬間は data-theme-switching で transition を止める`));
