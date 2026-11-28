@@ -43,6 +43,8 @@ inau '文字 5 段: 節・カードの題 16 / 600 / 1.5 / .01em / --app-section
 inau '文字 5 段: 項目名・ナビ・ボタン 15 / 600 / 1.5 / .01em（ナビ・ボタンは 0）/ --app-item' '<td>項目名・ナビ・ボタン</td><td>15px / 600</td><td>1\.5</td><td>\.01em（ナビ・ボタンは 0）</td><td><code>--app-item</code>'
 inau '文字 5 段: 本文 14 / 400 / 1.7 / .02em / --app-body'                       '<td>本文</td><td>14px / 400</td><td>1\.7</td><td>\.02em</td><td><code>--app-body</code>'
 inau '文字 5 段: 説明・チップ・表の見出し 13 / 400 mute / 1.6 / .02em / --app-desc' '<td>説明・チップ・表の見出し</td><td>13px / 400</td><td>1\.6</td><td>\.02em</td><td><code>--app-desc</code></td><td><code>--mute</code>'
+inau '表のセルの中身は本文の段（14 / 400・セルの行高だけ 1.5）・項目名 15 / 600・表の見出し 13 / 400 mute' '表のセルの中身は本文の段（14 / 400、セルの行高だけ 1\.5）.*項目名の段（15 / 600）、表の見出しは 13 / 400 mute'
+insec '文字の節: 表のセルの中身は本文の段・項目名 15 / 600・表の見出し 13 / 400 mute' typography '表のセルの中身は本文の段（14 / 400。セルの行高だけ 1\.5）.*項目名の段（15 / 600）、表の見出しは 13 / 400 mute'
 nottext '#app-ui の表に 700 の段がない'                        "$au" '<td>[0-9]+px / 700</td>'
 inau 'アプリ画面のウェイトは最大 600・700 は使わない'          'アプリ画面のウェイトは最大 600。700 は使わない'
 insec 'ウェイト: Bold (700) は「アプリ画面は最大 600、700 は使わない」' typography 'Bold \(700\)</strong>: <a href="#app-ui">アプリ画面</a>は最大 600、700 は使わない'
@@ -96,6 +98,8 @@ inpv '#app-ui の見本: 本文 14 / 400 / 1.7 / .02em（.au-t4）'        '\.au
 inpv '#app-ui の見本: 本文の段をバナーに使う（14 / 1.7 / .02em）'    '\.au-banner\{[^}]*font-size:var\(--app-body\);line-height:1\.7;letter-spacing:\.02em'
 inpv '#app-ui の見本: 説明 13 / 400 / 1.6 / .02em（.au-t5）'        '\.au-t5\{font-size:var\(--app-desc\);font-weight:400;line-height:1\.6;letter-spacing:\.02em;color:var\(--mute\)\}'
 inpv '#app-ui の見本: .au-desc は 13 / 400 / 1.6 / .02em'           '\.au-desc\{[^}]*font-size:var\(--app-desc\);font-weight:400;line-height:1\.6;letter-spacing:\.02em'
+inpv '#app-ui の見本: 表のセル td は本文 14（--app-body）・行高 1.5'   '\.au-tbl td\{font-size:var\(--app-body\);line-height:1\.5\}'
+inpv '#app-ui の見本: 行の先頭の項目名 .au-it は 15 / 600（--app-item）' '\.au-tbl \.au-it\{font-size:var\(--app-item\);font-weight:600\}'
 inpv '#app-ui の見本: ボタンの字間は 0'                          '#app-ui \.btn\{letter-spacing:0\}'
 nottext '#app-ui の見本の CSS に font-weight:700 がない' "$pv" 'font-weight:700'
 if printf '%s' "$pv" | awk '/<style>/{f=1} f{print}' | grep -Eq 'border:1px solid|border-bottom:1px solid var\(--border\)'; then ng '#app-ui の見本の CSS に 1px solid の枠線がある（区切りの --line-soft は可）'; else ok '#app-ui の見本の CSS に 1px solid の枠線がない'; fi
